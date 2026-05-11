@@ -1,0 +1,8 @@
+{
+  "provider": "recaptcha-enterprise",
+  "projectId": "dva-sop-dev",
+  "appName": "Virtual Advocate PI Dev Web",
+  "siteKey": "6Ldh6uMsAAAAAOcGS7DJtLeCJEp16QF6h7ADoJPG",
+  "allowedDomains": ["localhost"],
+  "enforcement": "disabled-for-mvp-setup"
+}

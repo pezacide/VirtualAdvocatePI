@@ -1,0 +1,47 @@
+﻿# Build outputs
+bin/
+obj/
+**/bin/
+**/obj/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local tools and downloaded binaries
+tools/
+*.exe
+
+# Local generated files
+generated/
+*.zip
+
+# Cloud SQL proxy / temp files
+*.tmp
+*.log
+
+# Node / web build outputs for later
+node_modules/
+.next/
+dist/
+build/
+
+# Secrets and real local config
+*.env
+*.env.*
+appsettings.Production.json
+appsettings.Local.json
+
+# Keep example config files, but do not commit real secret config files
+config/firebase/*real*.json
+config/firebase/*secret*.json
+config/gcp/*secret*.json
+
+# ProjectLibre backups/temp
+*.bak
+*.tmp

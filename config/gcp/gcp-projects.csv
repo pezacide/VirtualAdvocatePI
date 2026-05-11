@@ -1,0 +1,4 @@
+"Environment","ProjectName","ProjectId","ResourcePrefix","Purpose"
+"dev","Virtual Advocate PI Shared MVP","dva-sop-dev","vapi-dev","Development resources inside shared MVP project"
+"test","Virtual Advocate PI Shared MVP","dva-sop-dev","vapi-test","Test resources inside shared MVP project"
+"prod","Virtual Advocate PI Shared MVP","dva-sop-dev","vapi-prod","Production resources later; do not use for real users until security review"

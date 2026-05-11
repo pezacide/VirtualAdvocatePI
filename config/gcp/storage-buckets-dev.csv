@@ -1,0 +1,5 @@
+"Environment","BucketPurpose","BucketName","Versioning","PublicAccess"
+"dev","Uploaded evidence","dva-sop-dev-vapi-dev-evidence","enabled","prevented"
+"dev","Generated DOCX/PDF documents","dva-sop-dev-vapi-dev-generated","enabled","prevented"
+"dev","Approved knowledge/source material","dva-sop-dev-vapi-dev-knowledge","not enabled","prevented"
+"dev","Temporary processing files","dva-sop-dev-vapi-dev-temp","not enabled","prevented"

@@ -1,0 +1,9 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyBf5omh2wf2n_vR21B4YdFLTWcGRJRaH38",
+  authDomain: "dva-sop-dev.firebaseapp.com",
+  projectId: "dva-sop-dev",
+  storageBucket: "dva-sop-dev.firebasestorage.app",
+  messagingSenderId: "1083043180689",
+  appId: "1:1083043180689:web:6e25e09a334835c916cf30",
+  measurementId: "G-XBCJHW94ZD"
+};
