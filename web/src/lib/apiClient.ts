@@ -247,3 +247,74 @@ export async function createAcceptedConditionHistory(
 
   return (await response.json()) as AcceptedConditionHistory;
 }
+export type QuestionResponse = {
+  id: string;
+  claimWorkspaceId: string;
+  conditionId: string;
+  questionGroup: string;
+  questionKey: string;
+  questionText: string;
+  answerText?: string | null;
+  answerType: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateQuestionResponseInput = {
+  questionGroup: string;
+  questionKey: string;
+  questionText: string;
+  answerText?: string;
+  answerType: string;
+};
+
+export async function getQuestionResponses(
+  idToken: string,
+  workspaceId: string,
+  conditionId: string,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/question-responses`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not load guided question responses.");
+  }
+
+  return (await response.json()) as QuestionResponse[];
+}
+
+export async function createQuestionResponse(
+  idToken: string,
+  workspaceId: string,
+  conditionId: string,
+  input: CreateQuestionResponseInput,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/question-responses`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not save guided question response.");
+  }
+
+  return (await response.json()) as QuestionResponse;
+}
