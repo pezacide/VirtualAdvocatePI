@@ -9,7 +9,7 @@ import {
   createEvidenceItem,
   getClaimConditions,
   getConditionEvidenceItems,
-} from "@/lib/apiClient";
+} from "@/lib/api";
 
 type EvidenceMetadataPanelProps = {
   workspaceId: string;

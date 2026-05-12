@@ -11,7 +11,7 @@ import {
   getWorkspaceEvidenceGaps,
   recalculateEvidenceGaps,
   updateEvidenceGap,
-} from "@/lib/apiClient";
+} from "@/lib/api";
 
 type EvidenceGapTrackerPanelProps = {
   workspaceId: string;

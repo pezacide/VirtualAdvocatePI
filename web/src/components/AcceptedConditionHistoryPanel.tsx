@@ -9,7 +9,7 @@ import {
   createAcceptedConditionHistory,
   getAcceptedConditionHistory,
   getClaimConditions,
-} from "@/lib/apiClient";
+} from "@/lib/api";
 
 type AcceptedConditionHistoryPanelProps = {
   workspaceId: string;

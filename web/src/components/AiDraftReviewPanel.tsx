@@ -11,7 +11,7 @@ import {
   getConditionAiDrafts,
   getWorkspaceAiDrafts,
   updateAiDraft,
-} from "@/lib/apiClient";
+} from "@/lib/api";
 
 type AiDraftReviewPanelProps = {
   workspaceId: string;

@@ -8,7 +8,7 @@ import {
   createGeneratedDocument,
   getGeneratedDocuments,
   updateGeneratedDocument,
-} from "@/lib/apiClient";
+} from "@/lib/api";
 
 type GeneratedDocumentListPanelProps = {
   workspaceId: string;

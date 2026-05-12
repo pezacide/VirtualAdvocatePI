@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
-import { ClaimWorkspace, getClaimWorkspace } from "@/lib/apiClient";
+import { ClaimWorkspace, getClaimWorkspace } from "@/lib/api";
 
 type ClaimWorkspaceDetailPanelProps = {
   workspaceId: string;

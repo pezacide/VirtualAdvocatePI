@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
-import { ClaimWorkspace, getClaimWorkspaces } from "@/lib/apiClient";
+import { ClaimWorkspace, getClaimWorkspaces } from "@/lib/api";
 
 export function DashboardWorkspaceList() {
   const { user, loading, getIdToken } = useAuth();

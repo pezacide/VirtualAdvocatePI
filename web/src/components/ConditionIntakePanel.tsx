@@ -7,7 +7,7 @@ import {
   ClaimCondition,
   createClaimCondition,
   getClaimConditions,
-} from "@/lib/apiClient";
+} from "@/lib/api";
 
 type ConditionIntakePanelProps = {
   workspaceId: string;

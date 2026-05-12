@@ -10,7 +10,7 @@ import {
   getClaimConditions,
   getConditionEvidenceItems,
   markEvidenceUploaded,
-} from "@/lib/apiClient";
+} from "@/lib/api";
 
 type EvidenceUploadPanelProps = {
   workspaceId: string;

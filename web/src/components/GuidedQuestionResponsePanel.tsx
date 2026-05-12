@@ -9,7 +9,7 @@ import {
   createQuestionResponse,
   getClaimConditions,
   getQuestionResponses,
-} from "@/lib/apiClient";
+} from "@/lib/api";
 
 type GuidedQuestionResponsePanelProps = {
   workspaceId: string;

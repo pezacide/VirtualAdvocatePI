@@ -3,7 +3,7 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
-import { createClaimWorkspace } from "@/lib/apiClient";
+import { createClaimWorkspace } from "@/lib/api";
 
 const claimScenarios = [
   {
