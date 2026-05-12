@@ -25,6 +25,8 @@ public sealed class VirtualAdvocateDbContext : DbContext
 
     public DbSet<EvidenceGap> EvidenceGaps => Set<EvidenceGap>();
 
+    public DbSet<AiDraft> AiDrafts => Set<AiDraft>();
+
     public DbSet<AuditEvent> AuditEvents => Set<AuditEvent>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -163,5 +165,25 @@ public sealed class VirtualAdvocateDbContext : DbContext
             entity.Property(x => x.IpAddress).HasMaxLength(100);
             entity.Property(x => x.ClientType).HasMaxLength(200);
         });
+
+modelBuilder.Entity<AiDraft>(entity =>
+{
+    entity.ToTable("ai_drafts");
+
+    entity.HasKey(x => x.Id);
+
+    entity.HasIndex(x => x.ClaimWorkspaceId);
+    entity.HasIndex(x => x.ConditionId);
+    entity.HasIndex(x => x.DraftType);
+    entity.HasIndex(x => x.ReviewStatus);
+
+    entity.Property(x => x.DraftType).HasMaxLength(150).IsRequired();
+    entity.Property(x => x.PromptVersion).HasMaxLength(150).IsRequired();
+    entity.Property(x => x.SourceReferences).HasMaxLength(4000);
+    entity.Property(x => x.DraftText).IsRequired();
+    entity.Property(x => x.UserEditedText);
+    entity.Property(x => x.ReviewStatus).HasMaxLength(100).IsRequired();
+    entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
+});
     }
 }
