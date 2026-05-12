@@ -105,10 +105,9 @@ app.MapGet("/api/v1/db/schema-health", async (VirtualAdvocateDbContext db) =>
 
 app.MapGet("/api/v1/me", async (
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
-    VirtualAdvocateDbContext db) =>
+    CurrentUserService currentUserService) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
@@ -120,10 +119,10 @@ app.MapGet("/api/v1/me", async (
 
 app.MapGet("/api/v1/claim-workspaces", async (
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
     VirtualAdvocateDbContext db) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
@@ -140,11 +139,12 @@ app.MapGet("/api/v1/claim-workspaces", async (
 
 app.MapPost("/api/v1/claim-workspaces", async (
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
+    AuditService auditService,
     VirtualAdvocateDbContext db,
     CreateClaimWorkspaceRequest input) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
@@ -178,6 +178,14 @@ app.MapPost("/api/v1/claim-workspaces", async (
     };
 
     db.ClaimWorkspaces.Add(workspace);
+
+    auditService.AddAuditEvent(
+        request,
+        user.Id,
+        workspace.Id,
+        "CLAIM_WORKSPACE_CREATED",
+        $"Claim workspace created. Scenario={claimScenario}; WorkspaceId={workspace.Id}");
+
     await db.SaveChangesAsync();
 
     return Results.Created($"/api/v1/claim-workspaces/{workspace.Id}", ToClaimWorkspaceResponse(workspace));
@@ -186,18 +194,24 @@ app.MapPost("/api/v1/claim-workspaces", async (
 app.MapGet("/api/v1/claim-workspaces/{id:guid}", async (
     Guid id,
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
+    ClaimAccessService claimAccessService,
     VirtualAdvocateDbContext db) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
         return Results.Unauthorized();
     }
 
+    if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, id))
+    {
+        return Results.NotFound();
+    }
+
     var workspace = await db.ClaimWorkspaces
-        .FirstOrDefaultAsync(x => x.Id == id && x.UserId == user.Id && x.Status != "ARCHIVED");
+        .FirstOrDefaultAsync(x => x.Id == id && x.Status != "ARCHIVED");
 
     if (workspace is null)
     {
@@ -213,19 +227,26 @@ app.MapGet("/api/v1/claim-workspaces/{id:guid}", async (
 app.MapPatch("/api/v1/claim-workspaces/{id:guid}", async (
     Guid id,
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
+    ClaimAccessService claimAccessService,
+    AuditService auditService,
     VirtualAdvocateDbContext db,
     UpdateClaimWorkspaceRequest input) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
         return Results.Unauthorized();
     }
 
+    if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, id))
+    {
+        return Results.NotFound();
+    }
+
     var workspace = await db.ClaimWorkspaces
-        .FirstOrDefaultAsync(x => x.Id == id && x.UserId == user.Id && x.Status != "ARCHIVED");
+        .FirstOrDefaultAsync(x => x.Id == id && x.Status != "ARCHIVED");
 
     if (workspace is null)
     {
@@ -270,6 +291,14 @@ app.MapPatch("/api/v1/claim-workspaces/{id:guid}", async (
     }
 
     workspace.UpdatedAt = DateTimeOffset.UtcNow;
+
+    auditService.AddAuditEvent(
+        request,
+        user.Id,
+        workspace.Id,
+        "CLAIM_WORKSPACE_UPDATED",
+        $"Claim workspace updated. Status={workspace.Status}; WorkspaceId={workspace.Id}");
+
     await db.SaveChangesAsync();
 
     return Results.Ok(ToClaimWorkspaceResponse(workspace));
@@ -278,18 +307,25 @@ app.MapPatch("/api/v1/claim-workspaces/{id:guid}", async (
 app.MapDelete("/api/v1/claim-workspaces/{id:guid}", async (
     Guid id,
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
+    ClaimAccessService claimAccessService,
+    AuditService auditService,
     VirtualAdvocateDbContext db) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
         return Results.Unauthorized();
     }
 
+    if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, id))
+    {
+        return Results.NotFound();
+    }
+
     var workspace = await db.ClaimWorkspaces
-        .FirstOrDefaultAsync(x => x.Id == id && x.UserId == user.Id && x.Status != "ARCHIVED");
+        .FirstOrDefaultAsync(x => x.Id == id && x.Status != "ARCHIVED");
 
     if (workspace is null)
     {
@@ -298,6 +334,14 @@ app.MapDelete("/api/v1/claim-workspaces/{id:guid}", async (
 
     workspace.Status = "ARCHIVED";
     workspace.UpdatedAt = DateTimeOffset.UtcNow;
+
+    auditService.AddAuditEvent(
+        request,
+        user.Id,
+        workspace.Id,
+        "CLAIM_WORKSPACE_ARCHIVED",
+        $"Claim workspace archived. WorkspaceId={workspace.Id}");
+
     await db.SaveChangesAsync();
 
     return Results.Ok(new
@@ -307,7 +351,6 @@ app.MapDelete("/api/v1/claim-workspaces/{id:guid}", async (
         archived = true
     });
 });
-
 app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions", async (
     Guid workspaceId,
     HttpRequest request,
