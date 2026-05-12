@@ -1,13 +1,34 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
+import { FormEvent, Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={<LoginLoading />}>
+      <LoginContent />
+    </Suspense>
+  );
+}
+
+function LoginLoading() {
+  return (
+    <main className="min-h-screen bg-slate-950 px-6 py-12 text-white">
+      <div className="mx-auto max-w-3xl rounded-2xl border border-white/10 bg-white/5 p-8">
+        Loading login...
+      </div>
+    </main>
+  );
+}
+
+function LoginContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { user, loading, signIn, register, signOutUser } = useAuth();
+
+  const returnTo = searchParams.get("returnTo") || "/dashboard";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +51,7 @@ export default function LoginPage() {
         setStatusMessage("Account created and signed in.");
       }
 
-      router.push("/dashboard");
+      router.push(returnTo);
     } catch (error) {
       const message = error instanceof Error ? error.message : "Authentication failed.";
       setStatusMessage(message);
@@ -72,6 +93,12 @@ export default function LoginPage() {
             Sign in or create a test account for the Virtual Advocate PI web MVP shell.
           </p>
 
+          {returnTo !== "/dashboard" && (
+            <div className="mt-6 rounded-xl border border-cyan-300/30 bg-cyan-300/10 p-4 text-sm text-cyan-100">
+              After login, you will return to: <span className="font-mono">{returnTo}</span>
+            </div>
+          )}
+
           {loading ? (
             <div className="mt-8 rounded-xl bg-slate-900 p-5 text-sm text-slate-300">
               Checking session...
@@ -81,14 +108,23 @@ export default function LoginPage() {
               <p className="font-semibold text-green-200">Signed in</p>
               <p className="mt-2 text-sm text-green-100">{user.email}</p>
 
-              <button
-                type="button"
-                onClick={handleSignOut}
-                disabled={isSubmitting}
-                className="mt-5 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-950 disabled:opacity-60"
-              >
-                Sign out
-              </button>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  href={returnTo}
+                  className="rounded-xl bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-cyan-200"
+                >
+                  Continue
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  disabled={isSubmitting}
+                  className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-950 disabled:opacity-60"
+                >
+                  Sign out
+                </button>
+              </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="mt-8 space-y-5">
