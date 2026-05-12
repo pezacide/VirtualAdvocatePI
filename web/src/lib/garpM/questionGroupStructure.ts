@@ -1,9 +1,11 @@
 import {
   GarpMQuestionGroupKey,
   GarpMQuestionGroupTemplate,
+  GarpMQuestionTemplate,
   GarpMQuestionTemplateSet,
   garpMQuestionSafetyBoundary,
 } from "@/lib/garpM/questionTemplateModel";
+import { diagnosisSymptomsTreatmentQuestions } from "@/lib/garpM/questionTemplates/diagnosisSymptomsTreatment";
 
 export type GarpMQuestionGroupMetadata = {
   groupKey: GarpMQuestionGroupKey;
@@ -96,7 +98,11 @@ export const orderedGarpMQuestionGroupKeys = garpMQuestionGroupMetadata
   .sort((a, b) => a.displayOrder - b.displayOrder)
   .map((group) => group.groupKey);
 
-export function createEmptyGarpMQuestionGroups(): GarpMQuestionGroupTemplate[] {
+const questionsByGroup: Partial<Record<GarpMQuestionGroupKey, GarpMQuestionTemplate[]>> = {
+  DIAGNOSIS_SYMPTOMS_TREATMENT: diagnosisSymptomsTreatmentQuestions,
+};
+
+export function createGarpMQuestionGroups(): GarpMQuestionGroupTemplate[] {
   return garpMQuestionGroupMetadata
     .slice()
     .sort((a, b) => a.displayOrder - b.displayOrder)
@@ -106,7 +112,7 @@ export function createEmptyGarpMQuestionGroups(): GarpMQuestionGroupTemplate[] {
       description: group.description,
       displayOrder: group.displayOrder,
       safetyNote: group.safetyNote,
-      questions: [],
+      questions: questionsByGroup[group.groupKey] ?? [],
     }));
 }
 
@@ -116,7 +122,7 @@ export const garpMQuestionGroupTemplateSet: GarpMQuestionTemplateSet = {
   description:
     "A structured question engine for condition information, symptoms, treatment, stability, impact, worsening history, evidence gaps and appointment preparation.",
   safetyBoundary: garpMQuestionSafetyBoundary,
-  groups: createEmptyGarpMQuestionGroups(),
+  groups: createGarpMQuestionGroups(),
 };
 
 export function getGarpMQuestionGroupMetadata(groupKey: GarpMQuestionGroupKey) {
