@@ -6,6 +6,7 @@ import {
   garpMQuestionSafetyBoundary,
 } from "@/lib/garpM/questionTemplateModel";
 import { diagnosisSymptomsTreatmentQuestions } from "@/lib/garpM/questionTemplates/diagnosisSymptomsTreatment";
+import { stabilityTreatmentResponseQuestions } from "@/lib/garpM/questionTemplates/stabilityTreatmentResponse";
 
 export type GarpMQuestionGroupMetadata = {
   groupKey: GarpMQuestionGroupKey;
@@ -100,6 +101,7 @@ export const orderedGarpMQuestionGroupKeys = garpMQuestionGroupMetadata
 
 const questionsByGroup: Partial<Record<GarpMQuestionGroupKey, GarpMQuestionTemplate[]>> = {
   DIAGNOSIS_SYMPTOMS_TREATMENT: diagnosisSymptomsTreatmentQuestions,
+  STABILITY_TREATMENT_RESPONSE: stabilityTreatmentResponseQuestions,
 };
 
 export function createGarpMQuestionGroups(): GarpMQuestionGroupTemplate[] {
