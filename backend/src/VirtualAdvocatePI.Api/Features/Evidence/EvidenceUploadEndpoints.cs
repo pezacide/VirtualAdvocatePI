@@ -1,10 +1,9 @@
 ﻿using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Storage.V1;
 using Microsoft.EntityFrameworkCore;
-using VirtualAdvocatePI.Api.Auth;
 using VirtualAdvocatePI.Api.Data;
 using VirtualAdvocatePI.Api.Domain.Claims;
-using VirtualAdvocatePI.Api.Domain.Users;
+using VirtualAdvocatePI.Api.Services;
 
 namespace VirtualAdvocatePI.Api.Features.Evidence;
 
@@ -16,18 +15,20 @@ public static class EvidenceUploadEndpoints
             Guid workspaceId,
             Guid conditionId,
             HttpRequest request,
-            FirebaseAuthService firebaseAuthService,
+            CurrentUserService currentUserService,
+            ClaimAccessService claimAccessService,
+            AuditService auditService,
             VirtualAdvocateDbContext db,
             CreateEvidenceUploadUrlRequest input) =>
         {
-            var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+            var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
             if (user is null)
             {
                 return Results.Unauthorized();
             }
 
-            if (!await UserOwnsConditionAsync(db, user.Id, workspaceId, conditionId))
+            if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
             {
                 return Results.NotFound();
             }
@@ -76,8 +77,7 @@ public static class EvidenceUploadEndpoints
             evidenceItem.StoragePath = $"gs://{bucketName}/{objectName}";
             evidenceItem.UpdatedAt = DateTimeOffset.UtcNow;
 
-            AddAuditEvent(
-                db,
+            auditService.AddAuditEvent(
                 request,
                 user.Id,
                 workspaceId,
@@ -111,17 +111,19 @@ public static class EvidenceUploadEndpoints
             Guid workspaceId,
             Guid evidenceItemId,
             HttpRequest request,
-            FirebaseAuthService firebaseAuthService,
+            CurrentUserService currentUserService,
+            ClaimAccessService claimAccessService,
+            AuditService auditService,
             VirtualAdvocateDbContext db) =>
         {
-            var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+            var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
             if (user is null)
             {
                 return Results.Unauthorized();
             }
 
-            if (!await UserOwnsWorkspaceAsync(db, user.Id, workspaceId))
+            if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
             {
                 return Results.NotFound();
             }
@@ -160,8 +162,7 @@ public static class EvidenceUploadEndpoints
                     evidenceItem.FileSize = (long)storageObject.Size.Value;
                 }
 
-                AddAuditEvent(
-                    db,
+                auditService.AddAuditEvent(
                     request,
                     user.Id,
                     workspaceId,
@@ -186,17 +187,19 @@ public static class EvidenceUploadEndpoints
             Guid workspaceId,
             Guid evidenceItemId,
             HttpRequest request,
-            FirebaseAuthService firebaseAuthService,
+            CurrentUserService currentUserService,
+            ClaimAccessService claimAccessService,
+            AuditService auditService,
             VirtualAdvocateDbContext db) =>
         {
-            var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+            var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
             if (user is null)
             {
                 return Results.Unauthorized();
             }
 
-            if (!await UserOwnsWorkspaceAsync(db, user.Id, workspaceId))
+            if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
             {
                 return Results.NotFound();
             }
@@ -227,8 +230,7 @@ public static class EvidenceUploadEndpoints
                 TimeSpan.FromMinutes(10),
                 HttpMethod.Get);
 
-            AddAuditEvent(
-                db,
+            auditService.AddAuditEvent(
                 request,
                 user.Id,
                 workspaceId,
@@ -259,99 +261,6 @@ public static class EvidenceUploadEndpoints
         }
 
         return bucketName;
-    }
-
-    private static async Task<AppUser?> GetOrCreateCurrentUserAsync(
-        HttpRequest request,
-        FirebaseAuthService firebaseAuthService,
-        VirtualAdvocateDbContext db)
-    {
-        AuthenticatedFirebaseUser? firebaseUser;
-
-        try
-        {
-            firebaseUser = await firebaseAuthService.VerifyBearerTokenAsync(request);
-        }
-        catch
-        {
-            return null;
-        }
-
-        if (firebaseUser is null)
-        {
-            return null;
-        }
-
-        var email = firebaseUser.Email ?? string.Empty;
-
-        var user = await db.Users.FirstOrDefaultAsync(x => x.FirebaseUid == firebaseUser.FirebaseUid);
-
-        if (user is null)
-        {
-            user = new AppUser
-            {
-                FirebaseUid = firebaseUser.FirebaseUid,
-                Email = email,
-                DisplayName = firebaseUser.DisplayName,
-                Role = "VETERAN",
-                AccountStatus = "ACTIVE",
-                CreatedAt = DateTimeOffset.UtcNow,
-                LastLoginAt = DateTimeOffset.UtcNow
-            };
-
-            db.Users.Add(user);
-        }
-        else
-        {
-            user.Email = email;
-            user.DisplayName = firebaseUser.DisplayName;
-            user.LastLoginAt = DateTimeOffset.UtcNow;
-            user.AccountStatus = "ACTIVE";
-        }
-
-        await db.SaveChangesAsync();
-
-        return user;
-    }
-
-    private static async Task<bool> UserOwnsWorkspaceAsync(VirtualAdvocateDbContext db, Guid userId, Guid workspaceId)
-    {
-        return await db.ClaimWorkspaces.AnyAsync(x =>
-            x.Id == workspaceId &&
-            x.UserId == userId &&
-            x.Status != "ARCHIVED");
-    }
-
-    private static async Task<bool> UserOwnsConditionAsync(VirtualAdvocateDbContext db, Guid userId, Guid workspaceId, Guid conditionId)
-    {
-        return await db.ClaimWorkspaces.AnyAsync(x =>
-                x.Id == workspaceId &&
-                x.UserId == userId &&
-                x.Status != "ARCHIVED")
-            && await db.ClaimConditions.AnyAsync(x =>
-                x.Id == conditionId &&
-                x.ClaimWorkspaceId == workspaceId &&
-                x.Status != "ARCHIVED");
-    }
-
-    private static void AddAuditEvent(
-        VirtualAdvocateDbContext db,
-        HttpRequest request,
-        Guid userId,
-        Guid workspaceId,
-        string eventType,
-        string? eventDetail)
-    {
-        db.AuditEvents.Add(new AuditEvent
-        {
-            UserId = userId,
-            ClaimWorkspaceId = workspaceId,
-            EventType = eventType,
-            EventDetail = eventDetail,
-            IpAddress = request.HttpContext.Connection.RemoteIpAddress?.ToString(),
-            ClientType = request.Headers.UserAgent.ToString(),
-            CreatedAt = DateTimeOffset.UtcNow
-        });
     }
 
     private static object ToEvidenceItemResponse(EvidenceItem evidenceItem)
