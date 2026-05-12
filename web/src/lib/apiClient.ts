@@ -12,9 +12,46 @@ export type ClaimWorkspace = {
   lastOpenedAt?: string | null;
 };
 
+export type ClaimCondition = {
+  id: string;
+  claimWorkspaceId: string;
+  conditionName: string;
+  diagnosisStatus: string;
+  dateDiagnosed?: string | null;
+  currentSymptoms?: string | null;
+  treatmentSummary?: string | null;
+  medicationSummary?: string | null;
+  medicationSideEffects?: string | null;
+  functionalImpactSummary?: string | null;
+  lifestyleImpactSummary?: string | null;
+  workImpactSummary?: string | null;
+  stabilityNotes?: string | null;
+  worseningNotes?: string | null;
+  isPrimaryCondition: boolean;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type CreateClaimWorkspaceInput = {
   workspaceTitle: string;
   claimScenario: string;
+};
+
+export type CreateConditionInput = {
+  conditionName: string;
+  diagnosisStatus: string;
+  dateDiagnosed?: string;
+  currentSymptoms?: string;
+  treatmentSummary?: string;
+  medicationSummary?: string;
+  medicationSideEffects?: string;
+  functionalImpactSummary?: string;
+  lifestyleImpactSummary?: string;
+  workImpactSummary?: string;
+  stabilityNotes?: string;
+  worseningNotes?: string;
+  isPrimaryCondition?: boolean;
 };
 
 async function handleApiError(response: Response, defaultMessage: string) {
@@ -84,4 +121,49 @@ export async function createClaimWorkspace(
   }
 
   return (await response.json()) as ClaimWorkspace;
+}
+
+export async function getClaimConditions(idToken: string, workspaceId: string) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/conditions`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not load conditions.");
+  }
+
+  return (await response.json()) as ClaimCondition[];
+}
+
+export async function createClaimCondition(
+  idToken: string,
+  workspaceId: string,
+  input: CreateConditionInput,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/conditions`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not create condition.");
+  }
+
+  return (await response.json()) as ClaimCondition;
 }
