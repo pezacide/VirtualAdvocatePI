@@ -17,6 +17,16 @@ export type CreateClaimWorkspaceInput = {
   claimScenario: string;
 };
 
+async function handleApiError(response: Response, defaultMessage: string) {
+  if (response.status === 401) {
+    throw new Error("You are not signed in or your session has expired.");
+  }
+
+  const errorText = await response.text();
+
+  throw new Error(`${defaultMessage} HTTP ${response.status}. ${errorText}`);
+}
+
 export async function getClaimWorkspaces(idToken: string) {
   const response = await fetch(`${env.apiBaseUrl}/api/v1/claim-workspaces`, {
     method: "GET",
@@ -27,15 +37,32 @@ export async function getClaimWorkspaces(idToken: string) {
     cache: "no-store",
   });
 
-  if (response.status === 401) {
-    throw new Error("You are not signed in or your session has expired.");
-  }
-
   if (!response.ok) {
-    throw new Error(`Could not load claim workspaces. HTTP ${response.status}`);
+    await handleApiError(response, "Could not load claim workspaces.");
   }
 
   return (await response.json()) as ClaimWorkspace[];
+}
+
+export async function getClaimWorkspace(idToken: string, workspaceId: string) {
+  const response = await fetch(`${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${idToken}`,
+      Accept: "application/json",
+    },
+    cache: "no-store",
+  });
+
+  if (response.status === 404) {
+    throw new Error("Claim workspace was not found.");
+  }
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not load claim workspace.");
+  }
+
+  return (await response.json()) as ClaimWorkspace;
 }
 
 export async function createClaimWorkspace(
@@ -52,15 +79,8 @@ export async function createClaimWorkspace(
     body: JSON.stringify(input),
   });
 
-  if (response.status === 401) {
-    throw new Error("You are not signed in or your session has expired.");
-  }
-
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(
-      `Could not create claim workspace. HTTP ${response.status}. ${errorText}`,
-    );
+    await handleApiError(response, "Could not create claim workspace.");
   }
 
   return (await response.json()) as ClaimWorkspace;
