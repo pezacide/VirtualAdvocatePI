@@ -1,4 +1,6 @@
-﻿import Link from "next/link";
+import Link from "next/link";
+import { AppHeader } from "@/components/AppHeader";
+import { AuthStatusPanel } from "@/components/AuthStatusPanel";
 
 const sampleWorkspaces = [
   {
@@ -11,13 +13,11 @@ const sampleWorkspaces = [
 
 export default function DashboardPage() {
   return (
-    <main className="min-h-screen bg-slate-950 px-6 py-12 text-white">
-      <div className="mx-auto max-w-6xl">
-        <Link href="/" className="text-sm text-cyan-300 hover:text-cyan-200">
-          ← Back to home
-        </Link>
+    <main className="min-h-screen bg-slate-950 text-white">
+      <AppHeader />
 
-        <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div className="mx-auto max-w-6xl px-6 py-12">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
               Dashboard
@@ -35,6 +35,10 @@ export default function DashboardPage() {
             New claim workspace
           </Link>
         </div>
+
+        <section className="mt-8">
+          <AuthStatusPanel />
+        </section>
 
         <section className="mt-8 grid gap-4">
           {sampleWorkspaces.map((workspace) => (
