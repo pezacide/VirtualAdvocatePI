@@ -854,17 +854,18 @@ app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:
     Guid workspaceId,
     Guid conditionId,
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
+    ClaimAccessService claimAccessService,
     VirtualAdvocateDbContext db) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
         return Results.Unauthorized();
     }
 
-    if (!await UserOwnsConditionAsync(db, user.Id, workspaceId, conditionId))
+    if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
     {
         return Results.NotFound();
     }
@@ -882,18 +883,20 @@ app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId
     Guid workspaceId,
     Guid conditionId,
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
+    ClaimAccessService claimAccessService,
+    AuditService auditService,
     VirtualAdvocateDbContext db,
     CreateQuestionResponseRequest input) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
         return Results.Unauthorized();
     }
 
-    if (!await UserOwnsConditionAsync(db, user.Id, workspaceId, conditionId))
+    if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
     {
         return Results.NotFound();
     }
@@ -945,6 +948,14 @@ app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId
     };
 
     db.QuestionResponses.Add(response);
+
+    auditService.AddAuditEvent(
+        request,
+        user.Id,
+        workspaceId,
+        "QUESTION_RESPONSE_CREATED",
+        $"Question response created. ConditionId={conditionId}; QuestionKey={response.QuestionKey}; ResponseId={response.Id}");
+
     await db.SaveChangesAsync();
 
     return Results.Created(
@@ -957,17 +968,18 @@ app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:
     Guid conditionId,
     Guid responseId,
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
+    ClaimAccessService claimAccessService,
     VirtualAdvocateDbContext db) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
         return Results.Unauthorized();
     }
 
-    if (!await UserOwnsConditionAsync(db, user.Id, workspaceId, conditionId))
+    if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
     {
         return Results.NotFound();
     }
@@ -992,18 +1004,20 @@ app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionI
     Guid conditionId,
     Guid responseId,
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
+    ClaimAccessService claimAccessService,
+    AuditService auditService,
     VirtualAdvocateDbContext db,
     UpdateQuestionResponseRequest input) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
         return Results.Unauthorized();
     }
 
-    if (!await UserOwnsConditionAsync(db, user.Id, workspaceId, conditionId))
+    if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
     {
         return Results.NotFound();
     }
@@ -1069,6 +1083,13 @@ app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionI
 
     response.UpdatedAt = DateTimeOffset.UtcNow;
 
+    auditService.AddAuditEvent(
+        request,
+        user.Id,
+        workspaceId,
+        "QUESTION_RESPONSE_UPDATED",
+        $"Question response updated. ConditionId={conditionId}; QuestionKey={response.QuestionKey}; ResponseId={response.Id}");
+
     await db.SaveChangesAsync();
 
     return Results.Ok(ToQuestionResponseResponse(response));
@@ -1079,17 +1100,19 @@ app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{condition
     Guid conditionId,
     Guid responseId,
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
+    ClaimAccessService claimAccessService,
+    AuditService auditService,
     VirtualAdvocateDbContext db) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
         return Results.Unauthorized();
     }
 
-    if (!await UserOwnsConditionAsync(db, user.Id, workspaceId, conditionId))
+    if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
     {
         return Results.NotFound();
     }
@@ -1109,6 +1132,13 @@ app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{condition
     response.Status = "ARCHIVED";
     response.UpdatedAt = DateTimeOffset.UtcNow;
 
+    auditService.AddAuditEvent(
+        request,
+        user.Id,
+        workspaceId,
+        "QUESTION_RESPONSE_ARCHIVED",
+        $"Question response archived. ConditionId={conditionId}; QuestionKey={response.QuestionKey}; ResponseId={response.Id}");
+
     await db.SaveChangesAsync();
 
     return Results.Ok(new
@@ -1118,7 +1148,6 @@ app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{condition
         archived = true
     });
 });
-
 app.MapEvidenceAndAuditEndpoints();
 
 app.MapEvidenceUploadEndpoints();
