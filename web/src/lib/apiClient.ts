@@ -318,3 +318,90 @@ export async function createQuestionResponse(
 
   return (await response.json()) as QuestionResponse;
 }
+
+export type EvidenceItem = {
+  id: string;
+  claimWorkspaceId: string;
+  conditionId?: string | null;
+  evidenceType: string;
+  evidenceStatus: string;
+  originalFileName?: string | null;
+  storagePath?: string | null;
+  fileType?: string | null;
+  fileSize?: number | null;
+  documentDate?: string | null;
+  providerName?: string | null;
+  userNotes?: string | null;
+  aiSummary?: string | null;
+  userConfirmedSummary?: string | null;
+  usedInGeneratedPack: boolean;
+  uploadedAt?: string | null;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateEvidenceItemInput = {
+  evidenceType: string;
+  evidenceStatus: string;
+  originalFileName?: string;
+  storagePath?: string;
+  fileType?: string;
+  fileSize?: number;
+  documentDate?: string;
+  providerName?: string;
+  userNotes?: string;
+  aiSummary?: string;
+  userConfirmedSummary?: string;
+  usedInGeneratedPack?: boolean;
+};
+
+export async function getConditionEvidenceItems(
+  idToken: string,
+  workspaceId: string,
+  conditionId: string,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-items`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not load evidence items.");
+  }
+
+  return (await response.json()) as EvidenceItem[];
+}
+
+export async function createEvidenceItem(
+  idToken: string,
+  workspaceId: string,
+  conditionId: string,
+  input: CreateEvidenceItemInput,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-items`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not create evidence item.");
+  }
+
+  return (await response.json()) as EvidenceItem;
+}
