@@ -33,6 +33,24 @@ export type ClaimCondition = {
   updatedAt: string;
 };
 
+export type AcceptedConditionHistory = {
+  id: string;
+  claimWorkspaceId: string;
+  conditionId: string;
+  previouslyAcceptedByDva: string;
+  originalAct: string;
+  previousCompensationReceived: string;
+  previousDvaDecisionLetterAvailable: string;
+  previousAssessmentLetterAvailable: string;
+  previousDecisionDate?: string | null;
+  previousAssessmentDate?: string | null;
+  worseningClaimed: string;
+  worseningSummary?: string | null;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type CreateClaimWorkspaceInput = {
   workspaceTitle: string;
   claimScenario: string;
@@ -52,6 +70,18 @@ export type CreateConditionInput = {
   stabilityNotes?: string;
   worseningNotes?: string;
   isPrimaryCondition?: boolean;
+};
+
+export type CreateAcceptedConditionHistoryInput = {
+  previouslyAcceptedByDva: string;
+  originalAct: string;
+  previousCompensationReceived: string;
+  previousDvaDecisionLetterAvailable: string;
+  previousAssessmentLetterAvailable: string;
+  previousDecisionDate?: string;
+  previousAssessmentDate?: string;
+  worseningClaimed: string;
+  worseningSummary?: string;
 };
 
 async function handleApiError(response: Response, defaultMessage: string) {
@@ -166,4 +196,54 @@ export async function createClaimCondition(
   }
 
   return (await response.json()) as ClaimCondition;
+}
+
+export async function getAcceptedConditionHistory(
+  idToken: string,
+  workspaceId: string,
+  conditionId: string,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/accepted-history`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not load accepted-condition history.");
+  }
+
+  return (await response.json()) as AcceptedConditionHistory[];
+}
+
+export async function createAcceptedConditionHistory(
+  idToken: string,
+  workspaceId: string,
+  conditionId: string,
+  input: CreateAcceptedConditionHistoryInput,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/accepted-history`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not create accepted-condition history.");
+  }
+
+  return (await response.json()) as AcceptedConditionHistory;
 }
