@@ -729,3 +729,110 @@ export async function updateAiDraft(
 
   return (await response.json()) as AiDraft;
 }
+export type GeneratedDocument = {
+  id: string;
+  claimWorkspaceId: string;
+  documentType: string;
+  documentStatus: string;
+  docxStoragePath?: string | null;
+  pdfStoragePath?: string | null;
+  templateVersion: string;
+  includedAiDraftIds?: string | null;
+  generatedAt?: string | null;
+  downloadedAt?: string | null;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateGeneratedDocumentInput = {
+  documentType: string;
+  documentStatus?: string;
+  docxStoragePath?: string;
+  pdfStoragePath?: string;
+  templateVersion?: string;
+  includedAiDraftIds?: string;
+};
+
+export type UpdateGeneratedDocumentInput = {
+  documentType?: string;
+  documentStatus?: string;
+  docxStoragePath?: string;
+  pdfStoragePath?: string;
+  templateVersion?: string;
+  includedAiDraftIds?: string;
+};
+
+export async function getGeneratedDocuments(
+  idToken: string,
+  workspaceId: string,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/generated-documents`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not load generated documents.");
+  }
+
+  return (await response.json()) as GeneratedDocument[];
+}
+
+export async function createGeneratedDocument(
+  idToken: string,
+  workspaceId: string,
+  input: CreateGeneratedDocumentInput,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/generated-documents`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not create generated document metadata.");
+  }
+
+  return (await response.json()) as GeneratedDocument;
+}
+
+export async function updateGeneratedDocument(
+  idToken: string,
+  workspaceId: string,
+  documentId: string,
+  input: UpdateGeneratedDocumentInput,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/generated-documents/${documentId}`,
+    {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not update generated document metadata.");
+  }
+
+  return (await response.json()) as GeneratedDocument;
+}
