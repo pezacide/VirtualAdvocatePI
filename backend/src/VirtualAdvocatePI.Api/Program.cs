@@ -1477,3 +1477,5 @@ public sealed record UpdateQuestionResponseRequest(
 
 
 
+
+public partial class Program { }
