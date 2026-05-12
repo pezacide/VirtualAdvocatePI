@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VirtualAdvocatePI.Api.Auth;
 using VirtualAdvocatePI.Api.Data;
 using VirtualAdvocatePI.Api.Domain.Claims;
-using VirtualAdvocatePI.Api.Domain.Users;
+using VirtualAdvocatePI.Api.Services;
 
 namespace VirtualAdvocatePI.Api.Features.Evidence;
 
@@ -13,17 +12,18 @@ public static class EvidenceGapEndpoints
         app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-gaps", async (
             Guid workspaceId,
             HttpRequest request,
-            FirebaseAuthService firebaseAuthService,
+            CurrentUserService currentUserService,
+            ClaimAccessService claimAccessService,
             VirtualAdvocateDbContext db) =>
         {
-            var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+            var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
             if (user is null)
             {
                 return Results.Unauthorized();
             }
 
-            if (!await UserOwnsWorkspaceAsync(db, user.Id, workspaceId))
+            if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
             {
                 return Results.NotFound();
             }
@@ -41,17 +41,18 @@ public static class EvidenceGapEndpoints
             Guid workspaceId,
             Guid conditionId,
             HttpRequest request,
-            FirebaseAuthService firebaseAuthService,
+            CurrentUserService currentUserService,
+            ClaimAccessService claimAccessService,
             VirtualAdvocateDbContext db) =>
         {
-            var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+            var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
             if (user is null)
             {
                 return Results.Unauthorized();
             }
 
-            if (!await UserOwnsConditionAsync(db, user.Id, workspaceId, conditionId))
+            if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
             {
                 return Results.NotFound();
             }
@@ -72,17 +73,19 @@ public static class EvidenceGapEndpoints
             Guid workspaceId,
             Guid conditionId,
             HttpRequest request,
-            FirebaseAuthService firebaseAuthService,
+            CurrentUserService currentUserService,
+            ClaimAccessService claimAccessService,
+            AuditService auditService,
             VirtualAdvocateDbContext db) =>
         {
-            var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+            var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
             if (user is null)
             {
                 return Results.Unauthorized();
             }
 
-            if (!await UserOwnsConditionAsync(db, user.Id, workspaceId, conditionId))
+            if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
             {
                 return Results.NotFound();
             }
@@ -210,8 +213,7 @@ public static class EvidenceGapEndpoints
                 db.EvidenceGaps.AddRange(createdGaps);
             }
 
-            AddAuditEvent(
-                db,
+            auditService.AddAuditEvent(
                 request,
                 user.Id,
                 workspaceId,
@@ -233,18 +235,20 @@ public static class EvidenceGapEndpoints
             Guid conditionId,
             Guid gapId,
             HttpRequest request,
-            FirebaseAuthService firebaseAuthService,
+            CurrentUserService currentUserService,
+            ClaimAccessService claimAccessService,
+            AuditService auditService,
             VirtualAdvocateDbContext db,
             UpdateEvidenceGapRequest input) =>
         {
-            var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+            var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
             if (user is null)
             {
                 return Results.Unauthorized();
             }
 
-            if (!await UserOwnsConditionAsync(db, user.Id, workspaceId, conditionId))
+            if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
             {
                 return Results.NotFound();
             }
@@ -305,8 +309,7 @@ public static class EvidenceGapEndpoints
 
             gap.UpdatedAt = DateTimeOffset.UtcNow;
 
-            AddAuditEvent(
-                db,
+            auditService.AddAuditEvent(
                 request,
                 user.Id,
                 workspaceId,
@@ -323,17 +326,19 @@ public static class EvidenceGapEndpoints
             Guid conditionId,
             Guid gapId,
             HttpRequest request,
-            FirebaseAuthService firebaseAuthService,
+            CurrentUserService currentUserService,
+            ClaimAccessService claimAccessService,
+            AuditService auditService,
             VirtualAdvocateDbContext db) =>
         {
-            var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+            var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
             if (user is null)
             {
                 return Results.Unauthorized();
             }
 
-            if (!await UserOwnsConditionAsync(db, user.Id, workspaceId, conditionId))
+            if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
             {
                 return Results.NotFound();
             }
@@ -353,8 +358,7 @@ public static class EvidenceGapEndpoints
             gap.Status = "ARCHIVED";
             gap.UpdatedAt = DateTimeOffset.UtcNow;
 
-            AddAuditEvent(
-                db,
+            auditService.AddAuditEvent(
                 request,
                 user.Id,
                 workspaceId,
@@ -372,79 +376,6 @@ public static class EvidenceGapEndpoints
         });
 
         return app;
-    }
-
-    private static async Task<AppUser?> GetOrCreateCurrentUserAsync(
-        HttpRequest request,
-        FirebaseAuthService firebaseAuthService,
-        VirtualAdvocateDbContext db)
-    {
-        AuthenticatedFirebaseUser? firebaseUser;
-
-        try
-        {
-            firebaseUser = await firebaseAuthService.VerifyBearerTokenAsync(request);
-        }
-        catch
-        {
-            return null;
-        }
-
-        if (firebaseUser is null)
-        {
-            return null;
-        }
-
-        var email = firebaseUser.Email ?? string.Empty;
-
-        var user = await db.Users.FirstOrDefaultAsync(x => x.FirebaseUid == firebaseUser.FirebaseUid);
-
-        if (user is null)
-        {
-            user = new AppUser
-            {
-                FirebaseUid = firebaseUser.FirebaseUid,
-                Email = email,
-                DisplayName = firebaseUser.DisplayName,
-                Role = "VETERAN",
-                AccountStatus = "ACTIVE",
-                CreatedAt = DateTimeOffset.UtcNow,
-                LastLoginAt = DateTimeOffset.UtcNow
-            };
-
-            db.Users.Add(user);
-        }
-        else
-        {
-            user.Email = email;
-            user.DisplayName = firebaseUser.DisplayName;
-            user.LastLoginAt = DateTimeOffset.UtcNow;
-            user.AccountStatus = "ACTIVE";
-        }
-
-        await db.SaveChangesAsync();
-
-        return user;
-    }
-
-    private static async Task<bool> UserOwnsWorkspaceAsync(VirtualAdvocateDbContext db, Guid userId, Guid workspaceId)
-    {
-        return await db.ClaimWorkspaces.AnyAsync(x =>
-            x.Id == workspaceId &&
-            x.UserId == userId &&
-            x.Status != "ARCHIVED");
-    }
-
-    private static async Task<bool> UserOwnsConditionAsync(VirtualAdvocateDbContext db, Guid userId, Guid workspaceId, Guid conditionId)
-    {
-        return await db.ClaimWorkspaces.AnyAsync(x =>
-                x.Id == workspaceId &&
-                x.UserId == userId &&
-                x.Status != "ARCHIVED")
-            && await db.ClaimConditions.AnyAsync(x =>
-                x.Id == conditionId &&
-                x.ClaimWorkspaceId == workspaceId &&
-                x.Status != "ARCHIVED");
     }
 
     private static async Task ArchiveExistingOpenGapsAsync(
@@ -492,28 +423,6 @@ public static class EvidenceGapEndpoints
             CreatedAt = DateTimeOffset.UtcNow,
             UpdatedAt = DateTimeOffset.UtcNow
         };
-    }
-
-    private static void AddAuditEvent(
-        VirtualAdvocateDbContext db,
-        HttpRequest request,
-        Guid userId,
-        Guid workspaceId,
-        string eventType,
-        string? eventDetail)
-    {
-        request.Headers.TryGetValue("User-Agent", out var userAgent);
-
-        db.AuditEvents.Add(new AuditEvent
-        {
-            UserId = userId,
-            ClaimWorkspaceId = workspaceId,
-            EventType = eventType,
-            EventDetail = eventDetail,
-            IpAddress = request.HttpContext.Connection.RemoteIpAddress?.ToString(),
-            ClientType = userAgent.ToString(),
-            CreatedAt = DateTimeOffset.UtcNow
-        });
     }
 
     private static object ToEvidenceGapResponse(EvidenceGap gap)
