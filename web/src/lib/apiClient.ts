@@ -474,3 +474,126 @@ export async function markEvidenceUploaded(
 
   return (await response.json()) as EvidenceItem;
 }
+export type EvidenceGap = {
+  id: string;
+  claimWorkspaceId: string;
+  conditionId: string;
+  gapType: string;
+  gapStatus: string;
+  severity: string;
+  plainEnglishExplanation: string;
+  suggestedNextStep?: string | null;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type RecalculateEvidenceGapsResponse = {
+  conditionId: string;
+  createdCount: number;
+  gaps: EvidenceGap[];
+};
+
+export type UpdateEvidenceGapInput = {
+  gapStatus?: string;
+  severity?: string;
+  plainEnglishExplanation?: string;
+  suggestedNextStep?: string;
+};
+
+export async function getWorkspaceEvidenceGaps(
+  idToken: string,
+  workspaceId: string,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/evidence-gaps`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not load evidence gaps.");
+  }
+
+  return (await response.json()) as EvidenceGap[];
+}
+
+export async function getConditionEvidenceGaps(
+  idToken: string,
+  workspaceId: string,
+  conditionId: string,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-gaps`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not load condition evidence gaps.");
+  }
+
+  return (await response.json()) as EvidenceGap[];
+}
+
+export async function recalculateEvidenceGaps(
+  idToken: string,
+  workspaceId: string,
+  conditionId: string,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-gaps/recalculate`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+      },
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not recalculate evidence gaps.");
+  }
+
+  return (await response.json()) as RecalculateEvidenceGapsResponse;
+}
+
+export async function updateEvidenceGap(
+  idToken: string,
+  workspaceId: string,
+  conditionId: string,
+  gapId: string,
+  input: UpdateEvidenceGapInput,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-gaps/${gapId}`,
+    {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not update evidence gap.");
+  }
+
+  return (await response.json()) as EvidenceGap;
+}
