@@ -354,17 +354,18 @@ app.MapDelete("/api/v1/claim-workspaces/{id:guid}", async (
 app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions", async (
     Guid workspaceId,
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
+    ClaimAccessService claimAccessService,
     VirtualAdvocateDbContext db) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
         return Results.Unauthorized();
     }
 
-    if (!await UserOwnsWorkspaceAsync(db, user.Id, workspaceId))
+    if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
     {
         return Results.NotFound();
     }
@@ -381,18 +382,20 @@ app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions", async (
 app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions", async (
     Guid workspaceId,
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
+    ClaimAccessService claimAccessService,
+    AuditService auditService,
     VirtualAdvocateDbContext db,
     CreateConditionRequest input) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
         return Results.Unauthorized();
     }
 
-    if (!await UserOwnsWorkspaceAsync(db, user.Id, workspaceId))
+    if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
     {
         return Results.NotFound();
     }
@@ -435,6 +438,14 @@ app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions", async (
     };
 
     db.ClaimConditions.Add(condition);
+
+    auditService.AddAuditEvent(
+        request,
+        user.Id,
+        workspaceId,
+        "CONDITION_CREATED",
+        $"Condition created. ConditionName={condition.ConditionName}; ConditionId={condition.Id}");
+
     await db.SaveChangesAsync();
 
     return Results.Created($"/api/v1/claim-workspaces/{workspaceId}/conditions/{condition.Id}", ToConditionResponse(condition));
@@ -444,17 +455,18 @@ app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:
     Guid workspaceId,
     Guid conditionId,
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
+    ClaimAccessService claimAccessService,
     VirtualAdvocateDbContext db) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
         return Results.Unauthorized();
     }
 
-    if (!await UserOwnsWorkspaceAsync(db, user.Id, workspaceId))
+    if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
     {
         return Results.NotFound();
     }
@@ -474,18 +486,20 @@ app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionI
     Guid workspaceId,
     Guid conditionId,
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
+    ClaimAccessService claimAccessService,
+    AuditService auditService,
     VirtualAdvocateDbContext db,
     UpdateConditionRequest input) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
         return Results.Unauthorized();
     }
 
-    if (!await UserOwnsWorkspaceAsync(db, user.Id, workspaceId))
+    if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
     {
         return Results.NotFound();
     }
@@ -536,6 +550,14 @@ app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionI
     }
 
     condition.UpdatedAt = DateTimeOffset.UtcNow;
+
+    auditService.AddAuditEvent(
+        request,
+        user.Id,
+        workspaceId,
+        "CONDITION_UPDATED",
+        $"Condition updated. ConditionName={condition.ConditionName}; ConditionId={condition.Id}");
+
     await db.SaveChangesAsync();
 
     return Results.Ok(ToConditionResponse(condition));
@@ -545,17 +567,19 @@ app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{condition
     Guid workspaceId,
     Guid conditionId,
     HttpRequest request,
-    FirebaseAuthService firebaseAuthService,
+    CurrentUserService currentUserService,
+    ClaimAccessService claimAccessService,
+    AuditService auditService,
     VirtualAdvocateDbContext db) =>
 {
-    var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+    var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
 
     if (user is null)
     {
         return Results.Unauthorized();
     }
 
-    if (!await UserOwnsWorkspaceAsync(db, user.Id, workspaceId))
+    if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
     {
         return Results.NotFound();
     }
@@ -570,6 +594,14 @@ app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{condition
 
     condition.Status = "ARCHIVED";
     condition.UpdatedAt = DateTimeOffset.UtcNow;
+
+    auditService.AddAuditEvent(
+        request,
+        user.Id,
+        workspaceId,
+        "CONDITION_ARCHIVED",
+        $"Condition archived. ConditionName={condition.ConditionName}; ConditionId={condition.Id}");
+
     await db.SaveChangesAsync();
 
     return Results.Ok(new
@@ -579,7 +611,6 @@ app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{condition
         archived = true
     });
 });
-
 app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/accepted-history", async (
     Guid workspaceId,
     Guid conditionId,
