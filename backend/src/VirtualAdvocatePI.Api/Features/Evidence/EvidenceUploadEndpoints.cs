@@ -1,0 +1,451 @@
+﻿using Google.Apis.Auth.OAuth2;
+using Google.Cloud.Storage.V1;
+using Microsoft.EntityFrameworkCore;
+using VirtualAdvocatePI.Api.Auth;
+using VirtualAdvocatePI.Api.Data;
+using VirtualAdvocatePI.Api.Domain.Claims;
+using VirtualAdvocatePI.Api.Domain.Users;
+
+namespace VirtualAdvocatePI.Api.Features.Evidence;
+
+public static class EvidenceUploadEndpoints
+{
+    public static IEndpointRouteBuilder MapEvidenceUploadEndpoints(this IEndpointRouteBuilder app)
+    {
+        app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-upload-url", async (
+            Guid workspaceId,
+            Guid conditionId,
+            HttpRequest request,
+            FirebaseAuthService firebaseAuthService,
+            VirtualAdvocateDbContext db,
+            CreateEvidenceUploadUrlRequest input) =>
+        {
+            var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+
+            if (user is null)
+            {
+                return Results.Unauthorized();
+            }
+
+            if (!await UserOwnsConditionAsync(db, user.Id, workspaceId, conditionId))
+            {
+                return Results.NotFound();
+            }
+
+            if (string.IsNullOrWhiteSpace(input.OriginalFileName))
+            {
+                return Results.BadRequest(new { error = "Original file name is required." });
+            }
+
+            var bucketName = GetEvidenceBucketName();
+            var evidenceType = NormaliseEvidenceType(input.EvidenceType);
+
+            if (!IsValidEvidenceType(evidenceType))
+            {
+                return Results.BadRequest(new
+                {
+                    error = "Invalid evidence type.",
+                    allowedValues = GetAllowedEvidenceTypes()
+                });
+            }
+
+            var evidenceItem = new EvidenceItem
+            {
+                ClaimWorkspaceId = workspaceId,
+                ConditionId = conditionId,
+                EvidenceType = evidenceType,
+                EvidenceStatus = "LISTED_NOT_UPLOADED",
+                OriginalFileName = input.OriginalFileName,
+                FileType = input.FileType,
+                FileSize = input.FileSize,
+                DocumentDate = input.DocumentDate,
+                ProviderName = input.ProviderName,
+                UserNotes = input.UserNotes,
+                UsedInGeneratedPack = false,
+                Status = "ACTIVE",
+                CreatedAt = DateTimeOffset.UtcNow,
+                UpdatedAt = DateTimeOffset.UtcNow
+            };
+
+            db.EvidenceItems.Add(evidenceItem);
+            await db.SaveChangesAsync();
+
+            var safeFileName = CreateSafeFileName(input.OriginalFileName);
+            var objectName = $"evidence/{workspaceId}/{conditionId}/{evidenceItem.Id}/{safeFileName}";
+
+            evidenceItem.StoragePath = $"gs://{bucketName}/{objectName}";
+            evidenceItem.UpdatedAt = DateTimeOffset.UtcNow;
+
+            AddAuditEvent(
+                db,
+                request,
+                user.Id,
+                workspaceId,
+                "EVIDENCE_UPLOAD_URL_CREATED",
+                $"Signed upload URL created. EvidenceItemId={evidenceItem.Id}; Type={evidenceType}");
+
+            await db.SaveChangesAsync();
+
+            var signer = UrlSigner.FromCredential(GoogleCredential.GetApplicationDefault());
+            var uploadUrl = await signer.SignAsync(
+                bucketName,
+                objectName,
+                TimeSpan.FromMinutes(15),
+                HttpMethod.Put);
+
+            return Results.Ok(new
+            {
+                evidenceItem = ToEvidenceItemResponse(evidenceItem),
+                upload = new
+                {
+                    method = "PUT",
+                    url = uploadUrl,
+                    expiresInMinutes = 15,
+                    requiredHeaders = new { },
+                    note = "Upload the file directly to this URL using HTTP PUT. After upload, call mark-uploaded."
+                }
+            });
+        });
+
+        app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}/mark-uploaded", async (
+            Guid workspaceId,
+            Guid evidenceItemId,
+            HttpRequest request,
+            FirebaseAuthService firebaseAuthService,
+            VirtualAdvocateDbContext db) =>
+        {
+            var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+
+            if (user is null)
+            {
+                return Results.Unauthorized();
+            }
+
+            if (!await UserOwnsWorkspaceAsync(db, user.Id, workspaceId))
+            {
+                return Results.NotFound();
+            }
+
+            var evidenceItem = await db.EvidenceItems
+                .FirstOrDefaultAsync(x =>
+                    x.Id == evidenceItemId &&
+                    x.ClaimWorkspaceId == workspaceId &&
+                    x.Status != "ARCHIVED");
+
+            if (evidenceItem is null)
+            {
+                return Results.NotFound();
+            }
+
+            var bucketName = GetEvidenceBucketName();
+
+            if (string.IsNullOrWhiteSpace(evidenceItem.StoragePath))
+            {
+                return Results.BadRequest(new { error = "Evidence item has no storage path." });
+            }
+
+            var objectName = GetObjectNameFromStoragePath(evidenceItem.StoragePath, bucketName);
+
+            try
+            {
+                var storageClient = await StorageClient.CreateAsync();
+                var storageObject = await storageClient.GetObjectAsync(bucketName, objectName);
+
+                evidenceItem.EvidenceStatus = "UPLOADED";
+                evidenceItem.UploadedAt = DateTimeOffset.UtcNow;
+                evidenceItem.UpdatedAt = DateTimeOffset.UtcNow;
+
+                if (storageObject.Size.HasValue)
+                {
+                    evidenceItem.FileSize = (long)storageObject.Size.Value;
+                }
+
+                AddAuditEvent(
+                    db,
+                    request,
+                    user.Id,
+                    workspaceId,
+                    "EVIDENCE_UPLOADED",
+                    $"Evidence upload confirmed. EvidenceItemId={evidenceItem.Id}");
+
+                await db.SaveChangesAsync();
+
+                return Results.Ok(ToEvidenceItemResponse(evidenceItem));
+            }
+            catch
+            {
+                return Results.BadRequest(new
+                {
+                    error = "The uploaded object could not be found in Cloud Storage yet.",
+                    evidenceItemId = evidenceItem.Id
+                });
+            }
+        });
+
+        app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}/download-url", async (
+            Guid workspaceId,
+            Guid evidenceItemId,
+            HttpRequest request,
+            FirebaseAuthService firebaseAuthService,
+            VirtualAdvocateDbContext db) =>
+        {
+            var user = await GetOrCreateCurrentUserAsync(request, firebaseAuthService, db);
+
+            if (user is null)
+            {
+                return Results.Unauthorized();
+            }
+
+            if (!await UserOwnsWorkspaceAsync(db, user.Id, workspaceId))
+            {
+                return Results.NotFound();
+            }
+
+            var evidenceItem = await db.EvidenceItems
+                .FirstOrDefaultAsync(x =>
+                    x.Id == evidenceItemId &&
+                    x.ClaimWorkspaceId == workspaceId &&
+                    x.Status != "ARCHIVED");
+
+            if (evidenceItem is null)
+            {
+                return Results.NotFound();
+            }
+
+            if (string.IsNullOrWhiteSpace(evidenceItem.StoragePath))
+            {
+                return Results.BadRequest(new { error = "Evidence item has no storage path." });
+            }
+
+            var bucketName = GetEvidenceBucketName();
+            var objectName = GetObjectNameFromStoragePath(evidenceItem.StoragePath, bucketName);
+
+            var signer = UrlSigner.FromCredential(GoogleCredential.GetApplicationDefault());
+            var downloadUrl = await signer.SignAsync(
+                bucketName,
+                objectName,
+                TimeSpan.FromMinutes(10),
+                HttpMethod.Get);
+
+            AddAuditEvent(
+                db,
+                request,
+                user.Id,
+                workspaceId,
+                "EVIDENCE_DOWNLOAD_URL_CREATED",
+                $"Signed download URL created. EvidenceItemId={evidenceItem.Id}");
+
+            await db.SaveChangesAsync();
+
+            return Results.Ok(new
+            {
+                evidenceItemId = evidenceItem.Id,
+                method = "GET",
+                url = downloadUrl,
+                expiresInMinutes = 10
+            });
+        });
+
+        return app;
+    }
+
+    private static string GetEvidenceBucketName()
+    {
+        var bucketName = Environment.GetEnvironmentVariable("EVIDENCE_BUCKET_NAME");
+
+        if (string.IsNullOrWhiteSpace(bucketName))
+        {
+            return "dva-sop-dev-vapi-dev-evidence";
+        }
+
+        return bucketName;
+    }
+
+    private static async Task<AppUser?> GetOrCreateCurrentUserAsync(
+        HttpRequest request,
+        FirebaseAuthService firebaseAuthService,
+        VirtualAdvocateDbContext db)
+    {
+        AuthenticatedFirebaseUser? firebaseUser;
+
+        try
+        {
+            firebaseUser = await firebaseAuthService.VerifyBearerTokenAsync(request);
+        }
+        catch
+        {
+            return null;
+        }
+
+        if (firebaseUser is null)
+        {
+            return null;
+        }
+
+        var email = firebaseUser.Email ?? string.Empty;
+
+        var user = await db.Users.FirstOrDefaultAsync(x => x.FirebaseUid == firebaseUser.FirebaseUid);
+
+        if (user is null)
+        {
+            user = new AppUser
+            {
+                FirebaseUid = firebaseUser.FirebaseUid,
+                Email = email,
+                DisplayName = firebaseUser.DisplayName,
+                Role = "VETERAN",
+                AccountStatus = "ACTIVE",
+                CreatedAt = DateTimeOffset.UtcNow,
+                LastLoginAt = DateTimeOffset.UtcNow
+            };
+
+            db.Users.Add(user);
+        }
+        else
+        {
+            user.Email = email;
+            user.DisplayName = firebaseUser.DisplayName;
+            user.LastLoginAt = DateTimeOffset.UtcNow;
+            user.AccountStatus = "ACTIVE";
+        }
+
+        await db.SaveChangesAsync();
+
+        return user;
+    }
+
+    private static async Task<bool> UserOwnsWorkspaceAsync(VirtualAdvocateDbContext db, Guid userId, Guid workspaceId)
+    {
+        return await db.ClaimWorkspaces.AnyAsync(x =>
+            x.Id == workspaceId &&
+            x.UserId == userId &&
+            x.Status != "ARCHIVED");
+    }
+
+    private static async Task<bool> UserOwnsConditionAsync(VirtualAdvocateDbContext db, Guid userId, Guid workspaceId, Guid conditionId)
+    {
+        return await db.ClaimWorkspaces.AnyAsync(x =>
+                x.Id == workspaceId &&
+                x.UserId == userId &&
+                x.Status != "ARCHIVED")
+            && await db.ClaimConditions.AnyAsync(x =>
+                x.Id == conditionId &&
+                x.ClaimWorkspaceId == workspaceId &&
+                x.Status != "ARCHIVED");
+    }
+
+    private static void AddAuditEvent(
+        VirtualAdvocateDbContext db,
+        HttpRequest request,
+        Guid userId,
+        Guid workspaceId,
+        string eventType,
+        string? eventDetail)
+    {
+        db.AuditEvents.Add(new AuditEvent
+        {
+            UserId = userId,
+            ClaimWorkspaceId = workspaceId,
+            EventType = eventType,
+            EventDetail = eventDetail,
+            IpAddress = request.HttpContext.Connection.RemoteIpAddress?.ToString(),
+            ClientType = request.Headers.UserAgent.ToString(),
+            CreatedAt = DateTimeOffset.UtcNow
+        });
+    }
+
+    private static object ToEvidenceItemResponse(EvidenceItem evidenceItem)
+    {
+        return new
+        {
+            id = evidenceItem.Id,
+            claimWorkspaceId = evidenceItem.ClaimWorkspaceId,
+            conditionId = evidenceItem.ConditionId,
+            evidenceType = evidenceItem.EvidenceType,
+            evidenceStatus = evidenceItem.EvidenceStatus,
+            originalFileName = evidenceItem.OriginalFileName,
+            storagePath = evidenceItem.StoragePath,
+            fileType = evidenceItem.FileType,
+            fileSize = evidenceItem.FileSize,
+            documentDate = evidenceItem.DocumentDate,
+            providerName = evidenceItem.ProviderName,
+            userNotes = evidenceItem.UserNotes,
+            aiSummary = evidenceItem.AiSummary,
+            userConfirmedSummary = evidenceItem.UserConfirmedSummary,
+            usedInGeneratedPack = evidenceItem.UsedInGeneratedPack,
+            uploadedAt = evidenceItem.UploadedAt,
+            status = evidenceItem.Status,
+            createdAt = evidenceItem.CreatedAt,
+            updatedAt = evidenceItem.UpdatedAt
+        };
+    }
+
+    private static string CreateSafeFileName(string originalFileName)
+    {
+        var fileName = Path.GetFileName(originalFileName);
+
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            fileName = "evidence-file";
+        }
+
+        foreach (var invalidChar in Path.GetInvalidFileNameChars())
+        {
+            fileName = fileName.Replace(invalidChar, '-');
+        }
+
+        return fileName.Replace(' ', '-').Trim();
+    }
+
+    private static string GetObjectNameFromStoragePath(string storagePath, string bucketName)
+    {
+        var prefix = $"gs://{bucketName}/";
+
+        if (!storagePath.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+        {
+            throw new InvalidOperationException("Storage path does not match the configured evidence bucket.");
+        }
+
+        return storagePath[prefix.Length..];
+    }
+
+    private static string NormaliseEvidenceType(string? value)
+    {
+        return string.IsNullOrWhiteSpace(value) ? "OTHER" : value.Trim().ToUpperInvariant();
+    }
+
+    private static bool IsValidEvidenceType(string value)
+    {
+        return GetAllowedEvidenceTypes().Contains(value);
+    }
+
+    private static string[] GetAllowedEvidenceTypes()
+    {
+        return new[]
+        {
+            "DVA_DECISION_LETTER",
+            "PREVIOUS_PI_ASSESSMENT",
+            "DCP_ASSESSMENT",
+            "MEDICAL_REPORT",
+            "SPECIALIST_REPORT",
+            "IMAGING_REPORT",
+            "MEDICATION_LIST",
+            "TREATMENT_SUMMARY",
+            "SERVICE_DOCUMENT",
+            "PERSONAL_STATEMENT",
+            "FUNCTIONAL_IMPACT_NOTES",
+            "APPOINTMENT_NOTES",
+            "OTHER"
+        };
+    }
+}
+
+public sealed record CreateEvidenceUploadUrlRequest(
+    string? EvidenceType,
+    string? OriginalFileName,
+    string? FileType,
+    long? FileSize,
+    DateOnly? DocumentDate,
+    string? ProviderName,
+    string? UserNotes
+);

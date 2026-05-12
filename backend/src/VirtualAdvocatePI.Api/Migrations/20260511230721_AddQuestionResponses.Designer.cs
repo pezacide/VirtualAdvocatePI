@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VirtualAdvocatePI.Api.Data;
@@ -11,9 +12,11 @@ using VirtualAdvocatePI.Api.Data;
 namespace VirtualAdvocatePI.Api.Migrations
 {
     [DbContext(typeof(VirtualAdvocateDbContext))]
-    partial class VirtualAdvocateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260511230721_AddQuestionResponses")]
+    partial class AddQuestionResponses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,51 +94,6 @@ namespace VirtualAdvocatePI.Api.Migrations
                     b.HasIndex("ConditionId");
 
                     b.ToTable("accepted_condition_history", (string)null);
-                });
-
-            modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.AuditEvent", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("ClaimWorkspaceId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ClientType")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("EventDetail")
-                        .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
-
-                    b.Property<string>("EventType")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.Property<string>("IpAddress")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClaimWorkspaceId");
-
-                    b.HasIndex("CreatedAt");
-
-                    b.HasIndex("EventType");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("audit_events", (string)null);
                 });
 
             modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.ClaimCondition", b =>
@@ -256,151 +214,6 @@ namespace VirtualAdvocatePI.Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("claim_workspaces", (string)null);
-                });
-
-            modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.EvidenceGap", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ClaimWorkspaceId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ConditionId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("GapStatus")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("GapType")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.Property<string>("PlainEnglishExplanation")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
-
-                    b.Property<string>("Severity")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("SuggestedNextStep")
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClaimWorkspaceId");
-
-                    b.HasIndex("ConditionId");
-
-                    b.HasIndex("GapStatus");
-
-                    b.HasIndex("GapType");
-
-                    b.HasIndex("Severity");
-
-                    b.ToTable("evidence_gaps", (string)null);
-                });
-
-            modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.EvidenceItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("AiSummary")
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("ClaimWorkspaceId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("ConditionId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateOnly?>("DocumentDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("EvidenceStatus")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("EvidenceType")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<long?>("FileSize")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("FileType")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("OriginalFileName")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<string>("ProviderName")
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("StoragePath")
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTimeOffset?>("UploadedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("UsedInGeneratedPack")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("UserConfirmedSummary")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserNotes")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClaimWorkspaceId");
-
-                    b.HasIndex("ConditionId");
-
-                    b.HasIndex("EvidenceStatus");
-
-                    b.HasIndex("EvidenceType");
-
-                    b.ToTable("evidence_items", (string)null);
                 });
 
             modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.QuestionResponse", b =>

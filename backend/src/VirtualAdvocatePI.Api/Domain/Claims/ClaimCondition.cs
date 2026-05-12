@@ -32,6 +32,8 @@ public sealed class ClaimCondition
 
     public bool IsPrimaryCondition { get; set; } = true;
 
+    public string Status { get; set; } = "ACTIVE";
+
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 
     public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;

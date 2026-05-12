@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VirtualAdvocatePI.Api.Data;
@@ -11,9 +12,11 @@ using VirtualAdvocatePI.Api.Data;
 namespace VirtualAdvocatePI.Api.Migrations
 {
     [DbContext(typeof(VirtualAdvocateDbContext))]
-    partial class VirtualAdvocateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260511231748_AddEvidenceMetadataAndAuditEvents")]
+    partial class AddEvidenceMetadataAndAuditEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,68 +259,6 @@ namespace VirtualAdvocatePI.Api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("claim_workspaces", (string)null);
-                });
-
-            modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.EvidenceGap", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ClaimWorkspaceId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ConditionId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("GapStatus")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("GapType")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.Property<string>("PlainEnglishExplanation")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
-
-                    b.Property<string>("Severity")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("SuggestedNextStep")
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClaimWorkspaceId");
-
-                    b.HasIndex("ConditionId");
-
-                    b.HasIndex("GapStatus");
-
-                    b.HasIndex("GapType");
-
-                    b.HasIndex("Severity");
-
-                    b.ToTable("evidence_gaps", (string)null);
                 });
 
             modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.EvidenceItem", b =>

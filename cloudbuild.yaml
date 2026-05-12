@@ -35,7 +35,7 @@ steps:
       - --service-account=${_RUNTIME_SERVICE_ACCOUNT}
       - --add-cloudsql-instances=${_CLOUDSQL_INSTANCE}
       - --update-secrets=DATABASE_CONNECTION_STRING=vapi-dev-db-connection-string:latest
-      - --set-env-vars=FIREBASE_PROJECT_ID=dva-sop-dev
+      - --set-env-vars=FIREBASE_PROJECT_ID=dva-sop-dev,EVIDENCE_BUCKET_NAME=dva-sop-dev-vapi-dev-evidence
       - --no-invoker-iam-check
       - --port=8080
 
