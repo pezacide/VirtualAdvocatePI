@@ -27,6 +27,8 @@ public sealed class VirtualAdvocateDbContext : DbContext
 
     public DbSet<AiDraft> AiDrafts => Set<AiDraft>();
 
+    public DbSet<GeneratedDocument> GeneratedDocuments => Set<GeneratedDocument>();
+
     public DbSet<AuditEvent> AuditEvents => Set<AuditEvent>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -183,6 +185,25 @@ modelBuilder.Entity<AiDraft>(entity =>
     entity.Property(x => x.DraftText).IsRequired();
     entity.Property(x => x.UserEditedText);
     entity.Property(x => x.ReviewStatus).HasMaxLength(100).IsRequired();
+    entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
+});
+
+modelBuilder.Entity<GeneratedDocument>(entity =>
+{
+    entity.ToTable("generated_documents");
+
+    entity.HasKey(x => x.Id);
+
+    entity.HasIndex(x => x.ClaimWorkspaceId);
+    entity.HasIndex(x => x.DocumentType);
+    entity.HasIndex(x => x.DocumentStatus);
+
+    entity.Property(x => x.DocumentType).HasMaxLength(150).IsRequired();
+    entity.Property(x => x.DocumentStatus).HasMaxLength(100).IsRequired();
+    entity.Property(x => x.DocxStoragePath).HasMaxLength(1000);
+    entity.Property(x => x.PdfStoragePath).HasMaxLength(1000);
+    entity.Property(x => x.TemplateVersion).HasMaxLength(150).IsRequired();
+    entity.Property(x => x.IncludedAiDraftIds).HasMaxLength(4000);
     entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
 });
     }

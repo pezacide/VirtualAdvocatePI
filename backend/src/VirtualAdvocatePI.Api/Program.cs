@@ -6,6 +6,7 @@ using VirtualAdvocatePI.Api.Domain.Claims;
 using VirtualAdvocatePI.Api.Domain.Users;
 using VirtualAdvocatePI.Api.Features.Evidence;
 using VirtualAdvocatePI.Api.Features.Ai;
+using VirtualAdvocatePI.Api.Features.Documents;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -1020,6 +1021,8 @@ app.MapEvidenceGapEndpoints();
 
 app.MapAiDraftEndpoints();
 
+app.MapGeneratedDocumentEndpoints();
+
 app.Run();
 
 static async Task<AppUser?> GetOrCreateCurrentUserAsync(
@@ -1398,6 +1401,7 @@ public sealed record UpdateQuestionResponseRequest(
     string? AnswerText,
     string? AnswerType
 );
+
 
 
 
