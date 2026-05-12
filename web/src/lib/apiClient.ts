@@ -597,3 +597,135 @@ export async function updateEvidenceGap(
 
   return (await response.json()) as EvidenceGap;
 }
+export type AiDraft = {
+  id: string;
+  claimWorkspaceId: string;
+  conditionId?: string | null;
+  draftType: string;
+  promptVersion: string;
+  sourceReferences?: string | null;
+  draftText: string;
+  userEditedText?: string | null;
+  reviewStatus: string;
+  approvedAt?: string | null;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CreateAiDraftInput = {
+  conditionId?: string;
+  draftType: string;
+  promptVersion?: string;
+  sourceReferences?: string;
+  draftText: string;
+  userEditedText?: string;
+  reviewStatus?: string;
+};
+
+export type UpdateAiDraftInput = {
+  draftType?: string;
+  promptVersion?: string;
+  sourceReferences?: string;
+  draftText?: string;
+  userEditedText?: string;
+  reviewStatus?: string;
+};
+
+export async function getWorkspaceAiDrafts(
+  idToken: string,
+  workspaceId: string,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/ai-drafts`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not load AI drafts.");
+  }
+
+  return (await response.json()) as AiDraft[];
+}
+
+export async function getConditionAiDrafts(
+  idToken: string,
+  workspaceId: string,
+  conditionId: string,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/ai-drafts`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not load condition AI drafts.");
+  }
+
+  return (await response.json()) as AiDraft[];
+}
+
+export async function createAiDraft(
+  idToken: string,
+  workspaceId: string,
+  input: CreateAiDraftInput,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/ai-drafts`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not create AI draft.");
+  }
+
+  return (await response.json()) as AiDraft;
+}
+
+export async function updateAiDraft(
+  idToken: string,
+  workspaceId: string,
+  draftId: string,
+  input: UpdateAiDraftInput,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/ai-drafts/${draftId}`,
+    {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not update AI draft.");
+  }
+
+  return (await response.json()) as AiDraft;
+}
