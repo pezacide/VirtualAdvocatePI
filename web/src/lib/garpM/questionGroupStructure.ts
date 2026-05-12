@@ -7,6 +7,7 @@ import {
 } from "@/lib/garpM/questionTemplateModel";
 import { diagnosisSymptomsTreatmentQuestions } from "@/lib/garpM/questionTemplates/diagnosisSymptomsTreatment";
 import { stabilityTreatmentResponseQuestions } from "@/lib/garpM/questionTemplates/stabilityTreatmentResponse";
+import { functionalLifestyleWorkImpactQuestions } from "@/lib/garpM/questionTemplates/functionalLifestyleWorkImpact";
 
 export type GarpMQuestionGroupMetadata = {
   groupKey: GarpMQuestionGroupKey;
@@ -102,6 +103,7 @@ export const orderedGarpMQuestionGroupKeys = garpMQuestionGroupMetadata
 const questionsByGroup: Partial<Record<GarpMQuestionGroupKey, GarpMQuestionTemplate[]>> = {
   DIAGNOSIS_SYMPTOMS_TREATMENT: diagnosisSymptomsTreatmentQuestions,
   STABILITY_TREATMENT_RESPONSE: stabilityTreatmentResponseQuestions,
+  FUNCTIONAL_LIFESTYLE_WORK_IMPACT: functionalLifestyleWorkImpactQuestions,
 };
 
 export function createGarpMQuestionGroups(): GarpMQuestionGroupTemplate[] {
