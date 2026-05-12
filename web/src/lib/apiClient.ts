@@ -405,3 +405,72 @@ export async function createEvidenceItem(
 
   return (await response.json()) as EvidenceItem;
 }
+export type EvidenceUploadUrlResponse = {
+  evidenceItem: EvidenceItem;
+  upload: {
+    method: string;
+    url: string;
+    expiresInMinutes: number;
+    requiredHeaders?: Record<string, string>;
+    note?: string;
+  };
+};
+
+export type CreateEvidenceUploadUrlInput = {
+  evidenceType: string;
+  originalFileName: string;
+  fileType?: string;
+  fileSize?: number;
+  documentDate?: string;
+  providerName?: string;
+  userNotes?: string;
+};
+
+export async function createEvidenceUploadUrl(
+  idToken: string,
+  workspaceId: string,
+  conditionId: string,
+  input: CreateEvidenceUploadUrlInput,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-upload-url`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(input),
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not create evidence upload URL.");
+  }
+
+  return (await response.json()) as EvidenceUploadUrlResponse;
+}
+
+export async function markEvidenceUploaded(
+  idToken: string,
+  workspaceId: string,
+  evidenceItemId: string,
+) {
+  const response = await fetch(
+    `${env.apiBaseUrl}/api/v1/claim-workspaces/${workspaceId}/evidence-items/${evidenceItemId}/mark-uploaded`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+        Accept: "application/json",
+      },
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not confirm evidence upload.");
+  }
+
+  return (await response.json()) as EvidenceItem;
+}
