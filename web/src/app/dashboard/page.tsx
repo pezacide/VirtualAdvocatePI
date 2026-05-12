@@ -1,15 +1,7 @@
 import Link from "next/link";
 import { AppHeader } from "@/components/AppHeader";
 import { AuthStatusPanel } from "@/components/AuthStatusPanel";
-
-const sampleWorkspaces = [
-  {
-    id: "demo-workspace-1",
-    title: "Post-2026 PI Claim Starter Pack",
-    status: "IN_PROGRESS",
-    scenario: "UNSURE",
-  },
-];
+import { DashboardWorkspaceList } from "@/components/DashboardWorkspaceList";
 
 export default function DashboardPage() {
   return (
@@ -24,7 +16,7 @@ export default function DashboardPage() {
             </p>
             <h1 className="mt-4 text-3xl font-bold">Claim workspaces</h1>
             <p className="mt-3 max-w-2xl text-slate-300">
-              This shell will list authenticated user claim workspaces from the backend.
+              View your claim preparation workspaces and continue building the evidence pack.
             </p>
           </div>
 
@@ -40,19 +32,8 @@ export default function DashboardPage() {
           <AuthStatusPanel />
         </section>
 
-        <section className="mt-8 grid gap-4">
-          {sampleWorkspaces.map((workspace) => (
-            <Link
-              key={workspace.id}
-              href={`/claim-workspaces/${workspace.id}`}
-              className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10"
-            >
-              <h2 className="text-xl font-semibold">{workspace.title}</h2>
-              <p className="mt-2 text-sm text-slate-300">
-                Status: {workspace.status} · Scenario: {workspace.scenario}
-              </p>
-            </Link>
-          ))}
+        <section className="mt-8">
+          <DashboardWorkspaceList />
         </section>
       </div>
     </main>
