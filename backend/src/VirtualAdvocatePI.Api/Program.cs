@@ -7,6 +7,7 @@ using VirtualAdvocatePI.Api.Domain.Users;
 using VirtualAdvocatePI.Api.Features.Evidence;
 using VirtualAdvocatePI.Api.Features.Ai;
 using VirtualAdvocatePI.Api.Features.Documents;
+using VirtualAdvocatePI.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,9 @@ builder.Services.AddDbContext<VirtualAdvocateDbContext>(options =>
 });
 
 builder.Services.AddSingleton<FirebaseAuthService>();
+builder.Services.AddScoped<CurrentUserService>();
+builder.Services.AddScoped<ClaimAccessService>();
+builder.Services.AddScoped<AuditService>();
 
 var app = builder.Build();
 
@@ -1401,6 +1405,7 @@ public sealed record UpdateQuestionResponseRequest(
     string? AnswerText,
     string? AnswerType
 );
+
 
 
 
