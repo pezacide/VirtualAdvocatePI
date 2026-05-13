@@ -9,6 +9,7 @@ import {
   ClaimCondition,
   EvidenceItem,
   createEvidenceUploadUrl,
+  createEvidenceDownloadUrl,
   getClaimConditions,
   getConditionEvidenceItems,
   markEvidenceUploaded,
@@ -50,6 +51,7 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
   const [isLoadingConditions, setIsLoadingConditions] = useState(false);
   const [isLoadingEvidence, setIsLoadingEvidence] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [openingEvidenceItemId, setOpeningEvidenceItemId] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -132,6 +134,35 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedConditionId]);
 
+
+  async function handleOpenEvidenceItem(evidenceItem: EvidenceItem) {
+    setStatusMessage("");
+    setErrorMessage("");
+    setOpeningEvidenceItemId(evidenceItem.id);
+
+    try {
+      const token = await getTokenOrSetError();
+
+      if (!token) {
+        return;
+      }
+
+      const downloadResponse = await createEvidenceDownloadUrl(
+        token,
+        workspaceId,
+        evidenceItem.id,
+      );
+
+      window.open(downloadResponse.url, "_blank", "noopener,noreferrer");
+      setStatusMessage("Evidence file opened in a new tab using a short-lived download link.");
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Could not open evidence file.";
+      setErrorMessage(message);
+    } finally {
+      setOpeningEvidenceItemId(null);
+    }
+  }
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -430,6 +461,19 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
                   <p>File type: {item.fileType || "Not recorded"}</p>
                   <p>File size: {item.fileSize ? `${Math.ceil(item.fileSize / 1024)} KB` : "Not recorded"}</p>
                 </div>
+
+                <button
+                  type="button"
+                  disabled={!item.uploadedAt || openingEvidenceItemId === item.id}
+                  onClick={() => handleOpenEvidenceItem(item)}
+                  className="mt-5 w-full rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-cyan-200 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {openingEvidenceItemId === item.id
+                    ? "Opening file..."
+                    : item.uploadedAt
+                      ? "Open file"
+                      : "File not uploaded yet"}
+                </button>
 
                 {item.userNotes && (
                   <p className="mt-4 text-sm leading-6 text-slate-400">{item.userNotes}</p>
