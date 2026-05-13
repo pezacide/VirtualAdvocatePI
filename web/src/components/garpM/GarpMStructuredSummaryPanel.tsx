@@ -45,6 +45,7 @@ export function GarpMStructuredSummaryPanel({
   const [isLoadingResponses, setIsLoadingResponses] = useState(false);
 
   const [statusMessage, setStatusMessage] = useState("");
+  const [copyStatusMessage, setCopyStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const allQuestions = useMemo(() => getAllQuestions(garpMQuestionGroupTemplateSet), []);
@@ -208,12 +209,15 @@ export function GarpMStructuredSummaryPanel({
 
   async function handleCopySummary() {
     setStatusMessage("");
+    setCopyStatusMessage("");
     setErrorMessage("");
 
     try {
       await navigator.clipboard.writeText(plainEnglishSummary);
       setStatusMessage("Summary copied to clipboard.");
+      setCopyStatusMessage("Copied to clipboard. You can now paste it into notes, an email, or another document.");
     } catch {
+      setCopyStatusMessage("Copy did not complete automatically. You can still select the text box and copy it manually.");
       setErrorMessage("Could not copy automatically. You can still select and copy the summary text manually.");
     }
   }
@@ -438,8 +442,14 @@ export function GarpMStructuredSummaryPanel({
               onClick={handleCopySummary}
               className="mt-5 w-full rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-cyan-200"
             >
-              Copy summary
+              {copyStatusMessage ? "Copied" : "Copy summary"}
             </button>
+
+            {copyStatusMessage && (
+              <div className="mt-4 rounded-xl border border-green-300/30 bg-green-300/10 p-4 text-sm text-green-100">
+                {copyStatusMessage}
+              </div>
+            )}
           </section>
         </>
       )}

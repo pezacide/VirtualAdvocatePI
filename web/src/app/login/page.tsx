@@ -166,9 +166,7 @@ function LoginContent() {
                       ? "rounded-xl bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950"
                       : "rounded-xl border border-white/20 px-4 py-2 text-sm font-semibold text-white"
                   }
-                >
-                  Sign in
-                </button>
+                >Existing account</button>
 
                 <button
                   type="button"
@@ -178,9 +176,7 @@ function LoginContent() {
                       ? "rounded-xl bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950"
                       : "rounded-xl border border-white/20 px-4 py-2 text-sm font-semibold text-white"
                   }
-                >
-                  Register
-                </button>
+                >New account</button>
               </div>
 
               <button
