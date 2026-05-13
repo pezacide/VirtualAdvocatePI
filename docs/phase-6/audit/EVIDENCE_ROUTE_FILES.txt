@@ -1,0 +1,10 @@
+Existing evidence-related route files
+
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\accepted-history\page.tsx
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\conditions\page.tsx
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-checklist\page.tsx
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-gaps\page.tsx
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-metadata\page.tsx
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-upload\page.tsx
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\garp-m-questions\page.tsx
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\garp-m-summary\page.tsx

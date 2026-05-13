@@ -1,0 +1,229 @@
+Evidence web API client audit
+
+Generated from web/src/lib/api search.
+
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\client.ts:3: export function getApiBaseUrl() {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\client.ts:4: if (!env.apiBaseUrl) {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\client.ts:5: throw new Error("NEXT_PUBLIC_API_BASE_URL is not configured.");
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\client.ts:8: return env.apiBaseUrl;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\client.ts:27: throw new Error("You are not signed in or your session has expired.");
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\client.ts:48: const response = await fetch(`${getApiBaseUrl()}${path}`, {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\client.ts:67: const response = await fetch(`${getApiBaseUrl()}${path}`, {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\client.ts:85: const response = await fetch(`${getApiBaseUrl()}${path}`, {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\client.ts:103: const response = await fetch(`${getApiBaseUrl()}${path}`, {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:1: import { apiGet, apiPost, apiPostNoBody, getAuthHeaders, getApiBaseUrl, handleApiError } from "@/lib/api/client";
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:3: export type EvidenceItem = {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:7: evidenceType: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:8: evidenceStatus: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:19: uploadedAt?: string | null;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:25: export type CreateEvidenceItemInput = {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:26: evidenceType: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:27: evidenceStatus: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:40: export type EvidenceUploadUrlResponse = {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:41: evidenceItem: EvidenceItem;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:42: upload: {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:44: url: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:51: export type CreateEvidenceUploadUrlInput = {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:52: evidenceType: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:61: export function getConditionEvidenceItems(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:66: return apiGet<EvidenceItem[]>(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:68: `/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-items`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:69: "Could not load evidence items.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:73: export function createEvidenceItem(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:77: input: CreateEvidenceItemInput,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:79: return apiPost<EvidenceItem, CreateEvidenceItemInput>(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:81: `/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-items`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:83: "Could not create evidence item.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:87: export function createEvidenceUploadUrl(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:91: input: CreateEvidenceUploadUrlInput,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:93: return apiPost<EvidenceUploadUrlResponse, CreateEvidenceUploadUrlInput>(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:95: `/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-upload-url`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:97: "Could not create evidence upload URL.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:101: export function markEvidenceUploaded(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:104: evidenceItemId: string,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:106: return apiPostNoBody<EvidenceItem>(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:108: `/api/v1/claim-workspaces/${workspaceId}/evidence-items/${evidenceItemId}/mark-uploaded`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:109: "Could not confirm evidence upload.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:113: export async function createEvidenceDownloadUrl(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:116: evidenceItemId: string,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:119: `${getApiBaseUrl()}/api/v1/claim-workspaces/${workspaceId}/evidence-items/${evidenceItemId}/download-url`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:127: await handleApiError(response, "Could not create evidence download URL.");
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:131: evidenceItemId: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:133: url: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:3: export type EvidenceGap = {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:7: gapType: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:8: gapStatus: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:17: export type RecalculateEvidenceGapsResponse = {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:20: gaps: EvidenceGap[];
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:23: export type UpdateEvidenceGapInput = {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:24: gapStatus?: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:30: export function getWorkspaceEvidenceGaps(idToken: string, workspaceId: string) {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:31: return apiGet<EvidenceGap[]>(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:33: `/api/v1/claim-workspaces/${workspaceId}/evidence-gaps`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:34: "Could not load evidence gaps.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:38: export function getConditionEvidenceGaps(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:43: return apiGet<EvidenceGap[]>(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:45: `/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-gaps`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:46: "Could not load condition evidence gaps.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:50: export function recalculateEvidenceGaps(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:55: return apiPostNoBody<RecalculateEvidenceGapsResponse>(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:57: `/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-gaps/recalculate`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:58: "Could not recalculate evidence gaps.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:62: export function updateEvidenceGap(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:66: gapId: string,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:67: input: UpdateEvidenceGapInput,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:69: return apiPatch<EvidenceGap, UpdateEvidenceGapInput>(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:71: `/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-gaps/${gapId}`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:73: "Could not update evidence gap.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\generatedDocuments.ts:13: downloadedAt?: string | null;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\generatedDocuments.ts:54: "Could not create generated document metadata.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\generatedDocuments.ts:68: "Could not update generated document metadata.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\index.ts:6: export * from "@/lib/api/evidence";
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\index.ts:7: export * from "@/lib/api/evidenceGaps";
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:19: evidenceCategory: "DIAGNOSIS",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:36: "This helps separate diagnosed, provisional, self-reported and uncertain information before evidence is organised.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:41: evidenceCategory: "DIAGNOSIS",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:63: evidenceCategory: "DIAGNOSIS",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:78: evidenceCategory: "SYMPTOMS",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:100: evidenceCategory: "SYMPTOMS",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:124: evidenceCategory: "SYMPTOMS",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:139: evidenceCategory: "TREATMENT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:154: evidenceCategory: "MEDICATION",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:170: evidenceCategory: "MEDICATION",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:187: evidenceCategory: "MEDICATION",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:203: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:204: summaryLabel: "Available medical evidence",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:211: questionText: "What diagnosis, treatment or medical evidence may still be missing?",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:213: "This helps prepare appointment questions and evidence gap prompts.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:218: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:219: summaryLabel: "Missing medical evidence",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:7: const evidenceCategoryOptions = [
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:8: { value: "DIAGNOSIS", label: "Diagnosis evidence" },
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:9: { value: "SYMPTOMS", label: "Symptoms evidence" },
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:10: { value: "TREATMENT", label: "Treatment evidence" },
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:11: { value: "MEDICATION", label: "Medication evidence" },
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:12: { value: "FUNCTIONAL_IMPACT", label: "Functional impact evidence" },
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:13: { value: "LIFESTYLE_IMPACT", label: "Lifestyle impact evidence" },
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:14: { value: "WORK_IMPACT", label: "Work impact evidence" },
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:15: { value: "WORSENING", label: "Worsening evidence" },
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:16: { value: "PREVIOUS_COMPENSATION", label: "Previous DVA or compensation evidence" },
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:21: export const evidenceAppointmentPrepQuestions: GarpMQuestionTemplate[] = [
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:23: id: "eap_existing_evidence_summary",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:24: groupKey: "EVIDENCE_APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:25: questionKey: "existing_evidence_summary",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:26: questionText: "What evidence do you already have for this condition?",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:33: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:34: summaryLabel: "Existing evidence",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:39: message: "Add a short description of existing evidence, or write that you do not have any yet.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:45: id: "eap_missing_evidence_summary",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:46: groupKey: "EVIDENCE_APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:47: questionKey: "missing_evidence_summary",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:48: questionText: "What evidence do you think is still missing?",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:55: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:56: summaryLabel: "Missing evidence",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:58: "This app does not decide what evidence DVA will require. It only helps organise possible gaps for discussion with a doctor, advocate, lawyer or support person.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:61: id: "eap_evidence_categories_missing",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:62: groupKey: "EVIDENCE_APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:63: questionKey: "evidence_categories_missing",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:64: questionText: "Which evidence categories may need more work?",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:71: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:72: summaryLabel: "Evidence categories needing work",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:73: options: evidenceCategoryOptions,
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:78: groupKey: "EVIDENCE_APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:87: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:93: groupKey: "EVIDENCE_APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:102: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:108: groupKey: "EVIDENCE_APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:117: evidenceCategory: "APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:125: groupKey: "EVIDENCE_APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:134: evidenceCategory: "APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:141: groupKey: "EVIDENCE_APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:145: "Examples include pathway questions, missing DVA letters, previous decisions, evidence organisation, timeframes, forms or next steps.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:150: evidenceCategory: "APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:157: groupKey: "EVIDENCE_APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:161: "Write short reminders about symptoms, treatment, impact, worsening, missing evidence or documents to request.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:166: evidenceCategory: "APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:172: groupKey: "EVIDENCE_APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:176: "Examples include requesting records, uploading evidence, booking another appointment, asking for a report, updating notes, or speaking with an advocate or lawyer.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:181: evidenceCategory: "APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:186: id: "eap_upload_priority",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:187: groupKey: "EVIDENCE_APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:188: questionKey: "upload_priority",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:189: questionText: "Which evidence should be uploaded or organised first?",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:191: "List the highest priority items. This helps prepare the evidence metadata and upload steps.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:196: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:197: summaryLabel: "Evidence upload priority",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:202: groupKey: "EVIDENCE_APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:204: questionText: "How confident are you that the evidence picture is clear?",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:211: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:212: summaryLabel: "User confidence in evidence picture",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:20: evidenceCategory: "FUNCTIONAL_IMPACT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:42: evidenceCategory: "FUNCTIONAL_IMPACT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:58: evidenceCategory: "FUNCTIONAL_IMPACT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:73: evidenceCategory: "FUNCTIONAL_IMPACT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:88: evidenceCategory: "LIFESTYLE_IMPACT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:103: evidenceCategory: "LIFESTYLE_IMPACT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:118: evidenceCategory: "WORK_IMPACT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:133: evidenceCategory: "WORK_IMPACT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:149: evidenceCategory: "FUNCTIONAL_IMPACT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:164: evidenceCategory: "FUNCTIONAL_IMPACT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:169: id: "flw_impact_evidence_available",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:171: questionKey: "impact_evidence_available",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:172: questionText: "What evidence or notes show this functional, lifestyle or work impact?",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:179: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:180: summaryLabel: "Impact evidence available",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:194: evidenceCategory: "APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:20: evidenceCategory: "STABILITY",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:36: evidenceCategory: "STABILITY",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:51: evidenceCategory: "SYMPTOMS",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:66: evidenceCategory: "TREATMENT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:90: evidenceCategory: "TREATMENT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:106: evidenceCategory: "TREATMENT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:123: evidenceCategory: "TREATMENT",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:139: evidenceCategory: "STABILITY",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:146: id: "str_stability_evidence_available",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:148: questionKey: "stability_evidence_available",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:149: questionText: "What evidence shows the current stability or treatment response?",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:156: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:157: summaryLabel: "Stability and treatment evidence",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:171: evidenceCategory: "APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:19: evidenceCategory: "PREVIOUS_COMPENSATION",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:36: evidenceCategory: "PREVIOUS_COMPENSATION",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:59: evidenceCategory: "PREVIOUS_COMPENSATION",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:75: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:91: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:107: evidenceCategory: "PREVIOUS_COMPENSATION",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:122: evidenceCategory: "PREVIOUS_COMPENSATION",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:137: evidenceCategory: "WORSENING",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:154: evidenceCategory: "WORSENING",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:176: evidenceCategory: "WORSENING",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:181: id: "wpc_worsening_evidence",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:183: questionKey: "worsening_evidence",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:184: questionText: "What evidence may show the worsening or change?",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:191: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:192: summaryLabel: "Worsening evidence",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:206: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:216: "Write down questions about previous decisions, missing letters, updated evidence, worsening history or appointment preparation.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:221: evidenceCategory: "APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\index.ts:7: export * from "@/lib/garpM/questionTemplates/evidenceAppointmentPrep";
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:12: import { evidenceAppointmentPrepQuestions } from "@/lib/garpM/questionTemplates/evidenceAppointmentPrep";
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:14: export type GarpMQuestionGroupMetadata = {
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:25: export const garpMQuestionGroupMetadata: GarpMQuestionGroupMetadata[] = [
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:46: "This helps identify whether the evidence describes the current state of the condition clearly enough.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:75: groupKey: "EVIDENCE_APPOINTMENT_PREP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:76: routeSegment: "evidence-appointment-prep",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:77: title: "Evidence gaps and appointment preparation",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:78: shortTitle: "Evidence and appointments",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:80: "Capture what evidence exists, what is missing, what needs to be requested, and what questions should be asked at appointments.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:100: export const orderedGarpMQuestionGroupKeys = garpMQuestionGroupMetadata
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:110: EVIDENCE_APPOINTMENT_PREP: evidenceAppointmentPrepQuestions,
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:114: return garpMQuestionGroupMetadata
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:131: "A structured question engine for condition information, symptoms, treatment, stability, impact, worsening history, evidence gaps and appointment preparation.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:136: export function getGarpMQuestionGroupMetadata(groupKey: GarpMQuestionGroupKey) {
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:137: return garpMQuestionGroupMetadata.find((group) => group.groupKey === groupKey) ?? null;
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplateModel.ts:16: | "EVIDENCE_APPOINTMENT_PREP"
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplateModel.ts:23: export type GarpMEvidenceCategory =
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplateModel.ts:35: | "EVIDENCE_GAP"
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplateModel.ts:61: evidenceCategory: GarpMEvidenceCategory;
+C:\Projects\VirtualAdvocatePI\web\src\lib\env.ts:2: apiBaseUrl: process.env.NEXT_PUBLIC_API_BASE_URL ?? "",
+C:\Projects\VirtualAdvocatePI\web\src\lib\env.ts:25: NEXT_PUBLIC_API_BASE_URL: env.apiBaseUrl,

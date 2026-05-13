@@ -1,0 +1,358 @@
+Evidence web route audit
+
+Generated from web/src route and component search.
+
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-checklist\page.tsx:3: import { EvidenceChecklistShell } from "@/components/EvidenceChecklistShell";
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-checklist\page.tsx:5: type EvidenceChecklistPageProps = {
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-checklist\page.tsx:11: export default async function EvidenceChecklistPage({
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-checklist\page.tsx:13: }: EvidenceChecklistPageProps) {
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-checklist\page.tsx:29: <EvidenceChecklistShell workspaceId={workspaceId} />
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-gaps\page.tsx:3: import { EvidenceGapTrackerPanel } from "@/components/EvidenceGapTrackerPanel";
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-gaps\page.tsx:5: type EvidenceGapsPageProps = {
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-gaps\page.tsx:11: export default async function EvidenceGapsPage({ params }: EvidenceGapsPageProps) {
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-gaps\page.tsx:27: <EvidenceGapTrackerPanel workspaceId={workspaceId} />
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-metadata\page.tsx:3: import { EvidenceMetadataPanel } from "@/components/EvidenceMetadataPanel";
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-metadata\page.tsx:5: type EvidenceMetadataPageProps = {
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-metadata\page.tsx:11: export default async function EvidenceMetadataPage({
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-metadata\page.tsx:13: }: EvidenceMetadataPageProps) {
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-metadata\page.tsx:29: <EvidenceMetadataPanel workspaceId={workspaceId} />
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-upload\page.tsx:3: import { EvidenceUploadPanel } from "@/components/EvidenceUploadPanel";
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-upload\page.tsx:5: type EvidenceUploadPageProps = {
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-upload\page.tsx:11: export default async function EvidenceUploadPage({
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-upload\page.tsx:13: }: EvidenceUploadPageProps) {
+C:\Projects\VirtualAdvocatePI\web\src\app\claim-workspaces\[workspaceId]\evidence-upload\page.tsx:29: <EvidenceUploadPanel workspaceId={workspaceId} />
+C:\Projects\VirtualAdvocatePI\web\src\app\dashboard\page.tsx:12: <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+C:\Projects\VirtualAdvocatePI\web\src\app\login\page.tsx:111: <div className="mt-5 flex flex-wrap gap-3">
+C:\Projects\VirtualAdvocatePI\web\src\app\login\page.tsx:160: <div className="flex flex-wrap gap-3">
+C:\Projects\VirtualAdvocatePI\web\src\app\layout.tsx:1: import type { Metadata } from "next";
+C:\Projects\VirtualAdvocatePI\web\src\app\layout.tsx:5: export const metadata: Metadata = {
+C:\Projects\VirtualAdvocatePI\web\src\app\page.tsx:16: Build an evidence-ready claim workspace, organise conditions, track evidence gaps,
+C:\Projects\VirtualAdvocatePI\web\src\app\page.tsx:20: <div className="mt-10 flex flex-wrap gap-4">
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionEnginePanel.tsx:17: garpMQuestionGroupMetadata,
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionEnginePanel.tsx:78: case "EVIDENCE_GAP":
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionEnginePanel.tsx:473: <div className="mt-6 grid gap-4 md:grid-cols-4">
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionEnginePanel.tsx:505: <div className="mt-6 grid gap-3 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionEnginePanel.tsx:507: const metadata = garpMQuestionGroupMetadata.find(
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionEnginePanel.tsx:525: <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionEnginePanel.tsx:529: {metadata?.whyThisMatters ?? group.description}
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionEnginePanel.tsx:538: <div className="mt-4 grid gap-2 text-xs text-slate-400 sm:grid-cols-3">
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionEnginePanel.tsx:582: <div className="mt-6 grid gap-4 md:grid-cols-4">
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionRenderer.tsx:99: <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionRenderer.tsx:114: <div className="flex flex-wrap gap-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionRenderer.tsx:209: <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionRenderer.tsx:259: <div className="grid gap-3 sm:grid-cols-3">
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionRenderer.tsx:307: <div className="grid gap-3">
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMQuestionRenderer.tsx:311: className="flex cursor-pointer items-start gap-3 rounded-xl border border-white/10 bg-slate-950 p-4 text-sm text-slate-200"
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMStructuredSummaryPanel.tsx:327: <div className="mt-6 grid gap-4 md:grid-cols-4">
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMStructuredSummaryPanel.tsx:374: <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMWorkspaceLinks.tsx:25: <div className="mt-6 grid gap-4 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\garpM\GarpMWorkspaceLinks.tsx:36: functional impact, lifestyle impact, work impact, worsening history, evidence gaps
+C:\Projects\VirtualAdvocatePI\web\src\components\AcceptedConditionHistoryPanel.tsx:271: <div className="grid gap-5 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\AcceptedConditionHistoryPanel.tsx:321: <div className="grid gap-5 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\AcceptedConditionHistoryPanel.tsx:395: <div className="mt-6 grid gap-4">
+C:\Projects\VirtualAdvocatePI\web\src\components\AcceptedConditionHistoryPanel.tsx:398: <div className="grid gap-3 text-sm text-slate-300 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:23: "EVIDENCE_GAP_SUMMARY",
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:220: setStatusMessage("AI draft metadata created.");
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:279: setSourceReferences("Condition intake, guided questions, evidence metadata");
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:287: setSourceReferences("Condition intake, evidence gaps");
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:291: if (templateType === "EVIDENCE_GAP_SUMMARY") {
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:293: "Draft evidence gap summary placeholder. Summarise missing or incomplete evidence in plain English and list possible next steps for the user to discuss with a doctor, advocate, lawyer or support person.",
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:295: setSourceReferences("Evidence gap tracker");
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:347: current UI stores draft metadata, edited text and review status using the backend.
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:350: <div className="mt-8 grid gap-4 md:grid-cols-5">
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:358: <div className="mt-8 grid gap-5 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:431: Create draft metadata
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:436: <div className="mt-6 flex flex-wrap gap-3">
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:437: {["VETERAN_STATEMENT", "DOCTOR_APPOINTMENT_QUESTIONS", "EVIDENCE_GAP_SUMMARY"].map(
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:472: {isCreating ? "Creating draft..." : "Create draft metadata"}
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:485: <p className="mt-6 text-slate-300">No AI draft metadata has been created yet.</p>
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:487: <div className="mt-6 grid gap-4">
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:499: <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:596: <div className="grid gap-5 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\AiDraftReviewPanel.tsx:660: placeholder="Example: condition intake, guided questions, evidence gaps"
+C:\Projects\VirtualAdvocatePI\web\src\components\AppHeader.tsx:15: <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+C:\Projects\VirtualAdvocatePI\web\src\components\AppHeader.tsx:20: <nav className="flex flex-wrap items-center gap-3 text-sm">
+C:\Projects\VirtualAdvocatePI\web\src\components\ClaimWorkspaceDetailPanel.tsx:113: <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+C:\Projects\VirtualAdvocatePI\web\src\components\ClaimWorkspaceDetailPanel.tsx:119: evidence, gaps and draft documents.
+C:\Projects\VirtualAdvocatePI\web\src\components\ClaimWorkspaceDetailPanel.tsx:128: <div className="mt-8 grid gap-4 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\ConditionIntakePanel.tsx:174: <div className="grid gap-5 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\ConditionIntakePanel.tsx:196: <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
+C:\Projects\VirtualAdvocatePI\web\src\components\ConditionIntakePanel.tsx:281: <label className="flex items-center gap-3 rounded-xl border border-white/10 bg-slate-900 p-4 text-sm text-slate-200">
+C:\Projects\VirtualAdvocatePI\web\src\components\ConditionIntakePanel.tsx:322: <div className="mt-6 grid gap-4">
+C:\Projects\VirtualAdvocatePI\web\src\components\ConditionIntakePanel.tsx:328: <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+C:\Projects\VirtualAdvocatePI\web\src\components\DashboardWorkspaceList.tsx:105: <div className="grid gap-4">
+C:\Projects\VirtualAdvocatePI\web\src\components\DashboardWorkspaceList.tsx:112: <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+C:\Projects\VirtualAdvocatePI\web\src\components\DatePickerInput.tsx:23: <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceChecklistShell.tsx:3: type EvidenceChecklistShellProps = {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceChecklistShell.tsx:68: "Evidence gaps to ask about",
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceChecklistShell.tsx:75: export function EvidenceChecklistShell({ workspaceId }: EvidenceChecklistShellProps) {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceChecklistShell.tsx:96: <section className="grid gap-5">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceChecklistShell.tsx:108: <div className="mt-5 grid gap-3">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceChecklistShell.tsx:112: className="flex items-start gap-3 rounded-xl border border-white/10 bg-slate-900 p-4 text-sm text-slate-200"
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceChecklistShell.tsx:134: <div className="mt-6 grid gap-4 md:grid-cols-3">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceChecklistShell.tsx:136: <h3 className="font-semibold">Evidence metadata</h3>
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceChecklistShell.tsx:143: <h3 className="font-semibold">Evidence upload</h3>
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceChecklistShell.tsx:145: Generate upload URLs and attach files to the workspace.
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceChecklistShell.tsx:150: <h3 className="font-semibold">Evidence gaps</h3>
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:8: EvidenceGap,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:10: getConditionEvidenceGaps,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:11: getWorkspaceEvidenceGaps,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:12: recalculateEvidenceGaps,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:13: updateEvidenceGap,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:16: type EvidenceGapTrackerPanelProps = {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:20: const gapStatusOptions = [
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:33: export function EvidenceGapTrackerPanel({ workspaceId }: EvidenceGapTrackerPanelProps) {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:38: const [workspaceGaps, setWorkspaceGaps] = useState<EvidenceGap[]>([]);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:39: const [conditionGaps, setConditionGaps] = useState<EvidenceGap[]>([]);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:42: const [isLoadingGaps, setIsLoadingGaps] = useState(false);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:44: const [updatingGapId, setUpdatingGapId] = useState("");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:54: const activeGaps = workspaceGaps.filter((gap) => gap.status !== "ARCHIVED");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:57: total: activeGaps.length,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:58: high: activeGaps.filter((gap) => gap.severity === "HIGH").length,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:59: medium: activeGaps.filter((gap) => gap.severity === "MEDIUM").length,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:60: low: activeGaps.filter((gap) => gap.severity === "LOW").length,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:61: open: activeGaps.filter((gap) => gap.gapStatus === "OPEN").length,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:62: resolved: activeGaps.filter((gap) => gap.gapStatus === "RESOLVED").length,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:64: }, [workspaceGaps]);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:107: async function loadWorkspaceGaps() {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:119: const rows = await getWorkspaceEvidenceGaps(token, workspaceId);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:120: setWorkspaceGaps(sortGaps(rows));
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:123: error instanceof Error ? error.message : "Could not load workspace evidence gaps.";
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:128: async function loadConditionGaps(conditionId: string) {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:133: setIsLoadingGaps(true);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:143: const rows = await getConditionEvidenceGaps(token, workspaceId, conditionId);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:144: setConditionGaps(sortGaps(rows));
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:147: error instanceof Error ? error.message : "Could not load condition evidence gaps.";
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:150: setIsLoadingGaps(false);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:156: loadWorkspaceGaps();
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:162: loadConditionGaps(selectedConditionId);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:180: setErrorMessage("Select a condition before recalculating evidence gaps.");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:184: const result = await recalculateEvidenceGaps(
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:190: setStatusMessage(`Evidence gaps recalculated. ${result.createdCount} gap(s) created.`);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:191: await loadConditionGaps(selectedConditionId);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:192: await loadWorkspaceGaps();
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:195: error instanceof Error ? error.message : "Could not recalculate evidence gaps.";
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:202: async function handleStatusChange(gap: EvidenceGap, nextStatus: string) {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:205: setUpdatingGapId(gap.id);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:214: await updateEvidenceGap(token, workspaceId, gap.conditionId, gap.id, {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:215: gapStatus: nextStatus,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:218: setStatusMessage("Evidence gap status updated.");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:219: await loadConditionGaps(selectedConditionId);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:220: await loadWorkspaceGaps();
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:223: error instanceof Error ? error.message : "Could not update evidence gap.";
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:226: setUpdatingGapId("");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:243: Sign in before using the evidence gap tracker.
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:268: Evidence gaps are calculated against a specific condition.
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:284: Evidence gap tracker
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:287: <h1 className="mt-4 text-3xl font-bold">Review evidence gaps</h1>
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:294: <div className="mt-8 grid gap-4 md:grid-cols-5">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:295: <SummaryCard label="Total gaps" value={summary.total} />
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:327: {isRecalculating ? "Recalculating gaps..." : "Recalculate evidence gaps"}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:345: Condition gaps
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:352: {isLoadingGaps ? (
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:353: <p className="mt-6 text-slate-300">Loading evidence gaps...</p>
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:354: ) : conditionGaps.length === 0 ? (
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:356: No evidence gaps have been calculated for this condition yet. Use the recalculate
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:360: <div className="mt-6 grid gap-4">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:361: {conditionGaps.map((gap) => (
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:363: key={gap.id}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:366: <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:368: <div className="flex flex-wrap gap-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:370: {gap.gapType}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:374: {gap.severity}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:378: {gap.gapStatus}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:383: {gap.plainEnglishExplanation}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:386: {gap.suggestedNextStep && (
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:388: Suggested next step: {gap.suggestedNextStep}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:395: htmlFor={`gap-status-${gap.id}`}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:398: Gap status
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:402: id={`gap-status-${gap.id}`}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:403: value={gap.gapStatus}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:404: disabled={updatingGapId === gap.id}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:405: onChange={(event) => handleStatusChange(gap, event.target.value)}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:408: {gapStatusOptions.map((status) => (
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:423: Preparation support only. Evidence gaps are plain-English prompts to help organise
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:431: function sortGaps(gaps: EvidenceGap[]) {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:432: return [...gaps].sort((a, b) => {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceGapTrackerPanel.tsx:440: return a.gapType.localeCompare(b.gapType);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:16: type EvidenceMetadataPanelProps = {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:38: "LISTED_NOT_UPLOADED",
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:39: "UPLOADED",
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:45: export function EvidenceMetadataPanel({ workspaceId }: EvidenceMetadataPanelProps) {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:53: const [evidenceStatus, setEvidenceStatus] = useState("LISTED_NOT_UPLOADED");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:56: const [documentDate, setDocumentDate] = useState("");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:161: setErrorMessage("Select a condition before adding evidence metadata.");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:170: documentDate: documentDate || undefined,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:177: setEvidenceStatus("LISTED_NOT_UPLOADED");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:180: setDocumentDate("");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:185: setStatusMessage("Evidence metadata saved.");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:189: error instanceof Error ? error.message : "Could not save evidence metadata.";
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:209: Sign in before adding evidence metadata.
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:234: Evidence metadata is recorded against a specific condition.
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:252: Evidence metadata
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:259: belongs to. File upload is handled in the next task.
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:282: <div className="grid gap-5 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:300: <div className="grid gap-5 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:330: <div className="grid gap-5 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:332: <label htmlFor="documentDate" className="text-sm font-medium text-slate-200">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:335: <DatePickerInput id="documentDate" value={documentDate} onChange={setDocumentDate} />
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:367: <label className="flex items-center gap-3 rounded-xl border border-white/10 bg-slate-900 p-4 text-sm text-slate-200">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:393: {isSubmitting ? "Saving evidence..." : "Save evidence metadata"}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:411: No evidence metadata has been saved for this condition yet.
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:414: <div className="mt-6 grid gap-4">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:417: <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:433: <div className="mt-4 grid gap-2 text-sm text-slate-400 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:435: <p>Document date: {item.documentDate || "Not recorded"}</p>
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:437: <p>Uploaded: {item.uploadedAt ? "Yes" : "No"}</p>
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:450: Preparation support only. Evidence metadata helps organise documents and notes.
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceMetadataPanel.tsx:451: It does not upload files yet, submit material to DVA, provide legal advice, provide medical
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:11: createEvidenceUploadUrl,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:14: markEvidenceUploaded,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:17: type EvidenceUploadPanelProps = {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:37: export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:45: const [documentDate, setDocumentDate] = useState("");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:52: const [isUploading, setIsUploading] = useState(false);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:140: setIsUploading(true);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:150: setErrorMessage("Select a condition before uploading evidence.");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:155: setErrorMessage("Choose a file before uploading.");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:159: const uploadResponse = await createEvidenceUploadUrl(
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:168: documentDate: documentDate || undefined,
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:174: const putResponse = await fetch(uploadResponse.upload.url, {
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:180: throw new Error(`Cloud Storage upload failed. HTTP ${putResponse.status}`);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:183: await markEvidenceUploaded(token, workspaceId, uploadResponse.evidenceItem.id);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:186: setDocumentDate("");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:196: setStatusMessage("Evidence file uploaded and confirmed.");
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:200: error instanceof Error ? error.message : "Could not upload evidence file.";
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:203: setIsUploading(false);
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:219: <p className="mt-2 text-sm">Sign in before uploading evidence.</p>
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:243: Evidence uploads are attached to a specific condition.
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:261: Evidence upload
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:264: <h1 className="mt-4 text-3xl font-bold">Upload an evidence file</h1>
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:267: Upload a file directly to secure Cloud Storage using a short-lived signed upload URL.
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:268: After upload, the app confirms the evidence item with the backend.
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:291: <div className="grid gap-5 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:312: <label htmlFor="documentDate" className="text-sm font-medium text-slate-200">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:316: <DatePickerInput id="documentDate" value={documentDate} onChange={setDocumentDate} />
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:384: disabled={isUploading}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:387: {isUploading ? "Uploading evidence..." : "Upload evidence file"}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:394: Uploaded and listed evidence
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:405: No evidence has been listed or uploaded for this condition yet.
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:408: <div className="mt-6 grid gap-4">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:411: <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:423: {item.uploadedAt ? "UPLOADED" : "NOT UPLOADED"}
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:427: <div className="mt-4 grid gap-2 text-sm text-slate-400 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:429: <p>Document date: {item.documentDate || "Not recorded"}</p>
+C:\Projects\VirtualAdvocatePI\web\src\components\EvidenceUploadPanel.tsx:444: Preparation support only. Uploading evidence stores a file for preparation use inside this
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:21: "EVIDENCE_GAP_SUMMARY",
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:163: setStatusMessage("Generated document metadata created.");
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:169: : "Could not create generated document metadata.";
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:205: setStatusMessage("Generated document metadata updated.");
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:211: : "Could not update generated document metadata.";
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:283: <h1 className="mt-4 text-3xl font-bold">Document metadata list</h1>
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:286: Track generated document records for this workspace. This UI stores document metadata
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:290: <div className="mt-8 grid gap-4 md:grid-cols-5">
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:313: Create metadata
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:339: {isCreating ? "Creating document metadata..." : "Create document metadata"}
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:353: No generated document metadata has been created yet.
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:356: <div className="mt-6 grid gap-4">
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:368: <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:384: <div className="mt-4 grid gap-2 text-sm text-slate-400 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:402: <h2 className="mt-4 text-2xl font-bold">Update document metadata</h2>
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:404: <div className="mt-6 flex flex-wrap gap-3">
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:454: {isUpdating ? "Saving document metadata..." : "Save document metadata"}
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:461: Preparation support only. Generated document records are metadata only at this stage.
+C:\Projects\VirtualAdvocatePI\web\src\components\GeneratedDocumentListPanel.tsx:500: <div className="grid gap-5 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\GuidedQuestionResponsePanel.tsx:245: AI draft metadata and generated preparation documents.
+C:\Projects\VirtualAdvocatePI\web\src\components\GuidedQuestionResponsePanel.tsx:268: <div className="grid gap-5 md:grid-cols-2">
+C:\Projects\VirtualAdvocatePI\web\src\components\GuidedQuestionResponsePanel.tsx:386: <div className="mt-6 grid gap-4">
+C:\Projects\VirtualAdvocatePI\web\src\components\GuidedQuestionResponsePanel.tsx:389: <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+C:\Projects\VirtualAdvocatePI\web\src\components\NewClaimPathwaySelector.tsx:31: "Use this when the main goal is organising documents, notes, gaps and questions before speaking with support.",
+C:\Projects\VirtualAdvocatePI\web\src\components\NewClaimPathwaySelector.tsx:123: <div className="mt-4 grid gap-4">
+C:\Projects\VirtualAdvocatePI\web\src\components\NewClaimPathwaySelector.tsx:133: <div className="flex gap-3">
+C:\Projects\VirtualAdvocatePI\web\src\components\WorkspaceToolNavigationPanel.tsx:29: hrefSuffix: "evidence-checklist",
+C:\Projects\VirtualAdvocatePI\web\src\components\WorkspaceToolNavigationPanel.tsx:33: title: "Evidence metadata",
+C:\Projects\VirtualAdvocatePI\web\src\components\WorkspaceToolNavigationPanel.tsx:35: hrefSuffix: "evidence-metadata",
+C:\Projects\VirtualAdvocatePI\web\src\components\WorkspaceToolNavigationPanel.tsx:39: title: "Evidence upload",
+C:\Projects\VirtualAdvocatePI\web\src\components\WorkspaceToolNavigationPanel.tsx:40: description: "Upload or prepare evidence files for this workspace.",
+C:\Projects\VirtualAdvocatePI\web\src\components\WorkspaceToolNavigationPanel.tsx:41: hrefSuffix: "evidence-upload",
+C:\Projects\VirtualAdvocatePI\web\src\components\WorkspaceToolNavigationPanel.tsx:45: title: "Evidence gaps",
+C:\Projects\VirtualAdvocatePI\web\src\components\WorkspaceToolNavigationPanel.tsx:47: hrefSuffix: "evidence-gaps",
+C:\Projects\VirtualAdvocatePI\web\src\components\WorkspaceToolNavigationPanel.tsx:52: description: "Work through structured preparation questions about symptoms, treatment, stability, impact, worsening and evidence gaps.",
+C:\Projects\VirtualAdvocatePI\web\src\components\WorkspaceToolNavigationPanel.tsx:70: description: "Review generated document metadata and prepared document outputs.",
+C:\Projects\VirtualAdvocatePI\web\src\components\WorkspaceToolNavigationPanel.tsx:100: <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+C:\Projects\VirtualAdvocatePI\web\src\components\WorkspaceToolNavigationPanel.tsx:107: <div className="flex items-start justify-between gap-4">
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:13: documentDate?: string | null;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:19: uploadedAt?: string | null;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:32: documentDate?: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:40: export type EvidenceUploadUrlResponse = {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:42: upload: {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:51: export type CreateEvidenceUploadUrlInput = {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:56: documentDate?: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:87: export function createEvidenceUploadUrl(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:91: input: CreateEvidenceUploadUrlInput,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:93: return apiPost<EvidenceUploadUrlResponse, CreateEvidenceUploadUrlInput>(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:95: `/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-upload-url`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:97: "Could not create evidence upload URL.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:101: export function markEvidenceUploaded(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:108: `/api/v1/claim-workspaces/${workspaceId}/evidence-items/${evidenceItemId}/mark-uploaded`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidence.ts:109: "Could not confirm evidence upload.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:3: export type EvidenceGap = {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:7: gapType: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:8: gapStatus: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:17: export type RecalculateEvidenceGapsResponse = {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:20: gaps: EvidenceGap[];
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:23: export type UpdateEvidenceGapInput = {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:24: gapStatus?: string;
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:30: export function getWorkspaceEvidenceGaps(idToken: string, workspaceId: string) {
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:31: return apiGet<EvidenceGap[]>(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:33: `/api/v1/claim-workspaces/${workspaceId}/evidence-gaps`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:34: "Could not load evidence gaps.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:38: export function getConditionEvidenceGaps(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:43: return apiGet<EvidenceGap[]>(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:45: `/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-gaps`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:46: "Could not load condition evidence gaps.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:50: export function recalculateEvidenceGaps(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:55: return apiPostNoBody<RecalculateEvidenceGapsResponse>(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:57: `/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-gaps/recalculate`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:58: "Could not recalculate evidence gaps.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:62: export function updateEvidenceGap(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:66: gapId: string,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:67: input: UpdateEvidenceGapInput,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:69: return apiPatch<EvidenceGap, UpdateEvidenceGapInput>(
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:71: `/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}/evidence-gaps/${gapId}`,
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\evidenceGaps.ts:73: "Could not update evidence gap.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\generatedDocuments.ts:54: "Could not create generated document metadata.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\generatedDocuments.ts:68: "Could not update generated document metadata.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\api\index.ts:7: export * from "@/lib/api/evidenceGaps";
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:203: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:213: "This helps prepare appointment questions and evidence gap prompts.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\diagnosisSymptomsTreatment.ts:218: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:33: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:55: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:58: "This app does not decide what evidence DVA will require. It only helps organise possible gaps for discussion with a doctor, advocate, lawyer or support person.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:71: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:87: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:102: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:176: "Examples include requesting records, uploading evidence, booking another appointment, asking for a report, updating notes, or speaking with an advocate or lawyer.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:186: id: "eap_upload_priority",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:188: questionKey: "upload_priority",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:189: questionText: "Which evidence should be uploaded or organised first?",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:191: "List the highest priority items. This helps prepare the evidence metadata and upload steps.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:196: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:197: summaryLabel: "Evidence upload priority",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\evidenceAppointmentPrep.ts:211: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\functionalLifestyleWorkImpact.ts:179: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\stabilityTreatmentResponse.ts:156: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:75: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:91: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:191: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplates\worseningPreviousCompensation.ts:206: evidenceCategory: "EVIDENCE_GAP",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:14: export type GarpMQuestionGroupMetadata = {
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:25: export const garpMQuestionGroupMetadata: GarpMQuestionGroupMetadata[] = [
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:77: title: "Evidence gaps and appointment preparation",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:100: export const orderedGarpMQuestionGroupKeys = garpMQuestionGroupMetadata
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:114: return garpMQuestionGroupMetadata
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:131: "A structured question engine for condition information, symptoms, treatment, stability, impact, worsening history, evidence gaps and appointment preparation.",
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:136: export function getGarpMQuestionGroupMetadata(groupKey: GarpMQuestionGroupKey) {
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionGroupStructure.ts:137: return garpMQuestionGroupMetadata.find((group) => group.groupKey === groupKey) ?? null;
+C:\Projects\VirtualAdvocatePI\web\src\lib\garpM\questionTemplateModel.ts:35: | "EVIDENCE_GAP"
