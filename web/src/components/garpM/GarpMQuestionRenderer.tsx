@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import {
   GarpMQuestionGroupTemplate,
   GarpMQuestionOption,
@@ -163,6 +164,7 @@ function QuestionInput({
   disabled,
   onAnswerChange,
 }: QuestionInputProps) {
+  const dateInputRef = useRef<HTMLInputElement>(null);
   const stringValue = getStringAnswerValue(value);
   const options = getQuestionOptions(question);
 
@@ -192,13 +194,36 @@ function QuestionInput({
 
   if (question.answerType === "DATE") {
     return (
-      <input
-        type="date"
-        value={stringValue}
-        disabled={disabled}
-        onChange={(event) => onAnswerChange(question.id, event.target.value)}
-        className="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white outline-none focus:border-cyan-300 disabled:opacity-60"
-      />
+      <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
+        <input
+          ref={dateInputRef}
+          type="date"
+          value={stringValue}
+          disabled={disabled}
+          onChange={(event) => onAnswerChange(question.id, event.target.value)}
+          className="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white outline-none focus:border-cyan-300 disabled:opacity-60"
+        />
+
+        <button
+          type="button"
+          disabled={disabled}
+          onClick={() => {
+            const dateInput = dateInputRef.current as
+              | (HTMLInputElement & { showPicker?: () => void })
+              | null;
+
+            if (dateInput?.showPicker) {
+              dateInput.showPicker();
+              return;
+            }
+
+            dateInput?.focus();
+          }}
+          className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-cyan-200 disabled:opacity-60"
+        >
+          Choose date
+        </button>
+      </div>
     );
   }
 
