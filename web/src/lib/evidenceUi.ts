@@ -26,6 +26,36 @@ export const evidenceStatusLabels: Record<string, string> = {
   ARCHIVED: "Archived",
 };
 
+export const evidenceTypeOptions = [
+  { value: "MEDICAL_REPORT", label: "Medical report", category: "Medical" },
+  { value: "GP_REPORT", label: "GP report", category: "Medical" },
+  { value: "SPECIALIST_REPORT", label: "Specialist report", category: "Medical" },
+  { value: "ALLIED_HEALTH_REPORT", label: "Allied health report", category: "Medical" },
+  { value: "IMAGING_REPORT", label: "Imaging report", category: "Medical" },
+  { value: "TEST_RESULT", label: "Test result", category: "Medical" },
+  { value: "MEDICATION_LIST", label: "Medication list", category: "Treatment" },
+  { value: "TREATMENT_PLAN", label: "Treatment plan", category: "Treatment" },
+  { value: "DVA_LETTER", label: "DVA letter", category: "DVA" },
+  { value: "SERVICE_RECORD", label: "Service record", category: "Service" },
+  { value: "PERSONAL_STATEMENT", label: "Personal statement", category: "Statement" },
+  { value: "SUPPORTING_STATEMENT", label: "Supporting statement", category: "Statement" },
+  { value: "EMPLOYMENT_RECORD", label: "Employment record", category: "Work" },
+  { value: "OTHER", label: "Other evidence", category: "Other" },
+];
+
+export const evidenceSourceQuickTags = [
+  "GP",
+  "Specialist",
+  "Allied health provider",
+  "Hospital",
+  "DVA",
+  "Open Arms",
+  "ADF / service record",
+  "Employer",
+  "Personal notes",
+  "Family or support person",
+];
+
 export function getEvidenceTypeLabel(value?: string | null) {
   if (!value) {
     return "Not recorded";
@@ -40,4 +70,12 @@ export function getEvidenceStatusLabel(value?: string | null) {
   }
 
   return evidenceStatusLabels[value] ?? value;
+}
+
+export function getEvidenceTypeCategory(value?: string | null) {
+  if (!value) {
+    return "Not recorded";
+  }
+
+  return evidenceTypeOptions.find((option) => option.value === value)?.category ?? "Other";
 }

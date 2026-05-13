@@ -1,7 +1,13 @@
 "use client";
 
 import { DatePickerInput } from "@/components/DatePickerInput";
-import { getEvidenceStatusLabel, getEvidenceTypeLabel } from "@/lib/evidenceUi";
+import {
+  evidenceSourceQuickTags,
+  evidenceTypeOptions,
+  getEvidenceStatusLabel,
+  getEvidenceTypeCategory,
+  getEvidenceTypeLabel,
+} from "@/lib/evidenceUi";
 
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
@@ -348,6 +354,19 @@ export function EvidenceMetadataPanel({ workspaceId }: EvidenceMetadataPanelProp
                 placeholder="Example: GP, specialist, DVA, personal notes"
                 className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
               />
+
+            <div className="mt-3 flex flex-wrap gap-2">
+              {evidenceSourceQuickTags.map((source) => (
+                <button
+                  key={source}
+                  type="button"
+                  onClick={() => setProviderName(source)}
+                  className="rounded-full border border-white/10 bg-slate-900 px-3 py-1 text-xs text-slate-300 hover:border-cyan-300 hover:text-cyan-100"
+                >
+                  {source}
+                </button>
+              ))}
+            </div>
             </div>
           </div>
 
@@ -427,6 +446,9 @@ export function EvidenceMetadataPanel({ workspaceId }: EvidenceMetadataPanelProp
                     </h3>
                     <p className="mt-2 text-sm text-slate-300">
                       Status: {getEvidenceStatusLabel(item.evidenceStatus)}
+                    </p>
+                    <p className="mt-1 text-sm text-slate-400">
+                      Category: {getEvidenceTypeCategory(item.evidenceType)}
                     </p>
                   </div>
 
