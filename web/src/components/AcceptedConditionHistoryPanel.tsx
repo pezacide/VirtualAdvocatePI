@@ -1,5 +1,7 @@
 "use client";
 
+import { DatePickerInput } from "@/components/DatePickerInput";
+
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
@@ -324,13 +326,7 @@ export function AcceptedConditionHistoryPanel({
               >
                 Previous decision date
               </label>
-              <input
-                id="previousDecisionDate"
-                type="date"
-                value={previousDecisionDate}
-                onChange={(event) => setPreviousDecisionDate(event.target.value)}
-                className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
-              />
+              <DatePickerInput id="previousDecisionDate" value={previousDecisionDate} onChange={setPreviousDecisionDate} />
             </div>
 
             <div>
@@ -340,13 +336,7 @@ export function AcceptedConditionHistoryPanel({
               >
                 Previous assessment date
               </label>
-              <input
-                id="previousAssessmentDate"
-                type="date"
-                value={previousAssessmentDate}
-                onChange={(event) => setPreviousAssessmentDate(event.target.value)}
-                className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
-              />
+              <DatePickerInput id="previousAssessmentDate" value={previousAssessmentDate} onChange={setPreviousAssessmentDate} />
             </div>
           </div>
 
