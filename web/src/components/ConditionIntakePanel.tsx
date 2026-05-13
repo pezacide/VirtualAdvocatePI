@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState , useRef} from "react";
 import { useAuth } from "@/components/AuthProvider";
 import {
   ClaimCondition,
@@ -22,6 +22,7 @@ const diagnosisOptions = [
 ];
 
 export function ConditionIntakePanel({ workspaceId }: ConditionIntakePanelProps) {
+  const dateDiagnosedInputRef = useRef<HTMLInputElement>(null);
   const { user, loading, getIdToken } = useAuth();
 
   const [conditions, setConditions] = useState<ClaimCondition[]>([]);
@@ -181,11 +182,10 @@ export function ConditionIntakePanel({ workspaceId }: ConditionIntakePanelProps)
                 onChange={(event) => setDiagnosisStatus(event.target.value)}
                 className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
               >
-                {diagnosisOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
+                <option value="DIAGNOSED">Diagnosed</option>
+                <option value="SUSPECTED">Suspected / being investigated</option>
+                <option value="UNSURE">Unsure</option>
+                <option value="NOT_DIAGNOSED">Not diagnosed</option>
               </select>
             </div>
 
@@ -193,13 +193,35 @@ export function ConditionIntakePanel({ workspaceId }: ConditionIntakePanelProps)
               <label htmlFor="dateDiagnosed" className="text-sm font-medium text-slate-200">
                 Date diagnosed
               </label>
-              <input
-                id="dateDiagnosed"
-                type="date"
-                value={dateDiagnosed}
-                onChange={(event) => setDateDiagnosed(event.target.value)}
-                className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
-              />
+              <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
+                <input
+                  ref={dateDiagnosedInputRef}
+                  id="dateDiagnosed"
+                  type="date"
+                  value={dateDiagnosed}
+                  onChange={(event) => setDateDiagnosed(event.target.value)}
+                  className="w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const dateInput = dateDiagnosedInputRef.current as
+                      | (HTMLInputElement & { showPicker?: () => void })
+                      | null;
+
+                    if (dateInput?.showPicker) {
+                      dateInput.showPicker();
+                      return;
+                    }
+
+                    dateInput?.focus();
+                  }}
+                  className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-cyan-200"
+                >
+                  Choose date
+                </button>
+              </div>
             </div>
           </div>
 

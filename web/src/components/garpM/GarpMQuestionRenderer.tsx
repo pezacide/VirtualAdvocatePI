@@ -86,6 +86,7 @@ export function GarpMQuestionRenderer({
 }: GarpMQuestionRendererProps) {
   const isRequired = question.requirementLevel === "REQUIRED";
   const isMissing = isRequired && isGarpMAnswerMissing(question, value);
+  const validationMessages = getGarpMQuestionValidationMessages(question, value);
 
   return (
     <article
@@ -130,10 +131,21 @@ export function GarpMQuestionRenderer({
         />
       </div>
 
-      {isMissing && (
+{isMissing && (
         <p className="mt-4 text-sm text-yellow-100">
-          This recommended required answer is still missing.
+          This required answer is still missing.
         </p>
+      )}
+
+      {validationMessages.length > 0 && (
+        <div className="mt-4 rounded-xl border border-yellow-300/30 bg-yellow-300/10 p-4 text-sm text-yellow-100">
+          <p className="font-semibold">Check this answer</p>
+          <ul className="mt-2 list-inside list-disc space-y-1">
+            {validationMessages.map((message) => (
+              <li key={message}>{message}</li>
+            ))}
+          </ul>
+        </div>
       )}
 
       {question.summaryLabel && (
@@ -347,6 +359,38 @@ export function isGarpMAnswerMissing(
   }
 
   return !getStringAnswerValue(value).trim();
+}
+
+export function getGarpMQuestionValidationMessages(
+  question: GarpMQuestionTemplate,
+  value?: GarpMAnswerValue,
+) {
+  const messages: string[] = [];
+  const stringValue = getStringAnswerValue(value).trim();
+
+  if (question.requirementLevel === "REQUIRED" && isGarpMAnswerMissing(question, value)) {
+    messages.push("This answer is required before the section can be considered complete.");
+  }
+
+  for (const rule of question.validationRules ?? []) {
+    if (rule.type === "MIN_LENGTH") {
+      const minLength = Number(rule.value ?? 0);
+
+      if (stringValue.length > 0 && stringValue.length < minLength) {
+        messages.push(rule.message ?? `Enter at least ${minLength} characters.`);
+      }
+    }
+
+    if (rule.type === "MAX_LENGTH") {
+      const maxLength = Number(rule.value ?? 0);
+
+      if (maxLength > 0 && stringValue.length > maxLength) {
+        messages.push(rule.message ?? `Keep this answer under ${maxLength} characters.`);
+      }
+    }
+  }
+
+  return Array.from(new Set(messages));
 }
 
 export function getMissingRequiredGarpMQuestions(

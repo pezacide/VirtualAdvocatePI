@@ -8,6 +8,7 @@ import {
   GarpMAnswerValue,
   GarpMQuestionGroupRenderer,
   getMissingRequiredGarpMQuestions,
+  getGarpMQuestionValidationMessages,
 } from "@/components/garpM/GarpMQuestionRenderer";
 import {
   GarpMQuestionAnswerType,
@@ -36,6 +37,7 @@ type SectionProgress = {
   totalQuestions: number;
   requiredCount: number;
   missingRequiredCount: number;
+  validationIssueCount: number;
   savedCount: number;
   lastSavedAt: Date | null;
   statusLabel: string;
@@ -145,6 +147,7 @@ export function GarpMQuestionEnginePanel({ workspaceId }: GarpMQuestionEnginePan
         questions,
         answers,
       ).length;
+      const validationIssueCount = getValidationIssueCountForQuestions(questions, answers);
       const savedCount = getSavedCountForQuestions(questions, savedResponses);
       const lastSavedAt = getLastSavedAtForQuestions(questions, savedResponses);
 
@@ -169,6 +172,7 @@ export function GarpMQuestionEnginePanel({ workspaceId }: GarpMQuestionEnginePan
         totalQuestions: questions.length,
         requiredCount: requiredQuestions.length,
         missingRequiredCount,
+        validationIssueCount,
         savedCount,
         lastSavedAt,
         statusLabel,
@@ -535,6 +539,7 @@ export function GarpMQuestionEnginePanel({ workspaceId }: GarpMQuestionEnginePan
                   <p>{progress?.answeredCount ?? 0}/{group.questions.length} answered</p>
                   <p>{progress?.savedCount ?? 0} saved</p>
                   <p>{progress?.missingRequiredCount ?? 0} required missing</p>
+                  <p>{progress?.validationIssueCount ?? 0} validation issue(s)</p>
                 </div>
 
                 {progress?.lastSavedAt && (
@@ -577,6 +582,7 @@ export function GarpMQuestionEnginePanel({ workspaceId }: GarpMQuestionEnginePan
         <div className="mt-6 grid gap-4 md:grid-cols-4">
           <SummaryCard label="Questions in section" value={selectedQuestions.length} />
           <SummaryCard label="Missing required" value={missingRequiredQuestions.length} />
+          <SummaryCard label="Validation issues" value={selectedSectionProgress?.validationIssueCount ?? 0} />
           <SummaryCard label="Saved in section" value={selectedSectionProgress?.savedCount ?? 0} />
           <SummaryCard label="Saved responses loaded" value={savedResponses.length} />
         </div>
@@ -688,6 +694,15 @@ function mapResponsesToAnswers(responses: QuestionResponse[]) {
   }
 
   return answers;
+}
+
+function getValidationIssueCountForQuestions(
+  questions: GarpMQuestionTemplate[],
+  answers: GarpMAnswerMap,
+) {
+  return questions.reduce((count, question) => {
+    return count + getGarpMQuestionValidationMessages(question, answers[question.id]).length;
+  }, 0);
 }
 
 function getSavedCountForQuestions(
