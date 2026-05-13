@@ -1,6 +1,7 @@
 "use client";
 
 import { DatePickerInput } from "@/components/DatePickerInput";
+import { EvidenceListSummaryPanel } from "@/components/EvidenceListSummaryPanel";
 import {
   evidenceSourceQuickTags,
   evidenceTypeOptions,
@@ -480,6 +481,11 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
         <p className="mt-3 text-sm text-cyan-100">
           Evidence linked to condition: {selectedCondition?.conditionName ?? "Select a condition"}
         </p>
+
+        <EvidenceListSummaryPanel
+          evidenceItems={evidenceItems}
+          conditionName={selectedCondition?.conditionName}
+        />
 
         {isLoadingEvidence ? (
           <p className="mt-6 text-slate-300">Loading evidence items...</p>
