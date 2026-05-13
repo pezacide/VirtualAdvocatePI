@@ -1,5 +1,7 @@
 "use client";
 
+import { WorkspaceConditionNames } from "@/components/WorkspaceConditionNames";
+
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
@@ -116,6 +118,8 @@ export function DashboardWorkspaceList() {
               <p className="mt-1 text-sm text-slate-400">
                 Framework: {workspace.claimFramework}
               </p>
+
+              <WorkspaceConditionNames workspaceId={workspace.id} />
             </div>
 
             <div className="rounded-xl border border-cyan-300/30 bg-cyan-300/10 px-3 py-2 text-sm text-cyan-100">
