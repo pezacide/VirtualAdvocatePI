@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GarpMWorkspaceLinks } from "@/components/garpM";
+import { WorkspaceToolNavigationPanel } from "@/components/WorkspaceToolNavigationPanel";
 import { AppHeader } from "@/components/AppHeader";
 import { ClaimWorkspaceDetailPanel } from "@/components/ClaimWorkspaceDetailPanel";
 
@@ -26,7 +26,7 @@ export default async function ClaimWorkspaceDetailPage({ params }: WorkspacePage
         </div>
       
         <div className="mt-8">
-          <GarpMWorkspaceLinks workspaceId={workspaceId} />
+          <WorkspaceToolNavigationPanel workspaceId={workspaceId} />
         </div></div>
     </main>
   );

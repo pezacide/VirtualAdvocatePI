@@ -9,43 +9,6 @@ type ClaimWorkspaceDetailPanelProps = {
   workspaceId: string;
 };
 
-const workspaceSections = [
-  {
-    title: "Condition intake",
-    description: "Add the condition name, symptoms, treatment, medication and functional impact.",
-    status: "Next build task",
-  },
-  {
-    title: "Accepted-condition history",
-    description: "Record previous DVA acceptance, assessment letters, PI/DCP history and worsening notes.",
-    status: "Coming soon",
-  },
-  {
-    title: "Guided questions",
-    description: "Capture structured plain-English answers for the claim preparation pack.",
-    status: "Coming soon",
-  },
-  {
-    title: "Evidence checklist",
-    description: "Track listed, missing, uploaded, reviewed and confirmed evidence.",
-    status: "Coming soon",
-  },
-  {
-    title: "Evidence gaps",
-    description: "Review preparation prompts for missing or incomplete evidence.",
-    status: "Coming soon",
-  },
-  {
-    title: "AI drafts",
-    description: "Review draft statements, doctor questions, gap summaries and request letters.",
-    status: "Coming soon",
-  },
-  {
-    title: "Generated documents",
-    description: "View generated preparation documents such as starter packs and doctor guidance packs.",
-    status: "Coming soon",
-  },
-];
 
 export function ClaimWorkspaceDetailPanel({ workspaceId }: ClaimWorkspaceDetailPanelProps) {
   const { user, loading, getIdToken } = useAuth();
@@ -182,34 +145,6 @@ export function ClaimWorkspaceDetailPanel({ workspaceId }: ClaimWorkspaceDetailP
             <p className="text-sm text-slate-400">Workspace ID</p>
             <p className="mt-2 break-all font-mono text-cyan-200">{workspace.id}</p>
           </div>
-        </div>
-      </section>
-
-      <section className="rounded-2xl border border-white/10 bg-white/5 p-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
-          Workspace sections
-        </p>
-
-        <h2 className="mt-4 text-2xl font-bold">Build the preparation pack</h2>
-
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {workspaceSections.map((section) => (
-            <div
-              key={section.title}
-              className="rounded-xl border border-white/10 bg-slate-900 p-5"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="font-semibold">{section.title}</h3>
-                <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-slate-300">
-                  {section.status}
-                </span>
-              </div>
-
-              <p className="mt-3 text-sm leading-6 text-slate-400">
-                {section.description}
-              </p>
-            </div>
-          ))}
         </div>
       </section>
 
