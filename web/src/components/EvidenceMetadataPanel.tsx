@@ -1,6 +1,7 @@
 "use client";
 
 import { DatePickerInput } from "@/components/DatePickerInput";
+import { getEvidenceStatusLabel, getEvidenceTypeLabel } from "@/lib/evidenceUi";
 
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
@@ -404,6 +405,10 @@ export function EvidenceMetadataPanel({ workspaceId }: EvidenceMetadataPanelProp
           {selectedCondition?.conditionName ?? "Selected condition"}
         </h2>
 
+        <p className="mt-3 text-sm text-cyan-100">
+          Evidence metadata is linked to condition: {selectedCondition?.conditionName ?? "Select a condition"}
+        </p>
+
         {isLoadingEvidence ? (
           <p className="mt-6 text-slate-300">Loading evidence items...</p>
         ) : evidenceItems.length === 0 ? (
@@ -416,12 +421,12 @@ export function EvidenceMetadataPanel({ workspaceId }: EvidenceMetadataPanelProp
               <div key={item.id} className="rounded-xl border border-white/10 bg-slate-900 p-5">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                   <div>
-                    <p className="font-mono text-xs text-cyan-200">{item.evidenceType}</p>
+                    <p className="font-mono text-xs text-cyan-200">{getEvidenceTypeLabel(item.evidenceType)}</p>
                     <h3 className="mt-2 font-semibold">
                       {item.originalFileName || "Unnamed evidence item"}
                     </h3>
                     <p className="mt-2 text-sm text-slate-300">
-                      Status: {item.evidenceStatus}
+                      Status: {getEvidenceStatusLabel(item.evidenceStatus)}
                     </p>
                   </div>
 
