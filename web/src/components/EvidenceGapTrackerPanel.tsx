@@ -4,6 +4,12 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import {
+  gapStatusOptions,
+  getEvidenceGapSeverityLabel,
+  getEvidenceGapStatusLabel,
+  getEvidenceGapTypeLabel,
+} from "@/lib/evidenceGapUi";
+import {
   ClaimCondition,
   EvidenceGap,
   getClaimConditions,
@@ -16,13 +22,6 @@ import {
 type EvidenceGapTrackerPanelProps = {
   workspaceId: string;
 };
-
-const gapStatusOptions = [
-  "OPEN",
-  "IN_PROGRESS",
-  "RESOLVED",
-  "USER_MARKED_NOT_APPLICABLE",
-];
 
 const severityOrder: Record<string, number> = {
   HIGH: 3,
@@ -59,7 +58,9 @@ export function EvidenceGapTrackerPanel({ workspaceId }: EvidenceGapTrackerPanel
       medium: activeGaps.filter((gap) => gap.severity === "MEDIUM").length,
       low: activeGaps.filter((gap) => gap.severity === "LOW").length,
       open: activeGaps.filter((gap) => gap.gapStatus === "OPEN").length,
+      inProgress: activeGaps.filter((gap) => gap.gapStatus === "IN_PROGRESS").length,
       resolved: activeGaps.filter((gap) => gap.gapStatus === "RESOLVED").length,
+      notApplicable: activeGaps.filter((gap) => gap.gapStatus === "USER_MARKED_NOT_APPLICABLE").length,
     };
   }, [workspaceGaps]);
 
@@ -215,7 +216,7 @@ export function EvidenceGapTrackerPanel({ workspaceId }: EvidenceGapTrackerPanel
         gapStatus: nextStatus,
       });
 
-      setStatusMessage("Evidence gap status updated.");
+      setStatusMessage(`Evidence gap status updated to ${getEvidenceGapStatusLabel(nextStatus)}.`);
       await loadConditionGaps(selectedConditionId);
       await loadWorkspaceGaps();
     } catch (error) {
@@ -291,12 +292,14 @@ export function EvidenceGapTrackerPanel({ workspaceId }: EvidenceGapTrackerPanel
           accepted-condition history and listed evidence.
         </p>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-5">
+        <div className="mt-8 grid gap-4 md:grid-cols-4 xl:grid-cols-7">
           <SummaryCard label="Total gaps" value={summary.total} />
           <SummaryCard label="High" value={summary.high} />
           <SummaryCard label="Medium" value={summary.medium} />
           <SummaryCard label="Low" value={summary.low} />
           <SummaryCard label="Open" value={summary.open} />
+          <SummaryCard label="In progress" value={summary.inProgress} />
+          <SummaryCard label="Resolved" value={summary.resolved} />
         </div>
 
         <div className="mt-8">
@@ -367,15 +370,15 @@ export function EvidenceGapTrackerPanel({ workspaceId }: EvidenceGapTrackerPanel
                   <div>
                     <div className="flex flex-wrap gap-2">
                       <span className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-xs text-cyan-100">
-                        {gap.gapType}
+                        {getEvidenceGapTypeLabel(gap.gapType)}
                       </span>
 
                       <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-slate-300">
-                        {gap.severity}
+                        {getEvidenceGapSeverityLabel(gap.severity)}
                       </span>
 
                       <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-slate-300">
-                        {gap.gapStatus}
+                        {getEvidenceGapStatusLabel(gap.gapStatus)}
                       </span>
                     </div>
 
@@ -405,9 +408,9 @@ export function EvidenceGapTrackerPanel({ workspaceId }: EvidenceGapTrackerPanel
                       onChange={(event) => handleStatusChange(gap, event.target.value)}
                       className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white outline-none focus:border-cyan-300"
                     >
-                      {gapStatusOptions.map((status) => (
-                        <option key={status} value={status}>
-                          {status}
+                      {gapStatusOptions.map((statusOption) => (
+                        <option key={statusOption.value} value={statusOption.value}>
+                          {statusOption.label}
                         </option>
                       ))}
                     </select>
