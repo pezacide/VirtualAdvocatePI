@@ -1,0 +1,381 @@
+Evidence storage flow audit
+
+Generated from backend/src storage, upload, download and blob search.
+
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:12: "Google.Cloud.Storage.V1": "4.14.0",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:94: "Google.Apis.Storage.v1/1.71.0.3920": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:100: "lib/net6.0/Google.Apis.Storage.v1.dll": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:106: "Google.Cloud.Storage.V1/4.14.0": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:109: "Google.Apis.Storage.v1": "1.71.0.3920"
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:112: "lib/netstandard2.0/Google.Cloud.Storage.V1.dll": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:643: "sha512": "sha512-ujDpZk7O2VqAEIqcSlhH0FKzVpGZWly/qcNjHxpNUrL445Tei9PHnu4V1pwW2WDiMDvo3TpL1Bi4DeU525Afrg==",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:675: "Google.Apis.Storage.v1/1.71.0.3920": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:679: "path": "google.apis.storage.v1/1.71.0.3920",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:680: "hashPath": "google.apis.storage.v1.1.71.0.3920.nupkg.sha512"
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:682: "Google.Cloud.Storage.V1/4.14.0": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:686: "path": "google.cloud.storage.v1/4.14.0",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:687: "hashPath": "google.cloud.storage.v1.4.14.0.nupkg.sha512"
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:804: "sha512": "sha512-YqueG52R/Xej4VVbKuRIodjiAhV0HR/XVbLbNrJhCZnzjnSjgMJ/dCdV0akQQxavX6hp/LC6rqLGLcXeQYU7XA==",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\bin\Debug\net10.0\VirtualAdvocatePI.Api.deps.json:839: "sha512": "sha512-3Djj70fFTraOarSKmRnmRy/zm4YurICm+kiCtI0dYRqGJnLX6nJ+G3WYuFJ173cAPax/gh96REcbNiVqcrypFQ==",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:92: entity.Property(x => x.PreviousAssessmentLetterAvailable).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:127: entity.Property(x => x.OriginalFileName).HasMaxLength(500);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:128: entity.Property(x => x.StoragePath).HasMaxLength(1000);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:203: entity.Property(x => x.DocxStoragePath).HasMaxLength(1000);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:204: entity.Property(x => x.PdfStoragePath).HasMaxLength(1000);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\AcceptedConditionHistory.cs:19: public string PreviousAssessmentLetterAvailable { get; set; } = "UNSURE";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\AcceptedConditionHistory.cs:23: public DateOnly? PreviousAssessmentDate { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:13: public string EvidenceStatus { get; set; } = "LISTED_NOT_UPLOADED";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:15: public string? OriginalFileName { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:17: public string? StoragePath { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:35: public DateTimeOffset? UploadedAt { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\GeneratedDocument.cs:13: public string? DocxStoragePath { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\GeneratedDocument.cs:15: public string? PdfStoragePath { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\GeneratedDocument.cs:23: public DateTimeOffset? DownloadedAt { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:151: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:294: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:341: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:87: DocxStoragePath = input.DocxStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:88: PdfStoragePath = input.PdfStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:94: DownloadedAt = documentStatus == "DOWNLOADED" ? DateTimeOffset.UtcNow : null,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:109: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:219: if (documentStatus == "DOWNLOADED")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:221: document.DownloadedAt = DateTimeOffset.UtcNow;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:225: if (input.DocxStoragePath is not null)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:227: document.DocxStoragePath = input.DocxStoragePath;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:230: if (input.PdfStoragePath is not null)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:232: document.PdfStoragePath = input.PdfStoragePath;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:254: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:301: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:322: docxStoragePath = document.DocxStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:323: pdfStoragePath = document.PdfStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:327: downloadedAt = document.DownloadedAt,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:373: "DOWNLOADED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:382: string? DocxStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:383: string? PdfStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:391: string? DocxStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:392: string? PdfStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:120: OriginalFileName = input.OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:121: StoragePath = input.StoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:130: UploadedAt = evidenceStatus == "UPLOADED" ? DateTimeOffset.UtcNow : null,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:145: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:250: if (evidenceStatus == "UPLOADED" && evidenceItem.UploadedAt is null)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:252: evidenceItem.UploadedAt = DateTimeOffset.UtcNow;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:256: evidenceItem.OriginalFileName = input.OriginalFileName ?? evidenceItem.OriginalFileName;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:257: evidenceItem.StoragePath = input.StoragePath ?? evidenceItem.StoragePath;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:280: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:327: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:411: originalFileName = evidenceItem.OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:412: storagePath = evidenceItem.StoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:421: uploadedAt = evidenceItem.UploadedAt,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:450: return string.IsNullOrWhiteSpace(value) ? "LISTED_NOT_UPLOADED" : value.Trim().ToUpperInvariant();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:488: "LISTED_NOT_UPLOADED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:489: "UPLOADED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:500: string? OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:501: string? StoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:515: string? OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:516: string? StoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:120: await ArchiveExistingOpenGapsAsync(db, workspaceId, conditionId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:131: "No medical report or specialist report has been listed or uploaded for this condition. Diagnosis evidence may be useful for review by a doctor, advocate, lawyer, support person or DVA.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:132: "Consider listing or uploading a medical report, specialist report, or other document that confirms the diagnosis or current clinical picture."));
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:142: "No treatment summary, medical report or specialist report has been listed or uploaded for this condition. Current treatment information may help explain the present state of the condition.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:154: "Medication has been mentioned for this condition, but no medication list or related treatment evidence has been listed or uploaded.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:181: "This condition has been marked as previously accepted or compensated, but no DVA decision letter has been listed or uploaded.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:192: "This condition has previous acceptance or compensation history, but no previous PI or DCP assessment evidence has been listed or uploaded.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:207: "Worsening has been mentioned, but no medical report, specialist report or treatment summary has been listed or uploaded to support the change over time.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:223: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:319: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:368: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:381: private static async Task ArchiveExistingOpenGapsAsync(
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:2: using Google.Cloud.Storage.V1;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:10: public static class EvidenceUploadEndpoints
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:12: public static IEndpointRouteBuilder MapEvidenceUploadEndpoints(this IEndpointRouteBuilder app)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:14: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-upload-url", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:22: CreateEvidenceUploadUrlRequest input) =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:36: if (string.IsNullOrWhiteSpace(input.OriginalFileName))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:58: EvidenceStatus = "LISTED_NOT_UPLOADED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:59: OriginalFileName = input.OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:72: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:74: var safeFileName = CreateSafeFileName(input.OriginalFileName);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:75: var objectName = $"evidence/{workspaceId}/{conditionId}/{evidenceItem.Id}/{safeFileName}";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:77: evidenceItem.StoragePath = $"gs://{bucketName}/{objectName}";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:84: "EVIDENCE_UPLOAD_URL_CREATED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:85: $"Signed upload URL created. EvidenceItemId={evidenceItem.Id}; Type={evidenceType}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:87: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:89: var signer = UrlSigner.FromCredential(GoogleCredential.GetApplicationDefault());
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:90: var uploadUrl = await signer.SignAsync(
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:92: objectName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:99: upload = new
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:102: url = uploadUrl,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:105: note = "Upload the file directly to this URL using HTTP PUT. After upload, call mark-uploaded."
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:110: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}/mark-uploaded", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:144: if (string.IsNullOrWhiteSpace(evidenceItem.StoragePath))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:146: return Results.BadRequest(new { error = "Evidence item has no storage path." });
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:149: var objectName = GetObjectNameFromStoragePath(evidenceItem.StoragePath, bucketName);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:153: var storageClient = await StorageClient.CreateAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:154: var storageObject = await storageClient.GetObjectAsync(bucketName, objectName);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:156: evidenceItem.EvidenceStatus = "UPLOADED";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:157: evidenceItem.UploadedAt = DateTimeOffset.UtcNow;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:160: if (storageObject.Size.HasValue)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:162: evidenceItem.FileSize = (long)storageObject.Size.Value;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:169: "EVIDENCE_UPLOADED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:170: $"Evidence upload confirmed. EvidenceItemId={evidenceItem.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:172: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:180: error = "The uploaded object could not be found in Cloud Storage yet.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:186: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}/download-url", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:218: if (string.IsNullOrWhiteSpace(evidenceItem.StoragePath))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:220: return Results.BadRequest(new { error = "Evidence item has no storage path." });
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:224: var objectName = GetObjectNameFromStoragePath(evidenceItem.StoragePath, bucketName);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:226: var signer = UrlSigner.FromCredential(GoogleCredential.GetApplicationDefault());
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:227: var downloadUrl = await signer.SignAsync(
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:229: objectName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:237: "EVIDENCE_DOWNLOAD_URL_CREATED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:238: $"Signed download URL created. EvidenceItemId={evidenceItem.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:240: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:246: url = downloadUrl,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:275: originalFileName = evidenceItem.OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:276: storagePath = evidenceItem.StoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:285: uploadedAt = evidenceItem.UploadedAt,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:292: private static string CreateSafeFileName(string originalFileName)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:294: var fileName = Path.GetFileName(originalFileName);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:296: if (string.IsNullOrWhiteSpace(fileName))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:298: fileName = "evidence-file";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:301: foreach (var invalidChar in Path.GetInvalidFileNameChars())
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:303: fileName = fileName.Replace(invalidChar, '-');
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:306: return fileName.Replace(' ', '-').Trim();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:309: private static string GetObjectNameFromStoragePath(string storagePath, string bucketName)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:313: if (!storagePath.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:315: throw new InvalidOperationException("Storage path does not match the configured evidence bucket.");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:318: return storagePath[prefix.Length..];
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:352: public sealed record CreateEvidenceUploadUrlRequest(
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:354: string? OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:6: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.cs:33: PreviousAssessmentLetterAvailable = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.cs:35: PreviousAssessmentDate = table.Column<DateOnly>(type: "date", nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:6: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:48: b.Property<DateOnly?>("PreviousAssessmentDate")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:51: b.Property<string>("PreviousAssessmentLetterAvailable")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:6: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:48: b.Property<DateOnly?>("PreviousAssessmentDate")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:51: b.Property<string>("PreviousAssessmentLetterAvailable")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:41: OriginalFileName = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:42: StoragePath = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:51: UploadedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:6: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:48: b.Property<DateOnly?>("PreviousAssessmentDate")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:51: b.Property<string>("PreviousAssessmentLetterAvailable")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:302: b.Property<string>("OriginalFileName")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:315: b.Property<string>("StoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:322: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:6: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:48: b.Property<DateOnly?>("PreviousAssessmentDate")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:51: b.Property<string>("PreviousAssessmentLetterAvailable")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:364: b.Property<string>("OriginalFileName")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:377: b.Property<string>("StoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:384: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:6: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:48: b.Property<DateOnly?>("PreviousAssessmentDate")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:51: b.Property<string>("PreviousAssessmentLetterAvailable")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:429: b.Property<string>("OriginalFileName")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:442: b.Property<string>("StoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:449: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.cs:22: DocxStoragePath = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.cs:23: PdfStoragePath = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.cs:27: DownloadedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:6: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:48: b.Property<DateOnly?>("PreviousAssessmentDate")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:51: b.Property<string>("PreviousAssessmentLetterAvailable")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:429: b.Property<string>("OriginalFileName")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:442: b.Property<string>("StoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:449: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:496: b.Property<string>("DocxStoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:500: b.Property<DateTimeOffset?>("DownloadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:510: b.Property<string>("PdfStoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:5: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:45: b.Property<DateOnly?>("PreviousAssessmentDate")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:48: b.Property<string>("PreviousAssessmentLetterAvailable")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:426: b.Property<string>("OriginalFileName")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:439: b.Property<string>("StoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:446: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:493: b.Property<string>("DocxStoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:497: b.Property<DateTimeOffset?>("DownloadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:507: b.Property<string>("PdfStoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:106: "Google.Apis.Storage.v1/1.71.0.3920": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:113: "lib/net6.0/Google.Apis.Storage.v1.dll": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:118: "lib/net6.0/Google.Apis.Storage.v1.dll": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:123: "Google.Cloud.Storage.V1/4.14.0": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:127: "Google.Apis.Storage.v1": "[1.71.0.3920, 2.0.0)"
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:130: "lib/netstandard2.0/Google.Cloud.Storage.V1.dll": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:135: "lib/netstandard2.0/Google.Cloud.Storage.V1.dll": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:867: "sha512": "ujDpZk7O2VqAEIqcSlhH0FKzVpGZWly/qcNjHxpNUrL445Tei9PHnu4V1pwW2WDiMDvo3TpL1Bi4DeU525Afrg==",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:970: "Google.Apis.Storage.v1/1.71.0.3920": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:973: "path": "google.apis.storage.v1/1.71.0.3920",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:979: "google.apis.storage.v1.1.71.0.3920.nupkg.sha512",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:980: "google.apis.storage.v1.nuspec",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:981: "lib/net462/Google.Apis.Storage.v1.dll",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:982: "lib/net462/Google.Apis.Storage.v1.pdb",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:983: "lib/net462/Google.Apis.Storage.v1.xml",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:984: "lib/net6.0/Google.Apis.Storage.v1.dll",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:985: "lib/net6.0/Google.Apis.Storage.v1.pdb",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:986: "lib/net6.0/Google.Apis.Storage.v1.xml",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:987: "lib/netstandard2.0/Google.Apis.Storage.v1.dll",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:988: "lib/netstandard2.0/Google.Apis.Storage.v1.pdb",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:989: "lib/netstandard2.0/Google.Apis.Storage.v1.xml"
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:992: "Google.Cloud.Storage.V1/4.14.0": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:995: "path": "google.cloud.storage.v1/4.14.0",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:1001: "google.cloud.storage.v1.4.14.0.nupkg.sha512",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:1002: "google.cloud.storage.v1.nuspec",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:1003: "lib/net462/Google.Cloud.Storage.V1.dll",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:1004: "lib/net462/Google.Cloud.Storage.V1.pdb",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:1005: "lib/net462/Google.Cloud.Storage.V1.xml",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:1006: "lib/netstandard2.0/Google.Cloud.Storage.V1.dll",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:1007: "lib/netstandard2.0/Google.Cloud.Storage.V1.pdb",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:1008: "lib/netstandard2.0/Google.Cloud.Storage.V1.xml"
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2291: "sha512": "YqueG52R/Xej4VVbKuRIodjiAhV0HR/XVbLbNrJhCZnzjnSjgMJ/dCdV0akQQxavX6hp/LC6rqLGLcXeQYU7XA==",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2399: "sha512": "3Djj70fFTraOarSKmRnmRy/zm4YurICm+kiCtI0dYRqGJnLX6nJ+G3WYuFJ173cAPax/gh96REcbNiVqcrypFQ==",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2593: "Google.Cloud.Storage.V1 >= 4.14.0",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2656: "Google.Cloud.Storage.V1": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2881: "runtime.debian.8-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2882: "runtime.debian.8-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2883: "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2887: "runtime.debian.9-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2891: "runtime.fedora.23-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2892: "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2893: "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2897: "runtime.fedora.24-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2898: "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2899: "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2903: "runtime.fedora.27-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2907: "runtime.fedora.28-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2911: "runtime.opensuse.13.2-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2912: "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2913: "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2917: "runtime.opensuse.42.1-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2918: "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2919: "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2923: "runtime.opensuse.42.3-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2927: "runtime.osx.10.10-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2928: "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2929: "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2930: "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2934: "runtime.rhel.7-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2935: "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2936: "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2940: "runtime.ubuntu.14.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2941: "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2942: "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2946: "runtime.ubuntu.16.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2947: "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2948: "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2952: "runtime.ubuntu.16.10-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2953: "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2954: "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2958: "runtime.ubuntu.18.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2965: "runtime.unix.System.Private.Uri": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:2980: "runtime.win7.System.Private.Uri": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3024: "System.IO.IsolatedStorage": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3043: "System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3052: "System.Private.Uri": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3078: "System.Security.AccessControl": "(,6.0.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3079: "System.Security.Claims": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3080: "System.Security.Cryptography.Algorithms": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3081: "System.Security.Cryptography.Cng": "(,5.0.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3082: "System.Security.Cryptography.Csp": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3083: "System.Security.Cryptography.Encoding": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3084: "System.Security.Cryptography.OpenSsl": "(,5.0.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3085: "System.Security.Cryptography.Primitives": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3086: "System.Security.Cryptography.X509Certificates": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3087: "System.Security.Cryptography.Xml": "(,10.0.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3088: "System.Security.Principal": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3089: "System.Security.Principal.Windows": "(,5.0.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\project.assets.json:3090: "System.Security.SecureString": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:58: "Google.Cloud.Storage.V1": {
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:283: "runtime.debian.8-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:284: "runtime.debian.8-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:285: "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:289: "runtime.debian.9-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:293: "runtime.fedora.23-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:294: "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:295: "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:299: "runtime.fedora.24-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:300: "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:301: "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:305: "runtime.fedora.27-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:309: "runtime.fedora.28-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:313: "runtime.opensuse.13.2-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:314: "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:315: "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:319: "runtime.opensuse.42.1-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:320: "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:321: "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:325: "runtime.opensuse.42.3-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:329: "runtime.osx.10.10-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:330: "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:331: "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:332: "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:336: "runtime.rhel.7-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:337: "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:338: "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:342: "runtime.ubuntu.14.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:343: "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:344: "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:348: "runtime.ubuntu.16.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:349: "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:350: "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:354: "runtime.ubuntu.16.10-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:355: "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:356: "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:360: "runtime.ubuntu.18.04-x64.runtime.native.System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:367: "runtime.unix.System.Private.Uri": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:382: "runtime.win7.System.Private.Uri": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:426: "System.IO.IsolatedStorage": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:445: "System.Net.Security": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:454: "System.Private.Uri": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:480: "System.Security.AccessControl": "(,6.0.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:481: "System.Security.Claims": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:482: "System.Security.Cryptography.Algorithms": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:483: "System.Security.Cryptography.Cng": "(,5.0.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:484: "System.Security.Cryptography.Csp": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:485: "System.Security.Cryptography.Encoding": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:486: "System.Security.Cryptography.OpenSsl": "(,5.0.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:487: "System.Security.Cryptography.Primitives": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:488: "System.Security.Cryptography.X509Certificates": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:489: "System.Security.Cryptography.Xml": "(,10.0.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:490: "System.Security.Principal": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:491: "System.Security.Principal.Windows": "(,5.0.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\obj\VirtualAdvocatePI.Api.csproj.nuget.dgspec.json:492: "System.Security.SecureString": "(,4.3.32767]",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Properties\launchSettings.json:8: "applicationUrl": "http://localhost:5277",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Properties\launchSettings.json:17: "applicationUrl": "https://localhost:7126;http://localhost:5277",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Services\CurrentUserService.cs:67: await _db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:14: var databaseConnectionString =
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:16: ?? builder.Configuration.GetConnectionString("DefaultConnection");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:20: options.UseNpgsql(databaseConnectionString);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:70: var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:74: status = string.IsNullOrWhiteSpace(connectionString) ? "missing" : "present",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:82: var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:84: if (string.IsNullOrWhiteSpace(connectionString))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:89: await using var connection = new NpgsqlConnection(connectionString);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:204: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:237: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:317: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:360: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:464: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:576: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:620: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:698: PreviousAssessmentLetterAvailable = NormaliseYesNoUnsure(input.PreviousAssessmentLetterAvailable),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:700: PreviousAssessmentDate = input.PreviousAssessmentDate,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:717: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:788: if (!string.IsNullOrWhiteSpace(input.PreviousAssessmentLetterAvailable))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:790: history.PreviousAssessmentLetterAvailable = NormaliseYesNoUnsure(input.PreviousAssessmentLetterAvailable);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:799: history.PreviousAssessmentDate = input.PreviousAssessmentDate ?? history.PreviousAssessmentDate;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:810: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:859: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:974: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1108: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1157: await db.SaveChangesAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1168: app.MapEvidenceUploadEndpoints();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1244: previousAssessmentLetterAvailable = history.PreviousAssessmentLetterAvailable,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1246: previousAssessmentDate = history.PreviousAssessmentDate,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1456: string? PreviousAssessmentLetterAvailable,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1458: DateOnly? PreviousAssessmentDate,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1468: string? PreviousAssessmentLetterAvailable,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1470: DateOnly? PreviousAssessmentDate,

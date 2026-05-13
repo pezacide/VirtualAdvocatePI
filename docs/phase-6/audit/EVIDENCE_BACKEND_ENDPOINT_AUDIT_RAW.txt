@@ -1,0 +1,220 @@
+Evidence backend endpoint audit
+
+Generated from backend/src endpoint and evidence search.
+
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:24: public DbSet<EvidenceItem> EvidenceItems => Set<EvidenceItem>();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:26: public DbSet<EvidenceGap> EvidenceGaps => Set<EvidenceGap>();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:114: modelBuilder.Entity<EvidenceItem>(entity =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:134: modelBuilder.Entity<EvidenceGap>(entity =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceGap.cs:3: public sealed class EvidenceGap
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:3: public sealed class EvidenceItem
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:12: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/ai-drafts", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:39: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/ai-drafts", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:70: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/ai-drafts", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:156: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/ai-drafts/{draftId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:190: app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/ai-drafts/{draftId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:12: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/generated-documents", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:39: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/generated-documents", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:116: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/generated-documents/{documentId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:150: app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/generated-documents/{documentId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:12: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:31: var rows = await db.EvidenceItems
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:36: return Results.Ok(rows.Select(ToEvidenceItemResponse).ToList());
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:39: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-items", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:59: var rows = await db.EvidenceItems
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:67: return Results.Ok(rows.Select(ToEvidenceItemResponse).ToList());
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:70: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-items", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:78: CreateEvidenceItemRequest input) =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:114: var evidenceItem = new EvidenceItem
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:136: db.EvidenceItems.Add(evidenceItem);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:148: $"/api/v1/claim-workspaces/{workspaceId}/evidence-items/{evidenceItem.Id}",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:149: ToEvidenceItemResponse(evidenceItem));
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:152: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:154: Guid evidenceItemId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:172: var evidenceItem = await db.EvidenceItems
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:174: x.Id == evidenceItemId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:178: if (evidenceItem is null)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:183: return Results.Ok(ToEvidenceItemResponse(evidenceItem));
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:186: app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:188: Guid evidenceItemId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:194: UpdateEvidenceItemRequest input) =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:208: var evidenceItem = await db.EvidenceItems
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:210: x.Id == evidenceItemId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:214: if (evidenceItem is null)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:232: evidenceItem.EvidenceType = evidenceType;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:248: evidenceItem.EvidenceStatus = evidenceStatus;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:250: if (evidenceStatus == "UPLOADED" && evidenceItem.UploadedAt is null)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:252: evidenceItem.UploadedAt = DateTimeOffset.UtcNow;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:256: evidenceItem.OriginalFileName = input.OriginalFileName ?? evidenceItem.OriginalFileName;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:257: evidenceItem.StoragePath = input.StoragePath ?? evidenceItem.StoragePath;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:258: evidenceItem.FileType = input.FileType ?? evidenceItem.FileType;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:259: evidenceItem.FileSize = input.FileSize ?? evidenceItem.FileSize;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:260: evidenceItem.DocumentDate = input.DocumentDate ?? evidenceItem.DocumentDate;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:261: evidenceItem.ProviderName = input.ProviderName ?? evidenceItem.ProviderName;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:262: evidenceItem.UserNotes = input.UserNotes ?? evidenceItem.UserNotes;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:263: evidenceItem.AiSummary = input.AiSummary ?? evidenceItem.AiSummary;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:264: evidenceItem.UserConfirmedSummary = input.UserConfirmedSummary ?? evidenceItem.UserConfirmedSummary;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:268: evidenceItem.UsedInGeneratedPack = input.UsedInGeneratedPack.Value;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:271: evidenceItem.UpdatedAt = DateTimeOffset.UtcNow;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:278: $"Evidence item updated. EvidenceItemId={evidenceItem.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:282: return Results.Ok(ToEvidenceItemResponse(evidenceItem));
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:285: app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:287: Guid evidenceItemId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:306: var evidenceItem = await db.EvidenceItems
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:308: x.Id == evidenceItemId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:312: if (evidenceItem is null)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:317: evidenceItem.Status = "ARCHIVED";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:318: evidenceItem.UpdatedAt = DateTimeOffset.UtcNow;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:325: $"Evidence item archived. EvidenceItemId={evidenceItem.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:331: id = evidenceItem.Id,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:332: status = evidenceItem.Status,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:337: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/audit-events", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:365: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/audit-events/{auditEventId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:402: private static object ToEvidenceItemResponse(EvidenceItem evidenceItem)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:406: id = evidenceItem.Id,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:407: claimWorkspaceId = evidenceItem.ClaimWorkspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:408: conditionId = evidenceItem.ConditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:409: evidenceType = evidenceItem.EvidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:410: evidenceStatus = evidenceItem.EvidenceStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:411: originalFileName = evidenceItem.OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:412: storagePath = evidenceItem.StoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:413: fileType = evidenceItem.FileType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:414: fileSize = evidenceItem.FileSize,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:415: documentDate = evidenceItem.DocumentDate,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:416: providerName = evidenceItem.ProviderName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:417: userNotes = evidenceItem.UserNotes,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:418: aiSummary = evidenceItem.AiSummary,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:419: userConfirmedSummary = evidenceItem.UserConfirmedSummary,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:420: usedInGeneratedPack = evidenceItem.UsedInGeneratedPack,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:421: uploadedAt = evidenceItem.UploadedAt,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:422: status = evidenceItem.Status,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:423: createdAt = evidenceItem.CreatedAt,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:424: updatedAt = evidenceItem.UpdatedAt
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:497: public sealed record CreateEvidenceItemRequest(
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:512: public sealed record UpdateEvidenceItemRequest(
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:8: public static class EvidenceGapEndpoints
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:10: public static IEndpointRouteBuilder MapEvidenceGapEndpoints(this IEndpointRouteBuilder app)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:12: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-gaps", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:31: var gaps = await db.EvidenceGaps
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:37: return Results.Ok(gaps.Select(ToEvidenceGapResponse).ToList());
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:40: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-gaps", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:60: var gaps = await db.EvidenceGaps
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:69: return Results.Ok(gaps.Select(ToEvidenceGapResponse).ToList());
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:72: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-gaps/recalculate", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:104: var evidenceItems = await db.EvidenceItems
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:122: var createdGaps = new List<EvidenceGap>();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:124: if (!HasAnyEvidenceType(evidenceItems, "MEDICAL_REPORT", "SPECIALIST_REPORT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:135: if (!HasAnyEvidenceType(evidenceItems, "TREATMENT_SUMMARY", "MEDICAL_REPORT", "SPECIALIST_REPORT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:147: !HasAnyEvidenceType(evidenceItems, "MEDICATION_LIST", "TREATMENT_SUMMARY", "MEDICAL_REPORT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:159: !HasAnyEvidenceType(evidenceItems, "FUNCTIONAL_IMPACT_NOTES", "PERSONAL_STATEMENT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:174: if (acceptedOrCompensated && !HasAnyEvidenceType(evidenceItems, "DVA_DECISION_LETTER"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:185: if (acceptedOrCompensated && !HasAnyEvidenceType(evidenceItems, "PREVIOUS_PI_ASSESSMENT", "DCP_ASSESSMENT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:200: if (worseningMentioned && !HasAnyEvidenceType(evidenceItems, "MEDICAL_REPORT", "SPECIALIST_REPORT", "TREATMENT_SUMMARY"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:213: db.EvidenceGaps.AddRange(createdGaps);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:229: gaps = createdGaps.Select(ToEvidenceGapResponse).ToList()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:233: app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-gaps/{gapId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:242: UpdateEvidenceGapRequest input) =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:256: var gap = await db.EvidenceGaps
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:321: return Results.Ok(ToEvidenceGapResponse(gap));
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:324: app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-gaps/{gapId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:346: var gap = await db.EvidenceGaps
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:386: var existingGaps = await db.EvidenceGaps
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:400: private static bool HasAnyEvidenceType(List<EvidenceItem> evidenceItems, params string[] evidenceTypes)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:402: return evidenceItems.Any(x => evidenceTypes.Contains(x.EvidenceType));
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:405: private static EvidenceGap CreateGap(
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:413: return new EvidenceGap
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:428: private static object ToEvidenceGapResponse(EvidenceGap gap)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:488: public sealed record UpdateEvidenceGapRequest(
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:14: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-upload-url", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:22: CreateEvidenceUploadUrlRequest input) =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:53: var evidenceItem = new EvidenceItem
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:71: db.EvidenceItems.Add(evidenceItem);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:75: var objectName = $"evidence/{workspaceId}/{conditionId}/{evidenceItem.Id}/{safeFileName}";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:77: evidenceItem.StoragePath = $"gs://{bucketName}/{objectName}";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:78: evidenceItem.UpdatedAt = DateTimeOffset.UtcNow;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:85: $"Signed upload URL created. EvidenceItemId={evidenceItem.Id}; Type={evidenceType}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:90: var uploadUrl = await signer.SignAsync(
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:98: evidenceItem = ToEvidenceItemResponse(evidenceItem),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:102: url = uploadUrl,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:105: note = "Upload the file directly to this URL using HTTP PUT. After upload, call mark-uploaded."
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:110: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}/mark-uploaded", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:112: Guid evidenceItemId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:131: var evidenceItem = await db.EvidenceItems
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:133: x.Id == evidenceItemId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:137: if (evidenceItem is null)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:144: if (string.IsNullOrWhiteSpace(evidenceItem.StoragePath))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:149: var objectName = GetObjectNameFromStoragePath(evidenceItem.StoragePath, bucketName);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:156: evidenceItem.EvidenceStatus = "UPLOADED";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:157: evidenceItem.UploadedAt = DateTimeOffset.UtcNow;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:158: evidenceItem.UpdatedAt = DateTimeOffset.UtcNow;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:162: evidenceItem.FileSize = (long)storageObject.Size.Value;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:170: $"Evidence upload confirmed. EvidenceItemId={evidenceItem.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:174: return Results.Ok(ToEvidenceItemResponse(evidenceItem));
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:181: evidenceItemId = evidenceItem.Id
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:186: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}/download-url", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:188: Guid evidenceItemId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:207: var evidenceItem = await db.EvidenceItems
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:209: x.Id == evidenceItemId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:213: if (evidenceItem is null)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:218: if (string.IsNullOrWhiteSpace(evidenceItem.StoragePath))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:224: var objectName = GetObjectNameFromStoragePath(evidenceItem.StoragePath, bucketName);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:227: var downloadUrl = await signer.SignAsync(
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:238: $"Signed download URL created. EvidenceItemId={evidenceItem.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:244: evidenceItemId = evidenceItem.Id,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:246: url = downloadUrl,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:266: private static object ToEvidenceItemResponse(EvidenceItem evidenceItem)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:270: id = evidenceItem.Id,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:271: claimWorkspaceId = evidenceItem.ClaimWorkspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:272: conditionId = evidenceItem.ConditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:273: evidenceType = evidenceItem.EvidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:274: evidenceStatus = evidenceItem.EvidenceStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:275: originalFileName = evidenceItem.OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:276: storagePath = evidenceItem.StoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:277: fileType = evidenceItem.FileType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:278: fileSize = evidenceItem.FileSize,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:279: documentDate = evidenceItem.DocumentDate,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:280: providerName = evidenceItem.ProviderName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:281: userNotes = evidenceItem.UserNotes,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:282: aiSummary = evidenceItem.AiSummary,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:283: userConfirmedSummary = evidenceItem.UserConfirmedSummary,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:284: usedInGeneratedPack = evidenceItem.UsedInGeneratedPack,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:285: uploadedAt = evidenceItem.UploadedAt,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:286: status = evidenceItem.Status,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:287: createdAt = evidenceItem.CreatedAt,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:288: updatedAt = evidenceItem.UpdatedAt
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:352: public sealed record CreateEvidenceUploadUrlRequest(
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:264: modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.EvidenceItem", b =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:9: public partial class AddEvidenceGaps : Migration
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:15: [Migration("20260511235314_AddEvidenceGaps")]
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:16: partial class AddEvidenceGaps
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:264: modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.EvidenceGap", b =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:326: modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.EvidenceItem", b =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:329: modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.EvidenceGap", b =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:391: modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.EvidenceItem", b =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:329: modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.EvidenceGap", b =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:391: modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.EvidenceItem", b =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:326: modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.EvidenceGap", b =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:388: modelBuilder.Entity("VirtualAdvocatePI.Api.Domain.Claims.EvidenceItem", b =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:45: app.MapGet("/", () => Results.Ok(new
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:53: app.MapGet("/health", () => Results.Ok(new
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:60: app.MapGet("/api/v1/build-info", () => Results.Ok(new
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:68: app.MapGet("/api/v1/config/secret-health", () =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:80: app.MapGet("/api/v1/db/health", async () =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:109: app.MapGet("/api/v1/db/schema-health", async (VirtualAdvocateDbContext db) =>
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:121: app.MapGet("/api/v1/me", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:135: app.MapGet("/api/v1/claim-workspaces", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:155: app.MapPost("/api/v1/claim-workspaces", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:209: app.MapGet("/api/v1/claim-workspaces/{id:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:242: app.MapPatch("/api/v1/claim-workspaces/{id:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:369: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:397: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:469: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:500: app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:629: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/accepted-history", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:657: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/accepted-history", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:722: app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/accepted-history/{historyId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:868: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/question-responses", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:897: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/question-responses", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:981: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/question-responses/{responseId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1017: app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/question-responses/{responseId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1170: app.MapEvidenceGapEndpoints();

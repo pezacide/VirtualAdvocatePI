@@ -1,0 +1,568 @@
+Evidence backend validation audit
+
+Generated from backend/src validation and allowed values search.
+
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:44: entity.Property(x => x.FirebaseUid).HasMaxLength(200).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:45: entity.Property(x => x.Email).HasMaxLength(320).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:47: entity.Property(x => x.Role).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:48: entity.Property(x => x.AccountStatus).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:59: entity.Property(x => x.ClaimFramework).HasMaxLength(100).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:60: entity.Property(x => x.ClaimScenario).HasMaxLength(100).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:61: entity.Property(x => x.WorkspaceTitle).HasMaxLength(250).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:62: entity.Property(x => x.Status).HasMaxLength(100).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:63: entity.Property(x => x.GeneratedPackStatus).HasMaxLength(100).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:74: entity.Property(x => x.ConditionName).HasMaxLength(250).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:75: entity.Property(x => x.DiagnosisStatus).HasMaxLength(100).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:76: entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:88: entity.Property(x => x.PreviouslyAcceptedByDva).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:89: entity.Property(x => x.OriginalAct).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:90: entity.Property(x => x.PreviousCompensationReceived).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:91: entity.Property(x => x.PreviousDvaDecisionLetterAvailable).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:92: entity.Property(x => x.PreviousAssessmentLetterAvailable).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:93: entity.Property(x => x.WorseningClaimed).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:94: entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:107: entity.Property(x => x.QuestionGroup).HasMaxLength(100).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:108: entity.Property(x => x.QuestionKey).HasMaxLength(150).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:109: entity.Property(x => x.QuestionText).HasMaxLength(1000).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:110: entity.Property(x => x.AnswerType).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:111: entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:122: entity.HasIndex(x => x.EvidenceType);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:123: entity.HasIndex(x => x.EvidenceStatus);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:125: entity.Property(x => x.EvidenceType).HasMaxLength(100).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:126: entity.Property(x => x.EvidenceStatus).HasMaxLength(100).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:131: entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:142: entity.HasIndex(x => x.GapType);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:143: entity.HasIndex(x => x.GapStatus);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:146: entity.Property(x => x.GapType).HasMaxLength(150).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:147: entity.Property(x => x.GapStatus).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:148: entity.Property(x => x.Severity).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:149: entity.Property(x => x.PlainEnglishExplanation).HasMaxLength(2000).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:151: entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:165: entity.Property(x => x.EventType).HasMaxLength(150).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:182: entity.Property(x => x.DraftType).HasMaxLength(150).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:183: entity.Property(x => x.PromptVersion).HasMaxLength(150).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:185: entity.Property(x => x.DraftText).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:187: entity.Property(x => x.ReviewStatus).HasMaxLength(100).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:188: entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:201: entity.Property(x => x.DocumentType).HasMaxLength(150).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:202: entity.Property(x => x.DocumentStatus).HasMaxLength(100).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:205: entity.Property(x => x.TemplateVersion).HasMaxLength(150).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:207: entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\AiDraft.cs:21: public string ReviewStatus { get; set; } = "USER_REVIEW_REQUIRED";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\ClaimWorkspace.cs:15: public string Status { get; set; } = "NOT_STARTED";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceGap.cs:11: public string GapType { get; set; } = string.Empty;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceGap.cs:13: public string GapStatus { get; set; } = "OPEN";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:11: public string EvidenceType { get; set; } = "OTHER";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:13: public string EvidenceStatus { get; set; } = "LISTED_NOT_UPLOADED";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:35: public DateTimeOffset? UploadedAt { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:99: if (!IsValidDraftType(draftType))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:103: error = "Invalid AI draft type.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:104: allowedValues = GetAllowedDraftTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:110: return Results.BadRequest(new { error = "Draft text is required." });
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:115: if (!IsValidReviewStatus(reviewStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:119: error = "Invalid review status.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:120: allowedValues = GetAllowedReviewStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:227: if (!IsValidDraftType(draftType))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:231: error = "Invalid AI draft type.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:232: allowedValues = GetAllowedDraftTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:263: if (!IsValidReviewStatus(reviewStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:267: error = "Invalid review status.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:268: allowedValues = GetAllowedReviewStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:279: if (reviewStatus is "REJECTED" or "USER_REVIEW_REQUIRED" or "REGENERATED")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:381: return string.IsNullOrWhiteSpace(value) ? "USER_REVIEW_REQUIRED" : value.Trim().ToUpperInvariant();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:384: private static bool IsValidDraftType(string value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:386: return GetAllowedDraftTypes().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:389: private static bool IsValidReviewStatus(string value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:391: return GetAllowedReviewStatuses().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:394: private static string[] GetAllowedDraftTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:407: private static string[] GetAllowedReviewStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:412: "USER_REVIEW_REQUIRED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:62: if (!IsValidDocumentType(documentType))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:66: error = "Invalid document type.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:67: allowedValues = GetAllowedDocumentTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:73: if (!IsValidDocumentStatus(documentStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:77: error = "Invalid document status.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:78: allowedValues = GetAllowedDocumentStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:187: if (!IsValidDocumentType(documentType))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:191: error = "Invalid document type.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:192: allowedValues = GetAllowedDocumentTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:203: if (!IsValidDocumentStatus(documentStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:207: error = "Invalid document status.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:208: allowedValues = GetAllowedDocumentStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:344: private static bool IsValidDocumentType(string value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:346: return GetAllowedDocumentTypes().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:349: private static bool IsValidDocumentStatus(string value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:351: return GetAllowedDocumentStatuses().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:354: private static string[] GetAllowedDocumentTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:365: private static string[] GetAllowedDocumentStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:92: var evidenceType = NormaliseEvidenceType(input.EvidenceType);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:94: if (!IsValidEvidenceType(evidenceType))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:98: error = "Invalid evidence type.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:99: allowedValues = GetAllowedEvidenceTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:103: var evidenceStatus = NormaliseEvidenceStatus(input.EvidenceStatus);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:105: if (!IsValidEvidenceStatus(evidenceStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:109: error = "Invalid evidence status.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:110: allowedValues = GetAllowedEvidenceStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:118: EvidenceType = evidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:119: EvidenceStatus = evidenceStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:130: UploadedAt = evidenceStatus == "UPLOADED" ? DateTimeOffset.UtcNow : null,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:143: $"Evidence item created. Type={evidenceType}; Status={evidenceStatus}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:219: if (!string.IsNullOrWhiteSpace(input.EvidenceType))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:221: var evidenceType = NormaliseEvidenceType(input.EvidenceType);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:223: if (!IsValidEvidenceType(evidenceType))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:227: error = "Invalid evidence type.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:228: allowedValues = GetAllowedEvidenceTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:232: evidenceItem.EvidenceType = evidenceType;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:235: if (!string.IsNullOrWhiteSpace(input.EvidenceStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:237: var evidenceStatus = NormaliseEvidenceStatus(input.EvidenceStatus);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:239: if (!IsValidEvidenceStatus(evidenceStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:243: error = "Invalid evidence status.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:244: allowedValues = GetAllowedEvidenceStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:248: evidenceItem.EvidenceStatus = evidenceStatus;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:250: if (evidenceStatus == "UPLOADED" && evidenceItem.UploadedAt is null)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:252: evidenceItem.UploadedAt = DateTimeOffset.UtcNow;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:409: evidenceType = evidenceItem.EvidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:410: evidenceStatus = evidenceItem.EvidenceStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:421: uploadedAt = evidenceItem.UploadedAt,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:443: private static string NormaliseEvidenceType(string? value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:448: private static string NormaliseEvidenceStatus(string? value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:450: return string.IsNullOrWhiteSpace(value) ? "LISTED_NOT_UPLOADED" : value.Trim().ToUpperInvariant();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:453: private static bool IsValidEvidenceType(string value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:455: return GetAllowedEvidenceTypes().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:458: private static bool IsValidEvidenceStatus(string value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:460: return GetAllowedEvidenceStatuses().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:463: private static string[] GetAllowedEvidenceTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:483: private static string[] GetAllowedEvidenceStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:487: "MISSING",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:488: "LISTED_NOT_UPLOADED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:489: "UPLOADED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:490: "REVIEWED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:498: string? EvidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:499: string? EvidenceStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:513: string? EvidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:514: string? EvidenceStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:34: .ThenBy(x => x.GapType)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:66: .ThenBy(x => x.GapType)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:109: x.EvidenceStatus != "MISSING" &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:110: x.EvidenceStatus != "NOT_APPLICABLE")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:124: if (!HasAnyEvidenceType(evidenceItems, "MEDICAL_REPORT", "SPECIALIST_REPORT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:129: "DIAGNOSIS_EVIDENCE_MISSING",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:131: "No medical report or specialist report has been listed or uploaded for this condition. Diagnosis evidence may be useful for review by a doctor, advocate, lawyer, support person or DVA.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:135: if (!HasAnyEvidenceType(evidenceItems, "TREATMENT_SUMMARY", "MEDICAL_REPORT", "SPECIALIST_REPORT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:140: "CURRENT_TREATMENT_EVIDENCE_MISSING",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:142: "No treatment summary, medical report or specialist report has been listed or uploaded for this condition. Current treatment information may help explain the present state of the condition.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:147: !HasAnyEvidenceType(evidenceItems, "MEDICATION_LIST", "TREATMENT_SUMMARY", "MEDICAL_REPORT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:152: "MEDICATION_EVIDENCE_MISSING",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:154: "Medication has been mentioned for this condition, but no medication list or related treatment evidence has been listed or uploaded.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:159: !HasAnyEvidenceType(evidenceItems, "FUNCTIONAL_IMPACT_NOTES", "PERSONAL_STATEMENT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:164: "FUNCTIONAL_IMPACT_NOTES_MISSING",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:174: if (acceptedOrCompensated && !HasAnyEvidenceType(evidenceItems, "DVA_DECISION_LETTER"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:179: "PREVIOUS_DVA_DECISION_LETTER_MISSING",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:181: "This condition has been marked as previously accepted or compensated, but no DVA decision letter has been listed or uploaded.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:185: if (acceptedOrCompensated && !HasAnyEvidenceType(evidenceItems, "PREVIOUS_PI_ASSESSMENT", "DCP_ASSESSMENT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:190: "PREVIOUS_ASSESSMENT_LETTER_MISSING",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:192: "This condition has previous acceptance or compensation history, but no previous PI or DCP assessment evidence has been listed or uploaded.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:200: if (worseningMentioned && !HasAnyEvidenceType(evidenceItems, "MEDICAL_REPORT", "SPECIALIST_REPORT", "TREATMENT_SUMMARY"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:205: "WORSENING_EVIDENCE_MISSING",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:207: "Worsening has been mentioned, but no medical report, specialist report or treatment summary has been listed or uploaded to support the change over time.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:268: if (!string.IsNullOrWhiteSpace(input.GapStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:270: var gapStatus = NormaliseGapStatus(input.GapStatus);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:272: if (!IsValidGapStatus(gapStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:276: error = "Invalid gap status.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:277: allowedValues = GetAllowedGapStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:281: gap.GapStatus = gapStatus;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:288: if (!IsValidSeverity(severity))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:292: error = "Invalid severity.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:293: allowedValues = GetAllowedSeverities()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:317: $"Evidence gap updated. GapId={gap.Id}; GapType={gap.GapType}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:366: $"Evidence gap archived. GapId={gap.Id}; GapType={gap.GapType}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:400: private static bool HasAnyEvidenceType(List<EvidenceItem> evidenceItems, params string[] evidenceTypes)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:402: return evidenceItems.Any(x => evidenceTypes.Contains(x.EvidenceType));
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:408: string gapType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:417: GapType = gapType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:418: GapStatus = "OPEN",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:435: gapType = gap.GapType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:436: gapStatus = gap.GapStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:446: private static string NormaliseGapStatus(string? value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:456: private static bool IsValidGapStatus(string value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:458: return GetAllowedGapStatuses().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:461: private static bool IsValidSeverity(string value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:463: return GetAllowedSeverities().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:466: private static string[] GetAllowedGapStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:471: "IN_PROGRESS",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:472: "RESOLVED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:477: private static string[] GetAllowedSeverities()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:489: string? GapStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:38: return Results.BadRequest(new { error = "Original file name is required." });
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:42: var evidenceType = NormaliseEvidenceType(input.EvidenceType);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:44: if (!IsValidEvidenceType(evidenceType))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:48: error = "Invalid evidence type.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:49: allowedValues = GetAllowedEvidenceTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:57: EvidenceType = evidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:58: EvidenceStatus = "LISTED_NOT_UPLOADED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:85: $"Signed upload URL created. EvidenceItemId={evidenceItem.Id}; Type={evidenceType}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:104: requiredHeaders = new { },
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:105: note = "Upload the file directly to this URL using HTTP PUT. After upload, call mark-uploaded."
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:110: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}/mark-uploaded", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:156: evidenceItem.EvidenceStatus = "UPLOADED";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:157: evidenceItem.UploadedAt = DateTimeOffset.UtcNow;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:169: "EVIDENCE_UPLOADED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:180: error = "The uploaded object could not be found in Cloud Storage yet.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:273: evidenceType = evidenceItem.EvidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:274: evidenceStatus = evidenceItem.EvidenceStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:285: uploadedAt = evidenceItem.UploadedAt,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:301: foreach (var invalidChar in Path.GetInvalidFileNameChars())
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:303: fileName = fileName.Replace(invalidChar, '-');
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:315: throw new InvalidOperationException("Storage path does not match the configured evidence bucket.");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:321: private static string NormaliseEvidenceType(string? value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:326: private static bool IsValidEvidenceType(string value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:328: return GetAllowedEvidenceTypes().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:331: private static string[] GetAllowedEvidenceTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:353: string? EvidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:38: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:52: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:100: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:105: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:113: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:121: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:132: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:150: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:162: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:167: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:175: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:44: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:52: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:57: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:65: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:70: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:75: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:83: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:109: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:123: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:146: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:176: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:181: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:189: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:197: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:208: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:226: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:238: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:243: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:251: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:44: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:52: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:57: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:65: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:70: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:75: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:83: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:109: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:123: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:146: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:176: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:181: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:189: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:197: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:208: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:229: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:243: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:248: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:253: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:258: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:283: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:295: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:300: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:308: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:39: EvidenceType = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:40: EvidenceStatus = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:51: UploadedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:92: name: "IX_evidence_items_EvidenceStatus",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:94: column: "EvidenceStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:97: name: "IX_evidence_items_EvidenceType",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:99: column: "EvidenceType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:44: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:52: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:57: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:65: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:70: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:75: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:83: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:120: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:154: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:168: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:191: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:221: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:226: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:234: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:242: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:253: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:285: b.Property<string>("EvidenceStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:286: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:290: b.Property<string>("EvidenceType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:291: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:311: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:322: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:340: b.HasIndex("EvidenceStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:342: b.HasIndex("EvidenceType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:357: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:371: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:376: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:381: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:386: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:411: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:423: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:428: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:436: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:21: GapType = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:22: GapStatus = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:46: name: "IX_evidence_gaps_GapStatus",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:48: column: "GapStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:51: name: "IX_evidence_gaps_GapType",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:53: column: "GapType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:44: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:52: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:57: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:65: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:70: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:75: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:83: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:120: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:154: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:168: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:191: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:221: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:226: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:234: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:242: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:253: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:279: b.Property<string>("GapStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:280: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:284: b.Property<string>("GapType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:285: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:290: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:295: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:300: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:317: b.HasIndex("GapStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:319: b.HasIndex("GapType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:347: b.Property<string>("EvidenceStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:348: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:352: b.Property<string>("EvidenceType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:353: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:373: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:384: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:402: b.HasIndex("EvidenceStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:404: b.HasIndex("EvidenceType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:419: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:433: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:438: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:443: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:448: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:473: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:485: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:490: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:498: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:44: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:52: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:57: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:65: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:70: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:75: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:83: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:118: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:122: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:127: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:132: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:141: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:185: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:219: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:233: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:256: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:286: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:291: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:299: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:307: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:318: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:344: b.Property<string>("GapStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:345: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:349: b.Property<string>("GapType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:350: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:355: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:360: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:365: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:382: b.HasIndex("GapStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:384: b.HasIndex("GapType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:412: b.Property<string>("EvidenceStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:413: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:417: b.Property<string>("EvidenceType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:418: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:438: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:449: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:467: b.HasIndex("EvidenceStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:469: b.HasIndex("EvidenceType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:484: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:498: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:503: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:508: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:513: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:538: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:550: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:555: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:563: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:44: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:52: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:57: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:65: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:70: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:75: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:83: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:118: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:122: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:127: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:132: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:141: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:185: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:219: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:233: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:256: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:286: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:291: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:299: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:307: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:318: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:344: b.Property<string>("GapStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:345: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:349: b.Property<string>("GapType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:350: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:355: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:360: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:365: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:382: b.HasIndex("GapStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:384: b.HasIndex("GapType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:412: b.Property<string>("EvidenceStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:413: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:417: b.Property<string>("EvidenceType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:418: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:438: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:449: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:467: b.HasIndex("EvidenceStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:469: b.HasIndex("EvidenceType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:487: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:492: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:515: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:520: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:548: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:562: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:567: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:572: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:577: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:602: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:614: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:619: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:627: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:41: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:49: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:54: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:62: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:67: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:72: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:80: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:115: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:119: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:124: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:129: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:138: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:182: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:216: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:230: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:253: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:283: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:288: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:296: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:304: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:315: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:341: b.Property<string>("GapStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:342: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:346: b.Property<string>("GapType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:347: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:352: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:357: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:362: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:379: b.HasIndex("GapStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:381: b.HasIndex("GapType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:409: b.Property<string>("EvidenceStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:410: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:414: b.Property<string>("EvidenceType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:415: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:435: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:446: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:464: b.HasIndex("EvidenceStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:466: b.HasIndex("EvidenceType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:484: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:489: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:512: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:517: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:545: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:559: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:564: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:569: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:574: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:599: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:611: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:616: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:624: .IsRequired()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:74: status = string.IsNullOrWhiteSpace(connectionString) ? "missing" : "present",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:86: return Results.Problem("DATABASE_CONNECTION_STRING environment variable is missing.");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:171: if (!IsValidClaimScenario(claimScenario))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:175: error = "Invalid claim scenario.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:176: allowedValues = GetAllowedClaimScenarios()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:188: Status = "IN_PROGRESS",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:280: if (!IsValidClaimScenario(claimScenario))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:284: error = "Invalid claim scenario.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:285: allowedValues = GetAllowedClaimScenarios()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:296: if (!IsValidWorkspaceStatus(status))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:300: error = "Invalid workspace status.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:301: allowedValues = GetAllowedWorkspaceStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:420: return Results.BadRequest(new { error = "Condition name is required." });
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:425: if (!IsValidDiagnosisStatus(diagnosisStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:429: error = "Invalid diagnosis status.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:430: allowedValues = GetAllowedDiagnosisStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:539: if (!IsValidDiagnosisStatus(diagnosisStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:543: error = "Invalid diagnosis status.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:544: allowedValues = GetAllowedDiagnosisStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:681: if (!IsValidOriginalAct(originalAct))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:685: error = "Invalid original Act.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:686: allowedValues = GetAllowedOriginalActs()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:766: if (!IsValidOriginalAct(originalAct))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:770: error = "Invalid original Act.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:771: allowedValues = GetAllowedOriginalActs()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:921: return Results.BadRequest(new { error = "Question key is required." });
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:926: return Results.BadRequest(new { error = "Question text is required." });
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:931: if (!IsValidQuestionGroup(questionGroup))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:935: error = "Invalid question group.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:936: allowedValues = GetAllowedQuestionGroups()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:942: if (!IsValidAnswerType(answerType))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:946: error = "Invalid answer type.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:947: allowedValues = GetAllowedAnswerTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1056: if (!IsValidQuestionGroup(questionGroup))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1060: error = "Invalid question group.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1061: allowedValues = GetAllowedQuestionGroups()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1087: if (!IsValidAnswerType(answerType))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1091: error = "Invalid answer type.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1092: allowedValues = GetAllowedAnswerTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1318: static bool IsValidClaimScenario(string value) => GetAllowedClaimScenarios().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1320: static bool IsValidWorkspaceStatus(string value) => GetAllowedWorkspaceStatuses().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1322: static bool IsValidDiagnosisStatus(string value) => GetAllowedDiagnosisStatuses().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1324: static bool IsValidOriginalAct(string value) => GetAllowedOriginalActs().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1326: static bool IsValidQuestionGroup(string value) => GetAllowedQuestionGroups().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1328: static bool IsValidAnswerType(string value) => GetAllowedAnswerTypes().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1330: static string[] GetAllowedClaimScenarios()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1342: static string[] GetAllowedWorkspaceStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1346: "NOT_STARTED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1347: "IN_PROGRESS",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1349: "DRAFTS_READY_FOR_REVIEW",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1350: "READY_TO_GENERATE",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1356: static string[] GetAllowedDiagnosisStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1367: static string[] GetAllowedOriginalActs()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1379: static string[] GetAllowedQuestionGroups()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1395: "EVIDENCE_MISSING",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1400: static string[] GetAllowedAnswerTypes()

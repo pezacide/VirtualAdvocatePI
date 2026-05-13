@@ -1,0 +1,762 @@
+Evidence backend model audit
+
+Generated from backend/src model and DbContext search.
+
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:24: public DbSet<EvidenceItem> EvidenceItems => Set<EvidenceItem>();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:26: public DbSet<EvidenceGap> EvidenceGaps => Set<EvidenceGap>();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:72: entity.HasIndex(x => x.ClaimWorkspaceId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:85: entity.HasIndex(x => x.ClaimWorkspaceId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:86: entity.HasIndex(x => x.ConditionId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:103: entity.HasIndex(x => x.ClaimWorkspaceId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:104: entity.HasIndex(x => x.ConditionId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:105: entity.HasIndex(x => new { x.ConditionId, x.QuestionKey });
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:120: entity.HasIndex(x => x.ClaimWorkspaceId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:121: entity.HasIndex(x => x.ConditionId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:122: entity.HasIndex(x => x.EvidenceType);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:123: entity.HasIndex(x => x.EvidenceStatus);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:125: entity.Property(x => x.EvidenceType).HasMaxLength(100).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:126: entity.Property(x => x.EvidenceStatus).HasMaxLength(100).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:127: entity.Property(x => x.OriginalFileName).HasMaxLength(500);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:128: entity.Property(x => x.StoragePath).HasMaxLength(1000);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:140: entity.HasIndex(x => x.ClaimWorkspaceId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:141: entity.HasIndex(x => x.ConditionId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:142: entity.HasIndex(x => x.GapType);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:143: entity.HasIndex(x => x.GapStatus);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:146: entity.Property(x => x.GapType).HasMaxLength(150).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:147: entity.Property(x => x.GapStatus).HasMaxLength(50).IsRequired();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:161: entity.HasIndex(x => x.ClaimWorkspaceId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:177: entity.HasIndex(x => x.ClaimWorkspaceId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:178: entity.HasIndex(x => x.ConditionId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:197: entity.HasIndex(x => x.ClaimWorkspaceId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:203: entity.Property(x => x.DocxStoragePath).HasMaxLength(1000);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Data\VirtualAdvocateDbContext.cs:204: entity.Property(x => x.PdfStoragePath).HasMaxLength(1000);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\AcceptedConditionHistory.cs:7: public Guid ClaimWorkspaceId { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\AcceptedConditionHistory.cs:9: public Guid ConditionId { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\AiDraft.cs:7: public Guid ClaimWorkspaceId { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\AiDraft.cs:9: public Guid? ConditionId { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\AuditEvent.cs:9: public Guid? ClaimWorkspaceId { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\ClaimCondition.cs:7: public Guid ClaimWorkspaceId { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceGap.cs:3: public sealed class EvidenceGap
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceGap.cs:7: public Guid ClaimWorkspaceId { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceGap.cs:9: public Guid ConditionId { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceGap.cs:11: public string GapType { get; set; } = string.Empty;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceGap.cs:13: public string GapStatus { get; set; } = "OPEN";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:3: public sealed class EvidenceItem
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:7: public Guid ClaimWorkspaceId { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:9: public Guid? ConditionId { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:11: public string EvidenceType { get; set; } = "OTHER";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:13: public string EvidenceStatus { get; set; } = "LISTED_NOT_UPLOADED";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:15: public string? OriginalFileName { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:17: public string? StoragePath { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:23: public DateOnly? DocumentDate { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\EvidenceItem.cs:35: public DateTimeOffset? UploadedAt { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\GeneratedDocument.cs:7: public Guid ClaimWorkspaceId { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\GeneratedDocument.cs:13: public string? DocxStoragePath { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\GeneratedDocument.cs:15: public string? PdfStoragePath { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\QuestionResponse.cs:7: public Guid ClaimWorkspaceId { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Domain\Claims\QuestionResponse.cs:9: public Guid ConditionId { get; set; }
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:12: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/ai-drafts", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:13: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:26: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:32: .Where(x => x.ClaimWorkspaceId == workspaceId && x.Status != "ARCHIVED")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:39: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/ai-drafts", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:40: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:41: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:54: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:61: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:62: x.ConditionId == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:70: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/ai-drafts", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:71: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:86: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:91: if (input.ConditionId.HasValue &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:92: !await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, input.ConditionId.Value))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:126: ClaimWorkspaceId = workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:127: ConditionId = input.ConditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:147: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:153: return Results.Created($"/api/v1/claim-workspaces/{workspaceId}/ai-drafts/{draft.Id}", ToAiDraftResponse(draft));
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:156: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/ai-drafts/{draftId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:157: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:171: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:179: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:190: app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/ai-drafts/{draftId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:191: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:207: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:215: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:290: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:299: app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/ai-drafts/{draftId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:300: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:315: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:323: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:337: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:359: claimWorkspaceId = draft.ClaimWorkspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:360: conditionId = draft.ConditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Ai\AiDraftEndpoints.cs:422: Guid? ConditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:12: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/generated-documents", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:13: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:26: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:32: .Where(x => x.ClaimWorkspaceId == workspaceId && x.Status != "ARCHIVED")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:39: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/generated-documents", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:40: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:55: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:84: ClaimWorkspaceId = workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:87: DocxStoragePath = input.DocxStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:88: PdfStoragePath = input.PdfStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:105: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:112: $"/api/v1/claim-workspaces/{workspaceId}/generated-documents/{document.Id}",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:116: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/generated-documents/{documentId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:117: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:131: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:139: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:150: app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/generated-documents/{documentId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:151: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:167: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:175: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:225: if (input.DocxStoragePath is not null)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:227: document.DocxStoragePath = input.DocxStoragePath;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:230: if (input.PdfStoragePath is not null)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:232: document.PdfStoragePath = input.PdfStoragePath;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:250: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:259: app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/generated-documents/{documentId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:260: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:275: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:283: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:297: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:319: claimWorkspaceId = document.ClaimWorkspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:322: docxStoragePath = document.DocxStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:323: pdfStoragePath = document.PdfStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:382: string? DocxStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:383: string? PdfStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:391: string? DocxStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Documents\GeneratedDocumentEndpoints.cs:392: string? PdfStoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:12: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:13: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:26: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:32: .Where(x => x.ClaimWorkspaceId == workspaceId && x.Status != "ARCHIVED")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:39: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-items", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:40: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:41: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:54: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:61: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:62: x.ConditionId == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:70: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-items", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:71: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:72: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:87: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:92: var evidenceType = NormaliseEvidenceType(input.EvidenceType);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:94: if (!IsValidEvidenceType(evidenceType))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:99: allowedValues = GetAllowedEvidenceTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:103: var evidenceStatus = NormaliseEvidenceStatus(input.EvidenceStatus);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:105: if (!IsValidEvidenceStatus(evidenceStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:110: allowedValues = GetAllowedEvidenceStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:116: ClaimWorkspaceId = workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:117: ConditionId = conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:118: EvidenceType = evidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:119: EvidenceStatus = evidenceStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:120: OriginalFileName = input.OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:121: StoragePath = input.StoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:124: DocumentDate = input.DocumentDate,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:130: UploadedAt = evidenceStatus == "UPLOADED" ? DateTimeOffset.UtcNow : null,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:141: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:143: $"Evidence item created. Type={evidenceType}; Status={evidenceStatus}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:148: $"/api/v1/claim-workspaces/{workspaceId}/evidence-items/{evidenceItem.Id}",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:152: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:153: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:167: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:175: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:186: app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:187: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:203: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:211: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:219: if (!string.IsNullOrWhiteSpace(input.EvidenceType))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:221: var evidenceType = NormaliseEvidenceType(input.EvidenceType);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:223: if (!IsValidEvidenceType(evidenceType))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:228: allowedValues = GetAllowedEvidenceTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:232: evidenceItem.EvidenceType = evidenceType;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:235: if (!string.IsNullOrWhiteSpace(input.EvidenceStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:237: var evidenceStatus = NormaliseEvidenceStatus(input.EvidenceStatus);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:239: if (!IsValidEvidenceStatus(evidenceStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:244: allowedValues = GetAllowedEvidenceStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:248: evidenceItem.EvidenceStatus = evidenceStatus;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:250: if (evidenceStatus == "UPLOADED" && evidenceItem.UploadedAt is null)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:252: evidenceItem.UploadedAt = DateTimeOffset.UtcNow;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:256: evidenceItem.OriginalFileName = input.OriginalFileName ?? evidenceItem.OriginalFileName;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:257: evidenceItem.StoragePath = input.StoragePath ?? evidenceItem.StoragePath;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:260: evidenceItem.DocumentDate = input.DocumentDate ?? evidenceItem.DocumentDate;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:276: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:285: app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:286: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:301: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:309: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:323: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:337: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/audit-events", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:338: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:351: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:357: .Where(x => x.UserId == user.Id && x.ClaimWorkspaceId == workspaceId)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:365: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/audit-events/{auditEventId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:366: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:380: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:389: x.ClaimWorkspaceId == workspaceId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:407: claimWorkspaceId = evidenceItem.ClaimWorkspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:408: conditionId = evidenceItem.ConditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:409: evidenceType = evidenceItem.EvidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:410: evidenceStatus = evidenceItem.EvidenceStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:411: originalFileName = evidenceItem.OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:412: storagePath = evidenceItem.StoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:415: documentDate = evidenceItem.DocumentDate,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:421: uploadedAt = evidenceItem.UploadedAt,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:434: claimWorkspaceId = auditEvent.ClaimWorkspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:443: private static string NormaliseEvidenceType(string? value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:448: private static string NormaliseEvidenceStatus(string? value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:453: private static bool IsValidEvidenceType(string value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:455: return GetAllowedEvidenceTypes().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:458: private static bool IsValidEvidenceStatus(string value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:460: return GetAllowedEvidenceStatuses().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:463: private static string[] GetAllowedEvidenceTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:483: private static string[] GetAllowedEvidenceStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:498: string? EvidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:499: string? EvidenceStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:500: string? OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:501: string? StoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:504: DateOnly? DocumentDate,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:513: string? EvidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:514: string? EvidenceStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:515: string? OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:516: string? StoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceAndAuditEndpoints.cs:519: DateOnly? DocumentDate,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:8: public static class EvidenceGapEndpoints
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:12: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-gaps", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:13: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:26: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:32: .Where(x => x.ClaimWorkspaceId == workspaceId && x.Status != "ARCHIVED")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:34: .ThenBy(x => x.GapType)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:40: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-gaps", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:41: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:42: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:55: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:62: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:63: x.ConditionId == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:66: .ThenBy(x => x.GapType)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:72: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-gaps/recalculate", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:73: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:74: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:88: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:95: x.Id == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:96: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:106: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:107: x.ConditionId == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:109: x.EvidenceStatus != "MISSING" &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:110: x.EvidenceStatus != "NOT_APPLICABLE")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:115: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:116: x.ConditionId == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:120: await ArchiveExistingOpenGapsAsync(db, workspaceId, conditionId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:124: if (!HasAnyEvidenceType(evidenceItems, "MEDICAL_REPORT", "SPECIALIST_REPORT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:127: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:128: conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:135: if (!HasAnyEvidenceType(evidenceItems, "TREATMENT_SUMMARY", "MEDICAL_REPORT", "SPECIALIST_REPORT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:138: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:139: conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:147: !HasAnyEvidenceType(evidenceItems, "MEDICATION_LIST", "TREATMENT_SUMMARY", "MEDICAL_REPORT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:150: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:151: conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:159: !HasAnyEvidenceType(evidenceItems, "FUNCTIONAL_IMPACT_NOTES", "PERSONAL_STATEMENT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:162: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:163: conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:174: if (acceptedOrCompensated && !HasAnyEvidenceType(evidenceItems, "DVA_DECISION_LETTER"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:177: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:178: conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:185: if (acceptedOrCompensated && !HasAnyEvidenceType(evidenceItems, "PREVIOUS_PI_ASSESSMENT", "DCP_ASSESSMENT"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:188: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:189: conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:200: if (worseningMentioned && !HasAnyEvidenceType(evidenceItems, "MEDICAL_REPORT", "SPECIALIST_REPORT", "TREATMENT_SUMMARY"))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:203: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:204: conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:219: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:221: $"Evidence gaps recalculated. ConditionId={conditionId}; Created={createdGaps.Count}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:227: conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:233: app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-gaps/{gapId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:234: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:235: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:251: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:259: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:260: x.ConditionId == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:268: if (!string.IsNullOrWhiteSpace(input.GapStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:270: var gapStatus = NormaliseGapStatus(input.GapStatus);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:272: if (!IsValidGapStatus(gapStatus))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:277: allowedValues = GetAllowedGapStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:281: gap.GapStatus = gapStatus;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:315: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:317: $"Evidence gap updated. GapId={gap.Id}; GapType={gap.GapType}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:324: app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-gaps/{gapId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:325: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:326: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:341: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:349: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:350: x.ConditionId == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:364: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:366: $"Evidence gap archived. GapId={gap.Id}; GapType={gap.GapType}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:383: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:384: Guid conditionId)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:388: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:389: x.ConditionId == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:400: private static bool HasAnyEvidenceType(List<EvidenceItem> evidenceItems, params string[] evidenceTypes)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:402: return evidenceItems.Any(x => evidenceTypes.Contains(x.EvidenceType));
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:406: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:407: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:408: string gapType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:415: ClaimWorkspaceId = workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:416: ConditionId = conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:417: GapType = gapType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:418: GapStatus = "OPEN",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:433: claimWorkspaceId = gap.ClaimWorkspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:434: conditionId = gap.ConditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:435: gapType = gap.GapType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:436: gapStatus = gap.GapStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:446: private static string NormaliseGapStatus(string? value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:456: private static bool IsValidGapStatus(string value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:458: return GetAllowedGapStatuses().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:466: private static string[] GetAllowedGapStatuses()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceGapEndpoints.cs:489: string? GapStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:2: using Google.Cloud.Storage.V1;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:14: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-upload-url", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:15: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:16: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:31: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:36: if (string.IsNullOrWhiteSpace(input.OriginalFileName))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:42: var evidenceType = NormaliseEvidenceType(input.EvidenceType);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:44: if (!IsValidEvidenceType(evidenceType))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:49: allowedValues = GetAllowedEvidenceTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:55: ClaimWorkspaceId = workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:56: ConditionId = conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:57: EvidenceType = evidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:58: EvidenceStatus = "LISTED_NOT_UPLOADED",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:59: OriginalFileName = input.OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:62: DocumentDate = input.DocumentDate,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:74: var safeFileName = CreateSafeFileName(input.OriginalFileName);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:75: var objectName = $"evidence/{workspaceId}/{conditionId}/{evidenceItem.Id}/{safeFileName}";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:77: evidenceItem.StoragePath = $"gs://{bucketName}/{objectName}";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:83: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:85: $"Signed upload URL created. EvidenceItemId={evidenceItem.Id}; Type={evidenceType}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:110: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}/mark-uploaded", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:111: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:126: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:134: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:144: if (string.IsNullOrWhiteSpace(evidenceItem.StoragePath))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:146: return Results.BadRequest(new { error = "Evidence item has no storage path." });
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:149: var objectName = GetObjectNameFromStoragePath(evidenceItem.StoragePath, bucketName);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:153: var storageClient = await StorageClient.CreateAsync();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:154: var storageObject = await storageClient.GetObjectAsync(bucketName, objectName);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:156: evidenceItem.EvidenceStatus = "UPLOADED";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:157: evidenceItem.UploadedAt = DateTimeOffset.UtcNow;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:160: if (storageObject.Size.HasValue)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:162: evidenceItem.FileSize = (long)storageObject.Size.Value;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:168: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:180: error = "The uploaded object could not be found in Cloud Storage yet.",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:186: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}/download-url", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:187: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:202: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:210: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:218: if (string.IsNullOrWhiteSpace(evidenceItem.StoragePath))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:220: return Results.BadRequest(new { error = "Evidence item has no storage path." });
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:224: var objectName = GetObjectNameFromStoragePath(evidenceItem.StoragePath, bucketName);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:236: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:271: claimWorkspaceId = evidenceItem.ClaimWorkspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:272: conditionId = evidenceItem.ConditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:273: evidenceType = evidenceItem.EvidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:274: evidenceStatus = evidenceItem.EvidenceStatus,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:275: originalFileName = evidenceItem.OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:276: storagePath = evidenceItem.StoragePath,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:279: documentDate = evidenceItem.DocumentDate,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:285: uploadedAt = evidenceItem.UploadedAt,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:292: private static string CreateSafeFileName(string originalFileName)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:294: var fileName = Path.GetFileName(originalFileName);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:296: if (string.IsNullOrWhiteSpace(fileName))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:298: fileName = "evidence-file";
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:301: foreach (var invalidChar in Path.GetInvalidFileNameChars())
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:303: fileName = fileName.Replace(invalidChar, '-');
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:306: return fileName.Replace(' ', '-').Trim();
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:309: private static string GetObjectNameFromStoragePath(string storagePath, string bucketName)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:313: if (!storagePath.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:315: throw new InvalidOperationException("Storage path does not match the configured evidence bucket.");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:318: return storagePath[prefix.Length..];
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:321: private static string NormaliseEvidenceType(string? value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:326: private static bool IsValidEvidenceType(string value)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:328: return GetAllowedEvidenceTypes().Contains(value);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:331: private static string[] GetAllowedEvidenceTypes()
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:353: string? EvidenceType,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:354: string? OriginalFileName,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Features\Evidence\EvidenceUploadEndpoints.cs:357: DateOnly? DocumentDate,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.cs:19: ClaimWorkspaceId = table.Column<Guid>(type: "uuid", nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.cs:80: name: "IX_claim_conditions_ClaimWorkspaceId",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.cs:82: column: "ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:6: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:34: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511050908_InitialCreate.Designer.cs:88: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.cs:27: ClaimWorkspaceId = table.Column<Guid>(type: "uuid", nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.cs:28: ConditionId = table.Column<Guid>(type: "uuid", nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.cs:48: name: "IX_accepted_condition_history_ClaimWorkspaceId",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.cs:50: column: "ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.cs:53: name: "IX_accepted_condition_history_ConditionId",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.cs:55: column: "ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:6: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:34: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:37: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:92: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:94: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:105: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511222400_AddConditionsAndAcceptedHistory.Designer.cs:164: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.cs:19: ClaimWorkspaceId = table.Column<Guid>(type: "uuid", nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.cs:20: ConditionId = table.Column<Guid>(type: "uuid", nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.cs:36: name: "IX_question_responses_ClaimWorkspaceId",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.cs:38: column: "ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.cs:41: name: "IX_question_responses_ConditionId",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.cs:43: column: "ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.cs:46: name: "IX_question_responses_ConditionId_QuestionKey",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.cs:48: columns: new[] { "ConditionId", "QuestionKey" });
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:6: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:34: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:37: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:92: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:94: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:105: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:164: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:233: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:236: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:267: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:269: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511230721_AddQuestionResponses.Designer.cs:271: b.HasIndex("ConditionId", "QuestionKey");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:20: ClaimWorkspaceId = table.Column<Guid>(type: "uuid", nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:37: ClaimWorkspaceId = table.Column<Guid>(type: "uuid", nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:38: ConditionId = table.Column<Guid>(type: "uuid", nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:39: EvidenceType = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:40: EvidenceStatus = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:41: OriginalFileName = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:42: StoragePath = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:45: DocumentDate = table.Column<DateOnly>(type: "date", nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:51: UploadedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:62: name: "IX_audit_events_ClaimWorkspaceId",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:64: column: "ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:82: name: "IX_evidence_items_ClaimWorkspaceId",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:84: column: "ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:87: name: "IX_evidence_items_ConditionId",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:89: column: "ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:92: name: "IX_evidence_items_EvidenceStatus",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:94: column: "EvidenceStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:97: name: "IX_evidence_items_EvidenceType",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.cs:99: column: "EvidenceType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:6: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:34: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:37: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:92: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:94: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:105: b.Property<Guid?>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:133: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:150: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:209: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:273: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:276: b.Property<Guid?>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:282: b.Property<DateOnly?>("DocumentDate")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:285: b.Property<string>("EvidenceStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:290: b.Property<string>("EvidenceType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:302: b.Property<string>("OriginalFileName")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:315: b.Property<string>("StoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:322: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:336: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:338: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:340: b.HasIndex("EvidenceStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:342: b.HasIndex("EvidenceType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:361: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:364: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:395: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:397: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511231748_AddEvidenceMetadataAndAuditEvents.Designer.cs:399: b.HasIndex("ConditionId", "QuestionKey");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:19: ClaimWorkspaceId = table.Column<Guid>(type: "uuid", nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:20: ConditionId = table.Column<Guid>(type: "uuid", nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:21: GapType = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:22: GapStatus = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:36: name: "IX_evidence_gaps_ClaimWorkspaceId",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:38: column: "ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:41: name: "IX_evidence_gaps_ConditionId",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:43: column: "ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:46: name: "IX_evidence_gaps_GapStatus",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:48: column: "GapStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:51: name: "IX_evidence_gaps_GapType",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.cs:53: column: "GapType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:6: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:34: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:37: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:92: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:94: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:105: b.Property<Guid?>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:133: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:150: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:209: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:270: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:273: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:279: b.Property<string>("GapStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:284: b.Property<string>("GapType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:313: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:315: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:317: b.HasIndex("GapStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:319: b.HasIndex("GapType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:335: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:338: b.Property<Guid?>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:344: b.Property<DateOnly?>("DocumentDate")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:347: b.Property<string>("EvidenceStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:352: b.Property<string>("EvidenceType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:364: b.Property<string>("OriginalFileName")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:377: b.Property<string>("StoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:384: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:398: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:400: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:402: b.HasIndex("EvidenceStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:404: b.HasIndex("EvidenceType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:423: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:426: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:457: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:459: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260511235314_AddEvidenceGaps.Designer.cs:461: b.HasIndex("ConditionId", "QuestionKey");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.cs:19: ClaimWorkspaceId = table.Column<Guid>(type: "uuid", nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.cs:20: ConditionId = table.Column<Guid>(type: "uuid", nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.cs:38: name: "IX_ai_drafts_ClaimWorkspaceId",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.cs:40: column: "ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.cs:43: name: "IX_ai_drafts_ConditionId",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.cs:45: column: "ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:6: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:34: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:37: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:92: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:94: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:108: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:111: b.Property<Guid?>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:153: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:155: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:170: b.Property<Guid?>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:198: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:215: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:274: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:335: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:338: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:344: b.Property<string>("GapStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:349: b.Property<string>("GapType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:378: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:380: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:382: b.HasIndex("GapStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:384: b.HasIndex("GapType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:400: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:403: b.Property<Guid?>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:409: b.Property<DateOnly?>("DocumentDate")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:412: b.Property<string>("EvidenceStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:417: b.Property<string>("EvidenceType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:429: b.Property<string>("OriginalFileName")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:442: b.Property<string>("StoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:449: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:463: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:465: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:467: b.HasIndex("EvidenceStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:469: b.HasIndex("EvidenceType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:488: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:491: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:522: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:524: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512001101_AddAiDrafts.Designer.cs:526: b.HasIndex("ConditionId", "QuestionKey");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.cs:19: ClaimWorkspaceId = table.Column<Guid>(type: "uuid", nullable: false),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.cs:22: DocxStoragePath = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.cs:23: PdfStoragePath = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.cs:38: name: "IX_generated_documents_ClaimWorkspaceId",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.cs:40: column: "ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:6: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:34: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:37: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:92: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:94: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:108: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:111: b.Property<Guid?>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:153: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:155: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:170: b.Property<Guid?>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:198: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:215: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:274: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:335: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:338: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:344: b.Property<string>("GapStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:349: b.Property<string>("GapType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:378: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:380: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:382: b.HasIndex("GapStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:384: b.HasIndex("GapType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:400: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:403: b.Property<Guid?>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:409: b.Property<DateOnly?>("DocumentDate")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:412: b.Property<string>("EvidenceStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:417: b.Property<string>("EvidenceType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:429: b.Property<string>("OriginalFileName")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:442: b.Property<string>("StoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:449: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:463: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:465: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:467: b.HasIndex("EvidenceStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:469: b.HasIndex("EvidenceType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:480: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:496: b.Property<string>("DocxStoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:510: b.Property<string>("PdfStoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:529: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:552: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:555: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:586: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:588: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\20260512002123_AddGeneratedDocuments.Designer.cs:590: b.HasIndex("ConditionId", "QuestionKey");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:5: using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:31: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:34: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:89: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:91: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:105: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:108: b.Property<Guid?>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:150: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:152: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:167: b.Property<Guid?>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:195: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:212: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:271: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:332: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:335: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:341: b.Property<string>("GapStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:346: b.Property<string>("GapType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:375: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:377: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:379: b.HasIndex("GapStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:381: b.HasIndex("GapType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:397: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:400: b.Property<Guid?>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:406: b.Property<DateOnly?>("DocumentDate")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:409: b.Property<string>("EvidenceStatus")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:414: b.Property<string>("EvidenceType")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:426: b.Property<string>("OriginalFileName")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:439: b.Property<string>("StoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:446: b.Property<DateTimeOffset?>("UploadedAt")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:460: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:462: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:464: b.HasIndex("EvidenceStatus");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:466: b.HasIndex("EvidenceType");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:477: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:493: b.Property<string>("DocxStoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:507: b.Property<string>("PdfStoragePath")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:526: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:549: b.Property<Guid>("ClaimWorkspaceId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:552: b.Property<Guid>("ConditionId")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:583: b.HasIndex("ClaimWorkspaceId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:585: b.HasIndex("ConditionId");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Migrations\VirtualAdvocateDbContextModelSnapshot.cs:587: b.HasIndex("ConditionId", "QuestionKey");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Services\AuditService.cs:18: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Services\AuditService.cs:27: ClaimWorkspaceId = workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Services\ClaimAccessService.cs:15: public async Task<bool> UserOwnsWorkspaceAsync(Guid userId, Guid workspaceId)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Services\ClaimAccessService.cs:18: x.Id == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Services\ClaimAccessService.cs:23: public async Task<bool> UserOwnsConditionAsync(Guid userId, Guid workspaceId, Guid conditionId)
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Services\ClaimAccessService.cs:25: var ownsWorkspace = await UserOwnsWorkspaceAsync(userId, workspaceId);
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Services\ClaimAccessService.cs:33: x.Id == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Services\ClaimAccessService.cs:34: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:202: $"Claim workspace created. Scenario={claimScenario}; WorkspaceId={workspace.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:315: $"Claim workspace updated. Status={workspace.Status}; WorkspaceId={workspace.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:358: $"Claim workspace archived. WorkspaceId={workspace.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:369: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:370: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:383: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:389: .Where(x => x.ClaimWorkspaceId == workspaceId && x.Status != "ARCHIVED")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:397: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:398: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:413: if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:436: ClaimWorkspaceId = workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:460: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:462: $"Condition created. ConditionName={condition.ConditionName}; ConditionId={condition.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:466: return Results.Created($"/api/v1/claim-workspaces/{workspaceId}/conditions/{condition.Id}", ToConditionResponse(condition));
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:469: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:470: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:471: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:484: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:490: .FirstOrDefaultAsync(x => x.Id == conditionId && x.ClaimWorkspaceId == workspaceId && x.Status != "ARCHIVED");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:500: app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:501: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:502: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:517: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:523: .FirstOrDefaultAsync(x => x.Id == conditionId && x.ClaimWorkspaceId == workspaceId && x.Status != "ARCHIVED");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:572: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:574: $"Condition updated. ConditionName={condition.ConditionName}; ConditionId={condition.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:581: app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:582: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:583: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:597: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:603: .FirstOrDefaultAsync(x => x.Id == conditionId && x.ClaimWorkspaceId == workspaceId && x.Status != "ARCHIVED");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:616: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:618: $"Condition archived. ConditionName={condition.ConditionName}; ConditionId={condition.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:629: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/accepted-history", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:630: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:631: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:644: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:650: .Where(x => x.ClaimWorkspaceId == workspaceId && x.ConditionId == conditionId && x.Status != "ARCHIVED")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:657: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/accepted-history", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:658: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:659: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:674: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:692: ClaimWorkspaceId = workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:693: ConditionId = conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:713: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:715: $"Accepted-condition history created. ConditionId={conditionId}; HistoryId={history.Id}; OriginalAct={originalAct}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:719: return Results.Created($"/api/v1/claim-workspaces/{workspaceId}/conditions/{conditionId}/accepted-history/{history.Id}", ToAcceptedHistoryResponse(history));
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:722: app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/accepted-history/{historyId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:723: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:724: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:740: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:748: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:749: x.ConditionId == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:806: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:808: $"Accepted-condition history updated. ConditionId={conditionId}; HistoryId={history.Id}; OriginalAct={history.OriginalAct}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:815: app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/accepted-history/{historyId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:816: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:817: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:832: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:840: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:841: x.ConditionId == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:855: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:857: $"Accepted-condition history archived. ConditionId={conditionId}; HistoryId={history.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:868: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/question-responses", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:869: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:870: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:883: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:889: .Where(x => x.ClaimWorkspaceId == workspaceId && x.ConditionId == conditionId && x.Status != "ARCHIVED")
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:897: app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/question-responses", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:898: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:899: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:914: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:953: ClaimWorkspaceId = workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:954: ConditionId = conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:970: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:972: $"Question response created. ConditionId={conditionId}; QuestionKey={response.QuestionKey}; ResponseId={response.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:977: $"/api/v1/claim-workspaces/{workspaceId}/conditions/{conditionId}/question-responses/{response.Id}",
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:981: app.MapGet("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/question-responses/{responseId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:982: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:983: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:997: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1005: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1006: x.ConditionId == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1017: app.MapPatch("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/question-responses/{responseId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1018: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1019: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1035: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1043: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1044: x.ConditionId == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1104: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1106: $"Question response updated. ConditionId={conditionId}; QuestionKey={response.QuestionKey}; ResponseId={response.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1113: app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/question-responses/{responseId:guid}", async (
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1114: Guid workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1115: Guid conditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1130: if (!await claimAccessService.UserOwnsConditionAsync(user.Id, workspaceId, conditionId))
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1138: x.ClaimWorkspaceId == workspaceId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1139: x.ConditionId == conditionId &&
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1153: workspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1155: $"Question response archived. ConditionId={conditionId}; QuestionKey={response.QuestionKey}; ResponseId={response.Id}");
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1213: claimWorkspaceId = condition.ClaimWorkspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1238: claimWorkspaceId = history.ClaimWorkspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1239: conditionId = history.ConditionId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1260: claimWorkspaceId = response.ClaimWorkspaceId,
+C:\Projects\VirtualAdvocatePI\backend\src\VirtualAdvocatePI.Api\Program.cs:1261: conditionId = response.ConditionId,
