@@ -16,14 +16,12 @@ export const evidenceTypeLabels: Record<string, string> = {
 };
 
 export const evidenceStatusLabels: Record<string, string> = {
-  LISTED: "Listed",
-  PENDING_UPLOAD: "Pending upload",
+  MISSING: "Missing",
+  LISTED_NOT_UPLOADED: "Listed, not uploaded",
   UPLOADED: "Uploaded",
-  NEEDS_REVIEW: "Needs review",
   REVIEWED: "Reviewed",
-  READY: "Ready",
-  USED_IN_PACK: "Used in pack",
-  ARCHIVED: "Archived",
+  CONFIRMED: "Confirmed",
+  NOT_APPLICABLE: "Not applicable",
 };
 
 export const evidenceTypeOptions = [
@@ -79,3 +77,35 @@ export function getEvidenceTypeCategory(value?: string | null) {
 
   return evidenceTypeOptions.find((option) => option.value === value)?.category ?? "Other";
 }
+export const evidenceStatusOptions = [
+  {
+    value: "MISSING",
+    label: "Missing",
+    description: "Evidence is known to be missing or still needs to be obtained.",
+  },
+  {
+    value: "LISTED_NOT_UPLOADED",
+    label: "Listed, not uploaded",
+    description: "Evidence has been identified but no file has been uploaded yet.",
+  },
+  {
+    value: "UPLOADED",
+    label: "Uploaded",
+    description: "A file has been uploaded for this evidence item.",
+  },
+  {
+    value: "REVIEWED",
+    label: "Reviewed",
+    description: "The user has reviewed this evidence item for preparation purposes.",
+  },
+  {
+    value: "CONFIRMED",
+    label: "Confirmed",
+    description: "The user has confirmed this evidence item is ready for preparation use.",
+  },
+  {
+    value: "NOT_APPLICABLE",
+    label: "Not applicable",
+    description: "This evidence item is not applicable to the current preparation workflow.",
+  },
+];

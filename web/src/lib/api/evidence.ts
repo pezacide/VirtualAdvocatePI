@@ -1,4 +1,4 @@
-import { apiGet, apiPost, apiPostNoBody, getAuthHeaders, getApiBaseUrl, handleApiError } from "@/lib/api/client";
+import { apiGet, apiPatch, apiPost, apiPostNoBody, getAuthHeaders, getApiBaseUrl, handleApiError } from "@/lib/api/client";
 
 export type EvidenceItem = {
   id: string;
@@ -37,6 +37,21 @@ export type CreateEvidenceItemInput = {
   usedInGeneratedPack?: boolean;
 };
 
+
+export type UpdateEvidenceItemInput = {
+  evidenceType?: string;
+  evidenceStatus?: string;
+  originalFileName?: string;
+  storagePath?: string;
+  fileType?: string;
+  fileSize?: number;
+  documentDate?: string;
+  providerName?: string;
+  userNotes?: string;
+  aiSummary?: string;
+  userConfirmedSummary?: string;
+  usedInGeneratedPack?: boolean;
+};
 export type EvidenceUploadUrlResponse = {
   evidenceItem: EvidenceItem;
   upload: {
@@ -133,4 +148,28 @@ export async function createEvidenceDownloadUrl(
     url: string;
     expiresInMinutes: number;
   };
+}
+export function updateEvidenceItem(
+  idToken: string,
+  workspaceId: string,
+  evidenceItemId: string,
+  input: UpdateEvidenceItemInput,
+) {
+  return apiPatch<EvidenceItem, UpdateEvidenceItemInput>(
+    idToken,
+    `/api/v1/claim-workspaces/${workspaceId}/evidence-items/${evidenceItemId}`,
+    input,
+    "Could not update evidence item.",
+  );
+}
+
+export function updateEvidenceStatus(
+  idToken: string,
+  workspaceId: string,
+  evidenceItemId: string,
+  evidenceStatus: string,
+) {
+  return updateEvidenceItem(idToken, workspaceId, evidenceItemId, {
+    evidenceStatus,
+  });
 }

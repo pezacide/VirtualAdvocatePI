@@ -4,6 +4,7 @@ import { DatePickerInput } from "@/components/DatePickerInput";
 import {
   evidenceSourceQuickTags,
   evidenceTypeOptions,
+  evidenceStatusOptions,
   getEvidenceStatusLabel,
   getEvidenceTypeCategory,
   getEvidenceTypeLabel,
@@ -20,6 +21,7 @@ import {
   getClaimConditions,
   getConditionEvidenceItems,
   markEvidenceUploaded,
+  updateEvidenceStatus,
 } from "@/lib/api";
 
 type EvidenceUploadPanelProps = {
@@ -59,6 +61,7 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
   const [isLoadingEvidence, setIsLoadingEvidence] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [openingEvidenceItemId, setOpeningEvidenceItemId] = useState<string | null>(null);
+  const [updatingEvidenceStatusId, setUpdatingEvidenceStatusId] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -142,6 +145,31 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
   }, [selectedConditionId]);
 
 
+
+  async function handleUpdateEvidenceStatus(evidenceItem: EvidenceItem, evidenceStatus: string) {
+    setStatusMessage("");
+    setErrorMessage("");
+    setUpdatingEvidenceStatusId(evidenceItem.id);
+
+    try {
+      const token = await getTokenOrSetError();
+
+      if (!token) {
+        return;
+      }
+
+      await updateEvidenceStatus(token, workspaceId, evidenceItem.id, evidenceStatus);
+
+      setStatusMessage(`Evidence status updated to ${getEvidenceStatusLabel(evidenceStatus)}.`);
+      await loadEvidenceItems(selectedConditionId);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Could not update evidence status.";
+      setErrorMessage(message);
+    } finally {
+      setUpdatingEvidenceStatusId(null);
+    }
+  }
   async function handleOpenEvidenceItem(evidenceItem: EvidenceItem) {
     setStatusMessage("");
     setErrorMessage("");
@@ -487,6 +515,35 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
                   <p>Document date: {item.documentDate || "Not recorded"}</p>
                   <p>File type: {item.fileType || "Not recorded"}</p>
                   <p>File size: {item.fileSize ? `${Math.ceil(item.fileSize / 1024)} KB` : "Not recorded"}</p>
+                </div>
+
+                <div className="mt-5 rounded-xl border border-white/10 bg-slate-950 p-4">
+                  <p className="text-sm font-semibold text-white">Evidence status</p>
+                  <p className="mt-1 text-xs leading-5 text-slate-400">
+                    This is your preparation status only. It does not mean DVA has reviewed, accepted or relied on the evidence.
+                  </p>
+
+                  <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                    {evidenceStatusOptions.map((statusOption) => (
+                      <button
+                        key={statusOption.value}
+                        type="button"
+                        title={statusOption.description}
+                        disabled={
+                          updatingEvidenceStatusId === item.id ||
+                          item.evidenceStatus === statusOption.value
+                        }
+                        onClick={() => handleUpdateEvidenceStatus(item, statusOption.value)}
+                        className={
+                          item.evidenceStatus === statusOption.value
+                            ? "rounded-xl border border-cyan-300 bg-cyan-300/10 px-3 py-2 text-xs font-semibold text-cyan-100"
+                            : "rounded-xl border border-white/10 bg-slate-900 px-3 py-2 text-xs text-slate-300 hover:border-cyan-300 hover:text-cyan-100 disabled:opacity-60"
+                        }
+                      >
+                        {statusOption.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 <button
