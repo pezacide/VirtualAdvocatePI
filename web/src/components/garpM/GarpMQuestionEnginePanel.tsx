@@ -29,6 +29,18 @@ type GarpMQuestionEnginePanelProps = {
   workspaceId: string;
 };
 
+type SectionProgress = {
+  groupKey: GarpMQuestionGroupKey;
+  title: string;
+  answeredCount: number;
+  totalQuestions: number;
+  requiredCount: number;
+  missingRequiredCount: number;
+  savedCount: number;
+  lastSavedAt: Date | null;
+  statusLabel: string;
+};
+
 function toBackendQuestionGroup(question: GarpMQuestionTemplate) {
   switch (question.evidenceCategory) {
     case "DIAGNOSIS":
@@ -93,6 +105,7 @@ export function GarpMQuestionEnginePanel({ workspaceId }: GarpMQuestionEnginePan
 
   const [answers, setAnswers] = useState<GarpMAnswerMap>({});
   const [savedResponses, setSavedResponses] = useState<QuestionResponse[]>([]);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const [isLoadingConditions, setIsLoadingConditions] = useState(false);
   const [isLoadingResponses, setIsLoadingResponses] = useState(false);
@@ -118,6 +131,64 @@ export function GarpMQuestionEnginePanel({ workspaceId }: GarpMQuestionEnginePan
     () => getMissingRequiredGarpMQuestions(selectedQuestions, answers),
     [answers, selectedQuestions],
   );
+
+  const sectionProgress = useMemo<SectionProgress[]>(() => {
+    return activeQuestionGroups.map((group) => {
+      const questions = group.questions;
+      const answeredCount = questions.filter(
+        (question) => !isAnswerEmpty(answers[question.id]),
+      ).length;
+      const requiredQuestions = questions.filter(
+        (question) => question.requirementLevel === "REQUIRED",
+      );
+      const missingRequiredCount = getMissingRequiredGarpMQuestions(
+        questions,
+        answers,
+      ).length;
+      const savedCount = getSavedCountForQuestions(questions, savedResponses);
+      const lastSavedAt = getLastSavedAtForQuestions(questions, savedResponses);
+
+      let statusLabel = "Not started";
+
+      if (savedCount > 0 && missingRequiredCount > 0) {
+        statusLabel = "In progress";
+      }
+
+      if (savedCount > 0 && missingRequiredCount === 0) {
+        statusLabel = "Required answers saved";
+      }
+
+      if (answeredCount > savedCount) {
+        statusLabel = "Unsaved changes";
+      }
+
+      return {
+        groupKey: group.groupKey,
+        title: group.title,
+        answeredCount,
+        totalQuestions: questions.length,
+        requiredCount: requiredQuestions.length,
+        missingRequiredCount,
+        savedCount,
+        lastSavedAt,
+        statusLabel,
+      };
+    });
+  }, [activeQuestionGroups, answers, savedResponses]);
+
+  const selectedSectionProgress = sectionProgress.find(
+    (section) => section.groupKey === selectedGroupKey,
+  );
+
+  const totalSavedSections = sectionProgress.filter(
+    (section) => section.savedCount > 0,
+  ).length;
+
+  const totalRequiredCompleteSections = sectionProgress.filter(
+    (section) => section.savedCount > 0 && section.missingRequiredCount === 0,
+  ).length;
+
+  const latestSavedAt = getLatestSavedAt(savedResponses);
 
   async function getTokenOrSetError() {
     const token = await getIdToken();
@@ -178,6 +249,7 @@ export function GarpMQuestionEnginePanel({ workspaceId }: GarpMQuestionEnginePan
       const rows = await getQuestionResponses(token, workspaceId, conditionId);
       setSavedResponses(rows);
       setAnswers(mapResponsesToAnswers(rows));
+      setHasUnsavedChanges(false);
     } catch (error) {
       const message =
         error instanceof Error
@@ -207,6 +279,22 @@ export function GarpMQuestionEnginePanel({ workspaceId }: GarpMQuestionEnginePan
       ...current,
       [questionId]: value,
     }));
+
+    setHasUnsavedChanges(true);
+    setStatusMessage("");
+  }
+
+  function handleResumeNextSection() {
+    const nextIncompleteSection =
+      sectionProgress.find(
+        (section) =>
+          section.savedCount === 0 || section.missingRequiredCount > 0,
+      ) ?? sectionProgress[0];
+
+    if (nextIncompleteSection) {
+      setSelectedGroupKey(nextIncompleteSection.groupKey);
+      setStatusMessage(`Resumed: ${nextIncompleteSection.title}`);
+    }
   }
 
   async function handleSaveCurrentGroup() {
@@ -247,6 +335,7 @@ export function GarpMQuestionEnginePanel({ workspaceId }: GarpMQuestionEnginePan
       }
 
       setStatusMessage(`Saved ${questionsToSave.length} response(s) for this section.`);
+      setHasUnsavedChanges(false);
       await loadQuestionResponses(selectedConditionId);
     } catch (error) {
       const message =
@@ -367,12 +456,54 @@ export function GarpMQuestionEnginePanel({ workspaceId }: GarpMQuestionEnginePan
 
       <section className="rounded-2xl border border-white/10 bg-white/5 p-8">
         <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+          Save and resume
+        </p>
+
+        <h2 className="mt-4 text-2xl font-bold">Progress for this condition</h2>
+
+        <p className="mt-4 text-slate-300">
+          Saved answers reload when you return to this workspace and condition. You can leave
+          the page and resume from the next incomplete section later.
+        </p>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-4">
+          <SummaryCard label="Sections started" value={totalSavedSections} />
+          <SummaryCard label="Required sections complete" value={totalRequiredCompleteSections} />
+          <SummaryCard label="Total sections" value={activeQuestionGroups.length} />
+          <div className="rounded-xl border border-white/10 bg-slate-900 p-5">
+            <p className="text-sm text-slate-400">Last saved</p>
+            <p className="mt-2 text-sm font-semibold text-white">
+              {latestSavedAt ? formatDateTime(latestSavedAt) : "Not saved yet"}
+            </p>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={handleResumeNextSection}
+          className="mt-6 w-full rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-cyan-200"
+        >
+          Continue next incomplete section
+        </button>
+
+        {hasUnsavedChanges && (
+          <div className="mt-6 rounded-xl border border-yellow-300/30 bg-yellow-300/10 p-4 text-sm text-yellow-100">
+            You have unsaved changes in this session. Use Save this section before leaving.
+          </div>
+        )}
+      </section>
+
+      <section className="rounded-2xl border border-white/10 bg-white/5 p-8">
+        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
           Sections
         </p>
 
         <div className="mt-6 grid gap-3 md:grid-cols-2">
           {activeQuestionGroups.map((group) => {
             const metadata = garpMQuestionGroupMetadata.find(
+              (item) => item.groupKey === group.groupKey,
+            );
+            const progress = sectionProgress.find(
               (item) => item.groupKey === group.groupKey,
             );
 
@@ -387,13 +518,30 @@ export function GarpMQuestionEnginePanel({ workspaceId }: GarpMQuestionEnginePan
                     : "rounded-xl border border-white/10 bg-slate-900 p-4 text-left hover:bg-white/5"
                 }
               >
-                <p className="font-semibold text-white">{group.title}</p>
-                <p className="mt-2 text-sm leading-6 text-slate-400">
-                  {metadata?.whyThisMatters ?? group.description}
-                </p>
-                <p className="mt-3 text-xs text-cyan-200">
-                  {group.questions.length} question(s)
-                </p>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <p className="font-semibold text-white">{group.title}</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-400">
+                      {metadata?.whyThisMatters ?? group.description}
+                    </p>
+                  </div>
+
+                  <span className="rounded-xl border border-white/10 px-3 py-2 text-xs text-slate-300">
+                    {progress?.statusLabel ?? "Not started"}
+                  </span>
+                </div>
+
+                <div className="mt-4 grid gap-2 text-xs text-slate-400 sm:grid-cols-3">
+                  <p>{progress?.answeredCount ?? 0}/{group.questions.length} answered</p>
+                  <p>{progress?.savedCount ?? 0} saved</p>
+                  <p>{progress?.missingRequiredCount ?? 0} required missing</p>
+                </div>
+
+                {progress?.lastSavedAt && (
+                  <p className="mt-3 text-xs text-cyan-200">
+                    Last saved: {formatDateTime(progress.lastSavedAt)}
+                  </p>
+                )}
               </button>
             );
           })}
@@ -426,9 +574,10 @@ export function GarpMQuestionEnginePanel({ workspaceId }: GarpMQuestionEnginePan
           page reloads.
         </p>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-6 grid gap-4 md:grid-cols-4">
           <SummaryCard label="Questions in section" value={selectedQuestions.length} />
           <SummaryCard label="Missing required" value={missingRequiredQuestions.length} />
+          <SummaryCard label="Saved in section" value={selectedSectionProgress?.savedCount ?? 0} />
           <SummaryCard label="Saved responses loaded" value={savedResponses.length} />
         </div>
 
@@ -539,4 +688,48 @@ function mapResponsesToAnswers(responses: QuestionResponse[]) {
   }
 
   return answers;
+}
+
+function getSavedCountForQuestions(
+  questions: GarpMQuestionTemplate[],
+  responses: QuestionResponse[],
+) {
+  const savedKeys = new Set(
+    responses
+      .filter((response) => response.questionKey.startsWith("garp_m:"))
+      .map((response) => response.questionKey),
+  );
+
+  return questions.filter((question) => savedKeys.has(getBackendQuestionKey(question))).length;
+}
+
+function getLastSavedAtForQuestions(
+  questions: GarpMQuestionTemplate[],
+  responses: QuestionResponse[],
+) {
+  const questionKeys = new Set(questions.map(getBackendQuestionKey));
+  const matchingDates = responses
+    .filter((response) => questionKeys.has(response.questionKey))
+    .map((response) => new Date(response.updatedAt || response.createdAt))
+    .filter((date) => !Number.isNaN(date.getTime()))
+    .sort((a, b) => b.getTime() - a.getTime());
+
+  return matchingDates[0] ?? null;
+}
+
+function getLatestSavedAt(responses: QuestionResponse[]) {
+  const dates = responses
+    .filter((response) => response.questionKey.startsWith("garp_m:"))
+    .map((response) => new Date(response.updatedAt || response.createdAt))
+    .filter((date) => !Number.isNaN(date.getTime()))
+    .sort((a, b) => b.getTime() - a.getTime());
+
+  return dates[0] ?? null;
+}
+
+function formatDateTime(value: Date) {
+  return value.toLocaleString(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
 }
