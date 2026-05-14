@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using VirtualAdvocatePI.Api.Data;
 using VirtualAdvocatePI.Api.Domain.Claims;
 using VirtualAdvocatePI.Api.Services;
@@ -117,6 +117,55 @@ public static class EvidenceGapEndpoints
                     x.Status != "ARCHIVED")
                 .ToListAsync();
 
+            var questionResponses = await db.QuestionResponses
+                .Where(x =>
+                    x.ClaimWorkspaceId == workspaceId &&
+                    x.ConditionId == conditionId &&
+                    x.Status != "ARCHIVED" &&
+                    x.QuestionKey.StartsWith("garp_m:"))
+                .ToListAsync();
+
+            var garpMMedicationMentioned = HasMeaningfulAnswerForKeys(
+                questionResponses,
+                "garp_m:dst_medications",
+                "garp_m:dst_medication_side_effects",
+                "garp_m:dst_side_effect_details");
+
+            var garpMFunctionalImpactMentioned = HasMeaningfulAnswerForKeys(
+                questionResponses,
+                "garp_m:flw_daily_activity_impact",
+                "garp_m:flw_self_care_impact",
+                "garp_m:flw_mobility_physical_impact",
+                "garp_m:flw_work_impact",
+                "garp_m:flw_work_adjustments",
+                "garp_m:flw_support_needed",
+                "garp_m:flw_good_day_bad_day");
+
+            var garpMPreviousAcceptedOrCompensated =
+                HasAnswerContaining(questionResponses, "garp_m:wpc_previously_accepted", "YES") ||
+                HasAnswerContaining(questionResponses, "garp_m:wpc_previous_compensation", "YES");
+
+            var garpMWorseningMentioned =
+                HasAnswerContaining(questionResponses, "garp_m:wpc_worsening_claimed", "YES") ||
+                HasAnswerContaining(questionResponses, "garp_m:str_current_stability", "WORSENING") ||
+                HasMeaningfulAnswerForKeys(
+                    questionResponses,
+                    "garp_m:wpc_worsening_summary",
+                    "garp_m:wpc_worsening_timeline",
+                    "garp_m:wpc_worsening_evidence");
+
+            var garpMExplicitEvidenceGapMentioned = HasMeaningfulAnswerForKeys(
+                questionResponses,
+                "garp_m:dst_missing_reports",
+                "garp_m:eap_missing_evidence_summary",
+                "garp_m:eap_evidence_categories_missing",
+                "garp_m:eap_documents_to_request",
+                "garp_m:eap_document_sources",
+                "garp_m:eap_upload_priority",
+                "garp_m:wpc_missing_previous_documents",
+                "garp_m:flw_impact_evidence_available",
+                "garp_m:str_stability_evidence_available");
+
             await ArchiveExistingOpenGapsAsync(db, workspaceId, conditionId);
 
             var createdGaps = new List<EvidenceGap>();
@@ -143,7 +192,7 @@ public static class EvidenceGapEndpoints
                     "Consider gathering treatment summaries, GP notes, specialist letters or other records showing current treatment."));
             }
 
-            if (!string.IsNullOrWhiteSpace(condition.MedicationSummary) &&
+            if ((!string.IsNullOrWhiteSpace(condition.MedicationSummary) || garpMMedicationMentioned) &&
                 !HasAnyEvidenceType(evidenceItems, "MEDICATION_LIST", "TREATMENT_SUMMARY", "MEDICAL_REPORT"))
             {
                 createdGaps.Add(CreateGap(
@@ -155,7 +204,7 @@ public static class EvidenceGapEndpoints
                     "Consider adding a medication list, pharmacy record, GP summary or treatment summary if medication is relevant to the claim preparation pack."));
             }
 
-            if (string.IsNullOrWhiteSpace(condition.FunctionalImpactSummary) &&
+            if ((string.IsNullOrWhiteSpace(condition.FunctionalImpactSummary) || garpMFunctionalImpactMentioned) &&
                 !HasAnyEvidenceType(evidenceItems, "FUNCTIONAL_IMPACT_NOTES", "PERSONAL_STATEMENT"))
             {
                 createdGaps.Add(CreateGap(
@@ -167,9 +216,11 @@ public static class EvidenceGapEndpoints
                     "Consider adding plain-English notes about daily activities, work impact, social impact, domestic tasks, mobility, self-care, flare-ups or restrictions."));
             }
 
-            var acceptedOrCompensated = acceptedHistory.Any(x =>
-                x.PreviouslyAcceptedByDva == "YES" ||
-                x.PreviousCompensationReceived == "YES");
+            var acceptedOrCompensated =
+                acceptedHistory.Any(x =>
+                    x.PreviouslyAcceptedByDva == "YES" ||
+                    x.PreviousCompensationReceived == "YES") ||
+                garpMPreviousAcceptedOrCompensated;
 
             if (acceptedOrCompensated && !HasAnyEvidenceType(evidenceItems, "DVA_DECISION_LETTER"))
             {
@@ -195,7 +246,8 @@ public static class EvidenceGapEndpoints
 
             var worseningMentioned =
                 !string.IsNullOrWhiteSpace(condition.WorseningNotes) ||
-                acceptedHistory.Any(x => x.WorseningClaimed == "YES");
+                acceptedHistory.Any(x => x.WorseningClaimed == "YES") ||
+                garpMWorseningMentioned;
 
             if (worseningMentioned && !HasAnyEvidenceType(evidenceItems, "MEDICAL_REPORT", "SPECIALIST_REPORT", "TREATMENT_SUMMARY"))
             {
@@ -206,6 +258,17 @@ public static class EvidenceGapEndpoints
                     "HIGH",
                     "Worsening has been mentioned, but no medical report, specialist report or treatment summary has been listed or uploaded to support the change over time.",
                     "Consider gathering medical evidence that describes what has changed, when it changed, current severity, treatment changes and functional impact."));
+            }
+
+            if (garpMExplicitEvidenceGapMentioned && evidenceItems.Count == 0)
+            {
+                createdGaps.Add(CreateGap(
+                    workspaceId,
+                    conditionId,
+                    "GARP_M_EVIDENCE_FOLLOW_UP_RECORDED",
+                    "LOW",
+                    "GARP M-aware question answers include missing evidence, document request or evidence follow-up notes, but no evidence items have been listed or uploaded for this condition yet.",
+                    "Review the GARP M evidence and appointment preparation answers, then list or upload any documents the user wants to track."));
             }
 
             if (createdGaps.Count > 0)
@@ -402,6 +465,50 @@ public static class EvidenceGapEndpoints
         return evidenceItems.Any(x => evidenceTypes.Contains(x.EvidenceType));
     }
 
+
+    private static bool HasMeaningfulAnswerForKeys(List<QuestionResponse> questionResponses, params string[] questionKeys)
+    {
+        return questionResponses.Any(x =>
+            questionKeys.Contains(x.QuestionKey) &&
+            HasMeaningfulAnswer(x.AnswerText));
+    }
+
+    private static bool HasAnswerContaining(
+        List<QuestionResponse> questionResponses,
+        string questionKey,
+        params string[] expectedTokens)
+    {
+        return questionResponses
+            .Where(x => x.QuestionKey == questionKey)
+            .Any(x =>
+                expectedTokens.Any(token =>
+                    (x.AnswerText ?? string.Empty).Contains(token, StringComparison.OrdinalIgnoreCase)));
+    }
+
+    private static bool HasMeaningfulAnswer(string? answerText)
+    {
+        if (string.IsNullOrWhiteSpace(answerText))
+        {
+            return false;
+        }
+
+        var normalised = answerText.Trim();
+
+        var ignoredAnswers = new[]
+        {
+            "NO",
+            "N/A",
+            "NA",
+            "NOT_APPLICABLE",
+            "UNSURE",
+            "UNKNOWN",
+            "[]",
+            "{}",
+            "FALSE"
+        };
+
+        return !ignoredAnswers.Contains(normalised.ToUpperInvariant());
+    }
     private static EvidenceGap CreateGap(
         Guid workspaceId,
         Guid conditionId,

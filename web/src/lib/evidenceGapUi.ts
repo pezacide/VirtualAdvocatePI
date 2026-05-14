@@ -35,6 +35,7 @@ export const gapTypeLabels: Record<string, string> = {
   PREVIOUS_DVA_DECISION_LETTER_MISSING: "Previous DVA decision letter missing",
   PREVIOUS_ASSESSMENT_LETTER_MISSING: "Previous assessment letter missing",
   WORSENING_EVIDENCE_MISSING: "Worsening evidence missing",
+  GARP_M_EVIDENCE_FOLLOW_UP_RECORDED: "GARP M evidence follow-up recorded",
 };
 
 export function getEvidenceGapStatusLabel(value?: string | null) {
