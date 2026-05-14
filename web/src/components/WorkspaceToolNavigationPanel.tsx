@@ -71,7 +71,12 @@ const workspaceTools = [
     hrefSuffix: "generated-documents",
     status: "Documents",
   },
-];
+  {
+    title: "Evidence audit trail",
+    description: "Review workspace activity such as evidence upload, metadata, gap and document actions.",
+    hrefSuffix: "audit-trail",
+    status: "Active",
+  },];
 
 export function WorkspaceToolNavigationPanel({
   workspaceId,

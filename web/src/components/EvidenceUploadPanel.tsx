@@ -243,15 +243,22 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
         return;
       }
 
+      const fileToUpload = selectedFile;
+
+      if (!fileToUpload) {
+        setErrorMessage("Choose a file before uploading.");
+        return;
+      }
+
       const uploadResponse = await createEvidenceUploadUrl(
         token,
         workspaceId,
         selectedConditionId,
         {
           evidenceType,
-          originalFileName: selectedFile.name,
-          fileType: selectedFile.type || "application/octet-stream",
-          fileSize: selectedFile.size,
+          originalFileName: fileToUpload.name,
+          fileType: fileToUpload.type || "application/octet-stream",
+          fileSize: fileToUpload.size,
           documentDate: documentDate || undefined,
           providerName: providerName || undefined,
           userNotes: userNotes || undefined,
@@ -261,7 +268,7 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
       const putResponse = await fetch(uploadResponse.upload.url, {
         method: "PUT",
         headers: uploadResponse.upload.requiredHeaders ?? {},
-        body: selectedFile,
+        body: fileToUpload,
       });
 
       if (!putResponse.ok) {
