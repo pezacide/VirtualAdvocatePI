@@ -55,6 +55,7 @@ public static class AiRagRetrievalEndpoints
             var query = input.Query?.Trim() ?? string.Empty;
 
             var chunks = await LoadKnowledgeBaseChunksAsync();
+            var sourceRegistry = await LoadSourceRegistryAsync();
 
             var eligibleChunks = chunks
                 .Where(IsEligibleForRetrieval)
@@ -70,7 +71,43 @@ public static class AiRagRetrievalEndpoints
                 .ThenBy(x => x.Chunk.Category)
                 .ThenBy(x => x.Chunk.ChunkKey)
                 .Take(maxResults)
-                .Select(x => x.Chunk)
+                .Select((x, index) => new RetrievedChunkWithCitation(
+                    x.Chunk,
+                    $"S{index + 1}",
+                    sourceRegistry.FirstOrDefault(source =>
+                        string.Equals(source.SourceKey, x.Chunk.SourceKey, StringComparison.OrdinalIgnoreCase))))
+                .ToList();
+
+            var citations = eligibleChunks
+                .GroupBy(x => x.CitationMarker)
+                .Select(group =>
+                {
+                    var first = group.First();
+                    var registryEntry = first.SourceRegistryEntry;
+                    var chunk = first.Chunk;
+
+                    return new
+                    {
+                        citationMarker = first.CitationMarker,
+                        sourceKey = chunk.SourceKey,
+                        title = registryEntry?.Title ?? chunk.ChunkTitle,
+                        citationLabel = registryEntry?.CitationLabel ?? chunk.CitationLabel,
+                        category = registryEntry?.Category ?? chunk.Category,
+                        sourceType = registryEntry?.SourceType ?? chunk.SourceType,
+                        jurisdiction = registryEntry?.Jurisdiction,
+                        sourceVersion = registryEntry?.SourceVersion,
+                        sourceDate = registryEntry?.SourceDate,
+                        sourceUrl = registryEntry?.SourceUrl,
+                        storagePath = registryEntry?.StoragePath,
+                        retrievedChunkKeys = group.Select(x => x.Chunk.ChunkKey).ToList(),
+                        sourceStatus = new
+                        {
+                            approvalStatus = registryEntry?.ApprovalStatus ?? chunk.ApprovalStatus,
+                            isActive = registryEntry?.IsActive ?? chunk.IsActive,
+                            status = registryEntry?.Status ?? chunk.Status
+                        }
+                    };
+                })
                 .ToList();
 
             auditService.AddAuditEvent(
@@ -78,26 +115,9 @@ public static class AiRagRetrievalEndpoints
                 user.Id,
                 workspaceId,
                 "AI_RAG_RETRIEVAL_REQUESTED",
-                $"AI/RAG retrieval requested. DraftTaskType={draftTaskType}; ConditionId={input.ConditionId}; QueryLength={query.Length}; ReturnedChunks={eligibleChunks.Count}");
+                $"AI/RAG retrieval requested. DraftTaskType={draftTaskType}; ConditionId={input.ConditionId}; QueryLength={query.Length}; ReturnedChunks={eligibleChunks.Count}; Citations={citations.Count}");
 
             await db.SaveChangesAsync();
-
-            var sourceReferences = eligibleChunks
-                .GroupBy(x => x.SourceKey)
-                .Select(group =>
-                {
-                    var first = group.First();
-
-                    return new
-                    {
-                        sourceKey = first.SourceKey,
-                        citationLabel = first.CitationLabel,
-                        category = first.Category,
-                        sourceType = first.SourceType,
-                        chunkCount = group.Count()
-                    };
-                })
-                .ToList();
 
             return Results.Ok(new
             {
@@ -107,18 +127,30 @@ public static class AiRagRetrievalEndpoints
                 query,
                 maxResults,
                 returnedChunkCount = eligibleChunks.Count,
-                sourceReferences,
-                chunks = eligibleChunks.Select(chunk => new
+                citationCount = citations.Count,
+                citations,
+                sourceReferences = citations.Select(citation => new
                 {
-                    chunkKey = chunk.ChunkKey,
-                    sourceKey = chunk.SourceKey,
-                    category = chunk.Category,
-                    sourceType = chunk.SourceType,
-                    citationLabel = chunk.CitationLabel,
-                    chunkTitle = chunk.ChunkTitle,
-                    retrievalUse = chunk.RetrievalUse,
-                    content = chunk.Content,
-                    safetyNotes = chunk.SafetyNotes
+                    citation.citationMarker,
+                    citation.sourceKey,
+                    citation.citationLabel,
+                    citation.category,
+                    citation.sourceType,
+                    citation.sourceUrl,
+                    citation.storagePath
+                }).ToList(),
+                chunks = eligibleChunks.Select(item => new
+                {
+                    citationMarker = item.CitationMarker,
+                    chunkKey = item.Chunk.ChunkKey,
+                    sourceKey = item.Chunk.SourceKey,
+                    category = item.Chunk.Category,
+                    sourceType = item.Chunk.SourceType,
+                    citationLabel = item.SourceRegistryEntry?.CitationLabel ?? item.Chunk.CitationLabel,
+                    chunkTitle = item.Chunk.ChunkTitle,
+                    retrievalUse = item.Chunk.RetrievalUse,
+                    content = item.Chunk.Content,
+                    safetyNotes = item.Chunk.SafetyNotes
                 }).ToList(),
                 safety = new
                 {
@@ -128,7 +160,8 @@ public static class AiRagRetrievalEndpoints
                     dvaDecision = false,
                     impairmentCalculation = false,
                     compensationEstimate = false,
-                    outcomeGuarantee = false
+                    outcomeGuarantee = false,
+                    sourceRule = "Only approved, active and non-archived source chunks are eligible for retrieval."
                 }
             });
         });
@@ -166,6 +199,28 @@ public static class AiRagRetrievalEndpoints
         }
 
         return chunks;
+    }
+
+    private static async Task<List<SourceRegistryEntry>> LoadSourceRegistryAsync()
+    {
+        var candidatePaths = new[]
+        {
+            Path.Combine(AppContext.BaseDirectory, "KnowledgeBase", "source-registry", "approved-source-registry.loaded.seed.json"),
+            Path.Combine(Directory.GetCurrentDirectory(), "KnowledgeBase", "source-registry", "approved-source-registry.loaded.seed.json"),
+            Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "..", "knowledge-base", "source-registry", "approved-source-registry.loaded.seed.json"))
+        };
+
+        var registryPath = candidatePaths.FirstOrDefault(File.Exists);
+
+        if (registryPath is null)
+        {
+            return new List<SourceRegistryEntry>();
+        }
+
+        var json = await File.ReadAllTextAsync(registryPath);
+        var registry = JsonSerializer.Deserialize<SourceRegistrySeed>(json, JsonOptions);
+
+        return registry?.Entries ?? new List<SourceRegistryEntry>();
     }
 
     private static bool IsEligibleForRetrieval(KnowledgeBaseChunk chunk)
@@ -263,6 +318,11 @@ public static class AiRagRetrievalEndpoints
         };
     }
 
+    private sealed record RetrievedChunkWithCitation(
+        KnowledgeBaseChunk Chunk,
+        string CitationMarker,
+        SourceRegistryEntry? SourceRegistryEntry);
+
     private sealed class KnowledgeBaseChunk
     {
         public string ChunkKey { get; set; } = string.Empty;
@@ -282,6 +342,40 @@ public static class AiRagRetrievalEndpoints
         public string Content { get; set; } = string.Empty;
 
         public string SafetyNotes { get; set; } = string.Empty;
+
+        public string ApprovalStatus { get; set; } = string.Empty;
+
+        public bool IsActive { get; set; }
+
+        public string Status { get; set; } = string.Empty;
+    }
+
+    private sealed class SourceRegistrySeed
+    {
+        public List<SourceRegistryEntry> Entries { get; set; } = new();
+    }
+
+    private sealed class SourceRegistryEntry
+    {
+        public string SourceKey { get; set; } = string.Empty;
+
+        public string Title { get; set; } = string.Empty;
+
+        public string Category { get; set; } = string.Empty;
+
+        public string SourceType { get; set; } = string.Empty;
+
+        public string? Jurisdiction { get; set; }
+
+        public string? SourceVersion { get; set; }
+
+        public string? SourceDate { get; set; }
+
+        public string CitationLabel { get; set; } = string.Empty;
+
+        public string? SourceUrl { get; set; }
+
+        public string? StoragePath { get; set; }
 
         public string ApprovalStatus { get; set; } = string.Empty;
 
