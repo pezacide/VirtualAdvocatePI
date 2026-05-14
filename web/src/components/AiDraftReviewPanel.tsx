@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import {
   AiDraft,
   ClaimCondition,
-  createAiDraft,
+  archiveAiDraft,
+  generateAiDraft,
   getClaimConditions,
   getConditionAiDrafts,
   getWorkspaceAiDrafts,
@@ -20,14 +20,12 @@ type AiDraftReviewPanelProps = {
 const draftTypes = [
   "VETERAN_STATEMENT",
   "WORSENING_SUMMARY",
+  "DOCTOR_QUESTIONS",
   "EVIDENCE_GAP_SUMMARY",
-  "DOCTOR_APPOINTMENT_QUESTIONS",
   "DOCTOR_REQUEST_LETTER",
-  "CLAIM_PACK_COVER_NOTE",
 ];
 
 const reviewStatuses = [
-  "DRAFT_CREATED",
   "USER_REVIEW_REQUIRED",
   "USER_EDITED",
   "APPROVED",
@@ -40,47 +38,48 @@ export function AiDraftReviewPanel({ workspaceId }: AiDraftReviewPanelProps) {
 
   const [conditions, setConditions] = useState<ClaimCondition[]>([]);
   const [selectedConditionId, setSelectedConditionId] = useState("");
-  const [showWorkspaceDrafts, setShowWorkspaceDrafts] = useState(true);
+  const [selectedDraftType, setSelectedDraftType] = useState("VETERAN_STATEMENT");
+  const [query, setQuery] = useState("");
+  const [userInstruction, setUserInstruction] = useState("");
+
   const [drafts, setDrafts] = useState<AiDraft[]>([]);
   const [selectedDraftId, setSelectedDraftId] = useState("");
-
-  const [draftType, setDraftType] = useState("VETERAN_STATEMENT");
-  const [promptVersion, setPromptVersion] = useState("manual-web-v1");
-  const [sourceReferences, setSourceReferences] = useState("");
-  const [draftText, setDraftText] = useState("");
-  const [userEditedText, setUserEditedText] = useState("");
+  const [editedDraftText, setEditedDraftText] = useState("");
   const [reviewStatus, setReviewStatus] = useState("USER_REVIEW_REQUIRED");
 
-  const [isLoadingConditions, setIsLoadingConditions] = useState(false);
-  const [isLoadingDrafts, setIsLoadingDrafts] = useState(false);
-  const [isCreating, setIsCreating] = useState(false);
-  const [isUpdating, setIsUpdating] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isArchiving, setIsArchiving] = useState(false);
 
   const [statusMessage, setStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
-  const selectedCondition = conditions.find(
-    (condition) => condition.id === selectedConditionId,
-  );
+  const [copyStatusMessage, setCopyStatusMessage] = useState("");
 
   const selectedDraft = useMemo(
     () => drafts.find((draft) => draft.id === selectedDraftId) ?? null,
     [drafts, selectedDraftId],
   );
 
-  const summary = useMemo(() => {
-    return {
+  const selectedCondition = useMemo(
+    () => conditions.find((condition) => condition.id === selectedConditionId) ?? null,
+    [conditions, selectedConditionId],
+  );
+
+  const summary = useMemo(
+    () => ({
       total: drafts.length,
-      approved: drafts.filter((draft) => draft.reviewStatus === "APPROVED").length,
-      needsReview: drafts.filter(
+      reviewRequired: drafts.filter(
         (draft) =>
           draft.reviewStatus === "USER_REVIEW_REQUIRED" ||
           draft.reviewStatus === "DRAFT_CREATED",
       ).length,
       edited: drafts.filter((draft) => draft.reviewStatus === "USER_EDITED").length,
+      approved: drafts.filter((draft) => draft.reviewStatus === "APPROVED").length,
       rejected: drafts.filter((draft) => draft.reviewStatus === "REJECTED").length,
-    };
-  }, [drafts]);
+    }),
+    [drafts],
+  );
 
   async function getTokenOrSetError() {
     const token = await getIdToken();
@@ -94,11 +93,6 @@ export function AiDraftReviewPanel({ workspaceId }: AiDraftReviewPanelProps) {
   }
 
   async function loadConditions() {
-    if (loading || !user) {
-      return;
-    }
-
-    setIsLoadingConditions(true);
     setErrorMessage("");
 
     try {
@@ -118,18 +112,13 @@ export function AiDraftReviewPanel({ workspaceId }: AiDraftReviewPanelProps) {
       const message =
         error instanceof Error ? error.message : "Could not load conditions.";
       setErrorMessage(message);
-    } finally {
-      setIsLoadingConditions(false);
     }
   }
 
   async function loadDrafts() {
-    if (loading || !user) {
-      return;
-    }
-
-    setIsLoadingDrafts(true);
     setErrorMessage("");
+    setStatusMessage("");
+    setIsLoading(true);
 
     try {
       const token = await getTokenOrSetError();
@@ -138,58 +127,131 @@ export function AiDraftReviewPanel({ workspaceId }: AiDraftReviewPanelProps) {
         return;
       }
 
-      const rows =
-        showWorkspaceDrafts || !selectedConditionId
-          ? await getWorkspaceAiDrafts(token, workspaceId)
-          : await getConditionAiDrafts(token, workspaceId, selectedConditionId);
+      const rows = selectedConditionId
+        ? await getConditionAiDrafts(token, workspaceId, selectedConditionId)
+        : await getWorkspaceAiDrafts(token, workspaceId);
 
       setDrafts(rows);
 
       if (rows.length > 0 && !rows.some((draft) => draft.id === selectedDraftId)) {
-        setSelectedDraftId(rows[0].id);
+        selectDraft(rows[0]);
       }
 
       if (rows.length === 0) {
         setSelectedDraftId("");
+        setEditedDraftText("");
+        setReviewStatus("USER_REVIEW_REQUIRED");
       }
+
+      setStatusMessage(`Loaded ${rows.length} AI draft(s).`);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Could not load AI drafts.";
       setErrorMessage(message);
     } finally {
-      setIsLoadingDrafts(false);
+      setIsLoading(false);
     }
   }
 
   useEffect(() => {
-    loadConditions();
+    if (!loading && user) {
+      loadConditions();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading, user, workspaceId]);
 
   useEffect(() => {
-    loadDrafts();
+    if (!loading && user) {
+      loadDrafts();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, user, workspaceId, selectedConditionId, showWorkspaceDrafts]);
+  }, [loading, user, workspaceId, selectedConditionId]);
 
-  useEffect(() => {
+  function selectDraft(draft: AiDraft) {
+    setSelectedDraftId(draft.id);
+    setEditedDraftText(draft.userEditedText ?? draft.draftText ?? "");
+    setReviewStatus(draft.reviewStatus);
+    setCopyStatusMessage("");
+    setStatusMessage(`Selected ${formatDraftType(draft.draftType)} draft.`);
+  }
+
+  async function handleGenerateDraft(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setStatusMessage("");
+    setErrorMessage("");
+    setCopyStatusMessage("");
+
+    if (!selectedConditionId) {
+      setErrorMessage("Select a condition before generating a draft.");
+      return;
+    }
+
+    setIsGenerating(true);
+
+    try {
+      const token = await getTokenOrSetError();
+
+      if (!token) {
+        return;
+      }
+
+      const response = await generateAiDraft(token, workspaceId, {
+        conditionId: selectedConditionId,
+        draftType: selectedDraftType,
+        query: query || selectedDraftType,
+        maxSources: 8,
+        userInstruction: userInstruction || undefined,
+      });
+
+      await loadDrafts();
+
+      setSelectedDraftId(response.aiDraft.id);
+      setEditedDraftText(response.aiDraft.userEditedText ?? response.aiDraft.draftText);
+      setReviewStatus(response.aiDraft.reviewStatus);
+
+      setStatusMessage(
+        `Generated ${formatDraftType(response.aiDraft.draftType)} draft. Review it before use.`,
+      );
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Could not generate AI draft.";
+      setErrorMessage(message);
+    } finally {
+      setIsGenerating(false);
+    }
+  }
+
+  async function handleCopyDraft() {
+    setCopyStatusMessage("");
+    setErrorMessage("");
+
     if (!selectedDraft) {
+      setErrorMessage("Select a draft before copying.");
       return;
     }
 
-    setDraftType(selectedDraft.draftType);
-    setPromptVersion(selectedDraft.promptVersion);
-    setSourceReferences(selectedDraft.sourceReferences ?? "");
-    setDraftText(selectedDraft.draftText);
-    setUserEditedText(selectedDraft.userEditedText ?? selectedDraft.draftText);
-    setReviewStatus(selectedDraft.reviewStatus);
-  }, [selectedDraft]);
+    const textToCopy = editedDraftText || selectedDraft.userEditedText || selectedDraft.draftText;
 
-  async function handleCreateDraft(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      setCopyStatusMessage("Copied to clipboard.");
+    } catch {
+      setCopyStatusMessage("Automatic copy failed. You can still select and copy the text manually.");
+    }
+  }
 
+  async function handleSaveReview(statusOverride?: string) {
     setStatusMessage("");
     setErrorMessage("");
-    setIsCreating(true);
+    setCopyStatusMessage("");
+
+    if (!selectedDraft) {
+      setErrorMessage("Select a draft before saving.");
+      return;
+    }
+
+    setIsSaving(true);
 
     try {
       const token = await getTokenOrSetError();
@@ -198,138 +260,92 @@ export function AiDraftReviewPanel({ workspaceId }: AiDraftReviewPanelProps) {
         return;
       }
 
-      if (!draftText.trim()) {
-        setErrorMessage("Draft text is required.");
-        return;
-      }
+      const nextStatus = statusOverride ?? reviewStatus;
 
-      await createAiDraft(token, workspaceId, {
-        conditionId: selectedConditionId || undefined,
-        draftType,
-        promptVersion: promptVersion || "manual-web-v1",
-        sourceReferences: sourceReferences || undefined,
-        draftText,
-        userEditedText: userEditedText || undefined,
-        reviewStatus,
+      const updated = await updateAiDraft(token, workspaceId, selectedDraft.id, {
+        userEditedText: editedDraftText,
+        reviewStatus: nextStatus,
       });
 
-      setDraftText("");
-      setUserEditedText("");
-      setSourceReferences("");
-      setReviewStatus("USER_REVIEW_REQUIRED");
-      setStatusMessage("AI draft metadata created.");
-      await loadDrafts();
+      setDrafts((current) =>
+        current.map((draft) => (draft.id === updated.id ? updated : draft)),
+      );
+
+      setSelectedDraftId(updated.id);
+      setEditedDraftText(updated.userEditedText ?? updated.draftText);
+      setReviewStatus(updated.reviewStatus);
+
+      setStatusMessage(`Draft saved with status ${updated.reviewStatus}.`);
     } catch (error) {
       const message =
-        error instanceof Error ? error.message : "Could not create AI draft.";
+        error instanceof Error ? error.message : "Could not save AI draft review.";
       setErrorMessage(message);
     } finally {
-      setIsCreating(false);
+      setIsSaving(false);
     }
   }
 
-  async function handleUpdateDraft(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
+  async function handleArchiveDraft() {
     setStatusMessage("");
     setErrorMessage("");
-    setIsUpdating(true);
+    setCopyStatusMessage("");
 
-    try {
-      const token = await getTokenOrSetError();
-
-      if (!token) {
-        return;
-      }
-
-      if (!selectedDraft) {
-        setErrorMessage("Select a draft before saving changes.");
-        return;
-      }
-
-      await updateAiDraft(token, workspaceId, selectedDraft.id, {
-        draftType,
-        promptVersion,
-        sourceReferences,
-        draftText,
-        userEditedText,
-        reviewStatus,
-      });
-
-      setStatusMessage("AI draft review updated.");
-      await loadDrafts();
-    } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Could not update AI draft.";
-      setErrorMessage(message);
-    } finally {
-      setIsUpdating(false);
-    }
-  }
-
-  function handleUseTemplate(templateType: string) {
-    setDraftType(templateType);
-    setPromptVersion("manual-web-v1");
-    setReviewStatus("USER_REVIEW_REQUIRED");
-
-    if (templateType === "VETERAN_STATEMENT") {
-      setDraftText(
-        "Draft veteran statement placeholder. Summarise the condition, current symptoms, treatment, functional impact, and what evidence is available. This must be reviewed and edited by the user before use.",
-      );
-      setSourceReferences("Condition intake, guided questions, evidence metadata");
+    if (!selectedDraft) {
+      setErrorMessage("Select a draft before archiving.");
       return;
     }
 
-    if (templateType === "DOCTOR_APPOINTMENT_QUESTIONS") {
-      setDraftText(
-        "Draft doctor appointment questions placeholder:\n\n1. Can you confirm the current diagnosis?\n2. Can you describe current severity and treatment?\n3. Can you comment on functional impact?\n4. Are there any records or reports that should be gathered?",
-      );
-      setSourceReferences("Condition intake, evidence gaps");
-      return;
-    }
-
-    if (templateType === "EVIDENCE_GAP_SUMMARY") {
-      setDraftText(
-        "Draft evidence gap summary placeholder. Summarise missing or incomplete evidence in plain English and list possible next steps for the user to discuss with a doctor, advocate, lawyer or support person.",
-      );
-      setSourceReferences("Evidence gap tracker");
-      return;
-    }
-
-    setDraftText(
-      "Draft placeholder. This is preparation text only and must be reviewed before being used in any document.",
+    const confirmed = window.confirm(
+      "Archive this AI draft from the active workspace?\n\nIt will no longer appear in the active draft list. This does not contact DVA and does not submit anything.",
     );
-    setSourceReferences("Manual web draft");
+
+    if (!confirmed) {
+      return;
+    }
+
+    setIsArchiving(true);
+
+    try {
+      const token = await getTokenOrSetError();
+
+      if (!token) {
+        return;
+      }
+
+      await archiveAiDraft(token, workspaceId, selectedDraft.id);
+
+      setDrafts((current) => current.filter((draft) => draft.id !== selectedDraft.id));
+      setSelectedDraftId("");
+      setEditedDraftText("");
+      setReviewStatus("USER_REVIEW_REQUIRED");
+
+      setStatusMessage("AI draft archived.");
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Could not archive AI draft.";
+      setErrorMessage(message);
+    } finally {
+      setIsArchiving(false);
+    }
   }
 
   if (loading) {
     return (
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-slate-300">
-        Checking session...
-      </div>
+      <section className="rounded-2xl border border-white/10 bg-white/5 p-8">
+        <p className="text-slate-300">Checking sign-in status...</p>
+      </section>
     );
   }
 
   if (!user) {
     return (
-      <div className="rounded-2xl border border-yellow-300/30 bg-yellow-300/10 p-6 text-yellow-100">
-        <h2 className="text-xl font-semibold">Sign in required</h2>
-        <p className="mt-2 text-sm">Sign in before reviewing AI drafts.</p>
-        <Link
-          href="/login"
-          className="mt-5 inline-flex rounded-xl bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-cyan-200"
-        >
-          Go to login
-        </Link>
-      </div>
-    );
-  }
-
-  if (isLoadingConditions) {
-    return (
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-slate-300">
-        Loading conditions...
-      </div>
+      <section className="rounded-2xl border border-white/10 bg-white/5 p-8">
+        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+          AI draft review
+        </p>
+        <h2 className="mt-4 text-2xl font-bold text-white">Sign in required</h2>
+        <p className="mt-2 text-sm text-slate-300">Sign in before reviewing AI drafts.</p>
+      </section>
     );
   }
 
@@ -340,82 +356,33 @@ export function AiDraftReviewPanel({ workspaceId }: AiDraftReviewPanelProps) {
           AI draft review
         </p>
 
-        <h1 className="mt-4 text-3xl font-bold">Review preparation drafts</h1>
+        <h2 className="mt-4 text-2xl font-bold text-white">
+          Generate, review, copy and save preparation drafts
+        </h2>
 
-        <p className="mt-4 max-w-3xl text-slate-300">
-          Create and review draft preparation text. This is not live AI generation yet. The
-          current UI stores draft metadata, edited text and review status using the backend.
+        <p className="mt-4 max-w-4xl text-sm leading-6 text-slate-300">
+          These drafts are preparation support only. Review and edit every draft before
+          using it. This tool does not provide legal advice, medical advice, DVA decisions,
+          impairment points, compensation estimates or claim outcome guarantees.
         </p>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-5">
-          <SummaryCard label="Total" value={summary.total} />
-          <SummaryCard label="Needs review" value={summary.needsReview} />
+        <div className="mt-6 grid gap-4 md:grid-cols-5">
+          <SummaryCard label="Total drafts" value={summary.total} />
+          <SummaryCard label="Needs review" value={summary.reviewRequired} />
           <SummaryCard label="Edited" value={summary.edited} />
           <SummaryCard label="Approved" value={summary.approved} />
           <SummaryCard label="Rejected" value={summary.rejected} />
         </div>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-2">
-          <div>
-            <label htmlFor="condition" className="text-sm font-medium text-slate-200">
-              Condition
-            </label>
-
-            <select
-              id="condition"
-              value={selectedConditionId}
-              onChange={(event) => setSelectedConditionId(event.target.value)}
-              className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
-            >
-              <option value="">Workspace-level draft</option>
-              {conditions.map((condition) => (
-                <option key={condition.id} value={condition.id}>
-                  {condition.conditionName}
-                </option>
-              ))}
-            </select>
-
-            {selectedCondition && (
-              <p className="mt-2 text-sm text-slate-400">
-                Selected condition: {selectedCondition.conditionName}
-              </p>
-            )}
-          </div>
-
-          <div>
-            <label className="text-sm font-medium text-slate-200">Draft list scope</label>
-
-            <div className="mt-2 flex rounded-xl border border-white/10 bg-slate-900 p-1">
-              <button
-                type="button"
-                onClick={() => setShowWorkspaceDrafts(true)}
-                className={
-                  showWorkspaceDrafts
-                    ? "flex-1 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950"
-                    : "flex-1 rounded-lg px-4 py-2 text-sm font-semibold text-slate-300"
-                }
-              >
-                Workspace drafts
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setShowWorkspaceDrafts(false)}
-                className={
-                  !showWorkspaceDrafts
-                    ? "flex-1 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-semibold text-slate-950"
-                    : "flex-1 rounded-lg px-4 py-2 text-sm font-semibold text-slate-300"
-                }
-              >
-                Selected condition
-              </button>
-            </div>
-          </div>
-        </div>
-
         {statusMessage && (
-          <div className="mt-6 rounded-xl border border-green-300/30 bg-green-300/10 p-4 text-sm text-green-100">
+          <div className="mt-6 rounded-xl border border-emerald-300/30 bg-emerald-300/10 p-4 text-sm text-emerald-100">
             {statusMessage}
+          </div>
+        )}
+
+        {copyStatusMessage && (
+          <div className="mt-6 rounded-xl border border-cyan-300/30 bg-cyan-300/10 p-4 text-sm text-cyan-100">
+            {copyStatusMessage}
           </div>
         )}
 
@@ -428,89 +395,134 @@ export function AiDraftReviewPanel({ workspaceId }: AiDraftReviewPanelProps) {
 
       <section className="rounded-2xl border border-white/10 bg-white/5 p-8">
         <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
-          Create draft metadata
+          Generate draft
         </p>
 
-        <h2 className="mt-4 text-2xl font-bold">Create a draft record</h2>
+        <form onSubmit={handleGenerateDraft} className="mt-6 grid gap-5">
+          <label className="grid gap-2">
+            <span className="text-sm font-medium text-slate-200">Condition</span>
+            <select
+              value={selectedConditionId}
+              onChange={(event) => setSelectedConditionId(event.target.value)}
+              className="rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white"
+            >
+              <option value="">Select a condition</option>
+              {conditions.map((condition) => (
+                <option key={condition.id} value={condition.id}>
+                  {condition.conditionName}
+                </option>
+              ))}
+            </select>
+          </label>
 
-        <div className="mt-6 flex flex-wrap gap-3">
-          {["VETERAN_STATEMENT", "DOCTOR_APPOINTMENT_QUESTIONS", "EVIDENCE_GAP_SUMMARY"].map(
-            (templateType) => (
-              <button
-                key={templateType}
-                type="button"
-                onClick={() => handleUseTemplate(templateType)}
-                className="rounded-xl border border-white/10 bg-slate-900 px-4 py-2 text-sm text-slate-200 hover:bg-white/10"
-              >
-                Use {templateType}
-              </button>
-            ),
-          )}
-        </div>
+          <label className="grid gap-2">
+            <span className="text-sm font-medium text-slate-200">Draft type</span>
+            <select
+              value={selectedDraftType}
+              onChange={(event) => setSelectedDraftType(event.target.value)}
+              className="rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white"
+            >
+              {draftTypes.map((type) => (
+                <option key={type} value={type}>
+                  {formatDraftType(type)}
+                </option>
+              ))}
+            </select>
+          </label>
 
-        <form onSubmit={handleCreateDraft} className="mt-8 space-y-6">
-          <DraftFields
-            draftType={draftType}
-            setDraftType={setDraftType}
-            promptVersion={promptVersion}
-            setPromptVersion={setPromptVersion}
-            sourceReferences={sourceReferences}
-            setSourceReferences={setSourceReferences}
-            draftText={draftText}
-            setDraftText={setDraftText}
-            userEditedText={userEditedText}
-            setUserEditedText={setUserEditedText}
-            reviewStatus={reviewStatus}
-            setReviewStatus={setReviewStatus}
-          />
+          <label className="grid gap-2">
+            <span className="text-sm font-medium text-slate-200">Optional focus</span>
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Example: worsening, daily impact, doctor questions"
+              className="rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white placeholder:text-slate-500"
+            />
+          </label>
+
+          <label className="grid gap-2">
+            <span className="text-sm font-medium text-slate-200">Optional instruction</span>
+            <textarea
+              value={userInstruction}
+              onChange={(event) => setUserInstruction(event.target.value)}
+              rows={4}
+              placeholder="Example: Keep this short and focus on sleep, work and medication side effects."
+              className="rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white placeholder:text-slate-500"
+            />
+          </label>
 
           <button
             type="submit"
-            disabled={isCreating}
-            className="w-full rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-cyan-200 disabled:opacity-60"
+            disabled={isGenerating || !selectedConditionId}
+            className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 disabled:opacity-60"
           >
-            {isCreating ? "Creating draft..." : "Create draft metadata"}
+            {isGenerating ? "Generating draft..." : "Generate reviewable draft"}
           </button>
         </form>
       </section>
 
       <section className="rounded-2xl border border-white/10 bg-white/5 p-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
-          Existing drafts
-        </p>
+        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+              Saved drafts
+            </p>
 
-        {isLoadingDrafts ? (
-          <p className="mt-6 text-slate-300">Loading drafts...</p>
-        ) : drafts.length === 0 ? (
-          <p className="mt-6 text-slate-300">No AI draft metadata has been created yet.</p>
+            <h3 className="mt-4 text-xl font-bold text-white">
+              Review and select a draft
+            </h3>
+
+            {selectedCondition && (
+              <p className="mt-2 text-sm text-slate-400">
+                Filtering by condition: {selectedCondition.conditionName}
+              </p>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={loadDrafts}
+            disabled={isLoading}
+            className="rounded-xl border border-cyan-300/40 px-5 py-3 text-sm font-semibold text-cyan-100 hover:bg-cyan-300/10 disabled:opacity-60"
+          >
+            {isLoading ? "Refreshing..." : "Refresh drafts"}
+          </button>
+        </div>
+
+        {drafts.length === 0 ? (
+          <p className="mt-6 text-sm text-slate-300">
+            No active AI drafts are available for this filter yet.
+          </p>
         ) : (
           <div className="mt-6 grid gap-4">
             {drafts.map((draft) => (
               <button
                 key={draft.id}
                 type="button"
-                onClick={() => setSelectedDraftId(draft.id)}
-                className={
+                onClick={() => selectDraft(draft)}
+                className={`rounded-xl border p-5 text-left transition ${
                   selectedDraftId === draft.id
-                    ? "rounded-xl border border-cyan-300 bg-cyan-300/10 p-5 text-left"
-                    : "rounded-xl border border-white/10 bg-slate-900 p-5 text-left hover:bg-white/5"
-                }
+                    ? "border-cyan-300 bg-cyan-300/10"
+                    : "border-white/10 bg-slate-900 hover:border-cyan-300/60"
+                }`}
               >
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                   <div>
-                    <p className="font-mono text-xs text-cyan-200">{draft.draftType}</p>
-                    <h3 className="mt-2 font-semibold text-white">
-                      {draft.userEditedText || draft.draftText}
-                    </h3>
+                    <p className="text-lg font-semibold text-white">
+                      {formatDraftType(draft.draftType)}
+                    </p>
+                    <p className="mt-1 text-xs text-slate-400">
+                      Created {formatDate(draft.createdAt)}
+                    </p>
                   </div>
 
-                  <span className="rounded-xl border border-white/10 px-3 py-2 text-xs text-slate-300">
+                  <span className="rounded-full border border-cyan-300/30 bg-cyan-300/10 px-3 py-1 text-xs text-cyan-100">
                     {draft.reviewStatus}
                   </span>
                 </div>
 
-                <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-400">
-                  {draft.draftText}
+                <p className="mt-4 line-clamp-3 text-sm leading-6 text-slate-300">
+                  {(draft.userEditedText || draft.draftText).slice(0, 260)}
                 </p>
               </button>
             ))}
@@ -521,185 +533,147 @@ export function AiDraftReviewPanel({ workspaceId }: AiDraftReviewPanelProps) {
       {selectedDraft && (
         <section className="rounded-2xl border border-white/10 bg-white/5 p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
-            Review selected draft
+            Draft review
           </p>
 
-          <h2 className="mt-4 text-2xl font-bold">Edit and set review status</h2>
+          <div className="mt-4 flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+            <div>
+              <h3 className="text-xl font-bold text-white">
+                {formatDraftType(selectedDraft.draftType)}
+              </h3>
+              <p className="mt-2 text-sm text-slate-400">
+                Review status: {selectedDraft.reviewStatus}
+              </p>
+            </div>
 
-          <form onSubmit={handleUpdateDraft} className="mt-8 space-y-6">
-            <DraftFields
-              draftType={draftType}
-              setDraftType={setDraftType}
-              promptVersion={promptVersion}
-              setPromptVersion={setPromptVersion}
-              sourceReferences={sourceReferences}
-              setSourceReferences={setSourceReferences}
-              draftText={draftText}
-              setDraftText={setDraftText}
-              userEditedText={userEditedText}
-              setUserEditedText={setUserEditedText}
-              reviewStatus={reviewStatus}
-              setReviewStatus={setReviewStatus}
-            />
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={handleCopyDraft}
+                className="rounded-xl border border-cyan-300/40 px-4 py-2 text-sm font-semibold text-cyan-100 hover:bg-cyan-300/10"
+              >
+                Copy draft
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleSaveReview("APPROVED")}
+                disabled={isSaving}
+                className="rounded-xl border border-emerald-300/40 px-4 py-2 text-sm font-semibold text-emerald-100 hover:bg-emerald-300/10 disabled:opacity-60"
+              >
+                Approve
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleSaveReview("REJECTED")}
+                disabled={isSaving}
+                className="rounded-xl border border-yellow-300/40 px-4 py-2 text-sm font-semibold text-yellow-100 hover:bg-yellow-300/10 disabled:opacity-60"
+              >
+                Reject
+              </button>
+
+              <button
+                type="button"
+                onClick={handleArchiveDraft}
+                disabled={isArchiving}
+                className="rounded-xl border border-red-300/40 px-4 py-2 text-sm font-semibold text-red-100 hover:bg-red-300/10 disabled:opacity-60"
+              >
+                {isArchiving ? "Archiving..." : "Archive"}
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-6 grid gap-5">
+            <label className="grid gap-2">
+              <span className="text-sm font-medium text-slate-200">Review status</span>
+              <select
+                value={reviewStatus}
+                onChange={(event) => setReviewStatus(event.target.value)}
+                className="rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white"
+              >
+                {reviewStatuses.map((status) => (
+                  <option key={status} value={status}>
+                    {status}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="grid gap-2">
+              <span className="text-sm font-medium text-slate-200">
+                Reviewed draft text
+              </span>
+              <textarea
+                value={editedDraftText}
+                onChange={(event) => {
+                  setEditedDraftText(event.target.value);
+                  if (reviewStatus === "USER_REVIEW_REQUIRED") {
+                    setReviewStatus("USER_EDITED");
+                  }
+                }}
+                rows={20}
+                className="rounded-xl border border-white/10 bg-slate-950 px-4 py-3 font-mono text-sm leading-6 text-white"
+              />
+            </label>
 
             <button
-              type="submit"
-              disabled={isUpdating}
-              className="w-full rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-cyan-200 disabled:opacity-60"
+              type="button"
+              onClick={() => handleSaveReview()}
+              disabled={isSaving}
+              className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 disabled:opacity-60"
             >
-              {isUpdating ? "Saving review..." : "Save draft review"}
+              {isSaving ? "Saving review..." : "Save draft review"}
             </button>
-          </form>
+
+            <div className="rounded-xl border border-white/10 bg-slate-950 p-5">
+              <p className="text-sm font-semibold text-white">Source references</p>
+              <pre className="mt-3 max-h-64 overflow-auto whitespace-pre-wrap text-xs leading-5 text-slate-300">
+                {formatSourceReferences(selectedDraft.sourceReferences)}
+              </pre>
+            </div>
+          </div>
         </section>
       )}
-
-      <section className="rounded-2xl border border-white/10 bg-slate-900 p-6 text-sm leading-6 text-slate-400">
-        Preparation support only. Drafts must be reviewed by the user before use. This page does
-        not provide legal advice, medical advice, a DVA decision, a compensation estimate, or a
-        guarantee of claim success.
-      </section>
     </div>
-  );
-}
-
-type DraftFieldsProps = {
-  draftType: string;
-  setDraftType: (value: string) => void;
-  promptVersion: string;
-  setPromptVersion: (value: string) => void;
-  sourceReferences: string;
-  setSourceReferences: (value: string) => void;
-  draftText: string;
-  setDraftText: (value: string) => void;
-  userEditedText: string;
-  setUserEditedText: (value: string) => void;
-  reviewStatus: string;
-  setReviewStatus: (value: string) => void;
-};
-
-function DraftFields({
-  draftType,
-  setDraftType,
-  promptVersion,
-  setPromptVersion,
-  sourceReferences,
-  setSourceReferences,
-  draftText,
-  setDraftText,
-  userEditedText,
-  setUserEditedText,
-  reviewStatus,
-  setReviewStatus,
-}: DraftFieldsProps) {
-  return (
-    <>
-      <div className="grid gap-5 md:grid-cols-2">
-        <div>
-          <label htmlFor="draftType" className="text-sm font-medium text-slate-200">
-            Draft type
-          </label>
-
-          <select
-            id="draftType"
-            value={draftType}
-            onChange={(event) => setDraftType(event.target.value)}
-            className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
-          >
-            {draftTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label htmlFor="reviewStatus" className="text-sm font-medium text-slate-200">
-            Review status
-          </label>
-
-          <select
-            id="reviewStatus"
-            value={reviewStatus}
-            onChange={(event) => setReviewStatus(event.target.value)}
-            className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
-          >
-            {reviewStatuses.map((status) => (
-              <option key={status} value={status}>
-                {status}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="promptVersion" className="text-sm font-medium text-slate-200">
-          Prompt or template version
-        </label>
-
-        <input
-          id="promptVersion"
-          type="text"
-          value={promptVersion}
-          onChange={(event) => setPromptVersion(event.target.value)}
-          className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="sourceReferences" className="text-sm font-medium text-slate-200">
-          Source references
-        </label>
-
-        <textarea
-          id="sourceReferences"
-          value={sourceReferences}
-          onChange={(event) => setSourceReferences(event.target.value)}
-          rows={3}
-          placeholder="Example: condition intake, guided questions, evidence gaps"
-          className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="draftText" className="text-sm font-medium text-slate-200">
-          Draft text
-        </label>
-
-        <textarea
-          id="draftText"
-          value={draftText}
-          onChange={(event) => setDraftText(event.target.value)}
-          rows={7}
-          required
-          className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="userEditedText" className="text-sm font-medium text-slate-200">
-          User edited text
-        </label>
-
-        <textarea
-          id="userEditedText"
-          value={userEditedText}
-          onChange={(event) => setUserEditedText(event.target.value)}
-          rows={7}
-          placeholder="Edit the draft here before approving or using it."
-          className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
-        />
-      </div>
-    </>
   );
 }
 
 function SummaryCard({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-slate-900 p-5">
-      <p className="text-sm text-slate-400">{label}</p>
+    <div className="rounded-xl border border-white/10 bg-slate-900 p-4">
+      <p className="text-xs uppercase tracking-[0.2em] text-slate-400">{label}</p>
       <p className="mt-2 text-2xl font-bold text-white">{value}</p>
     </div>
   );
+}
+
+function formatDraftType(value: string) {
+  return value
+    .toLowerCase()
+    .split("_")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function formatDate(value: string) {
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return date.toLocaleString();
+}
+
+function formatSourceReferences(value?: string | null) {
+  if (!value) {
+    return "No source references recorded.";
+  }
+
+  try {
+    return JSON.stringify(JSON.parse(value), null, 2);
+  } catch {
+    return value;
+  }
 }

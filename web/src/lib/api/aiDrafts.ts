@@ -1,4 +1,11 @@
-import { apiGet, apiPatch, apiPost } from "@/lib/api/client";
+import {
+  apiGet,
+  apiPatch,
+  apiPost,
+  getAuthHeaders,
+  getApiBaseUrl,
+  handleApiError,
+} from "@/lib/api/client";
 
 export type AiDraft = {
   id: string;
@@ -19,7 +26,7 @@ export type AiDraft = {
 export type CreateAiDraftInput = {
   conditionId?: string;
   draftType: string;
-  promptVersion?: string;
+  promptVersion: string;
   sourceReferences?: string;
   draftText: string;
   userEditedText?: string;
@@ -33,6 +40,45 @@ export type UpdateAiDraftInput = {
   draftText?: string;
   userEditedText?: string;
   reviewStatus?: string;
+};
+
+export type GenerateAiDraftInput = {
+  conditionId: string;
+  draftType: string;
+  query?: string;
+  maxSources?: number;
+  userInstruction?: string;
+};
+
+export type GenerateAiDraftResponse = {
+  aiDraft: AiDraft;
+  sourceReferences: Array<{
+    citationMarker: string;
+    sourceKey: string;
+    citationLabel: string;
+    category: string;
+    sourceType: string;
+    chunkKey: string;
+    chunkTitle: string;
+  }>;
+  safety: {
+    preparationSupportOnly: boolean;
+    requiresUserReview: boolean;
+    legalAdvice: boolean;
+    medicalAdvice: boolean;
+    diagnosis: boolean;
+    dvaDecision: boolean;
+    impairmentCalculation: boolean;
+    compensationEstimate: boolean;
+    outcomeGuarantee: boolean;
+    aiModelCalled: boolean;
+  };
+};
+
+export type ArchiveAiDraftResponse = {
+  id: string;
+  status: string;
+  archived: boolean;
 };
 
 export function getWorkspaceAiDrafts(idToken: string, workspaceId: string) {
@@ -80,4 +126,37 @@ export function updateAiDraft(
     input,
     "Could not update AI draft.",
   );
+}
+
+export function generateAiDraft(
+  idToken: string,
+  workspaceId: string,
+  input: GenerateAiDraftInput,
+) {
+  return apiPost<GenerateAiDraftResponse, GenerateAiDraftInput>(
+    idToken,
+    `/api/v1/claim-workspaces/${workspaceId}/ai-drafts/generate`,
+    input,
+    "Could not generate AI draft.",
+  );
+}
+
+export async function archiveAiDraft(
+  idToken: string,
+  workspaceId: string,
+  draftId: string,
+) {
+  const response = await fetch(
+    `${getApiBaseUrl()}/api/v1/claim-workspaces/${workspaceId}/ai-drafts/${draftId}`,
+    {
+      method: "DELETE",
+      headers: getAuthHeaders(idToken),
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not archive AI draft.");
+  }
+
+  return (await response.json()) as ArchiveAiDraftResponse;
 }
