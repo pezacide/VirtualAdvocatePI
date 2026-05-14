@@ -3,6 +3,11 @@
 import { DatePickerInput } from "@/components/DatePickerInput";
 import { EvidenceListSummaryPanel } from "@/components/EvidenceListSummaryPanel";
 import {
+  evidenceUploadAcceptValue,
+  formatEvidenceFileSize,
+  validateEvidenceUploadFile,
+} from "@/lib/evidenceUploadValidation";
+import {
   evidenceSourceQuickTags,
   evidenceTypeOptions,
   evidenceStatusOptions,
@@ -147,6 +152,19 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
 
 
 
+
+  function handleSelectedFileChange(file: File | null) {
+    setSelectedFile(file);
+    setStatusMessage("");
+
+    if (!file) {
+      setErrorMessage("");
+      return;
+    }
+
+    const validationMessage = validateEvidenceUploadFile(file);
+    setErrorMessage(validationMessage ?? "");
+  }
   async function handleUpdateEvidenceStatus(evidenceItem: EvidenceItem, evidenceStatus: string) {
     setStatusMessage("");
     setErrorMessage("");
@@ -218,8 +236,10 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
         return;
       }
 
-      if (!selectedFile) {
-        setErrorMessage("Choose a file before uploading.");
+      const fileValidationMessage = validateEvidenceUploadFile(selectedFile);
+
+      if (fileValidationMessage) {
+        setErrorMessage(fileValidationMessage);
         return;
       }
 
@@ -240,11 +260,14 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
 
       const putResponse = await fetch(uploadResponse.upload.url, {
         method: "PUT",
+        headers: uploadResponse.upload.requiredHeaders ?? {},
         body: selectedFile,
       });
 
       if (!putResponse.ok) {
-        throw new Error(`Cloud Storage upload failed. HTTP ${putResponse.status}`);
+        throw new Error(
+          `Cloud Storage upload failed. The signed upload link may have expired or the file may not have been accepted. HTTP ${putResponse.status}`,
+        );
       }
 
       await markEvidenceUploaded(token, workspaceId, uploadResponse.evidenceItem.id);
@@ -392,14 +415,20 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
             <input
               id="evidenceFile"
               type="file"
-              onChange={(event) => setSelectedFile(event.target.files?.[0] ?? null)}
+              accept={evidenceUploadAcceptValue}
+              onChange={(event) => handleSelectedFileChange(event.target.files?.[0] ?? null)}
               required
               className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white file:mr-4 file:rounded-lg file:border-0 file:bg-cyan-300 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-slate-950"
             />
 
+            <p className="mt-2 text-xs leading-5 text-slate-400">
+              Supported files: PDF, image, Word, text and RTF. Maximum size: 25 MB.
+            </p>
+
             {selectedFile && (
               <p className="mt-2 text-sm text-slate-400">
-                Selected: {selectedFile.name} · {Math.ceil(selectedFile.size / 1024)} KB
+                Selected: {selectedFile.name} · {formatEvidenceFileSize(selectedFile.size)}
+                {selectedFile.type ? ` · ${selectedFile.type}` : ""}
               </p>
             )}
           </div>

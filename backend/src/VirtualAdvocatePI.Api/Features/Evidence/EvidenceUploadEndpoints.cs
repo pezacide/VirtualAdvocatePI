@@ -1,4 +1,4 @@
-﻿using Google.Apis.Auth.OAuth2;
+using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Storage.V1;
 using Microsoft.EntityFrameworkCore;
 using VirtualAdvocatePI.Api.Data;
@@ -9,6 +9,38 @@ namespace VirtualAdvocatePI.Api.Features.Evidence;
 
 public static class EvidenceUploadEndpoints
 {
+    private const long MaxEvidenceUploadBytes = 25 * 1024 * 1024;
+
+    private static readonly HashSet<string> AllowedUploadContentTypes = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "application/pdf",
+        "image/jpeg",
+        "image/png",
+        "image/webp",
+        "image/heic",
+        "image/heif",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "text/plain",
+        "application/rtf",
+        "text/rtf"
+    };
+
+    private static readonly HashSet<string> AllowedUploadFileExtensions = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ".pdf",
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".webp",
+        ".heic",
+        ".heif",
+        ".doc",
+        ".docx",
+        ".txt",
+        ".rtf"
+    };
+
     public static IEndpointRouteBuilder MapEvidenceUploadEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/conditions/{conditionId:guid}/evidence-upload-url", async (
@@ -36,6 +68,13 @@ public static class EvidenceUploadEndpoints
             if (string.IsNullOrWhiteSpace(input.OriginalFileName))
             {
                 return Results.BadRequest(new { error = "Original file name is required." });
+            }
+
+            var uploadValidationError = ValidateUploadRequest(input);
+
+            if (uploadValidationError is not null)
+            {
+                return uploadValidationError;
             }
 
             var bucketName = GetEvidenceBucketName();
@@ -289,6 +328,58 @@ public static class EvidenceUploadEndpoints
         };
     }
 
+
+    private static IResult? ValidateUploadRequest(CreateEvidenceUploadUrlRequest input)
+    {
+        var fileName = Path.GetFileName(input.OriginalFileName ?? string.Empty);
+
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            return Results.BadRequest(new { error = "Original file name is required." });
+        }
+
+        if (fileName.Length > 180)
+        {
+            return Results.BadRequest(new { error = "File name is too long. Rename the file and try again." });
+        }
+
+        if (!input.FileSize.HasValue || input.FileSize.Value <= 0)
+        {
+            return Results.BadRequest(new { error = "File size is required and must be greater than zero." });
+        }
+
+        if (input.FileSize.Value > MaxEvidenceUploadBytes)
+        {
+            return Results.BadRequest(new
+            {
+                error = "File is too large.",
+                maxFileSizeBytes = MaxEvidenceUploadBytes
+            });
+        }
+
+        var extension = Path.GetExtension(fileName);
+
+        if (string.IsNullOrWhiteSpace(extension) || !AllowedUploadFileExtensions.Contains(extension))
+        {
+            return Results.BadRequest(new
+            {
+                error = "Unsupported file extension.",
+                allowedExtensions = AllowedUploadFileExtensions.OrderBy(x => x).ToArray()
+            });
+        }
+
+        if (!string.IsNullOrWhiteSpace(input.FileType) &&
+            !AllowedUploadContentTypes.Contains(input.FileType.Trim()))
+        {
+            return Results.BadRequest(new
+            {
+                error = "Unsupported file content type.",
+                allowedContentTypes = AllowedUploadContentTypes.OrderBy(x => x).ToArray()
+            });
+        }
+
+        return null;
+    }
     private static string CreateSafeFileName(string originalFileName)
     {
         var fileName = Path.GetFileName(originalFileName);
