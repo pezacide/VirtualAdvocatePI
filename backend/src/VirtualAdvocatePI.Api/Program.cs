@@ -1172,6 +1172,7 @@ app.MapEvidenceGapEndpoints();
 app.MapAiDraftEndpoints();
 app.MapAiRagRetrievalEndpoints();
 app.MapAiDraftRequestEndpoints();
+app.MapAiDraftGenerationEndpoints();
 
 app.MapGeneratedDocumentEndpoints();
 
