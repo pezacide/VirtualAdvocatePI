@@ -1,11 +1,11 @@
 ﻿FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-COPY backend/src/VirtualAdvocatePI.Api/VirtualAdvocatePI.Api.csproj backend/src/VirtualAdvocatePI.Api/
-RUN dotnet restore backend/src/VirtualAdvocatePI.Api/VirtualAdvocatePI.Api.csproj
+COPY VirtualAdvocatePI.Api.csproj ./
+RUN dotnet restore ./VirtualAdvocatePI.Api.csproj
 
-COPY . .
-RUN dotnet publish backend/src/VirtualAdvocatePI.Api/VirtualAdvocatePI.Api.csproj -c Release -o /app/publish
+COPY . ./
+RUN dotnet publish ./VirtualAdvocatePI.Api.csproj -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
