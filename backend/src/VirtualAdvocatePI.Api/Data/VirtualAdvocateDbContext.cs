@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using VirtualAdvocatePI.Api.Domain.Claims;
 using VirtualAdvocatePI.Api.Domain.Users;
 
@@ -24,6 +24,8 @@ public sealed class VirtualAdvocateDbContext : DbContext
     public DbSet<EvidenceItem> EvidenceItems => Set<EvidenceItem>();
 
     public DbSet<EvidenceGap> EvidenceGaps => Set<EvidenceGap>();
+
+    public DbSet<AiSourceRegistryEntry> AiSourceRegistryEntries => Set<AiSourceRegistryEntry>();
 
     public DbSet<AiDraft> AiDrafts => Set<AiDraft>();
 
@@ -166,6 +168,35 @@ public sealed class VirtualAdvocateDbContext : DbContext
             entity.Property(x => x.EventDetail).HasMaxLength(2000);
             entity.Property(x => x.IpAddress).HasMaxLength(100);
             entity.Property(x => x.ClientType).HasMaxLength(200);
+        });
+
+        modelBuilder.Entity<AiSourceRegistryEntry>(entity =>
+        {
+            entity.ToTable("ai_source_registry_entries");
+
+            entity.HasKey(x => x.Id);
+
+            entity.HasIndex(x => x.SourceKey).IsUnique();
+            entity.HasIndex(x => x.Category);
+            entity.HasIndex(x => x.SourceType);
+            entity.HasIndex(x => x.ApprovalStatus);
+            entity.HasIndex(x => x.Status);
+            entity.HasIndex(x => x.IsActive);
+
+            entity.Property(x => x.SourceKey).HasMaxLength(150).IsRequired();
+            entity.Property(x => x.Title).HasMaxLength(500).IsRequired();
+            entity.Property(x => x.Category).HasMaxLength(100).IsRequired();
+            entity.Property(x => x.SourceType).HasMaxLength(100).IsRequired();
+            entity.Property(x => x.Jurisdiction).HasMaxLength(100).IsRequired();
+            entity.Property(x => x.SourceVersion).HasMaxLength(100);
+            entity.Property(x => x.CitationLabel).HasMaxLength(300).IsRequired();
+            entity.Property(x => x.SourceUrl).HasMaxLength(2000);
+            entity.Property(x => x.StoragePath).HasMaxLength(1000);
+            entity.Property(x => x.ContentHash).HasMaxLength(200);
+            entity.Property(x => x.ApprovalStatus).HasMaxLength(50).IsRequired();
+            entity.Property(x => x.ApprovedBy).HasMaxLength(200);
+            entity.Property(x => x.ReviewNotes).HasMaxLength(2000);
+            entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
         });
 
 modelBuilder.Entity<AiDraft>(entity =>
