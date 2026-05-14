@@ -20,6 +20,7 @@ import {
   createEvidenceItem,
   updateEvidenceStatus,
   archiveEvidenceItem,
+  deleteEvidenceUploadedFile,
   getClaimConditions,
   getConditionEvidenceItems,
 } from "@/lib/api";
@@ -74,6 +75,7 @@ export function EvidenceMetadataPanel({ workspaceId }: EvidenceMetadataPanelProp
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [updatingEvidenceStatusId, setUpdatingEvidenceStatusId] = useState<string | null>(null);
   const [removingEvidenceItemId, setRemovingEvidenceItemId] = useState<string | null>(null);
+  const [deletingUploadedFileItemId, setDeletingUploadedFileItemId] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -182,6 +184,45 @@ export function EvidenceMetadataPanel({ workspaceId }: EvidenceMetadataPanelProp
     }
   }
 
+
+  async function handleDeleteUploadedFile(evidenceItem: EvidenceItem) {
+    const confirmed = window.confirm(
+      "Delete the uploaded file for this evidence item?\n\nThe evidence item will stay listed in this workspace, but the stored file will be deleted and the item will return to listed, not uploaded. This does not contact DVA and does not delete anything already submitted outside this app.",
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setStatusMessage("");
+    setErrorMessage("");
+    setDeletingUploadedFileItemId(evidenceItem.id);
+
+    try {
+      const token = await getTokenOrSetError();
+
+      if (!token) {
+        return;
+      }
+
+      const updatedEvidenceItem = await deleteEvidenceUploadedFile(token, workspaceId, evidenceItem.id);
+
+      setEvidenceItems((currentItems) =>
+        currentItems.map((item) =>
+          item.id === updatedEvidenceItem.id ? updatedEvidenceItem : item,
+        ),
+      );
+
+      setStatusMessage("Uploaded file deleted. Evidence item remains listed as not uploaded.");
+      await loadEvidenceItems(selectedConditionId);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Could not delete uploaded evidence file.";
+      setErrorMessage(message);
+    } finally {
+      setDeletingUploadedFileItemId(null);
+    }
+  }
   async function handleArchiveEvidenceItem(evidenceItem: EvidenceItem) {
     const confirmed = window.confirm(
       "Remove this evidence item from the active workspace?\n\nThis will stop it appearing in active evidence lists, evidence gap checks and future AI draft preparation. It does not contact DVA and does not delete anything already submitted outside this app.",
@@ -530,7 +571,7 @@ export function EvidenceMetadataPanel({ workspaceId }: EvidenceMetadataPanelProp
                   <p>Provider/source: {item.providerName || "Not recorded"}</p>
                   <p>Document date: {item.documentDate || "Not recorded"}</p>
                   <p>File type: {item.fileType || "Not recorded"}</p>
-                  <p>Uploaded: {item.uploadedAt ? "Yes" : "No"}</p>
+                  <p>Uploaded: {item.uploadedAt && item.storagePath ? "Yes" : "No"}</p>
                 </div>
 
                 {item.userNotes && (

@@ -222,6 +222,82 @@ public static class EvidenceUploadEndpoints
             }
         });
 
+
+        app.MapDelete("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}/uploaded-file", async (
+            Guid workspaceId,
+            Guid evidenceItemId,
+            HttpRequest request,
+            CurrentUserService currentUserService,
+            ClaimAccessService claimAccessService,
+            AuditService auditService,
+            VirtualAdvocateDbContext db) =>
+        {
+            var user = await currentUserService.GetOrCreateCurrentUserAsync(request);
+
+            if (user is null)
+            {
+                return Results.Unauthorized();
+            }
+
+            if (!await claimAccessService.UserOwnsWorkspaceAsync(user.Id, workspaceId))
+            {
+                return Results.NotFound();
+            }
+
+            var evidenceItem = await db.EvidenceItems
+                .FirstOrDefaultAsync(x =>
+                    x.Id == evidenceItemId &&
+                    x.ClaimWorkspaceId == workspaceId &&
+                    x.Status != "ARCHIVED");
+
+            if (evidenceItem is null)
+            {
+                return Results.NotFound();
+            }
+
+            if (string.IsNullOrWhiteSpace(evidenceItem.StoragePath))
+            {
+                return Results.BadRequest(new { error = "Evidence item has no uploaded file to delete." });
+            }
+
+            var bucketName = GetEvidenceBucketName();
+            var objectName = GetObjectNameFromStoragePath(evidenceItem.StoragePath, bucketName);
+
+            try
+            {
+                var storageClient = await StorageClient.CreateAsync();
+                await storageClient.DeleteObjectAsync(bucketName, objectName);
+            }
+            catch (Google.GoogleApiException ex) when (ex.HttpStatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                // The object is already gone. Continue cleaning up the evidence record so the UI no longer offers download/open actions.
+            }
+            catch (Exception ex)
+            {
+                return Results.BadRequest(new
+                {
+                    error = "Could not delete uploaded file from storage.",
+                    detail = ex.Message
+                });
+            }
+
+            evidenceItem.StoragePath = null;
+            evidenceItem.UploadedAt = null;
+            evidenceItem.FileSize = null;
+            evidenceItem.EvidenceStatus = "LISTED_NOT_UPLOADED";
+            evidenceItem.UpdatedAt = DateTimeOffset.UtcNow;
+
+            auditService.AddAuditEvent(
+                request,
+                user.Id,
+                workspaceId,
+                "EVIDENCE_UPLOADED_FILE_DELETED",
+                $"Uploaded evidence file deleted. EvidenceItemId={evidenceItem.Id}");
+
+            await db.SaveChangesAsync();
+
+            return Results.Ok(ToEvidenceItemResponse(evidenceItem));
+        });
         app.MapPost("/api/v1/claim-workspaces/{workspaceId:guid}/evidence-items/{evidenceItemId:guid}/download-url", async (
             Guid workspaceId,
             Guid evidenceItemId,

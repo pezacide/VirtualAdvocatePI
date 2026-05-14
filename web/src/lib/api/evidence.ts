@@ -199,3 +199,23 @@ export async function archiveEvidenceItem(
 
   return (await response.json()) as ArchiveEvidenceItemResponse;
 }
+
+export async function deleteEvidenceUploadedFile(
+  idToken: string,
+  workspaceId: string,
+  evidenceItemId: string,
+) {
+  const response = await fetch(
+    `${getApiBaseUrl()}/api/v1/claim-workspaces/${workspaceId}/evidence-items/${evidenceItemId}/uploaded-file`,
+    {
+      method: "DELETE",
+      headers: getAuthHeaders(idToken),
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not delete uploaded evidence file.");
+  }
+
+  return (await response.json()) as EvidenceItem;
+}

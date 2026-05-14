@@ -29,6 +29,7 @@ import {
   markEvidenceUploaded,
   updateEvidenceStatus,
   archiveEvidenceItem,
+  deleteEvidenceUploadedFile,
 } from "@/lib/api";
 
 type EvidenceUploadPanelProps = {
@@ -70,6 +71,7 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
   const [openingEvidenceItemId, setOpeningEvidenceItemId] = useState<string | null>(null);
   const [updatingEvidenceStatusId, setUpdatingEvidenceStatusId] = useState<string | null>(null);
   const [removingEvidenceItemId, setRemovingEvidenceItemId] = useState<string | null>(null);
+  const [deletingUploadedFileItemId, setDeletingUploadedFileItemId] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -192,6 +194,45 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
     }
   }
 
+
+  async function handleDeleteUploadedFile(evidenceItem: EvidenceItem) {
+    const confirmed = window.confirm(
+      "Delete the uploaded file for this evidence item?\n\nThe evidence item will stay listed in this workspace, but the stored file will be deleted and the item will return to listed, not uploaded. This does not contact DVA and does not delete anything already submitted outside this app.",
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setStatusMessage("");
+    setErrorMessage("");
+    setDeletingUploadedFileItemId(evidenceItem.id);
+
+    try {
+      const token = await getTokenOrSetError();
+
+      if (!token) {
+        return;
+      }
+
+      const updatedEvidenceItem = await deleteEvidenceUploadedFile(token, workspaceId, evidenceItem.id);
+
+      setEvidenceItems((currentItems) =>
+        currentItems.map((item) =>
+          item.id === updatedEvidenceItem.id ? updatedEvidenceItem : item,
+        ),
+      );
+
+      setStatusMessage("Uploaded file deleted. Evidence item remains listed as not uploaded.");
+      await loadEvidenceItems(selectedConditionId);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Could not delete uploaded evidence file.";
+      setErrorMessage(message);
+    } finally {
+      setDeletingUploadedFileItemId(null);
+    }
+  }
   async function handleArchiveEvidenceItem(evidenceItem: EvidenceItem) {
     const confirmed = window.confirm(
       "Remove this evidence item from the active workspace?\n\nThis will stop it appearing in active evidence lists, evidence gap checks and future AI draft preparation. It does not contact DVA and does not delete anything already submitted outside this app.",
@@ -583,7 +624,7 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
                   </div>
 
                   <span className="rounded-xl border border-white/10 px-3 py-2 text-xs text-slate-300">
-                    {item.uploadedAt ? "UPLOADED" : "NOT UPLOADED"}
+                    {item.uploadedAt && item.storagePath ? "UPLOADED" : "NOT UPLOADED"}
                   </span>
                 </div>
 
@@ -625,17 +666,37 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
 
                 <button
                   type="button"
-                  disabled={!item.uploadedAt || openingEvidenceItemId === item.id}
+                  disabled={!item.uploadedAt || !item.storagePath || openingEvidenceItemId === item.id}
                   onClick={() => handleOpenEvidenceItem(item)}
                   className="mt-5 w-full rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-cyan-200 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {openingEvidenceItemId === item.id
                     ? "Opening file..."
-                    : item.uploadedAt
+                    : item.uploadedAt && item.storagePath
                       ? "Open file"
                       : "File not uploaded yet"}
                 </button>
 
+
+                {item.uploadedAt && item.storagePath && (
+                  <div className="mt-5 rounded-xl border border-yellow-300/20 bg-yellow-300/5 p-4">
+                    <p className="text-sm font-semibold text-yellow-100">Delete uploaded file</p>
+                    <p className="mt-1 text-xs leading-5 text-yellow-100/80">
+                      Deletes the stored file but keeps this evidence item listed in the workspace.
+                    </p>
+
+                    <button
+                      type="button"
+                      disabled={deletingUploadedFileItemId === item.id}
+                      onClick={() => handleDeleteUploadedFile(item)}
+                      className="mt-4 rounded-xl border border-yellow-300/40 px-4 py-2 text-sm font-semibold text-yellow-100 hover:bg-yellow-300/10 disabled:opacity-60"
+                    >
+                      {deletingUploadedFileItemId === item.id
+                        ? "Deleting uploaded file..."
+                        : "Delete uploaded file"}
+                    </button>
+                  </div>
+                )}
                 <div className="mt-5 rounded-xl border border-red-300/20 bg-red-300/5 p-4">
                   <p className="text-sm font-semibold text-red-100">Remove evidence</p>
                   <p className="mt-1 text-xs leading-5 text-red-100/80">

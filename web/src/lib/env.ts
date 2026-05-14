@@ -11,27 +11,18 @@ export const env = {
   },
 };
 
-function isMissingEnvValue(value: string) {
-  return (
-    !value ||
-    value === "REPLACE_ME" ||
-    value.startsWith("YOUR_") ||
-    value.startsWith("env.")
-  );
-}
-
 export function getMissingPublicEnvVars() {
   const requiredValues = {
     NEXT_PUBLIC_API_BASE_URL: env.apiBaseUrl,
     NEXT_PUBLIC_FIREBASE_API_KEY: env.firebase.apiKey,
-    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: env.firebase.authDomain,
     NEXT_PUBLIC_FIREBASE_PROJECT_ID: env.firebase.projectId,
+    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: env.firebase.authDomain,
     NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: env.firebase.storageBucket,
     NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: env.firebase.messagingSenderId,
     NEXT_PUBLIC_FIREBASE_APP_ID: env.firebase.appId,
   };
 
   return Object.entries(requiredValues)
-    .filter(([, value]) => isMissingEnvValue(value))
+    .filter(([, value]) => !value || value === "REPLACE_ME")
     .map(([key]) => key);
 }
