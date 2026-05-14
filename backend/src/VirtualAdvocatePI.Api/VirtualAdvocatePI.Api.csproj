@@ -19,4 +19,10 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.*" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Content Include="KnowledgeBase\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
