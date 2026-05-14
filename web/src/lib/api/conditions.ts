@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from "@/lib/api/client";
+import { apiGet, apiPost, getAuthHeaders, getApiBaseUrl, handleApiError } from "@/lib/api/client";
 
 export type ClaimCondition = {
   id: string;
@@ -56,4 +56,29 @@ export function createClaimCondition(
     input,
     "Could not create condition.",
   );
+}
+export type ArchiveClaimConditionResponse = {
+  id: string;
+  status: string;
+  archived: boolean;
+};
+
+export async function archiveClaimCondition(
+  idToken: string,
+  workspaceId: string,
+  conditionId: string,
+) {
+  const response = await fetch(
+    `${getApiBaseUrl()}/api/v1/claim-workspaces/${workspaceId}/conditions/${conditionId}`,
+    {
+      method: "DELETE",
+      headers: getAuthHeaders(idToken),
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not remove condition from workspace.");
+  }
+
+  return (await response.json()) as ArchiveClaimConditionResponse;
 }

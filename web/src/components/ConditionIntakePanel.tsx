@@ -7,6 +7,7 @@ import {
   ClaimCondition,
   createClaimCondition,
   getClaimConditions,
+  archiveClaimCondition,
 } from "@/lib/api";
 
 type ConditionIntakePanelProps = {
@@ -37,6 +38,7 @@ export function ConditionIntakePanel({ workspaceId }: ConditionIntakePanelProps)
 
   const [isLoadingConditions, setIsLoadingConditions] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [removingConditionId, setRemovingConditionId] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -116,6 +118,44 @@ export function ConditionIntakePanel({ workspaceId }: ConditionIntakePanelProps)
     }
   }
 
+
+  async function handleArchiveCondition(condition: ClaimCondition) {
+    const confirmed = window.confirm(
+      `Remove ${condition.conditionName} from this active workspace?\n\nThis will hide the condition from active condition lists, evidence upload, metadata, GARP M questions, evidence gaps and future AI draft preparation. It does not contact DVA and does not delete anything already submitted outside this app.`,
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setStatusMessage("");
+    setErrorMessage("");
+    setRemovingConditionId(condition.id);
+
+    try {
+      const token = await getIdToken();
+
+      if (!token) {
+        setErrorMessage("No Firebase ID token is available. Please sign in again.");
+        return;
+      }
+
+      await archiveClaimCondition(token, workspaceId, condition.id);
+
+      setConditions((currentConditions) =>
+        currentConditions.filter((item) => item.id !== condition.id),
+      );
+
+      setStatusMessage("Condition removed from the active workspace.");
+      await loadConditions();
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Could not remove condition from workspace.";
+      setErrorMessage(message);
+    } finally {
+      setRemovingConditionId(null);
+    }
+  }
   if (loading) {
     return (
       <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-slate-300">
@@ -341,6 +381,24 @@ export function ConditionIntakePanel({ workspaceId }: ConditionIntakePanelProps)
                   <div className="rounded-xl border border-cyan-300/30 bg-cyan-300/10 px-3 py-2 text-sm text-cyan-100">
                     {condition.isPrimaryCondition ? "PRIMARY" : "SECONDARY"}
                   </div>
+                </div>
+
+                <div className="mt-5 rounded-xl border border-red-300/20 bg-red-300/5 p-4">
+                  <p className="text-sm font-semibold text-red-100">Remove condition</p>
+                  <p className="mt-1 text-xs leading-5 text-red-100/80">
+                    Removes this condition from active workspace tools. Linked records are retained for audit/history and this does not contact DVA.
+                  </p>
+
+                  <button
+                    type="button"
+                    disabled={removingConditionId === condition.id}
+                    onClick={() => handleArchiveCondition(condition)}
+                    className="mt-4 rounded-xl border border-red-300/40 px-4 py-2 text-sm font-semibold text-red-100 hover:bg-red-300/10 disabled:opacity-60"
+                  >
+                    {removingConditionId === condition.id
+                      ? "Removing condition..."
+                      : "Remove from workspace"}
+                  </button>
                 </div>
               </div>
             ))}
