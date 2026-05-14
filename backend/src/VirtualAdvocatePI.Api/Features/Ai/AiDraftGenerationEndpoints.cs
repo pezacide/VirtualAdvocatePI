@@ -56,7 +56,7 @@ public static class AiDraftGenerationEndpoints
             {
                 return Results.BadRequest(new
                 {
-                    error = "This endpoint currently supports VETERAN_STATEMENT and WORSENING_SUMMARY only.",
+                    error = "This endpoint currently supports VETERAN_STATEMENT, WORSENING_SUMMARY, DOCTOR_QUESTIONS, EVIDENCE_GAP_SUMMARY and DOCTOR_REQUEST_LETTER.",
                     allowedValues = GetSupportedDraftTypes()
                 });
             }
@@ -144,6 +144,36 @@ public static class AiDraftGenerationEndpoints
                     userInstruction),
 
                 "WORSENING_SUMMARY" => BuildWorseningSummaryDraft(
+                    workspace,
+                    condition,
+                    acceptedHistory,
+                    questionResponses,
+                    evidenceItems,
+                    evidenceGaps,
+                    sourceReferences,
+                    userInstruction),
+
+                "DOCTOR_QUESTIONS" => BuildDoctorQuestionsDraft(
+                    workspace,
+                    condition,
+                    acceptedHistory,
+                    questionResponses,
+                    evidenceItems,
+                    evidenceGaps,
+                    sourceReferences,
+                    userInstruction),
+
+                "EVIDENCE_GAP_SUMMARY" => BuildEvidenceGapSummaryDraft(
+                    workspace,
+                    condition,
+                    acceptedHistory,
+                    questionResponses,
+                    evidenceItems,
+                    evidenceGaps,
+                    sourceReferences,
+                    userInstruction),
+
+                "DOCTOR_REQUEST_LETTER" => BuildDoctorRequestLetterDraft(
                     workspace,
                     condition,
                     acceptedHistory,
@@ -461,6 +491,241 @@ public static class AiDraftGenerationEndpoints
         return builder.ToString();
     }
 
+
+    private static string BuildDoctorQuestionsDraft(
+        ClaimWorkspace workspace,
+        ClaimCondition condition,
+        List<AcceptedConditionHistory> acceptedHistory,
+        List<QuestionResponse> questionResponses,
+        List<EvidenceItem> evidenceItems,
+        List<EvidenceGap> evidenceGaps,
+        List<SourceReference> sourceReferences,
+        string? userInstruction)
+    {
+        var builder = new StringBuilder();
+
+        builder.AppendLine("# Doctor questions draft");
+        builder.AppendLine();
+        builder.AppendLine("Preparation support only. These questions are for review before an appointment. They do not tell a doctor what opinion to give.");
+        builder.AppendLine();
+        builder.AppendLine("## Condition");
+        builder.AppendLine();
+        builder.AppendLine($"Condition or issue to discuss: {condition.ConditionName}.");
+        builder.AppendLine($"Diagnosis status recorded in this workspace: {condition.DiagnosisStatus}.");
+        builder.AppendLine();
+
+        if (!string.IsNullOrWhiteSpace(userInstruction))
+        {
+            builder.AppendLine("## User instruction");
+            builder.AppendLine();
+            builder.AppendLine(userInstruction);
+            builder.AppendLine();
+        }
+
+        builder.AppendLine("## Questions about the current clinical picture");
+        builder.AppendLine();
+        builder.AppendLine("- Can my current diagnosis or clinical picture be recorded clearly?");
+        builder.AppendLine("- Can my current symptoms be summarised in my medical notes?");
+        builder.AppendLine("- Are there any relevant investigations, referrals or specialist reviews that should be considered?");
+        builder.AppendLine();
+
+        builder.AppendLine("## Questions about treatment and medication");
+        builder.AppendLine();
+        builder.AppendLine("- Can my current treatment plan be summarised?");
+        builder.AppendLine("- Can my medication, dosage changes or side effects be recorded if relevant?");
+        builder.AppendLine("- Are there any treatment changes, referrals or follow-up appointments that may help document my current situation?");
+        builder.AppendLine();
+
+        builder.AppendLine("## Questions about functional impact");
+        builder.AppendLine();
+        builder.AppendLine("- Can the impact on daily life, work, sleep, concentration, mobility, self-care, domestic tasks or social activity be recorded if relevant?");
+        builder.AppendLine("- Can examples of flare-ups, triggers, stability or change over time be noted if relevant?");
+        builder.AppendLine();
+
+        builder.AppendLine("## Questions about evidence or documents");
+        builder.AppendLine();
+
+        if (evidenceItems.Count == 0)
+        {
+            builder.AppendLine("- Are there reports, summaries, referrals, test results or treatment notes I should request or organise?");
+        }
+        else
+        {
+            foreach (var item in evidenceItems)
+            {
+                builder.AppendLine($"- For {item.EvidenceType}, is there any updated report, clinical summary or supporting note that may help clarify this information?");
+            }
+        }
+
+        builder.AppendLine();
+        builder.AppendLine("## Questions from current evidence gaps");
+        builder.AppendLine();
+
+        if (evidenceGaps.Count == 0)
+        {
+            builder.AppendLine("- No active evidence gaps are currently recorded, but I may still ask what documents would best summarise my current condition and functional impact.");
+        }
+        else
+        {
+            foreach (var gap in evidenceGaps)
+            {
+                builder.AppendLine($"- {gap.SuggestedNextStep}");
+            }
+        }
+
+        AppendQuestionResponseSummary(builder, questionResponses);
+        AppendSourceReferences(builder, sourceReferences);
+        AppendSafetyFooter(builder);
+
+        return builder.ToString();
+    }
+
+    private static string BuildEvidenceGapSummaryDraft(
+        ClaimWorkspace workspace,
+        ClaimCondition condition,
+        List<AcceptedConditionHistory> acceptedHistory,
+        List<QuestionResponse> questionResponses,
+        List<EvidenceItem> evidenceItems,
+        List<EvidenceGap> evidenceGaps,
+        List<SourceReference> sourceReferences,
+        string? userInstruction)
+    {
+        var builder = new StringBuilder();
+
+        builder.AppendLine("# Evidence gap summary draft");
+        builder.AppendLine();
+        builder.AppendLine("Preparation support only. This summary helps organise possible follow-up items. It does not say that evidence is legally or medically sufficient.");
+        builder.AppendLine();
+        builder.AppendLine("## Condition");
+        builder.AppendLine();
+        builder.AppendLine($"This summary relates to {condition.ConditionName}.");
+        builder.AppendLine();
+
+        if (!string.IsNullOrWhiteSpace(userInstruction))
+        {
+            builder.AppendLine("## User instruction");
+            builder.AppendLine();
+            builder.AppendLine(userInstruction);
+            builder.AppendLine();
+        }
+
+        builder.AppendLine("## Evidence already organised");
+        builder.AppendLine();
+
+        if (evidenceItems.Count == 0)
+        {
+            builder.AppendLine("No active evidence items are currently listed for this condition.");
+        }
+        else
+        {
+            foreach (var item in evidenceItems)
+            {
+                var uploadStatus = !string.IsNullOrWhiteSpace(item.StoragePath) && item.UploadedAt.HasValue
+                    ? "uploaded"
+                    : "listed, not uploaded";
+
+                builder.AppendLine($"- {item.EvidenceType}: {item.EvidenceStatus}; File: {item.OriginalFileName ?? "not recorded"}; Provider: {item.ProviderName ?? "not recorded"}; Upload status: {uploadStatus}; Notes: {item.UserNotes ?? "none recorded"}");
+            }
+        }
+
+        builder.AppendLine();
+        builder.AppendLine("## Active evidence gaps");
+        builder.AppendLine();
+
+        if (evidenceGaps.Count == 0)
+        {
+            builder.AppendLine("No active evidence gaps are currently recorded for this condition.");
+        }
+        else
+        {
+            foreach (var gap in evidenceGaps)
+            {
+                builder.AppendLine($"- {gap.GapType} ({gap.Severity}): {gap.PlainEnglishExplanation}");
+                builder.AppendLine($"  Suggested next step: {gap.SuggestedNextStep}");
+            }
+        }
+
+        builder.AppendLine();
+        builder.AppendLine("## Practical next steps");
+        builder.AppendLine();
+        builder.AppendLine("- Review whether the listed evidence is current, readable and relevant.");
+        builder.AppendLine("- Consider requesting copies of missing medical reports, clinical summaries, referrals, test results or appointment notes if relevant.");
+        builder.AppendLine("- Consider discussing any unclear evidence gaps with a doctor, advocate, lawyer or trusted support person.");
+        builder.AppendLine("- Keep this summary factual and update it when new documents are added.");
+
+        AppendQuestionResponseSummary(builder, questionResponses);
+        AppendSourceReferences(builder, sourceReferences);
+        AppendSafetyFooter(builder);
+
+        return builder.ToString();
+    }
+
+    private static string BuildDoctorRequestLetterDraft(
+        ClaimWorkspace workspace,
+        ClaimCondition condition,
+        List<AcceptedConditionHistory> acceptedHistory,
+        List<QuestionResponse> questionResponses,
+        List<EvidenceItem> evidenceItems,
+        List<EvidenceGap> evidenceGaps,
+        List<SourceReference> sourceReferences,
+        string? userInstruction)
+    {
+        var builder = new StringBuilder();
+
+        builder.AppendLine("# Doctor request letter draft");
+        builder.AppendLine();
+        builder.AppendLine("Preparation support only. Please review and edit this letter before using it.");
+        builder.AppendLine();
+        builder.AppendLine("Dear Doctor,");
+        builder.AppendLine();
+        builder.AppendLine("I am organising information about my health and functional impact for claim-related preparation. I would appreciate your help documenting my current clinical picture where appropriate.");
+        builder.AppendLine();
+        builder.AppendLine($"The condition or issue I am organising information about is: {condition.ConditionName}.");
+        builder.AppendLine();
+
+        if (!string.IsNullOrWhiteSpace(userInstruction))
+        {
+            builder.AppendLine("Additional context I wanted to include:");
+            builder.AppendLine();
+            builder.AppendLine(userInstruction);
+            builder.AppendLine();
+        }
+
+        builder.AppendLine("If appropriate, could you please help record or provide information about:");
+        builder.AppendLine();
+        builder.AppendLine("- my current diagnosis or clinical picture;");
+        builder.AppendLine("- my current symptoms;");
+        builder.AppendLine("- treatment, medication and any side effects;");
+        builder.AppendLine("- how the condition affects my daily activities, work, sleep, self-care, domestic tasks or social functioning;");
+        builder.AppendLine("- whether the condition appears stable, variable, worsening or affected by flare-ups;");
+        builder.AppendLine("- any relevant referrals, investigations, reports or clinical summaries.");
+        builder.AppendLine();
+
+        if (evidenceGaps.Count > 0)
+        {
+            builder.AppendLine("The following are the areas I am trying to organise more clearly:");
+            builder.AppendLine();
+
+            foreach (var gap in evidenceGaps)
+            {
+                builder.AppendLine($"- {gap.SuggestedNextStep}");
+            }
+
+            builder.AppendLine();
+        }
+
+        builder.AppendLine("I understand that you can only provide information that is clinically appropriate and within your professional opinion.");
+        builder.AppendLine();
+        builder.AppendLine("Thank you for your time and assistance.");
+        builder.AppendLine();
+        builder.AppendLine("Kind regards,");
+        builder.AppendLine("[Your name]");
+
+        AppendSourceReferences(builder, sourceReferences);
+        AppendSafetyFooter(builder);
+
+        return builder.ToString();
+    }
     private static void AppendQuestionResponseSummary(StringBuilder builder, List<QuestionResponse> questionResponses)
     {
         builder.AppendLine();
@@ -677,7 +942,10 @@ public static class AiDraftGenerationEndpoints
         return new[]
         {
             "VETERAN_STATEMENT",
-            "WORSENING_SUMMARY"
+            "WORSENING_SUMMARY",
+            "DOCTOR_QUESTIONS",
+            "EVIDENCE_GAP_SUMMARY",
+            "DOCTOR_REQUEST_LETTER"
         };
     }
 
