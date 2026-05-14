@@ -1,0 +1,48 @@
+{
+    "schemaVersion":  "1.0",
+    "purpose":  "Prompt template manifest for Virtual Advocate PI Phase 7 AI/RAG workflow.",
+    "safetyRule":  "All AI drafts must use the shared safety guardrails and must be reviewable before use.",
+    "templates":  [
+                      {
+                          "draftTaskType":  "VETERAN_STATEMENT",
+                          "path":  "knowledge-base/prompt-templates/veteran-statement/veteran-statement.prompt.md",
+                          "requiresSourceReferences":  true,
+                          "requiresUserReview":  true
+                      },
+                      {
+                          "draftTaskType":  "WORSENING_SUMMARY",
+                          "path":  "knowledge-base/prompt-templates/worsening-summary/worsening-summary.prompt.md",
+                          "requiresSourceReferences":  true,
+                          "requiresUserReview":  true
+                      },
+                      {
+                          "draftTaskType":  "DOCTOR_QUESTIONS",
+                          "path":  "knowledge-base/prompt-templates/doctor-questions/doctor-questions.prompt.md",
+                          "requiresSourceReferences":  true,
+                          "requiresUserReview":  true
+                      },
+                      {
+                          "draftTaskType":  "EVIDENCE_GAP_SUMMARY",
+                          "path":  "knowledge-base/prompt-templates/evidence-gap-summary/evidence-gap-summary.prompt.md",
+                          "requiresSourceReferences":  true,
+                          "requiresUserReview":  true
+                      },
+                      {
+                          "draftTaskType":  "DOCTOR_REQUEST_LETTER",
+                          "path":  "knowledge-base/prompt-templates/doctor-request-letter/doctor-request-letter.prompt.md",
+                          "requiresSourceReferences":  true,
+                          "requiresUserReview":  true
+                      }
+                  ],
+    "sharedGuardrails":  "knowledge-base/prompt-templates/shared/safety-guardrails.prompt.md",
+    "disallowedClaims":  [
+                             "Legal advice",
+                             "Medical advice",
+                             "Diagnosis",
+                             "Impairment point calculation",
+                             "Compensation estimate",
+                             "DVA decision",
+                             "Claim outcome guarantee",
+                             "DVA submission"
+                         ]
+}
