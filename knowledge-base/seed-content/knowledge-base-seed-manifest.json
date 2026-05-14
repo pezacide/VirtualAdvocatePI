@@ -1,0 +1,21 @@
+{
+    "schemaVersion":  "1.0",
+    "purpose":  "Manifest for Virtual Advocate PI Phase 7 knowledge base seed content.",
+    "seedFile":  "knowledge-base/seed-content/knowledge-base-chunks.seed.jsonl",
+    "chunkCount":  12,
+    "eligibilityRule":  "Use only chunks where approvalStatus is APPROVED, isActive is true and status is ACTIVE.",
+    "safetyRule":  "Seed content is for retrieval and prompt-building support only. It does not enable AI generation by itself.",
+    "categories":  [
+                       "SAFETY_GUARDRAIL",
+                       "VETERAN_STATEMENT_TEMPLATE",
+                       "WORSENING_SUMMARY_TEMPLATE",
+                       "DOCTOR_QUESTION_TEMPLATE",
+                       "EVIDENCE_PROMPT",
+                       "INTERNAL_TEMPLATE",
+                       "CLAIM_PACK_TEMPLATE",
+                       "GARP_M_GUIDANCE",
+                       "DVA_REFORM_REFERENCE"
+                   ],
+    "createdForPhase":  "Phase 7 - AI/RAG knowledge base",
+    "nextTask":  "Create ingestion and metadata rules"
+}
