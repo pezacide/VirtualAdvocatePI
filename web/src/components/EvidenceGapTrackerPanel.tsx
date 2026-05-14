@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
+import { EvidenceGapReminderPanel } from "@/components/EvidenceGapReminderPanel";
 import {
   gapStatusOptions,
   getEvidenceGapSeverityLabel,
@@ -300,6 +301,16 @@ export function EvidenceGapTrackerPanel({ workspaceId }: EvidenceGapTrackerPanel
           <SummaryCard label="Open" value={summary.open} />
           <SummaryCard label="In progress" value={summary.inProgress} />
           <SummaryCard label="Resolved" value={summary.resolved} />
+        </div>
+
+        <div className="mt-8">
+          <EvidenceGapReminderPanel
+            workspaceGaps={workspaceGaps}
+            conditionGaps={conditionGaps}
+            conditionName={
+              conditions.find((condition) => condition.id === selectedConditionId)?.conditionName
+            }
+          />
         </div>
 
         <div className="mt-8">
