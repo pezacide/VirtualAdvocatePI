@@ -28,6 +28,7 @@ import {
   getConditionEvidenceItems,
   markEvidenceUploaded,
   updateEvidenceStatus,
+  archiveEvidenceItem,
 } from "@/lib/api";
 
 type EvidenceUploadPanelProps = {
@@ -68,6 +69,7 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [openingEvidenceItemId, setOpeningEvidenceItemId] = useState<string | null>(null);
   const [updatingEvidenceStatusId, setUpdatingEvidenceStatusId] = useState<string | null>(null);
+  const [removingEvidenceItemId, setRemovingEvidenceItemId] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -187,6 +189,39 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
       setErrorMessage(message);
     } finally {
       setUpdatingEvidenceStatusId(null);
+    }
+  }
+
+  async function handleArchiveEvidenceItem(evidenceItem: EvidenceItem) {
+    const confirmed = window.confirm(
+      "Remove this evidence item from the active workspace?\n\nThis will stop it appearing in active evidence lists, evidence gap checks and future AI draft preparation. It does not contact DVA and does not delete anything already submitted outside this app.",
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setStatusMessage("");
+    setErrorMessage("");
+    setRemovingEvidenceItemId(evidenceItem.id);
+
+    try {
+      const token = await getTokenOrSetError();
+
+      if (!token) {
+        return;
+      }
+
+      await archiveEvidenceItem(token, workspaceId, evidenceItem.id);
+
+      setStatusMessage("Evidence item removed from the active workspace.");
+      await loadEvidenceItems(selectedConditionId);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Could not remove evidence item from workspace.";
+      setErrorMessage(message);
+    } finally {
+      setRemovingEvidenceItemId(null);
     }
   }
   async function handleOpenEvidenceItem(evidenceItem: EvidenceItem) {
@@ -600,6 +635,24 @@ export function EvidenceUploadPanel({ workspaceId }: EvidenceUploadPanelProps) {
                       ? "Open file"
                       : "File not uploaded yet"}
                 </button>
+
+                <div className="mt-5 rounded-xl border border-red-300/20 bg-red-300/5 p-4">
+                  <p className="text-sm font-semibold text-red-100">Remove evidence</p>
+                  <p className="mt-1 text-xs leading-5 text-red-100/80">
+                    Removes this item from the active workspace. It will stop appearing in active evidence lists, gap checks and future AI draft preparation.
+                  </p>
+
+                  <button
+                    type="button"
+                    disabled={removingEvidenceItemId === item.id}
+                    onClick={() => handleArchiveEvidenceItem(item)}
+                    className="mt-4 rounded-xl border border-red-300/40 px-4 py-2 text-sm font-semibold text-red-100 hover:bg-red-300/10 disabled:opacity-60"
+                  >
+                    {removingEvidenceItemId === item.id
+                      ? "Removing evidence..."
+                      : "Remove from workspace"}
+                  </button>
+                </div>
 
                 {item.userNotes && (
                   <p className="mt-4 text-sm leading-6 text-slate-400">{item.userNotes}</p>

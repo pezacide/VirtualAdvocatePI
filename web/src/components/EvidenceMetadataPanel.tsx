@@ -19,6 +19,7 @@ import {
   EvidenceItem,
   createEvidenceItem,
   updateEvidenceStatus,
+  archiveEvidenceItem,
   getClaimConditions,
   getConditionEvidenceItems,
 } from "@/lib/api";
@@ -72,6 +73,7 @@ export function EvidenceMetadataPanel({ workspaceId }: EvidenceMetadataPanelProp
   const [isLoadingEvidence, setIsLoadingEvidence] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [updatingEvidenceStatusId, setUpdatingEvidenceStatusId] = useState<string | null>(null);
+  const [removingEvidenceItemId, setRemovingEvidenceItemId] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -177,6 +179,39 @@ export function EvidenceMetadataPanel({ workspaceId }: EvidenceMetadataPanelProp
       setErrorMessage(message);
     } finally {
       setUpdatingEvidenceStatusId(null);
+    }
+  }
+
+  async function handleArchiveEvidenceItem(evidenceItem: EvidenceItem) {
+    const confirmed = window.confirm(
+      "Remove this evidence item from the active workspace?\n\nThis will stop it appearing in active evidence lists, evidence gap checks and future AI draft preparation. It does not contact DVA and does not delete anything already submitted outside this app.",
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setStatusMessage("");
+    setErrorMessage("");
+    setRemovingEvidenceItemId(evidenceItem.id);
+
+    try {
+      const token = await getTokenOrSetError();
+
+      if (!token) {
+        return;
+      }
+
+      await archiveEvidenceItem(token, workspaceId, evidenceItem.id);
+
+      setStatusMessage("Evidence item removed from the active workspace.");
+      await loadEvidenceItems(selectedConditionId);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "Could not remove evidence item from workspace.";
+      setErrorMessage(message);
+    } finally {
+      setRemovingEvidenceItemId(null);
     }
   }
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {

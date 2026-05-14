@@ -52,6 +52,12 @@ export type UpdateEvidenceItemInput = {
   userConfirmedSummary?: string;
   usedInGeneratedPack?: boolean;
 };
+
+export type ArchiveEvidenceItemResponse = {
+  id: string;
+  status: string;
+  archived: boolean;
+};
 export type EvidenceUploadUrlResponse = {
   evidenceItem: EvidenceItem;
   upload: {
@@ -172,4 +178,24 @@ export function updateEvidenceStatus(
   return updateEvidenceItem(idToken, workspaceId, evidenceItemId, {
     evidenceStatus,
   });
+}
+
+export async function archiveEvidenceItem(
+  idToken: string,
+  workspaceId: string,
+  evidenceItemId: string,
+) {
+  const response = await fetch(
+    `${getApiBaseUrl()}/api/v1/claim-workspaces/${workspaceId}/evidence-items/${evidenceItemId}`,
+    {
+      method: "DELETE",
+      headers: getAuthHeaders(idToken),
+    },
+  );
+
+  if (!response.ok) {
+    await handleApiError(response, "Could not remove evidence item from workspace.");
+  }
+
+  return (await response.json()) as ArchiveEvidenceItemResponse;
 }
