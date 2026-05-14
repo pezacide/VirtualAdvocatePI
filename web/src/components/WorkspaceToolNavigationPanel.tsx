@@ -72,7 +72,7 @@ const workspaceTools = [
     status: "Documents",
   },
   {
-    title: "Evidence audit trail",
+    title: "Workspace audit trail",
     description: "Review workspace activity such as evidence upload, metadata, gap and document actions.",
     hrefSuffix: "audit-trail",
     status: "Active",

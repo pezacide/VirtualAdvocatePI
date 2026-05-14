@@ -19,7 +19,7 @@ export function EvidenceAuditTrailPanel({ workspaceId }: EvidenceAuditTrailPanel
   const { user, loading, getIdToken } = useAuth();
 
   const [auditEvents, setAuditEvents] = useState<AuditEvent[]>([]);
-  const [showEvidenceOnly, setShowEvidenceOnly] = useState(true);
+  const [showEvidenceOnly, setShowEvidenceOnly] = useState(false);
   const [isLoadingAudit, setIsLoadingAudit] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -102,7 +102,7 @@ export function EvidenceAuditTrailPanel({ workspaceId }: EvidenceAuditTrailPanel
     <div className="space-y-8">
       <section className="rounded-2xl border border-white/10 bg-white/5 p-8">
         <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
-          Evidence audit trail
+          Workspace audit trail
         </p>
 
         <h1 className="mt-4 text-3xl font-bold">Workspace activity log</h1>
