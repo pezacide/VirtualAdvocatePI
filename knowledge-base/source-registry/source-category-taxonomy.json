@@ -1,0 +1,129 @@
+{
+  "schemaVersion": "1.0",
+  "purpose": "Controlled source category taxonomy for the Virtual Advocate PI AI/RAG knowledge base.",
+  "safetyRule": "Only approved, active and non-archived source registry entries using these categories should be available for retrieval and AI prompt-building.",
+  "categories": [
+    {
+      "categoryKey": "GARP_M_GUIDANCE",
+      "displayName": "GARP M guidance",
+      "description": "Approved guidance or internal explanatory material related to GARP M-aware preparation, lifestyle impact prompts and functional impact drafting.",
+      "allowedSourceTypes": ["REFERENCE", "GUIDANCE", "INTERNAL_NOTE"],
+      "defaultJurisdiction": "AUSTRALIA_DVA",
+      "retrievalUse": ["VETERAN_STATEMENT", "WORSENING_SUMMARY", "EVIDENCE_GAP_SUMMARY", "DOCTOR_QUESTIONS"],
+      "safetyNotes": "Must not calculate impairment points or present GARP outcomes as official."
+    },
+    {
+      "categoryKey": "DVA_REFORM_REFERENCE",
+      "displayName": "DVA reform reference",
+      "description": "Approved references about DVA reform, PI claim preparation context and post-reform workflow considerations.",
+      "allowedSourceTypes": ["REFERENCE", "GUIDANCE"],
+      "defaultJurisdiction": "AUSTRALIA_DVA",
+      "retrievalUse": ["CLAIM_PACK_COVER_NOTE", "VETERAN_STATEMENT", "DOCTOR_REQUEST_LETTER"],
+      "safetyNotes": "Must not provide legal advice or predict DVA decisions."
+    },
+    {
+      "categoryKey": "DVA_PROCESS_REFERENCE",
+      "displayName": "DVA process reference",
+      "description": "Approved references explaining general DVA process concepts, evidence organisation and preparation steps.",
+      "allowedSourceTypes": ["REFERENCE", "GUIDANCE"],
+      "defaultJurisdiction": "AUSTRALIA_DVA",
+      "retrievalUse": ["CLAIM_PACK_COVER_NOTE", "EVIDENCE_GAP_SUMMARY", "DOCTOR_REQUEST_LETTER"],
+      "safetyNotes": "Must remain general and must not claim that a particular action guarantees success."
+    },
+    {
+      "categoryKey": "INTERNAL_TEMPLATE",
+      "displayName": "Internal drafting template",
+      "description": "Approved internal templates used to structure veteran statements, worsening summaries, doctor letters and claim pack cover notes.",
+      "allowedSourceTypes": ["TEMPLATE"],
+      "defaultJurisdiction": "INTERNAL",
+      "retrievalUse": ["VETERAN_STATEMENT", "WORSENING_SUMMARY", "DOCTOR_REQUEST_LETTER", "CLAIM_PACK_COVER_NOTE"],
+      "safetyNotes": "Templates must keep user-review wording and preparation-only disclaimers."
+    },
+    {
+      "categoryKey": "SAFETY_GUARDRAIL",
+      "displayName": "Safety guardrail",
+      "description": "Approved safety wording, refusal boundaries and prompt constraints for AI-assisted drafting.",
+      "allowedSourceTypes": ["GUARDRAIL", "INTERNAL_NOTE"],
+      "defaultJurisdiction": "INTERNAL",
+      "retrievalUse": ["ALL"],
+      "safetyNotes": "Must be included in prompt-building for all AI draft generation tasks."
+    },
+    {
+      "categoryKey": "EVIDENCE_PROMPT",
+      "displayName": "Evidence prompt",
+      "description": "Approved evidence collection prompts, evidence gap wording and plain-English evidence organisation guidance.",
+      "allowedSourceTypes": ["TEMPLATE", "GUIDANCE", "INTERNAL_NOTE"],
+      "defaultJurisdiction": "INTERNAL",
+      "retrievalUse": ["EVIDENCE_GAP_SUMMARY", "DOCTOR_QUESTIONS", "DOCTOR_REQUEST_LETTER"],
+      "safetyNotes": "Must not state that evidence is legally or medically sufficient."
+    },
+    {
+      "categoryKey": "DOCTOR_QUESTION_TEMPLATE",
+      "displayName": "Doctor question template",
+      "description": "Approved question templates for helping a veteran prepare for a doctor, specialist or support appointment.",
+      "allowedSourceTypes": ["TEMPLATE"],
+      "defaultJurisdiction": "INTERNAL",
+      "retrievalUse": ["DOCTOR_QUESTIONS", "DOCTOR_REQUEST_LETTER"],
+      "safetyNotes": "Must not instruct a doctor what opinion to provide and must not pressure for a diagnosis."
+    },
+    {
+      "categoryKey": "CLAIM_PACK_TEMPLATE",
+      "displayName": "Claim pack template",
+      "description": "Approved structure and wording templates for generated preparation packs and cover notes.",
+      "allowedSourceTypes": ["TEMPLATE"],
+      "defaultJurisdiction": "INTERNAL",
+      "retrievalUse": ["CLAIM_PACK_COVER_NOTE", "GENERATED_DOCUMENT"],
+      "safetyNotes": "Must clearly label outputs as preparation support only."
+    },
+    {
+      "categoryKey": "VETERAN_STATEMENT_TEMPLATE",
+      "displayName": "Veteran statement template",
+      "description": "Approved structure and wording templates for plain-English veteran statements.",
+      "allowedSourceTypes": ["TEMPLATE"],
+      "defaultJurisdiction": "INTERNAL",
+      "retrievalUse": ["VETERAN_STATEMENT"],
+      "safetyNotes": "Must preserve user voice and avoid exaggeration, certainty or legal conclusions."
+    },
+    {
+      "categoryKey": "WORSENING_SUMMARY_TEMPLATE",
+      "displayName": "Worsening summary template",
+      "description": "Approved templates for explaining change over time, current impact and evidence gaps in worsening-related preparation.",
+      "allowedSourceTypes": ["TEMPLATE"],
+      "defaultJurisdiction": "INTERNAL",
+      "retrievalUse": ["WORSENING_SUMMARY"],
+      "safetyNotes": "Must not assert medical causation or formal worsening unless the user has provided supporting details."
+    }
+  ],
+  "sourceTypes": [
+    {
+      "sourceTypeKey": "REFERENCE",
+      "description": "External or formal reference material approved for retrieval."
+    },
+    {
+      "sourceTypeKey": "GUIDANCE",
+      "description": "Approved explanatory guidance used to support plain-English drafting."
+    },
+    {
+      "sourceTypeKey": "TEMPLATE",
+      "description": "Approved internal wording or structure template."
+    },
+    {
+      "sourceTypeKey": "GUARDRAIL",
+      "description": "Approved safety wording or prompt constraint."
+    },
+    {
+      "sourceTypeKey": "INTERNAL_NOTE",
+      "description": "Internal explanatory note approved for retrieval or prompt construction."
+    }
+  ],
+  "draftTaskTypes": [
+    "VETERAN_STATEMENT",
+    "WORSENING_SUMMARY",
+    "EVIDENCE_GAP_SUMMARY",
+    "DOCTOR_QUESTIONS",
+    "DOCTOR_REQUEST_LETTER",
+    "CLAIM_PACK_COVER_NOTE",
+    "GENERATED_DOCUMENT",
+    "ALL"
+  ]
+}
