@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using VirtualAdvocatePI.Api.Data;
 using VirtualAdvocatePI.Api.Domain.Claims;
 using VirtualAdvocatePI.Api.Services;
@@ -184,6 +184,8 @@ public static class AiDraftEndpoints
                 return Results.NotFound();
             }
 
+            var previousReviewStatus = draft.ReviewStatus;
+
             return Results.Ok(ToAiDraftResponse(draft));
         });
 
@@ -219,6 +221,8 @@ public static class AiDraftEndpoints
             {
                 return Results.NotFound();
             }
+
+            var previousReviewStatus = draft.ReviewStatus;
 
             if (!string.IsNullOrWhiteSpace(input.DraftType))
             {
@@ -284,6 +288,26 @@ public static class AiDraftEndpoints
 
             draft.UpdatedAt = DateTimeOffset.UtcNow;
 
+            if (!string.Equals(previousReviewStatus, draft.ReviewStatus, StringComparison.OrdinalIgnoreCase))
+            {
+                var statusEventType = draft.ReviewStatus switch
+                {
+                    "APPROVED" => "AI_DRAFT_APPROVED",
+                    "REJECTED" => "AI_DRAFT_REJECTED",
+                    "REGENERATED" => "AI_DRAFT_REGENERATED",
+                    "USER_EDITED" => "AI_DRAFT_USER_EDITED",
+                    "USER_REVIEW_REQUIRED" => "AI_DRAFT_REVIEW_REQUIRED",
+                    _ => "AI_DRAFT_REVIEW_STATUS_CHANGED"
+                };
+
+                auditService.AddAuditEvent(
+                    request,
+                    user.Id,
+                    workspaceId,
+                    statusEventType,
+                    $"AI draft review status changed. DraftType={draft.DraftType}; PreviousReviewStatus={previousReviewStatus}; ReviewStatus={draft.ReviewStatus}; DraftId={draft.Id}");
+            }
+
             auditService.AddAuditEvent(
                 request,
                 user.Id,
@@ -327,6 +351,8 @@ public static class AiDraftEndpoints
             {
                 return Results.NotFound();
             }
+
+            var previousReviewStatus = draft.ReviewStatus;
 
             draft.Status = "ARCHIVED";
             draft.UpdatedAt = DateTimeOffset.UtcNow;
