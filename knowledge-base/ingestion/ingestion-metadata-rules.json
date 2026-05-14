@@ -1,0 +1,65 @@
+{
+    "schemaVersion":  "1.0",
+    "purpose":  "Machine-readable ingestion and metadata rules for Virtual Advocate PI AI/RAG knowledge base.",
+    "eligibilityRule":  "Retrieval may only use sources and chunks where approvalStatus is APPROVED, isActive is true and status is ACTIVE.",
+    "sourceRegistryRequiredFields":  [
+                                         "sourceKey",
+                                         "title",
+                                         "category",
+                                         "sourceType",
+                                         "jurisdiction",
+                                         "citationLabel",
+                                         "approvalStatus",
+                                         "isActive",
+                                         "status"
+                                     ],
+    "chunkRequiredFields":  [
+                                "chunkKey",
+                                "sourceKey",
+                                "category",
+                                "sourceType",
+                                "citationLabel",
+                                "chunkTitle",
+                                "retrievalUse",
+                                "content",
+                                "safetyNotes",
+                                "approvalStatus",
+                                "isActive",
+                                "status"
+                            ],
+    "allowedApprovalStatuses":  [
+                                    "DRAFT",
+                                    "NEEDS_REVIEW",
+                                    "APPROVED",
+                                    "REJECTED"
+                                ],
+    "allowedRecordStatuses":  [
+                                  "ACTIVE",
+                                  "ARCHIVED"
+                              ],
+    "allowedRetrievalSourceState":  {
+                                        "approvalStatus":  "APPROVED",
+                                        "isActive":  true,
+                                        "status":  "ACTIVE"
+                                    },
+    "disallowedForRetrieval":  [
+                                   "DRAFT approval status",
+                                   "NEEDS_REVIEW approval status",
+                                   "REJECTED approval status",
+                                   "Inactive sources",
+                                   "Archived sources",
+                                   "Unknown sources",
+                                   "Sources missing citation labels",
+                                   "Sources not mapped to the taxonomy"
+                               ],
+    "safetyBoundaries":  [
+                             "No legal advice",
+                             "No medical advice",
+                             "No diagnosis",
+                             "No impairment point calculation",
+                             "No compensation estimate",
+                             "No DVA decision",
+                             "No claim outcome guarantee",
+                             "No DVA submission"
+                         ]
+}
