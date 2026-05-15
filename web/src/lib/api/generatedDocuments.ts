@@ -17,7 +17,7 @@ export type GeneratedDocument = {
 };
 
 export type CreateGeneratedDocumentInput = {
-  documentType: string;
+  documentType?: string;
   documentStatus?: string;
   docxStoragePath?: string;
   pdfStoragePath?: string;
@@ -32,6 +32,28 @@ export type UpdateGeneratedDocumentInput = {
   pdfStoragePath?: string;
   templateVersion?: string;
   includedAiDraftIds?: string;
+};
+
+export type GenerateClaimStarterPackResponse = {
+  document: GeneratedDocument;
+  generated: boolean;
+  docxStoragePath: string;
+  pdfStoragePath?: string | null;
+  documentVersion?: string;
+  includedAiDraftCount: number;
+  activeConditionCount: number;
+  evidenceItemCount: number;
+  evidenceGapCount: number;
+};
+
+export type GeneratedDocumentDownloadUrlResponse = {
+  documentId: string;
+  format: "DOCX" | "PDF";
+  url: string;
+  method: "GET";
+  expiresInMinutes: number;
+  storagePath: string;
+  document: GeneratedDocument;
 };
 
 export function getGeneratedDocuments(idToken: string, workspaceId: string) {
@@ -66,5 +88,31 @@ export function updateGeneratedDocument(
     `/api/v1/claim-workspaces/${workspaceId}/generated-documents/${documentId}`,
     input,
     "Could not update generated document metadata.",
+  );
+}
+
+export function generateClaimStarterPack(
+  idToken: string,
+  workspaceId: string,
+) {
+  return apiPost<GenerateClaimStarterPackResponse, { notes?: string }>(
+    idToken,
+    `/api/v1/claim-workspaces/${workspaceId}/generated-documents/claim-starter-pack`,
+    {},
+    "Could not generate Claim Starter Pack.",
+  );
+}
+
+export function createGeneratedDocumentDownloadUrl(
+  idToken: string,
+  workspaceId: string,
+  documentId: string,
+  format: "DOCX" | "PDF",
+) {
+  return apiPost<GeneratedDocumentDownloadUrlResponse, { format: "DOCX" | "PDF" }>(
+    idToken,
+    `/api/v1/claim-workspaces/${workspaceId}/generated-documents/${documentId}/download-url`,
+    { format },
+    `Could not create ${format} download link.`,
   );
 }
