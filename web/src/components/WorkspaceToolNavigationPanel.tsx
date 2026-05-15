@@ -76,6 +76,10 @@ const workspaceTools = [
     description: "Review workspace activity such as evidence upload, metadata, gap and document actions.",
     hrefSuffix: "audit-trail",
     status: "Active",
+  },  {
+    label: "Doctor guidance",
+    hrefSuffix: "doctor-guidance",
+    description: "Prepare doctor questions and appointment guidance.",
   },];
 
 export function WorkspaceToolNavigationPanel({
