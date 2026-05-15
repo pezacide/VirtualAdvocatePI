@@ -1177,6 +1177,7 @@ app.MapAiDraftGenerationEndpoints();
 app.MapGeneratedDocumentEndpoints();
 app.MapClaimStarterPackDocumentEndpoints();
 app.MapGeneratedDocumentDownloadEndpoints();
+app.MapDoctorGuidancePackDocumentEndpoints();
 
 app.Run();
 

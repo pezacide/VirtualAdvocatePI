@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { DoctorGuidanceQuestionPanel } from "@/components/DoctorGuidanceQuestionPanel";
 import { DoctorGuidanceReviewChecklistPanel } from "@/components/DoctorGuidanceReviewChecklistPanel";
+import { DoctorGuidanceExportPanel } from "@/components/DoctorGuidanceExportPanel";
 
 type DoctorGuidancePageProps = {
   params: Promise<{
@@ -48,6 +49,8 @@ export default async function DoctorGuidancePage({
         <DoctorGuidanceReviewChecklistPanel />
 
         <DoctorGuidanceQuestionPanel workspaceId={workspaceId} />
+
+        <DoctorGuidanceExportPanel workspaceId={workspaceId} />
       </div>
     </main>
   );

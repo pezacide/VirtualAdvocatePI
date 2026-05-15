@@ -41,9 +41,25 @@ export type GenerateClaimStarterPackResponse = {
   pdfStoragePath?: string | null;
   documentVersion?: string;
   includedAiDraftCount: number;
+  excludedUnapprovedAiDraftCount?: number;
   activeConditionCount: number;
   evidenceItemCount: number;
   evidenceGapCount: number;
+  reviewedOnlyRule?: string;
+};
+
+export type GenerateDoctorGuidancePackResponse = {
+  document: GeneratedDocument;
+  generated: boolean;
+  docxStoragePath: string;
+  pdfStoragePath?: string | null;
+  documentVersion?: string;
+  includedApprovedDoctorDraftCount: number;
+  excludedUnapprovedDoctorDraftCount: number;
+  activeConditionCount: number;
+  evidenceItemCount: number;
+  evidenceGapCount: number;
+  reviewedOnlyRule?: string;
 };
 
 export type GeneratedDocumentDownloadUrlResponse = {
@@ -100,6 +116,18 @@ export function generateClaimStarterPack(
     `/api/v1/claim-workspaces/${workspaceId}/generated-documents/claim-starter-pack`,
     {},
     "Could not generate Claim Starter Pack.",
+  );
+}
+
+export function generateDoctorGuidancePack(
+  idToken: string,
+  workspaceId: string,
+) {
+  return apiPost<GenerateDoctorGuidancePackResponse, { notes?: string }>(
+    idToken,
+    `/api/v1/claim-workspaces/${workspaceId}/generated-documents/doctor-guidance-pack`,
+    {},
+    "Could not generate Doctor Guidance Pack.",
   );
 }
 
