@@ -1,3 +1,4 @@
+using System.Text;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
@@ -12,6 +13,7 @@ namespace VirtualAdvocatePI.Api.Features.Documents;
 public static class ClaimStarterPackDocumentEndpoints
 {
     private const string DocxContentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+    private const string PdfContentType = "application/pdf";
 
     public static IEndpointRouteBuilder MapClaimStarterPackDocumentEndpoints(this IEndpointRouteBuilder app)
     {
@@ -85,7 +87,17 @@ public static class ClaimStarterPackDocumentEndpoints
             var documentId = Guid.NewGuid();
             var generatedAt = DateTimeOffset.UtcNow;
 
-            var docxBytes = BuildClaimStarterPackDocx(
+            
+            var existingDocumentCount = await db.GeneratedDocuments
+                .CountAsync(x =>
+                    x.ClaimWorkspaceId == workspaceId &&
+                    x.DocumentType == "CLAIM_STARTER_PACK" &&
+                    x.Status != "ARCHIVED",
+                    cancellationToken);
+
+            var documentVersionNumber = existingDocumentCount + 1;
+            var documentVersion = $"v{documentVersionNumber:000}";
+var docxBytes = BuildClaimStarterPackDocx(
                 workspace,
                 activeConditions,
                 acceptedHistory,
@@ -94,6 +106,17 @@ public static class ClaimStarterPackDocumentEndpoints
                 evidenceGaps,
                 approvedAiDrafts,
                 generatedAt);
+
+            var pdfBytes = BuildClaimStarterPackPdf(
+                workspace,
+                activeConditions,
+                acceptedHistory,
+                questionResponses,
+                evidenceItems,
+                evidenceGaps,
+                approvedAiDrafts,
+                generatedAt,
+                documentVersion);
 
             var bucketName = GetDocumentBucketName();
 
@@ -114,21 +137,33 @@ public static class ClaimStarterPackDocumentEndpoints
             }
 
             var safeTitle = CreateSafeFileName(workspace.WorkspaceTitle);
-            var objectName =
-                $"generated-documents/{workspaceId}/{documentId}/claim-starter-pack-{safeTitle}-v1.docx";
+            var docxObjectName =
+                $"generated-documents/{workspaceId}/claim-starter-pack/{documentVersion}/{documentId}/claim-starter-pack-{safeTitle}-{documentVersion}.docx";
 
-            await using var uploadStream = new MemoryStream(docxBytes);
+            var pdfObjectName =
+                $"generated-documents/{workspaceId}/claim-starter-pack/{documentVersion}/{documentId}/claim-starter-pack-{safeTitle}-{documentVersion}.pdf";
+
+            await using var docxUploadStream = new MemoryStream(docxBytes);
+            await using var pdfUploadStream = new MemoryStream(pdfBytes);
 
             var storageClient = await StorageClient.CreateAsync();
 
             await storageClient.UploadObjectAsync(
                 bucketName,
-                objectName,
+                docxObjectName,
                 DocxContentType,
-                uploadStream,
+                docxUploadStream,
                 cancellationToken: cancellationToken);
 
-            var docxStoragePath = $"gs://{bucketName}/{objectName}";
+            await storageClient.UploadObjectAsync(
+                bucketName,
+                pdfObjectName,
+                PdfContentType,
+                pdfUploadStream,
+                cancellationToken: cancellationToken);
+
+            var docxStoragePath = $"gs://{bucketName}/{docxObjectName}";
+            var pdfStoragePath = $"gs://{bucketName}/{pdfObjectName}";
 
             var generatedDocument = new GeneratedDocument
             {
@@ -137,8 +172,8 @@ public static class ClaimStarterPackDocumentEndpoints
                 DocumentType = "CLAIM_STARTER_PACK",
                 DocumentStatus = "GENERATED",
                 DocxStoragePath = docxStoragePath,
-                PdfStoragePath = null,
-                TemplateVersion = "claim-starter-pack-docx-v1",
+                PdfStoragePath = pdfStoragePath,
+                TemplateVersion = $"claim-starter-pack-docx-pdf-v1-{documentVersion}",
                 IncludedAiDraftIds = string.Join(",", approvedAiDrafts.Select(x => x.Id)),
                 GeneratedAt = generatedAt,
                 DownloadedAt = null,
@@ -161,7 +196,21 @@ public static class ClaimStarterPackDocumentEndpoints
                 user.Id,
                 workspaceId,
                 "CLAIM_STARTER_PACK_DOCX_GENERATED",
-                $"Claim Starter Pack DOCX stored. DocumentId={generatedDocument.Id}; StoragePath={docxStoragePath}");
+                $"Claim Starter Pack DOCX stored. DocumentId={generatedDocument.Id}; Version={documentVersion}; StoragePath={docxStoragePath}");
+
+            auditService.AddAuditEvent(
+                request,
+                user.Id,
+                workspaceId,
+                "CLAIM_STARTER_PACK_PDF_GENERATED",
+                $"Claim Starter Pack PDF stored. DocumentId={generatedDocument.Id}; Version={documentVersion}; StoragePath={pdfStoragePath}");
+
+            auditService.AddAuditEvent(
+                request,
+                user.Id,
+                workspaceId,
+                "CLAIM_STARTER_PACK_VERSION_CREATED",
+                $"Claim Starter Pack document version created. DocumentId={generatedDocument.Id}; Version={documentVersion}");
 
             await db.SaveChangesAsync(cancellationToken);
 
@@ -170,6 +219,8 @@ public static class ClaimStarterPackDocumentEndpoints
                 document = ToGeneratedDocumentResponse(generatedDocument),
                 generated = true,
                 docxStoragePath,
+                pdfStoragePath,
+                documentVersion,
                 includedAiDraftCount = approvedAiDrafts.Count,
                 activeConditionCount = activeConditions.Count,
                 evidenceItemCount = evidenceItems.Count,
@@ -193,6 +244,317 @@ public static class ClaimStarterPackDocumentEndpoints
         return app;
     }
 
+
+    private static byte[] BuildClaimStarterPackPdf(
+        ClaimWorkspace workspace,
+        List<ClaimCondition> activeConditions,
+        List<AcceptedConditionHistory> acceptedHistory,
+        List<QuestionResponse> questionResponses,
+        List<EvidenceItem> evidenceItems,
+        List<EvidenceGap> evidenceGaps,
+        List<AiDraft> approvedAiDrafts,
+        DateTimeOffset generatedAt,
+        string documentVersion)
+    {
+        var lines = BuildClaimStarterPackTextLines(
+            workspace,
+            activeConditions,
+            acceptedHistory,
+            questionResponses,
+            evidenceItems,
+            evidenceGaps,
+            approvedAiDrafts,
+            generatedAt,
+            documentVersion);
+
+        return BuildSimplePdfFromLines(lines);
+    }
+
+    private static List<string> BuildClaimStarterPackTextLines(
+        ClaimWorkspace workspace,
+        List<ClaimCondition> activeConditions,
+        List<AcceptedConditionHistory> acceptedHistory,
+        List<QuestionResponse> questionResponses,
+        List<EvidenceItem> evidenceItems,
+        List<EvidenceGap> evidenceGaps,
+        List<AiDraft> approvedAiDrafts,
+        DateTimeOffset generatedAt,
+        string documentVersion)
+    {
+        var lines = new List<string>
+        {
+            "Virtual Advocate PI - Claim Starter Pack",
+            $"Version: {documentVersion}",
+            $"Generated: {generatedAt:yyyy-MM-dd HH:mm zzz}",
+            "",
+            "Preparation support only.",
+            "This document does not provide legal advice, medical advice or a DVA decision.",
+            "It does not submit anything to DVA, calculate impairment points, estimate compensation or guarantee a claim outcome.",
+            "",
+            "Workspace summary",
+            $"Workspace title: {workspace.WorkspaceTitle}",
+            $"Claim framework: {workspace.ClaimFramework}",
+            $"Claim scenario: {workspace.ClaimScenario}",
+            $"Generated pack status: {workspace.GeneratedPackStatus}",
+            "",
+            "Conditions included"
+        };
+
+        if (activeConditions.Count == 0)
+        {
+            lines.Add("No active conditions were found in this workspace.");
+        }
+        else
+        {
+            foreach (var condition in activeConditions)
+            {
+                lines.Add($"- {condition.ConditionName} | Diagnosis status: {condition.DiagnosisStatus} | Primary condition: {condition.IsPrimaryCondition}");
+            }
+        }
+
+        lines.Add("");
+        lines.Add("Accepted-condition history");
+
+        if (acceptedHistory.Count == 0)
+        {
+            lines.Add("No active accepted-condition history has been recorded.");
+        }
+        else
+        {
+            foreach (var history in acceptedHistory)
+            {
+                lines.Add($"- ConditionId={history.ConditionId}; Previously accepted by DVA={history.PreviouslyAcceptedByDva}; Original Act={history.OriginalAct}; Previous compensation={history.PreviousCompensationReceived}; Worsening claimed={history.WorseningClaimed}; Notes={history.WorseningSummary}");
+            }
+        }
+
+        lines.Add("");
+        lines.Add("Approved AI draft content");
+
+        if (approvedAiDrafts.Count == 0)
+        {
+            lines.Add("No approved AI drafts are available for inclusion yet.");
+        }
+        else
+        {
+            foreach (var draft in approvedAiDrafts)
+            {
+                lines.Add("");
+                lines.Add(FormatLabel(draft.DraftType));
+                lines.AddRange((string.IsNullOrWhiteSpace(draft.UserEditedText) ? draft.DraftText : draft.UserEditedText)
+                    .Replace("\r\n", "\n")
+                    .Split('\n'));
+            }
+        }
+
+        lines.Add("");
+        lines.Add("Evidence list");
+
+        if (evidenceItems.Count == 0)
+        {
+            lines.Add("No active evidence items have been recorded.");
+        }
+        else
+        {
+            foreach (var item in evidenceItems)
+            {
+                var uploadStatus = !string.IsNullOrWhiteSpace(item.StoragePath) && item.UploadedAt.HasValue
+                    ? "uploaded"
+                    : "listed, not uploaded";
+
+                lines.Add($"- {item.EvidenceType}; Status={item.EvidenceStatus}; File={item.OriginalFileName ?? "not recorded"}; Provider/source={item.ProviderName ?? "not recorded"}; Document date={item.DocumentDate}; Upload status={uploadStatus}; Notes={item.UserNotes ?? "none"}");
+            }
+        }
+
+        lines.Add("");
+        lines.Add("Evidence gaps and follow-up");
+
+        if (evidenceGaps.Count == 0)
+        {
+            lines.Add("No active evidence gaps are currently recorded.");
+        }
+        else
+        {
+            foreach (var gap in evidenceGaps)
+            {
+                lines.Add($"- {gap.GapType}; Status={gap.GapStatus}; Severity={gap.Severity}; {gap.PlainEnglishExplanation} Suggested next step: {gap.SuggestedNextStep}");
+            }
+        }
+
+        lines.Add("");
+        lines.Add("Guided preparation answers");
+
+        if (questionResponses.Count == 0)
+        {
+            lines.Add("No active guided preparation answers were found.");
+        }
+        else
+        {
+            foreach (var response in questionResponses)
+            {
+                lines.Add($"- {response.QuestionGroup} / {response.QuestionKey}: {response.AnswerText}");
+            }
+        }
+
+        lines.Add("");
+        lines.Add("Review and sign-off");
+        lines.Add("Before using this pack, review each section for accuracy, completeness and your own wording.");
+        lines.Add("Date reviewed: ____________________");
+        lines.Add("Notes: ____________________________");
+
+        return lines;
+    }
+
+    private static byte[] BuildSimplePdfFromLines(List<string> sourceLines)
+    {
+        var wrappedLines = sourceLines
+            .SelectMany(line => WrapPdfLine(NormalisePdfText(line), 95))
+            .ToList();
+
+        if (wrappedLines.Count == 0)
+        {
+            wrappedLines.Add("Virtual Advocate PI - Claim Starter Pack");
+        }
+
+        var pages = wrappedLines
+            .Chunk(42)
+            .Select(chunk => chunk.ToList())
+            .ToList();
+
+        var fontObjectId = 3 + pages.Count * 2;
+        var objects = new List<string>
+        {
+            "<< /Type /Catalog /Pages 2 0 R >>"
+        };
+
+        var kids = string.Join(" ", Enumerable.Range(0, pages.Count).Select(index => $"{3 + index * 2} 0 R"));
+        objects.Add($"<< /Type /Pages /Kids [{kids}] /Count {pages.Count} >>");
+
+        for (var pageIndex = 0; pageIndex < pages.Count; pageIndex++)
+        {
+            var pageObjectId = 3 + pageIndex * 2;
+            var contentObjectId = pageObjectId + 1;
+            var streamContent = BuildPdfPageContent(pages[pageIndex]);
+            var streamLength = Encoding.ASCII.GetByteCount(streamContent);
+
+            objects.Add($"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 {fontObjectId} 0 R >> >> /Contents {contentObjectId} 0 R >>");
+            objects.Add($"<< /Length {streamLength} >>\nstream\n{streamContent}\nendstream");
+        }
+
+        objects.Add("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>");
+
+        var pdf = new StringBuilder();
+        var offsets = new List<int> { 0 };
+
+        pdf.Append("%PDF-1.4\n");
+
+        for (var index = 0; index < objects.Count; index++)
+        {
+            offsets.Add(Encoding.ASCII.GetByteCount(pdf.ToString()));
+            pdf.Append($"{index + 1} 0 obj\n");
+            pdf.Append(objects[index]);
+            pdf.Append("\nendobj\n");
+        }
+
+        var xrefStart = Encoding.ASCII.GetByteCount(pdf.ToString());
+
+        pdf.Append("xref\n");
+        pdf.Append($"0 {objects.Count + 1}\n");
+        pdf.Append("0000000000 65535 f \n");
+
+        foreach (var offset in offsets.Skip(1))
+        {
+            pdf.Append($"{offset:0000000000} 00000 n \n");
+        }
+
+        pdf.Append("trailer\n");
+        pdf.Append($"<< /Size {objects.Count + 1} /Root 1 0 R >>\n");
+        pdf.Append("startxref\n");
+        pdf.Append(xrefStart);
+        pdf.Append("\n%%EOF");
+
+        return Encoding.ASCII.GetBytes(pdf.ToString());
+    }
+
+    private static string BuildPdfPageContent(List<string> lines)
+    {
+        var builder = new StringBuilder();
+
+        builder.AppendLine("BT");
+        builder.AppendLine("/F1 10 Tf");
+        builder.AppendLine("50 790 Td");
+        builder.AppendLine("14 TL");
+
+        foreach (var line in lines)
+        {
+            builder.AppendLine($"({EscapePdfText(line)}) Tj");
+            builder.AppendLine("T*");
+        }
+
+        builder.AppendLine("ET");
+
+        return builder.ToString();
+    }
+
+    private static IEnumerable<string> WrapPdfLine(string line, int maxLength)
+    {
+        if (string.IsNullOrWhiteSpace(line))
+        {
+            yield return string.Empty;
+            yield break;
+        }
+
+        var remaining = line.Trim();
+
+        while (remaining.Length > maxLength)
+        {
+            var splitAt = remaining.LastIndexOf(' ', maxLength);
+
+            if (splitAt <= 0)
+            {
+                splitAt = maxLength;
+            }
+
+            yield return remaining[..splitAt].Trim();
+
+            remaining = remaining[splitAt..].Trim();
+        }
+
+        if (remaining.Length > 0)
+        {
+            yield return remaining;
+        }
+    }
+
+    private static string EscapePdfText(string value)
+    {
+        return value
+            .Replace("\\", "\\\\")
+            .Replace("(", "\\(")
+            .Replace(")", "\\)");
+    }
+
+    private static string NormalisePdfText(string value)
+    {
+        var builder = new StringBuilder();
+
+        foreach (var ch in value)
+        {
+            if (ch is >= ' ' and <= '~')
+            {
+                builder.Append(ch);
+            }
+            else if (ch == '\t')
+            {
+                builder.Append(' ');
+            }
+            else
+            {
+                builder.Append('-');
+            }
+        }
+
+        return builder.ToString();
+    }
     private static byte[] BuildClaimStarterPackDocx(
         ClaimWorkspace workspace,
         List<ClaimCondition> activeConditions,
