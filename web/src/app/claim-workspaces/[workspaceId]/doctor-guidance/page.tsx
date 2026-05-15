@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { DoctorGuidanceQuestionPanel } from "@/components/DoctorGuidanceQuestionPanel";
+import { DoctorGuidanceReviewChecklistPanel } from "@/components/DoctorGuidanceReviewChecklistPanel";
 
 type DoctorGuidancePageProps = {
   params: Promise<{
@@ -43,6 +44,8 @@ export default async function DoctorGuidancePage({
             compensation estimates or claim outcome guarantees.
           </div>
         </section>
+
+        <DoctorGuidanceReviewChecklistPanel />
 
         <DoctorGuidanceQuestionPanel workspaceId={workspaceId} />
       </div>
