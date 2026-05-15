@@ -1182,6 +1182,8 @@ app.MapGeneratedDocumentDownloadEndpoints();
 app.MapDoctorGuidancePackDocumentEndpoints();
 
 app.MapAdminAccessEndpoints();
+app.MapAdminSourceRegistryEndpoints();
+app.MapAdminDatabaseMaintenanceEndpoints();
 
 app.Run();
 

@@ -10,3 +10,4 @@ export * from "@/lib/api/generatedDocuments";
 export * from "./audit";
 export * from "./evidence";
 export * from "./admin";
+export * from "./adminSourceRegistry";
