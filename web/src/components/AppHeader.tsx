@@ -22,6 +22,10 @@ export function AppHeader() {
             Dashboard
           </Link>
 
+          <Link href="/admin" className="text-slate-300 hover:text-white">
+            Admin
+          </Link>
+
           <Link href="/session-check" className="text-slate-300 hover:text-white">
             Session
           </Link>
