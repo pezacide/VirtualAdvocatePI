@@ -84,6 +84,13 @@ public static class ClaimStarterPackDocumentEndpoints
                 .ThenByDescending(x => x.UpdatedAt)
                 .ToListAsync(cancellationToken);
 
+            var excludedUnapprovedAiDraftCount = await db.AiDrafts
+                .CountAsync(x =>
+                    x.ClaimWorkspaceId == workspaceId &&
+                    x.Status != "ARCHIVED" &&
+                    x.ReviewStatus != "APPROVED",
+                    cancellationToken);
+
             var documentId = Guid.NewGuid();
             var generatedAt = DateTimeOffset.UtcNow;
 
@@ -189,7 +196,14 @@ var docxBytes = BuildClaimStarterPackDocx(
                 user.Id,
                 workspaceId,
                 "GENERATED_DOCUMENT_CREATED",
-                $"Claim Starter Pack DOCX generated. DocumentId={generatedDocument.Id}; ApprovedAiDraftCount={approvedAiDrafts.Count}; ConditionCount={activeConditions.Count}; EvidenceCount={evidenceItems.Count}");
+                $"Claim Starter Pack DOCX generated. DocumentId={generatedDocument.Id}; ApprovedAiDraftCount={approvedAiDrafts.Count}; ExcludedUnapprovedAiDraftCount={excludedUnapprovedAiDraftCount}; ConditionCount={activeConditions.Count}; EvidenceCount={evidenceItems.Count}");
+
+            auditService.AddAuditEvent(
+                request,
+                user.Id,
+                workspaceId,
+                "CLAIM_STARTER_PACK_REVIEWED_ONLY_ENFORCED",
+                $"Reviewed-only export rule enforced. DocumentId={generatedDocument.Id}; IncludedApprovedAiDraftCount={approvedAiDrafts.Count}; ExcludedUnapprovedAiDraftCount={excludedUnapprovedAiDraftCount}; ActiveConditionCount={activeConditions.Count}; ActiveEvidenceCount={evidenceItems.Count}; ActiveEvidenceGapCount={evidenceGaps.Count}");
 
             auditService.AddAuditEvent(
                 request,
@@ -222,6 +236,8 @@ var docxBytes = BuildClaimStarterPackDocx(
                 pdfStoragePath,
                 documentVersion,
                 includedAiDraftCount = approvedAiDrafts.Count,
+                excludedUnapprovedAiDraftCount,
+                reviewedOnlyRule = "Only approved AI drafts and active workspace records were included.",
                 activeConditionCount = activeConditions.Count,
                 evidenceItemCount = evidenceItems.Count,
                 evidenceGapCount = evidenceGaps.Count,
@@ -584,6 +600,10 @@ var docxBytes = BuildClaimStarterPackDocx(
 
             AddHeading(body, "Important safety note", 20);
             AddParagraph(body, "This document is preparation support only. It does not provide legal advice, medical advice or a DVA decision. It does not submit anything to DVA, calculate impairment points, estimate compensation or guarantee a claim outcome. Please review all content before using it.");
+            AddBlankLine(body);
+
+            AddHeading(body, "Reviewed-only inclusion rule", 20);
+            AddParagraph(body, "This export includes active workspace records only. AI draft content is included only when the draft has been marked APPROVED. Unapproved, rejected, archived or still-reviewing AI drafts are excluded from this pack.");
             AddBlankLine(body);
 
             AddHeading(body, "Workspace summary", 20);
