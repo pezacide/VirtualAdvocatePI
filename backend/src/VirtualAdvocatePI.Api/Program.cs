@@ -8,6 +8,7 @@ using VirtualAdvocatePI.Api.Features.Evidence;
 using VirtualAdvocatePI.Api.Features.Ai;
 using VirtualAdvocatePI.Api.Features.Documents;
 using VirtualAdvocatePI.Api.Services;
+using VirtualAdvocatePI.Api.Features.Admin;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.AddDbContext<VirtualAdvocateDbContext>(options =>
 builder.Services.AddSingleton<FirebaseAuthService>();
 builder.Services.AddScoped<CurrentUserService>();
 builder.Services.AddScoped<ClaimAccessService>();
+builder.Services.AddScoped<AdminAccessService>();
 builder.Services.AddScoped<AuditService>();
 
 builder.Services.AddCors(options =>
@@ -1178,6 +1180,8 @@ app.MapGeneratedDocumentEndpoints();
 app.MapClaimStarterPackDocumentEndpoints();
 app.MapGeneratedDocumentDownloadEndpoints();
 app.MapDoctorGuidancePackDocumentEndpoints();
+
+app.MapAdminAccessEndpoints();
 
 app.Run();
 

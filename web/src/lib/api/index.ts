@@ -9,3 +9,4 @@ export * from "@/lib/api/aiDrafts";
 export * from "@/lib/api/generatedDocuments";
 export * from "./audit";
 export * from "./evidence";
+export * from "./admin";
