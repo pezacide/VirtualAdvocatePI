@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { WorkspaceAuditTrailQuickLink } from "@/components/WorkspaceAuditTrailQuickLink";
 import { AuthProvider } from "@/components/AuthProvider";
 
 export const metadata: Metadata = {
@@ -15,7 +16,8 @@ export default function RootLayout({
   return (
     <html lang="en-AU">
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider><WorkspaceAuditTrailQuickLink />
+        {children}</AuthProvider>
       </body>
     </html>
   );
