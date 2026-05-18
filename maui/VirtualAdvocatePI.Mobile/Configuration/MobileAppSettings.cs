@@ -8,9 +8,15 @@ public sealed class MobileAppSettings
 
     public string ApiHealthPath { get; init; } = "/api/v1/config/secret-health";
 
-    public bool UseMockAuthentication { get; init; } = true;
+    public string FirebaseWebApiKey { get; init; } = "PASTE_FIREBASE_WEB_API_KEY_HERE";
+
+    public bool UseMockAuthentication { get; init; } = false;
 
     public bool IsProduction { get; init; }
+
+    public bool IsFirebaseConfigured =>
+        !string.IsNullOrWhiteSpace(FirebaseWebApiKey) &&
+        !FirebaseWebApiKey.Contains("AIzaSyBf5omh2wf2n_vR21B4YdFLTWcGRJRaH38", StringComparison.OrdinalIgnoreCase);
 
     public string DisplayName => $"{EnvironmentName} - {ApiBaseUrl}";
 
@@ -22,7 +28,8 @@ public sealed class MobileAppSettings
             EnvironmentName = "Development",
             ApiBaseUrl = "https://vapi-dev-api-2pwcdyx42q-ts.a.run.app",
             ApiHealthPath = "/api/v1/config/secret-health",
-            UseMockAuthentication = true,
+            FirebaseWebApiKey = "PASTE_FIREBASE_WEB_API_KEY_HERE",
+            UseMockAuthentication = false,
             IsProduction = false
         };
 #else
@@ -31,6 +38,7 @@ public sealed class MobileAppSettings
             EnvironmentName = "Production",
             ApiBaseUrl = "https://vapi-dev-api-2pwcdyx42q-ts.a.run.app",
             ApiHealthPath = "/api/v1/config/secret-health",
+            FirebaseWebApiKey = "PASTE_FIREBASE_WEB_API_KEY_HERE",
             UseMockAuthentication = false,
             IsProduction = true
         };

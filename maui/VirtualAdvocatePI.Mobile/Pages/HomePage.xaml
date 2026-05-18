@@ -23,10 +23,16 @@
                 TextColor="White" />
 
             <Label
-                Text="This is the Phase 11 Android and iOS shell. Authentication, workspace screens and claim preparation tools will be added in the next tasks."
+                Text="This is the Phase 11 Android and iOS shell. Workspace screens and claim preparation tools will be added in the next tasks."
                 FontSize="16"
                 TextColor="#CBD5E1"
                 LineBreakMode="WordWrap" />
+
+            <Label
+                x:Name="AuthStatusLabel"
+                Text="Checking sign-in state..."
+                FontSize="14"
+                TextColor="#67E8F9" />
 
             <Border
                 Padding="18"
@@ -84,6 +90,15 @@
                 Clicked="OnCheckApiConnectionClicked"
                 BackgroundColor="#67E8F9"
                 TextColor="#020617"
+                FontAttributes="Bold"
+                CornerRadius="14"
+                HeightRequest="52" />
+
+            <Button
+                Text="Sign out"
+                Clicked="OnSignOutClicked"
+                BackgroundColor="#1E293B"
+                TextColor="White"
                 FontAttributes="Bold"
                 CornerRadius="14"
                 HeightRequest="52" />

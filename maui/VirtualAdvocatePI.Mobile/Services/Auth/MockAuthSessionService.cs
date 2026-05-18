@@ -8,16 +8,29 @@ public sealed class MockAuthSessionService : IAuthSessionService
     {
         return Task.FromResult(new AuthState
         {
-            IsSignedIn = false,
-            DisplayName = null,
-            Email = null,
-            IdToken = null
+            IsSignedIn = false
+        });
+    }
+
+    public Task<AuthState> SignInWithEmailPasswordAsync(
+        string email,
+        string password,
+        CancellationToken cancellationToken = default)
+    {
+        return Task.FromResult(new AuthState
+        {
+            IsSignedIn = true,
+            Email = email,
+            DisplayName = email,
+            IdToken = "mock-token",
+            RefreshToken = "mock-refresh-token",
+            ExpiresAtUtc = DateTimeOffset.UtcNow.AddHours(1)
         });
     }
 
     public Task<string?> GetIdTokenAsync()
     {
-        return Task.FromResult<string?>(null);
+        return Task.FromResult<string?>("mock-token");
     }
 
     public Task SignOutAsync()

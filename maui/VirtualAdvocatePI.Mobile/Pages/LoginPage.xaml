@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VirtualAdvocatePI.Mobile.Pages.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Sign in"
+    BackgroundColor="#020617">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="18">
+
+            <Label
+                Text="VIRTUAL ADVOCATE PI"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#67E8F9"
+                CharacterSpacing="4" />
+
+            <Label
+                Text="Sign in"
+                FontSize="32"
+                FontAttributes="Bold"
+                TextColor="White" />
+
+            <Label
+                Text="Use your Firebase account to sign in to the mobile MVP."
+                FontSize="16"
+                TextColor="#CBD5E1"
+                LineBreakMode="WordWrap" />
+
+            <Border
+                Padding="18"
+                Stroke="#334155"
+                StrokeThickness="1"
+                BackgroundColor="#0F172A">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="14">
+
+                    <Entry
+                        x:Name="EmailEntry"
+                        Placeholder="Email"
+                        Keyboard="Email"
+                        TextColor="White"
+                        PlaceholderColor="#64748B" />
+
+                    <Entry
+                        x:Name="PasswordEntry"
+                        Placeholder="Password"
+                        IsPassword="True"
+                        TextColor="White"
+                        PlaceholderColor="#64748B" />
+
+                    <Button
+                        Text="Sign in"
+                        Clicked="OnSignInClicked"
+                        BackgroundColor="#67E8F9"
+                        TextColor="#020617"
+                        FontAttributes="Bold"
+                        CornerRadius="14"
+                        HeightRequest="52" />
+
+                    <Label
+                        x:Name="StatusLabel"
+                        Text="Ready."
+                        FontSize="14"
+                        TextColor="#CBD5E1" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label
+                Text="Preparation support only. This app does not provide legal advice, medical advice, diagnosis, DVA decisions, impairment calculations, compensation estimates or claim outcome guarantees."
+                FontSize="13"
+                TextColor="#FDE68A"
+                LineBreakMode="WordWrap" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

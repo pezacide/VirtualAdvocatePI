@@ -25,8 +25,16 @@ public static class MauiProgram
         builder.Services.AddSingleton(settings);
         builder.Services.AddSingleton<IMobileEnvironmentService, MobileEnvironmentService>();
 
-        builder.Services.AddSingleton<IAuthSessionService, MockAuthSessionService>();
+        if (settings.UseMockAuthentication)
+        {
+            builder.Services.AddSingleton<IAuthSessionService, MockAuthSessionService>();
+        }
+        else
+        {
+            builder.Services.AddSingleton<IAuthSessionService, FirebaseAuthSessionService>();
+        }
         builder.Services.AddTransient<HomePage>();
+        builder.Services.AddTransient<LoginPage>();
 
         builder.Services.AddSingleton(new HttpClient
         {
