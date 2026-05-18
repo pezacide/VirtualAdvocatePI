@@ -20,9 +20,10 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
-        var settings = new MobileAppSettings();
+        var settings = MobileAppSettings.CreateDefault();
 
         builder.Services.AddSingleton(settings);
+        builder.Services.AddSingleton<IMobileEnvironmentService, MobileEnvironmentService>();
 
         builder.Services.AddSingleton<IAuthSessionService, MockAuthSessionService>();
         builder.Services.AddTransient<HomePage>();

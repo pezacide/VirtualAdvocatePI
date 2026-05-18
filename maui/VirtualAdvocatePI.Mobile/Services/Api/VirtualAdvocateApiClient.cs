@@ -22,9 +22,14 @@ public sealed class VirtualAdvocateApiClient : IVirtualAdvocateApiClient
 
     public async Task<bool> CanReachApiAsync(CancellationToken cancellationToken = default)
     {
+        if (!_settings.IsValid())
+        {
+            return false;
+        }
+
         try
         {
-            using var response = await _httpClient.GetAsync("/api/v1/config/secret-health", cancellationToken);
+            using var response = await _httpClient.GetAsync(_settings.ApiHealthPath, cancellationToken);
 
             return response.IsSuccessStatusCode;
         }
