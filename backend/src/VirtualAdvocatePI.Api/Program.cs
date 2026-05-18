@@ -1186,6 +1186,7 @@ app.MapAdminSourceRegistryEndpoints();
 app.MapAdminSourceRegistrySeedEndpoints();
 app.MapAdminTemplateRegistryEndpoints();
 app.MapAdminPromptDisclaimerVersionEndpoints();
+app.MapAdminKnowledgeAuditEndpoints();
 app.MapAdminDatabaseMaintenanceEndpoints();
 
 app.Run();

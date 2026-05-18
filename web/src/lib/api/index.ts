@@ -13,3 +13,4 @@ export * from "./admin";
 export * from "./adminSourceRegistry";
 export * from "./adminTemplates";
 export * from "./adminPromptDisclaimers";
+export * from "./adminKnowledgeAudit";
