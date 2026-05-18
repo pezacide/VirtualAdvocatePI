@@ -1181,6 +1181,8 @@ app.MapClaimStarterPackDocumentEndpoints();
 app.MapGeneratedDocumentDownloadEndpoints();
 app.MapDoctorGuidancePackDocumentEndpoints();
 
+app.UseMiddleware<AdminAuditLoggingMiddleware>();
+
 app.MapAdminAccessEndpoints();
 app.MapAdminSourceRegistryEndpoints();
 app.MapAdminSourceRegistrySeedEndpoints();

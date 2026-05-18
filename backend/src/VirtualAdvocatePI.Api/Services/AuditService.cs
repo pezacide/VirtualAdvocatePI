@@ -1,4 +1,4 @@
-﻿using VirtualAdvocatePI.Api.Data;
+using VirtualAdvocatePI.Api.Data;
 using VirtualAdvocatePI.Api.Domain.Claims;
 
 namespace VirtualAdvocatePI.Api.Services;
@@ -31,5 +31,19 @@ public sealed class AuditService
             ClientType = userAgent.ToString(),
             CreatedAt = DateTimeOffset.UtcNow
         });
+    }
+
+    public void AddAdminAuditEvent(
+        HttpRequest request,
+        Guid userId,
+        string eventType,
+        string? eventDetail)
+    {
+        AddAuditEvent(
+            request,
+            userId,
+            Guid.Empty,
+            eventType,
+            eventDetail);
     }
 }
