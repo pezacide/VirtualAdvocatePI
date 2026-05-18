@@ -1183,6 +1183,7 @@ app.MapDoctorGuidancePackDocumentEndpoints();
 
 app.MapAdminAccessEndpoints();
 app.MapAdminSourceRegistryEndpoints();
+app.MapAdminSourceRegistrySeedEndpoints();
 app.MapAdminDatabaseMaintenanceEndpoints();
 
 app.Run();
