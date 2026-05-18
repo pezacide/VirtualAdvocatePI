@@ -37,6 +37,12 @@ const adminTools = [
     status: "Planned",
   },
   {
+    title: "Admin smoke test checklist",
+    href: "/admin/smoke-test",
+    description: "Verify admin access, managers, audit logging and safety boundaries.",
+    status: "Checklist",
+  },
+  {
     title: "Admin access check",
     href: "/admin/access-check",
     description: "Confirm current account role and protected admin endpoint access.",
