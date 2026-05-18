@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using VirtualAdvocatePI.Api.Domain.Claims;
+using VirtualAdvocatePI.Api.Domain.Admin;
 using VirtualAdvocatePI.Api.Domain.Users;
 
 namespace VirtualAdvocatePI.Api.Data;
@@ -26,6 +27,8 @@ public sealed class VirtualAdvocateDbContext : DbContext
     public DbSet<EvidenceGap> EvidenceGaps => Set<EvidenceGap>();
 
     public DbSet<AiSourceRegistryEntry> AiSourceRegistryEntries => Set<AiSourceRegistryEntry>();
+
+    public DbSet<AdminTemplateRegistryEntry> AdminTemplateRegistryEntries => Set<AdminTemplateRegistryEntry>();
 
     public DbSet<AiDraft> AiDrafts => Set<AiDraft>();
 
@@ -237,5 +240,70 @@ modelBuilder.Entity<GeneratedDocument>(entity =>
     entity.Property(x => x.IncludedAiDraftIds).HasMaxLength(4000);
     entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
 });
+
+        modelBuilder.Entity<AdminTemplateRegistryEntry>(entity =>
+        {
+            entity.ToTable("admin_template_registry_entries");
+
+            entity.HasKey(x => x.Id);
+
+            entity.Property(x => x.TemplateKey)
+                .IsRequired()
+                .HasMaxLength(150);
+
+            entity.Property(x => x.TemplateType)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.Property(x => x.Title)
+                .IsRequired()
+                .HasMaxLength(500);
+
+            entity.Property(x => x.Description)
+                .IsRequired()
+                .HasMaxLength(2000);
+
+            entity.Property(x => x.Category)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(x => x.TemplateVersion)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.Property(x => x.TemplateBody)
+                .IsRequired();
+
+            entity.Property(x => x.OutputFormat)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.Property(x => x.ApprovalStatus)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.Property(x => x.ApprovedBy)
+                .HasMaxLength(250);
+
+            entity.Property(x => x.ReviewNotes)
+                .HasMaxLength(4000);
+
+            entity.Property(x => x.Status)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            entity.HasIndex(x => x.TemplateKey)
+                .IsUnique();
+
+            entity.HasIndex(x => x.TemplateType);
+
+            entity.HasIndex(x => x.Category);
+
+            entity.HasIndex(x => x.ApprovalStatus);
+
+            entity.HasIndex(x => x.IsActive);
+
+            entity.HasIndex(x => x.Status);
+        });
     }
 }
