@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VirtualAdvocatePI.Mobile.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Virtual Advocate PI"
+    BackgroundColor="#020617">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <Label
+                Text="VIRTUAL ADVOCATE PI"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#67E8F9"
+                CharacterSpacing="4" />
+
+            <Label
+                Text="Mobile MVP shell"
+                FontSize="30"
+                FontAttributes="Bold"
+                TextColor="White" />
+
+            <Label
+                Text="This is the Phase 11 Android and iOS shell. Authentication, workspace screens and claim preparation tools will be added in the next tasks."
+                FontSize="16"
+                TextColor="#CBD5E1"
+                LineBreakMode="WordWrap" />
+
+            <Border
+                Padding="18"
+                Stroke="#334155"
+                StrokeThickness="1"
+                BackgroundColor="#0F172A">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+                    <Label
+                        Text="Preparation support only"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        TextColor="#FDE68A" />
+
+                    <Label
+                        Text="This app does not submit material to DVA, calculate impairment points, estimate compensation, provide legal advice, provide medical advice, make a DVA decision, or guarantee a claim outcome."
+                        FontSize="14"
+                        TextColor="#FDE68A"
+                        LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button
+                Text="Check API connection"
+                Clicked="OnCheckApiConnectionClicked"
+                BackgroundColor="#67E8F9"
+                TextColor="#020617"
+                FontAttributes="Bold"
+                CornerRadius="14"
+                HeightRequest="52" />
+
+            <Label
+                x:Name="StatusLabel"
+                Text="Ready."
+                FontSize="14"
+                TextColor="#CBD5E1" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
