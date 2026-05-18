@@ -30,6 +30,8 @@ public sealed class VirtualAdvocateDbContext : DbContext
 
     public DbSet<AdminTemplateRegistryEntry> AdminTemplateRegistryEntries => Set<AdminTemplateRegistryEntry>();
 
+    public DbSet<AdminPromptDisclaimerVersionEntry> AdminPromptDisclaimerVersionEntries => Set<AdminPromptDisclaimerVersionEntry>();
+
     public DbSet<AiDraft> AiDrafts => Set<AiDraft>();
 
     public DbSet<GeneratedDocument> GeneratedDocuments => Set<GeneratedDocument>();
@@ -240,6 +242,34 @@ modelBuilder.Entity<GeneratedDocument>(entity =>
     entity.Property(x => x.IncludedAiDraftIds).HasMaxLength(4000);
     entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
 });
+        modelBuilder.Entity<AdminPromptDisclaimerVersionEntry>(entity =>
+        {
+            entity.ToTable("admin_prompt_disclaimer_version_entries");
+
+            entity.HasKey(x => x.Id);
+
+            entity.HasIndex(x => x.VersionKey).IsUnique();
+            entity.HasIndex(x => x.VersionType);
+            entity.HasIndex(x => x.Category);
+            entity.HasIndex(x => x.AppliesTo);
+            entity.HasIndex(x => x.ApprovalStatus);
+            entity.HasIndex(x => x.IsActive);
+            entity.HasIndex(x => x.Status);
+
+            entity.Property(x => x.VersionKey).HasMaxLength(150).IsRequired();
+            entity.Property(x => x.VersionType).HasMaxLength(50).IsRequired();
+            entity.Property(x => x.Title).HasMaxLength(500).IsRequired();
+            entity.Property(x => x.Description).HasMaxLength(2000).IsRequired();
+            entity.Property(x => x.Category).HasMaxLength(100).IsRequired();
+            entity.Property(x => x.VersionLabel).HasMaxLength(50).IsRequired();
+            entity.Property(x => x.AppliesTo).HasMaxLength(150).IsRequired();
+            entity.Property(x => x.Content).IsRequired();
+            entity.Property(x => x.ApprovalStatus).HasMaxLength(50).IsRequired();
+            entity.Property(x => x.ApprovedBy).HasMaxLength(250);
+            entity.Property(x => x.ReviewNotes).HasMaxLength(4000);
+            entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
+        });
+
 
         modelBuilder.Entity<AdminTemplateRegistryEntry>(entity =>
         {

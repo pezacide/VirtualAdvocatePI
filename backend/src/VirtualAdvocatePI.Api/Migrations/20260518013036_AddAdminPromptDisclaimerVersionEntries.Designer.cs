@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VirtualAdvocatePI.Api.Data;
@@ -11,9 +12,11 @@ using VirtualAdvocatePI.Api.Data;
 namespace VirtualAdvocatePI.Api.Migrations
 {
     [DbContext(typeof(VirtualAdvocateDbContext))]
-    partial class VirtualAdvocateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260518013036_AddAdminPromptDisclaimerVersionEntries")]
+    partial class AddAdminPromptDisclaimerVersionEntries
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
