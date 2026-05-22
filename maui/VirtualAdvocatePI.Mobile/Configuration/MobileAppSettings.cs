@@ -8,7 +8,7 @@ public sealed class MobileAppSettings
 
     public string ApiHealthPath { get; init; } = "/api/v1/config/secret-health";
 
-    public string FirebaseWebApiKey { get; init; } = "PASTE_FIREBASE_WEB_API_KEY_HERE";
+    public string FirebaseWebApiKey { get; init; } = "AIzaSyBf5omh2wf2n_vR21B4YdFLTWcGRJRaH38";
 
     public bool UseMockAuthentication { get; init; } = false;
 
@@ -16,7 +16,8 @@ public sealed class MobileAppSettings
 
     public bool IsFirebaseConfigured =>
         !string.IsNullOrWhiteSpace(FirebaseWebApiKey) &&
-        !FirebaseWebApiKey.Contains("AIzaSyBf5omh2wf2n_vR21B4YdFLTWcGRJRaH38", StringComparison.OrdinalIgnoreCase);
+        !FirebaseWebApiKey.Contains("PASTE_FIREBASE_WEB_API_KEY_HERE", StringComparison.OrdinalIgnoreCase) &&
+        !FirebaseWebApiKey.Contains("YOUR_FIREBASE", StringComparison.OrdinalIgnoreCase);
 
     public string DisplayName => $"{EnvironmentName} - {ApiBaseUrl}";
 
@@ -28,7 +29,7 @@ public sealed class MobileAppSettings
             EnvironmentName = "Development",
             ApiBaseUrl = "https://vapi-dev-api-2pwcdyx42q-ts.a.run.app",
             ApiHealthPath = "/api/v1/config/secret-health",
-            FirebaseWebApiKey = "PASTE_FIREBASE_WEB_API_KEY_HERE",
+            FirebaseWebApiKey = "AIzaSyBf5omh2wf2n_vR21B4YdFLTWcGRJRaH38",
             UseMockAuthentication = false,
             IsProduction = false
         };
@@ -38,7 +39,7 @@ public sealed class MobileAppSettings
             EnvironmentName = "Production",
             ApiBaseUrl = "https://vapi-dev-api-2pwcdyx42q-ts.a.run.app",
             ApiHealthPath = "/api/v1/config/secret-health",
-            FirebaseWebApiKey = "PASTE_FIREBASE_WEB_API_KEY_HERE",
+            FirebaseWebApiKey = "AIzaSyBf5omh2wf2n_vR21B4YdFLTWcGRJRaH38",
             UseMockAuthentication = false,
             IsProduction = true
         };

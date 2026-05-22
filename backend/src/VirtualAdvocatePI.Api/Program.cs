@@ -9,6 +9,7 @@ using VirtualAdvocatePI.Api.Features.Ai;
 using VirtualAdvocatePI.Api.Features.Documents;
 using VirtualAdvocatePI.Api.Services;
 using VirtualAdvocatePI.Api.Features.Admin;
+using VirtualAdvocatePI.Api.Features.Mobile;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -1189,6 +1190,7 @@ app.MapAdminSourceRegistrySeedEndpoints();
 app.MapAdminTemplateRegistryEndpoints();
 app.MapAdminPromptDisclaimerVersionEndpoints();
 app.MapAdminKnowledgeAuditEndpoints();
+app.MapMobileSessionEndpoints();
 app.MapAdminDatabaseMaintenanceEndpoints();
 
 app.Run();

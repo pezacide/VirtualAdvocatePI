@@ -95,6 +95,15 @@
                 HeightRequest="52" />
 
             <Button
+                Text="Check authenticated API session"
+                Clicked="OnCheckAuthenticatedApiClicked"
+                BackgroundColor="#22C55E"
+                TextColor="#020617"
+                FontAttributes="Bold"
+                CornerRadius="14"
+                HeightRequest="52" />
+
+            <Button
                 Text="Sign out"
                 Clicked="OnSignOutClicked"
                 BackgroundColor="#1E293B"

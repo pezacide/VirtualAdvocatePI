@@ -43,6 +43,7 @@ public static class MauiProgram
         });
 
         builder.Services.AddSingleton<IVirtualAdvocateApiClient, VirtualAdvocateApiClient>();
+        builder.Services.AddSingleton<IAuthenticatedApiClient, AuthenticatedApiClient>();
 
 #if DEBUG
         builder.Logging.AddDebug();
