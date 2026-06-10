@@ -45,3 +45,5 @@ config/gcp/*secret*.json
 # ProjectLibre backups/temp
 *.bak
 *.tmp
+
+*.csproj.user
