@@ -4,7 +4,7 @@ using Google.Apis.Auth.OAuth2;
 
 namespace VirtualAdvocatePI.Api.Auth;
 
-public sealed class FirebaseAuthService
+public sealed class FirebaseAuthService : IFirebaseAuthService
 {
     private readonly string _projectId;
 

@@ -7,11 +7,11 @@ namespace VirtualAdvocatePI.Api.Services;
 
 public sealed class CurrentUserService
 {
-    private readonly FirebaseAuthService _firebaseAuthService;
+    private readonly IFirebaseAuthService _firebaseAuthService;
     private readonly VirtualAdvocateDbContext _db;
 
     public CurrentUserService(
-        FirebaseAuthService firebaseAuthService,
+        IFirebaseAuthService firebaseAuthService,
         VirtualAdvocateDbContext db)
     {
         _firebaseAuthService = firebaseAuthService;
