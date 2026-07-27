@@ -2,13 +2,20 @@ namespace VirtualAdvocatePI.Mobile.Configuration;
 
 public sealed class MobileAppSettings
 {
+    // There is currently only one deployed backend (the dva-sop-dev Cloud Run service), so
+    // debug and release builds intentionally point at the same API and Firebase project until
+    // a real production backend exists.
+    private const string DevApiBaseUrl = "https://vapi-dev-api-2pwcdyx42q-ts.a.run.app";
+    private const string DevApiHealthPath = "/api/v1/config/secret-health";
+    private const string DevFirebaseWebApiKey = "AIzaSyBf5omh2wf2n_vR21B4YdFLTWcGRJRaH38";
+
     public string EnvironmentName { get; init; } = "Development";
 
-    public string ApiBaseUrl { get; init; } = "https://vapi-dev-api-2pwcdyx42q-ts.a.run.app";
+    public string ApiBaseUrl { get; init; } = DevApiBaseUrl;
 
-    public string ApiHealthPath { get; init; } = "/api/v1/config/secret-health";
+    public string ApiHealthPath { get; init; } = DevApiHealthPath;
 
-    public string FirebaseWebApiKey { get; init; } = "AIzaSyBf5omh2wf2n_vR21B4YdFLTWcGRJRaH38";
+    public string FirebaseWebApiKey { get; init; } = DevFirebaseWebApiKey;
 
     public bool UseMockAuthentication { get; init; } = false;
 
@@ -27,9 +34,9 @@ public sealed class MobileAppSettings
         return new MobileAppSettings
         {
             EnvironmentName = "Development",
-            ApiBaseUrl = "https://vapi-dev-api-2pwcdyx42q-ts.a.run.app",
-            ApiHealthPath = "/api/v1/config/secret-health",
-            FirebaseWebApiKey = "AIzaSyBf5omh2wf2n_vR21B4YdFLTWcGRJRaH38",
+            ApiBaseUrl = DevApiBaseUrl,
+            ApiHealthPath = DevApiHealthPath,
+            FirebaseWebApiKey = DevFirebaseWebApiKey,
             UseMockAuthentication = false,
             IsProduction = false
         };
@@ -37,9 +44,9 @@ public sealed class MobileAppSettings
         return new MobileAppSettings
         {
             EnvironmentName = "Production",
-            ApiBaseUrl = "https://vapi-dev-api-2pwcdyx42q-ts.a.run.app",
-            ApiHealthPath = "/api/v1/config/secret-health",
-            FirebaseWebApiKey = "AIzaSyBf5omh2wf2n_vR21B4YdFLTWcGRJRaH38",
+            ApiBaseUrl = DevApiBaseUrl,
+            ApiHealthPath = DevApiHealthPath,
+            FirebaseWebApiKey = DevFirebaseWebApiKey,
             UseMockAuthentication = false,
             IsProduction = true
         };
