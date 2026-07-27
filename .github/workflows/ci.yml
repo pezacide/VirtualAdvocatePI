@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - run: dotnet restore backend/tests/VirtualAdvocatePI.Api.Tests/VirtualAdvocatePI.Api.Tests.csproj
+      - run: dotnet build backend/tests/VirtualAdvocatePI.Api.Tests/VirtualAdvocatePI.Api.Tests.csproj --no-restore --configuration Release
+      - run: dotnet test backend/tests/VirtualAdvocatePI.Api.Tests/VirtualAdvocatePI.Api.Tests.csproj --no-build --configuration Release
+
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      # `npm run lint` is intentionally not run in CI yet: as of 2026-07-27 it fails
+      # on 35 pre-existing react-hooks/set-state-in-effect errors unrelated to CI
+      # setup. Tracked in issue for fixing before lint is added back here.
+      - run: npm run test
+      - run: npm run build
