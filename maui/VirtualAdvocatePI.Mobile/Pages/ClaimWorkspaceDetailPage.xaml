@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VirtualAdvocatePI.Mobile.Pages.ClaimWorkspaceDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:VirtualAdvocatePI.Mobile.ViewModels"
+    x:DataType="viewModels:ClaimWorkspaceDetailViewModel"
+    Title="Claim workspace"
+    BackgroundColor="#020617">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <ActivityIndicator
+                IsRunning="{Binding IsLoading}"
+                IsVisible="{Binding IsLoading}"
+                Color="#67E8F9" />
+
+            <Border
+                Padding="18"
+                Stroke="#F87171"
+                StrokeThickness="1"
+                BackgroundColor="#1F1315"
+                IsVisible="{Binding HasError}">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+                    <Label
+                        Text="Could not load workspace"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        TextColor="#FCA5A5" />
+
+                    <Label
+                        Text="{Binding ErrorMessage}"
+                        FontSize="14"
+                        TextColor="#FCA5A5"
+                        LineBreakMode="WordWrap" />
+
+                    <Button
+                        Text="Try again"
+                        Command="{Binding LoadWorkspaceCommand}"
+                        BackgroundColor="#1E293B"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="14"
+                        HeightRequest="48" />
+                </VerticalStackLayout>
+            </Border>
+
+            <VerticalStackLayout Spacing="20" IsVisible="{Binding Workspace, Converter={StaticResource IsNotNullConverter}}">
+
+                <Label
+                    Text="CLAIM WORKSPACE"
+                    FontSize="13"
+                    FontAttributes="Bold"
+                    TextColor="#67E8F9"
+                    CharacterSpacing="4" />
+
+                <Label
+                    Text="{Binding Workspace.WorkspaceTitle}"
+                    FontSize="26"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    LineBreakMode="WordWrap" />
+
+                <Label
+                    Text="This is a preparation workspace for organising claim information, conditions, evidence, gaps and draft documents."
+                    FontSize="15"
+                    TextColor="#CBD5E1"
+                    LineBreakMode="WordWrap" />
+
+                <Border
+                    Padding="14"
+                    Stroke="#22D3EE"
+                    StrokeThickness="1"
+                    BackgroundColor="#0B3B45"
+                    HorizontalOptions="Start">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12" />
+                    </Border.StrokeShape>
+
+                    <Label
+                        Text="{Binding Workspace.Status}"
+                        FontSize="14"
+                        TextColor="#A5F3FC" />
+                </Border>
+
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+                    <Border Grid.Row="0" Grid.Column="0" Padding="14" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="14" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Scenario" FontSize="12" TextColor="#94A3B8" />
+                            <Label Text="{Binding Workspace.ClaimScenario}" FontSize="14" TextColor="#A5F3FC" LineBreakMode="WordWrap" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Row="0" Grid.Column="1" Padding="14" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="14" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Framework" FontSize="12" TextColor="#94A3B8" />
+                            <Label Text="{Binding Workspace.ClaimFramework}" FontSize="14" TextColor="#A5F3FC" LineBreakMode="WordWrap" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="0" Padding="14" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="14" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Generated pack" FontSize="12" TextColor="#94A3B8" />
+                            <Label Text="{Binding Workspace.GeneratedPackStatus}" FontSize="14" TextColor="#A5F3FC" LineBreakMode="WordWrap" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="1" Padding="14" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="14" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Workspace ID" FontSize="12" TextColor="#94A3B8" />
+                            <Label Text="{Binding Workspace.Id}" FontSize="12" TextColor="#A5F3FC" LineBreakMode="CharacterWrap" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+                <Border
+                    Padding="16"
+                    Stroke="#1E293B"
+                    StrokeThickness="1"
+                    BackgroundColor="#0F172A">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+
+                    <Label
+                        Text="Preparation support only. This workspace does not create a DVA claim, submit material to DVA, provide legal advice, provide medical advice, estimate compensation, or guarantee a claim outcome."
+                        FontSize="13"
+                        TextColor="#94A3B8"
+                        LineBreakMode="WordWrap" />
+                </Border>
+
+                <Border
+                    Padding="16"
+                    Stroke="#334155"
+                    StrokeThickness="1"
+                    BackgroundColor="#020617">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+
+                    <Label
+                        Text="Condition, evidence, question and document tools for this workspace are on the way in the next Phase 11 tasks."
+                        FontSize="13"
+                        TextColor="#CBD5E1"
+                        LineBreakMode="WordWrap" />
+                </Border>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

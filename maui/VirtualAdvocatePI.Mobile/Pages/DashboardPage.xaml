@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VirtualAdvocatePI.Mobile.Pages.DashboardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:VirtualAdvocatePI.Mobile.ViewModels"
+    xmlns:models="clr-namespace:VirtualAdvocatePI.Mobile.Models.ClaimWorkspaces"
+    x:Name="Self"
+    x:DataType="viewModels:DashboardViewModel"
+    Title="Dashboard"
+    BackgroundColor="#020617">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <Label
+                Text="VIRTUAL ADVOCATE PI"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#67E8F9"
+                CharacterSpacing="4" />
+
+            <Label
+                Text="Claim workspaces"
+                FontSize="30"
+                FontAttributes="Bold"
+                TextColor="White" />
+
+            <Label
+                Text="View your claim preparation workspaces and continue building the evidence pack."
+                FontSize="16"
+                TextColor="#CBD5E1"
+                LineBreakMode="WordWrap" />
+
+            <Button
+                Text="New claim workspace"
+                Command="{Binding CreateNewWorkspaceCommand}"
+                BackgroundColor="#67E8F9"
+                TextColor="#020617"
+                FontAttributes="Bold"
+                CornerRadius="14"
+                HeightRequest="52" />
+
+            <ActivityIndicator
+                IsRunning="{Binding IsLoading}"
+                IsVisible="{Binding IsLoading}"
+                Color="#67E8F9" />
+
+            <Border
+                Padding="18"
+                Stroke="#F87171"
+                StrokeThickness="1"
+                BackgroundColor="#1F1315"
+                IsVisible="{Binding HasError}">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+                    <Label
+                        Text="Could not load workspaces"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        TextColor="#FCA5A5" />
+
+                    <Label
+                        Text="{Binding ErrorMessage}"
+                        FontSize="14"
+                        TextColor="#FCA5A5"
+                        LineBreakMode="WordWrap" />
+
+                    <Button
+                        Text="Try again"
+                        Command="{Binding LoadDashboardCommand}"
+                        BackgroundColor="#1E293B"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="14"
+                        HeightRequest="48" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Padding="18"
+                Stroke="#334155"
+                StrokeThickness="1"
+                BackgroundColor="#0F172A"
+                IsVisible="{Binding ShowEmptyState}">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+                    <Label
+                        Text="No claim workspaces yet"
+                        FontAttributes="Bold"
+                        FontSize="18"
+                        TextColor="White" />
+
+                    <Label
+                        Text="Create your first claim workspace to start organising conditions and evidence."
+                        FontSize="14"
+                        TextColor="#CBD5E1"
+                        LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+            <CollectionView
+                ItemsSource="{Binding Workspaces}"
+                IsVisible="{Binding HasWorkspaces}">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="14" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ClaimWorkspace">
+                        <Border
+                            Padding="18"
+                            Stroke="#334155"
+                            StrokeThickness="1"
+                            BackgroundColor="#0F172A">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="18" />
+                            </Border.StrokeShape>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={x:Reference Self}, Path=BindingContext.OpenWorkspaceCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+
+                            <VerticalStackLayout Spacing="8">
+                                <Label
+                                    Text="{Binding WorkspaceTitle}"
+                                    FontAttributes="Bold"
+                                    FontSize="18"
+                                    TextColor="White" />
+
+                                <Label
+                                    Text="{Binding ClaimScenario, StringFormat='Scenario: {0}'}"
+                                    FontSize="13"
+                                    TextColor="#CBD5E1" />
+
+                                <Label
+                                    Text="{Binding Status, StringFormat='Status: {0}'}"
+                                    FontSize="13"
+                                    TextColor="#67E8F9" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Border
+                Padding="18"
+                Stroke="#334155"
+                StrokeThickness="1"
+                BackgroundColor="#020617">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="10">
+                    <Label
+                        Text="Preparation support only"
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        TextColor="#FDE68A" />
+
+                    <Label
+                        Text="This app does not submit material to DVA, calculate impairment points, estimate compensation, provide legal advice, provide medical advice, make a DVA decision, or guarantee a claim outcome."
+                        FontSize="14"
+                        TextColor="#FDE68A"
+                        LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

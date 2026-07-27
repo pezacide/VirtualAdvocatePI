@@ -1,4 +1,5 @@
 using VirtualAdvocatePI.Mobile.Configuration;
+using VirtualAdvocatePI.Mobile.Navigation;
 using VirtualAdvocatePI.Mobile.Services.Auth;
 
 namespace VirtualAdvocatePI.Mobile.Pages;
@@ -41,7 +42,7 @@ public partial class LoginPage : ContentPage
 
             StatusLabel.Text = $"Signed in as {authState.Email}.";
 
-            await Shell.Current.GoToAsync("//HomePage");
+            await Shell.Current.GoToAsync($"//{Routes.Dashboard}");
         }
         catch (Exception ex)
         {

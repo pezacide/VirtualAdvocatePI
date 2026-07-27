@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VirtualAdvocatePI.Mobile.Pages.NewClaimWorkspacePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:VirtualAdvocatePI.Mobile.ViewModels"
+    xmlns:models="clr-namespace:VirtualAdvocatePI.Mobile.Models.ClaimWorkspaces"
+    x:Name="Self"
+    x:DataType="viewModels:NewClaimWorkspaceViewModel"
+    Title="New workspace"
+    BackgroundColor="#020617">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <Label
+                Text="NEW WORKSPACE"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#67E8F9"
+                CharacterSpacing="4" />
+
+            <Label
+                Text="Choose a claim preparation pathway"
+                FontSize="26"
+                FontAttributes="Bold"
+                TextColor="White" />
+
+            <Label
+                Text="Pick the closest starting point. You can still add more information later as the evidence picture becomes clearer."
+                FontSize="15"
+                TextColor="#CBD5E1"
+                LineBreakMode="WordWrap" />
+
+            <Label
+                Text="Workspace title"
+                FontSize="14"
+                FontAttributes="Bold"
+                TextColor="White" />
+
+            <Border
+                Padding="4"
+                Stroke="#334155"
+                StrokeThickness="1"
+                BackgroundColor="#0F172A">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+
+                <Entry
+                    Text="{Binding WorkspaceTitle}"
+                    TextColor="White"
+                    PlaceholderColor="#64748B"
+                    Placeholder="Workspace title" />
+            </Border>
+
+            <Label
+                Text="Claim preparation pathway"
+                FontSize="14"
+                FontAttributes="Bold"
+                TextColor="White" />
+
+            <CollectionView
+                ItemsSource="{Binding ScenarioOptions}"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedScenario}">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ClaimScenarioOption">
+                        <Border Padding="16" StrokeThickness="1">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="16" />
+                            </Border.StrokeShape>
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="Stroke" Value="#334155" />
+                                            <Setter Property="BackgroundColor" Value="#0F172A" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="Stroke" Value="#67E8F9" />
+                                            <Setter Property="BackgroundColor" Value="#0B3B45" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <VerticalStackLayout Spacing="6">
+                                <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="16" TextColor="White" />
+                                <Label Text="{Binding Description}" FontSize="13" TextColor="#CBD5E1" LineBreakMode="WordWrap" />
+                                <Label Text="{Binding Value}" FontSize="11" TextColor="#67E8F9" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Border
+                Padding="16"
+                Stroke="#F87171"
+                StrokeThickness="1"
+                BackgroundColor="#1F1315"
+                IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+
+                <Label
+                    Text="{Binding ErrorMessage}"
+                    FontSize="14"
+                    TextColor="#FCA5A5"
+                    LineBreakMode="WordWrap" />
+            </Border>
+
+            <Button
+                Text="Create claim workspace"
+                Command="{Binding CreateCommand}"
+                IsEnabled="{Binding IsSaving, Converter={StaticResource InvertedBoolConverter}}"
+                BackgroundColor="#67E8F9"
+                TextColor="#020617"
+                FontAttributes="Bold"
+                CornerRadius="14"
+                HeightRequest="52" />
+
+            <ActivityIndicator
+                IsRunning="{Binding IsSaving}"
+                IsVisible="{Binding IsSaving}"
+                Color="#67E8F9" />
+
+            <Button
+                Text="Cancel"
+                Command="{Binding CancelCommand}"
+                BackgroundColor="#1E293B"
+                TextColor="White"
+                CornerRadius="14"
+                HeightRequest="48" />
+
+            <Label
+                Text="This creates a preparation workspace only. It does not submit anything to DVA, provide legal advice, provide medical advice, estimate compensation, or guarantee any outcome."
+                FontSize="13"
+                TextColor="#94A3B8"
+                LineBreakMode="WordWrap" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
