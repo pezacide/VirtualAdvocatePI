@@ -63,8 +63,10 @@ public partial class NewClaimWorkspaceViewModel : ObservableObject
                     ClaimScenario = SelectedScenario.Value
                 });
 
-            await _navigationService.GoToAsync(
-                Routes.ClaimWorkspaceDetail,
+            // Reset the stack to Dashboard -> Detail (rather than pushing Detail on top of
+            // this form) so the back button from Detail returns to Dashboard, not here.
+            await _navigationService.GoToRootAsync(
+                $"{Routes.Dashboard}/{Routes.ClaimWorkspaceDetail}",
                 new Dictionary<string, object> { ["workspaceId"] = created.Id.ToString() });
         }
         catch (ApiRequestException ex)

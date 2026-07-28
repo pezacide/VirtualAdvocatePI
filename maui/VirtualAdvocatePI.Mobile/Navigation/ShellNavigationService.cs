@@ -8,4 +8,9 @@ public sealed class ShellNavigationService : INavigationService
         Shell.Current.GoToAsync(route, parameters);
 
     public Task GoBackAsync() => Shell.Current.GoToAsync("..");
+
+    public Task GoToRootAsync(string route) => Shell.Current.GoToAsync($"//{route}");
+
+    public Task GoToRootAsync(string route, IDictionary<string, object> parameters) =>
+        Shell.Current.GoToAsync($"//{route}", parameters);
 }
