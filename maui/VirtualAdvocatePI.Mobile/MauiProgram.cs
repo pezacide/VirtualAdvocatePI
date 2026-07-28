@@ -44,6 +44,8 @@ public static class MauiProgram
         builder.Services.AddTransient<NewClaimWorkspaceViewModel>();
         builder.Services.AddTransient<ClaimWorkspaceDetailPage>();
         builder.Services.AddTransient<ClaimWorkspaceDetailViewModel>();
+        builder.Services.AddTransient<DisclaimerPage>();
+        builder.Services.AddTransient<DisclaimerViewModel>();
 
         builder.Services.AddSingleton(new HttpClient
         {
@@ -54,6 +56,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<IVirtualAdvocateApiClient, VirtualAdvocateApiClient>();
         builder.Services.AddSingleton<IAuthenticatedApiClient, AuthenticatedApiClient>();
         builder.Services.AddSingleton<IClaimWorkspaceApiClient, ClaimWorkspaceApiClient>();
+        builder.Services.AddSingleton<IDisclaimerApiClient, DisclaimerApiClient>();
         builder.Services.AddSingleton<IDashboardService, DashboardService>();
         builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
 

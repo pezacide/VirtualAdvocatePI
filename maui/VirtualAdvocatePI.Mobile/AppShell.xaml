@@ -22,4 +22,9 @@
         ContentTemplate="{DataTemplate pages:DashboardPage}"
         Route="DashboardPage" />
 
+    <ShellContent
+        Title="Before you continue"
+        ContentTemplate="{DataTemplate pages:DisclaimerPage}"
+        Route="DisclaimerPage" />
+
 </Shell>

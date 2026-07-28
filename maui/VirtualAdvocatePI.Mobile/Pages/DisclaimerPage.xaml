@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VirtualAdvocatePI.Mobile.Pages.DisclaimerPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:VirtualAdvocatePI.Mobile.ViewModels"
+    x:DataType="viewModels:DisclaimerViewModel"
+    Title="Before you continue"
+    BackgroundColor="#020617"
+    Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <Label
+                Text="VIRTUAL ADVOCATE PI"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#67E8F9"
+                CharacterSpacing="4" />
+
+            <Label
+                Text="Preparation support only"
+                FontSize="28"
+                FontAttributes="Bold"
+                TextColor="White" />
+
+            <ActivityIndicator
+                IsRunning="{Binding IsChecking}"
+                IsVisible="{Binding IsChecking}"
+                Color="#67E8F9" />
+
+            <Border
+                Padding="18"
+                Stroke="#FDE68A"
+                StrokeThickness="1"
+                BackgroundColor="#0F172A">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="12">
+                    <Label
+                        Text="This app helps you organise information, evidence and questions for a DVA claim."
+                        FontSize="15"
+                        TextColor="#E2E8F0"
+                        LineBreakMode="WordWrap" />
+
+                    <Label
+                        Text="It does not submit material to DVA, calculate impairment points, estimate compensation, provide legal advice, provide medical advice, make a DVA decision, or guarantee a claim outcome."
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        TextColor="#FDE68A"
+                        LineBreakMode="WordWrap" />
+
+                    <Label
+                        Text="Always confirm important decisions with a qualified advocate, support person, doctor or legal adviser."
+                        FontSize="14"
+                        TextColor="#CBD5E1"
+                        LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Padding="16"
+                Stroke="#F87171"
+                StrokeThickness="1"
+                BackgroundColor="#1F1315"
+                IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+
+                <Label
+                    Text="{Binding ErrorMessage}"
+                    FontSize="14"
+                    TextColor="#FCA5A5"
+                    LineBreakMode="WordWrap" />
+            </Border>
+
+            <Button
+                Text="I understand and want to continue"
+                Command="{Binding AcceptCommand}"
+                IsEnabled="{Binding IsAccepting, Converter={StaticResource InvertedBoolConverter}}"
+                BackgroundColor="#67E8F9"
+                TextColor="#020617"
+                FontAttributes="Bold"
+                CornerRadius="14"
+                HeightRequest="52" />
+
+            <ActivityIndicator
+                IsRunning="{Binding IsAccepting}"
+                IsVisible="{Binding IsAccepting}"
+                Color="#67E8F9" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

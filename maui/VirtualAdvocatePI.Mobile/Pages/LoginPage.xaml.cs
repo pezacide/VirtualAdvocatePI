@@ -42,7 +42,7 @@ public partial class LoginPage : ContentPage
 
             StatusLabel.Text = $"Signed in as {authState.Email}.";
 
-            await Shell.Current.GoToAsync($"//{Routes.Dashboard}");
+            await Shell.Current.GoToAsync($"//{Routes.Disclaimer}");
         }
         catch (Exception ex)
         {
