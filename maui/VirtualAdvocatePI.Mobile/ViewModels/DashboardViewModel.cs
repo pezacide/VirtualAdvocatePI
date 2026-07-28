@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using VirtualAdvocatePI.Mobile.Models.ClaimWorkspaces;
 using VirtualAdvocatePI.Mobile.Navigation;
 using VirtualAdvocatePI.Mobile.Services.Api;
+using VirtualAdvocatePI.Mobile.Services.Auth;
 using VirtualAdvocatePI.Mobile.Services.Dashboard;
 
 namespace VirtualAdvocatePI.Mobile.ViewModels;
@@ -12,15 +13,16 @@ public partial class DashboardViewModel : ObservableObject
 {
     private readonly IDashboardService _dashboardService;
     private readonly INavigationService _navigationService;
+    private readonly IAuthSessionService _authSessionService;
 
     public DashboardViewModel(
         IDashboardService dashboardService,
-        INavigationService navigationService)
+        INavigationService navigationService,
+        IAuthSessionService authSessionService)
     {
         _dashboardService = dashboardService;
         _navigationService = navigationService;
-
-        LoadDashboardCommand.ExecuteAsync(null);
+        _authSessionService = authSessionService;
     }
 
     public ObservableCollection<ClaimWorkspace> Workspaces { get; } = new();
@@ -96,5 +98,12 @@ public partial class DashboardViewModel : ObservableObject
         return _navigationService.GoToAsync(
             Routes.ClaimWorkspaceDetail,
             new Dictionary<string, object> { ["workspaceId"] = workspace.Id.ToString() });
+    }
+
+    [RelayCommand]
+    private async Task SignOutAsync()
+    {
+        await _authSessionService.SignOutAsync();
+        await _navigationService.GoToRootAsync(Routes.Login);
     }
 }

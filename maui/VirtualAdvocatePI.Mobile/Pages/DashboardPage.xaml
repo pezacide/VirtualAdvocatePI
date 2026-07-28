@@ -13,12 +13,27 @@
     <ScrollView>
         <VerticalStackLayout Padding="24" Spacing="20">
 
-            <Label
-                Text="VIRTUAL ADVOCATE PI"
-                FontSize="13"
-                FontAttributes="Bold"
-                TextColor="#67E8F9"
-                CharacterSpacing="4" />
+            <Grid ColumnDefinitions="*,Auto">
+                <Label
+                    Grid.Column="0"
+                    Text="VIRTUAL ADVOCATE PI"
+                    FontSize="13"
+                    FontAttributes="Bold"
+                    TextColor="#67E8F9"
+                    CharacterSpacing="4"
+                    VerticalOptions="Center" />
+
+                <Button
+                    Grid.Column="1"
+                    Text="Sign out"
+                    Command="{Binding SignOutCommand}"
+                    BackgroundColor="#1E293B"
+                    TextColor="White"
+                    FontSize="13"
+                    CornerRadius="10"
+                    Padding="12,6"
+                    HeightRequest="36" />
+            </Grid>
 
             <Label
                 Text="Claim workspaces"
