@@ -4,6 +4,7 @@ using VirtualAdvocatePI.Api.Auth;
 using VirtualAdvocatePI.Api.Data;
 using VirtualAdvocatePI.Api.Domain.Users;
 using VirtualAdvocatePI.Api.Features.ClaimWorkspaces;
+using VirtualAdvocatePI.Api.Features.Users;
 using VirtualAdvocatePI.Api.Features.Evidence;
 using VirtualAdvocatePI.Api.Features.Ai;
 using VirtualAdvocatePI.Api.Features.Documents;
@@ -138,6 +139,8 @@ app.MapGet("/api/v1/me", async (
 
     return Results.Ok(ToUserResponse(user));
 });
+
+app.MapDisclaimerAcceptanceEndpoints();
 
 app.MapClaimWorkspaceEndpoints();
 app.MapConditionEndpoints();
