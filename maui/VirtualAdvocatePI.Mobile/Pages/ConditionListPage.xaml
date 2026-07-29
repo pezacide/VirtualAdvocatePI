@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VirtualAdvocatePI.Mobile.Pages.ConditionListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:VirtualAdvocatePI.Mobile.ViewModels"
+    xmlns:models="clr-namespace:VirtualAdvocatePI.Mobile.Models.Conditions"
+    x:Name="Self"
+    x:DataType="viewModels:ConditionListViewModel"
+    Title="Conditions"
+    BackgroundColor="#020617">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <Label
+                Text="CONDITION INTAKE"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#67E8F9"
+                CharacterSpacing="4" />
+
+            <Label
+                Text="Add a condition"
+                FontSize="26"
+                FontAttributes="Bold"
+                TextColor="White" />
+
+            <Label
+                Text="Capture the plain-English details needed to organise evidence and prepare later sections of the claim starter pack."
+                FontSize="15"
+                TextColor="#CBD5E1"
+                LineBreakMode="WordWrap" />
+
+            <!-- Add condition form -->
+            <Label Text="Condition name" FontSize="14" FontAttributes="Bold" TextColor="White" />
+            <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Entry
+                    Text="{Binding ConditionName}"
+                    Placeholder="Example: tinnitus, PTSD, lumbar spine condition"
+                    TextColor="White"
+                    PlaceholderColor="#64748B" />
+            </Border>
+
+            <Label Text="Diagnosis status" FontSize="14" FontAttributes="Bold" TextColor="White" />
+            <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Picker
+                    ItemsSource="{Binding DiagnosisStatusOptions}"
+                    SelectedItem="{Binding SelectedDiagnosisStatus}"
+                    TextColor="White"
+                    TitleColor="#64748B" />
+            </Border>
+
+            <HorizontalStackLayout Spacing="12">
+                <Switch IsToggled="{Binding HasKnownDiagnosisDate}" OnColor="#67E8F9" />
+                <Label Text="I know the diagnosis date" FontSize="14" TextColor="#CBD5E1" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <DatePicker
+                Date="{Binding DiagnosisDate}"
+                IsVisible="{Binding HasKnownDiagnosisDate}"
+                TextColor="White"
+                Background="#0F172A" />
+
+            <Label Text="Current symptoms" FontSize="14" FontAttributes="Bold" TextColor="White" />
+            <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Editor Text="{Binding CurrentSymptoms}" AutoSize="TextChanges" HeightRequest="90" TextColor="White" />
+            </Border>
+
+            <Label Text="Treatment summary" FontSize="14" FontAttributes="Bold" TextColor="White" />
+            <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Editor Text="{Binding TreatmentSummary}" AutoSize="TextChanges" HeightRequest="70" TextColor="White" />
+            </Border>
+
+            <Label Text="Medication summary" FontSize="14" FontAttributes="Bold" TextColor="White" />
+            <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Editor Text="{Binding MedicationSummary}" AutoSize="TextChanges" HeightRequest="70" TextColor="White" />
+            </Border>
+
+            <Label Text="Functional impact summary" FontSize="14" FontAttributes="Bold" TextColor="White" />
+            <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Editor
+                    Text="{Binding FunctionalImpactSummary}"
+                    Placeholder="Example: work, sleep, mobility, relationships, daily tasks, flare-ups"
+                    AutoSize="TextChanges"
+                    HeightRequest="90"
+                    TextColor="White" />
+            </Border>
+
+            <Border Padding="14" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <HorizontalStackLayout Spacing="12">
+                    <Switch IsToggled="{Binding IsPrimaryCondition}" OnColor="#67E8F9" />
+                    <Label Text="Mark as a primary condition for this workspace" FontSize="14" TextColor="#CBD5E1" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </Border>
+
+            <Border
+                Padding="16"
+                Stroke="#4ADE80"
+                StrokeThickness="1"
+                BackgroundColor="#0F1F17"
+                IsVisible="{Binding FormStatusMessage, Converter={StaticResource StringToBoolConverter}}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Label Text="{Binding FormStatusMessage}" FontSize="14" TextColor="#86EFAC" />
+            </Border>
+
+            <Border
+                Padding="16"
+                Stroke="#F87171"
+                StrokeThickness="1"
+                BackgroundColor="#1F1315"
+                IsVisible="{Binding FormErrorMessage, Converter={StaticResource StringToBoolConverter}}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Label Text="{Binding FormErrorMessage}" FontSize="14" TextColor="#FCA5A5" LineBreakMode="WordWrap" />
+            </Border>
+
+            <Button
+                Text="Add condition"
+                Command="{Binding CreateConditionCommand}"
+                IsEnabled="{Binding IsSubmitting, Converter={StaticResource InvertedBoolConverter}}"
+                BackgroundColor="#67E8F9"
+                TextColor="#020617"
+                FontAttributes="Bold"
+                CornerRadius="14"
+                HeightRequest="52" />
+
+            <ActivityIndicator IsRunning="{Binding IsSubmitting}" IsVisible="{Binding IsSubmitting}" Color="#67E8F9" />
+
+            <!-- Existing conditions -->
+            <Label
+                Text="CONDITIONS IN THIS WORKSPACE"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#67E8F9"
+                CharacterSpacing="4" />
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" Color="#67E8F9" />
+
+            <Border
+                Padding="18"
+                Stroke="#F87171"
+                StrokeThickness="1"
+                BackgroundColor="#1F1315"
+                IsVisible="{Binding HasError}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{Binding ErrorMessage}" FontSize="14" TextColor="#FCA5A5" LineBreakMode="WordWrap" />
+                    <Button
+                        Text="Try again"
+                        Command="{Binding LoadConditionsCommand}"
+                        BackgroundColor="#1E293B"
+                        TextColor="White"
+                        CornerRadius="14"
+                        HeightRequest="48" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Padding="18"
+                Stroke="#334155"
+                StrokeThickness="1"
+                BackgroundColor="#0F172A"
+                IsVisible="{Binding ShowEmptyState}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <Label Text="No conditions have been added yet." FontSize="15" TextColor="#CBD5E1" />
+            </Border>
+
+            <CollectionView ItemsSource="{Binding Conditions}" IsVisible="{Binding HasConditions}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="14" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ClaimCondition">
+                        <Border Padding="18" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="18" />
+                            </Border.StrokeShape>
+                            <VerticalStackLayout Spacing="8">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label
+                                        Grid.Column="0"
+                                        Text="{Binding ConditionName}"
+                                        FontAttributes="Bold"
+                                        FontSize="18"
+                                        TextColor="White" />
+                                    <Border
+                                        Grid.Column="1"
+                                        Padding="10,4"
+                                        Stroke="#22D3EE"
+                                        StrokeThickness="1"
+                                        BackgroundColor="#0B3B45">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="10" />
+                                        </Border.StrokeShape>
+                                        <Label
+                                            Text="{Binding IsPrimaryCondition, Converter={StaticResource PrimaryLabelConverter}}"
+                                            FontSize="12"
+                                            TextColor="#A5F3FC" />
+                                    </Border>
+                                </Grid>
+
+                                <Label
+                                    Text="{Binding DiagnosisStatus, StringFormat='Diagnosis status: {0}'}"
+                                    FontSize="13"
+                                    TextColor="#CBD5E1" />
+
+                                <Label
+                                    Text="{Binding CurrentSymptoms}"
+                                    FontSize="13"
+                                    TextColor="#94A3B8"
+                                    IsVisible="{Binding CurrentSymptoms, Converter={StaticResource StringToBoolConverter}}" />
+
+                                <Button
+                                    Text="Remove from workspace"
+                                    Command="{Binding Source={x:Reference Self}, Path=BindingContext.ArchiveConditionCommand}"
+                                    CommandParameter="{Binding .}"
+                                    IsEnabled="{Binding Source={x:Reference Self}, Path=BindingContext.IsArchiving, Converter={StaticResource InvertedBoolConverter}}"
+                                    BackgroundColor="#3F1518"
+                                    TextColor="#FCA5A5"
+                                    FontSize="13"
+                                    CornerRadius="12"
+                                    HeightRequest="42" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Border Padding="16" Stroke="#334155" StrokeThickness="1" BackgroundColor="#020617">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Label
+                    Text="Preparation support only. This condition intake page does not provide medical advice, diagnose a condition, submit material to DVA, or guarantee a claim outcome."
+                    FontSize="13"
+                    TextColor="#94A3B8"
+                    LineBreakMode="WordWrap" />
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

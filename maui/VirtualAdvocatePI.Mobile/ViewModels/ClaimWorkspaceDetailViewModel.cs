@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using VirtualAdvocatePI.Mobile.Models.ClaimWorkspaces;
+using VirtualAdvocatePI.Mobile.Navigation;
 using VirtualAdvocatePI.Mobile.Services.Api;
 
 namespace VirtualAdvocatePI.Mobile.ViewModels;
@@ -9,10 +10,14 @@ namespace VirtualAdvocatePI.Mobile.ViewModels;
 public partial class ClaimWorkspaceDetailViewModel : ObservableObject
 {
     private readonly IClaimWorkspaceApiClient _claimWorkspaceApiClient;
+    private readonly INavigationService _navigationService;
 
-    public ClaimWorkspaceDetailViewModel(IClaimWorkspaceApiClient claimWorkspaceApiClient)
+    public ClaimWorkspaceDetailViewModel(
+        IClaimWorkspaceApiClient claimWorkspaceApiClient,
+        INavigationService navigationService)
     {
         _claimWorkspaceApiClient = claimWorkspaceApiClient;
+        _navigationService = navigationService;
 
         WorkspaceId = string.Empty;
     }
@@ -67,5 +72,13 @@ public partial class ClaimWorkspaceDetailViewModel : ObservableObject
         {
             IsLoading = false;
         }
+    }
+
+    [RelayCommand]
+    private Task OpenConditionsAsync()
+    {
+        return _navigationService.GoToAsync(
+            Routes.ConditionList,
+            new Dictionary<string, object> { ["workspaceId"] = WorkspaceId });
     }
 }

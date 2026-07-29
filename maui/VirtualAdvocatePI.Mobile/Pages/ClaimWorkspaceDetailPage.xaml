@@ -149,6 +149,25 @@
                         LineBreakMode="WordWrap" />
                 </Border>
 
+                <Label
+                    Text="WORKSPACE TOOLS"
+                    FontSize="13"
+                    FontAttributes="Bold"
+                    TextColor="#67E8F9"
+                    CharacterSpacing="4" />
+
+                <Button
+                    Text="Conditions"
+                    Command="{Binding OpenConditionsCommand}"
+                    BackgroundColor="#0F172A"
+                    BorderColor="#334155"
+                    BorderWidth="1"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="14"
+                    HeightRequest="56"
+                    HorizontalOptions="Fill" />
+
                 <Border
                     Padding="16"
                     Stroke="#334155"
@@ -160,7 +179,7 @@
                     </Border.StrokeShape>
 
                     <Label
-                        Text="Condition, evidence, question and document tools for this workspace are on the way in the next Phase 11 tasks."
+                        Text="Evidence, GARP M question and document tools for this workspace are on the way in the next Phase 11 tasks."
                         FontSize="13"
                         TextColor="#CBD5E1"
                         LineBreakMode="WordWrap" />

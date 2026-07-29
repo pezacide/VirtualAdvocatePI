@@ -8,4 +8,5 @@ public static class Routes
     public const string Dashboard = "DashboardPage";
     public const string NewClaimWorkspace = "NewClaimWorkspacePage";
     public const string ClaimWorkspaceDetail = "ClaimWorkspaceDetailPage";
+    public const string ConditionList = "ConditionListPage";
 }

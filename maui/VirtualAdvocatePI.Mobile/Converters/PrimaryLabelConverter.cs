@@ -1,0 +1,16 @@
+using System.Globalization;
+
+namespace VirtualAdvocatePI.Mobile.Converters;
+
+public sealed class PrimaryLabelConverter : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        return value is true ? "PRIMARY" : "SECONDARY";
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
+    }
+}

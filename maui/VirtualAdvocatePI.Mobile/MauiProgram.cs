@@ -5,6 +5,7 @@ using VirtualAdvocatePI.Mobile.Pages;
 using VirtualAdvocatePI.Mobile.Services.Api;
 using VirtualAdvocatePI.Mobile.Services.Auth;
 using VirtualAdvocatePI.Mobile.Services.Dashboard;
+using VirtualAdvocatePI.Mobile.Services.Dialogs;
 using VirtualAdvocatePI.Mobile.ViewModels;
 
 namespace VirtualAdvocatePI.Mobile;
@@ -46,6 +47,8 @@ public static class MauiProgram
         builder.Services.AddTransient<ClaimWorkspaceDetailViewModel>();
         builder.Services.AddTransient<DisclaimerPage>();
         builder.Services.AddTransient<DisclaimerViewModel>();
+        builder.Services.AddTransient<ConditionListPage>();
+        builder.Services.AddTransient<ConditionListViewModel>();
 
         builder.Services.AddSingleton(new HttpClient
         {
@@ -57,8 +60,10 @@ public static class MauiProgram
         builder.Services.AddSingleton<IAuthenticatedApiClient, AuthenticatedApiClient>();
         builder.Services.AddSingleton<IClaimWorkspaceApiClient, ClaimWorkspaceApiClient>();
         builder.Services.AddSingleton<IDisclaimerApiClient, DisclaimerApiClient>();
+        builder.Services.AddSingleton<IConditionApiClient, ConditionApiClient>();
         builder.Services.AddSingleton<IDashboardService, DashboardService>();
         builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
+        builder.Services.AddSingleton<IDialogService, DialogService>();
 
 #if DEBUG
         builder.Logging.AddDebug();
