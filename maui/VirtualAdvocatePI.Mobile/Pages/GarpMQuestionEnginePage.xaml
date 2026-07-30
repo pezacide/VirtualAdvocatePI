@@ -148,6 +148,22 @@
                                         <Picker ItemsSource="{Binding AvailableOptions}" SelectedItem="{Binding SelectedOption}" TextColor="White" />
                                     </Border>
 
+                                    <VerticalStackLayout Spacing="6" IsVisible="{Binding IsMultiSelectAnswerType}" BindableLayout.ItemsSource="{Binding MultiSelectOptions}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate x:DataType="viewModels:GarpMMultiSelectOption">
+                                                <Border Padding="10" Stroke="#334155" StrokeThickness="1" BackgroundColor="#020617">
+                                                    <Border.StrokeShape>
+                                                        <RoundRectangle CornerRadius="10" />
+                                                    </Border.StrokeShape>
+                                                    <HorizontalStackLayout Spacing="10">
+                                                        <CheckBox IsChecked="{Binding IsChecked}" Color="#67E8F9" />
+                                                        <Label Text="{Binding Option.Label}" FontSize="14" TextColor="#CBD5E1" VerticalOptions="Center" LineBreakMode="WordWrap" />
+                                                    </HorizontalStackLayout>
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </VerticalStackLayout>
+
                                     <HorizontalStackLayout Spacing="8">
                                         <Border Padding="8,4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#020617">
                                             <Border.StrokeShape>

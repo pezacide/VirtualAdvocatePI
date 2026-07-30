@@ -24,7 +24,7 @@ public static class GarpMQuestionGroups
             WhyThisMatters = "This helps identify whether the evidence describes the current state of the condition clearly enough.",
             DisplayOrder = 20,
             SafetyNote = GarpMSafetyBoundary.Text,
-            Questions = new List<GarpMQuestionTemplate>(),
+            Questions = StabilityTreatmentResponseQuestions.All,
         },
         new()
         {
@@ -34,7 +34,7 @@ public static class GarpMQuestionGroups
             WhyThisMatters = "This helps turn symptoms into practical examples of day-to-day impact without calculating impairment points.",
             DisplayOrder = 30,
             SafetyNote = GarpMSafetyBoundary.Text,
-            Questions = new List<GarpMQuestionTemplate>(),
+            Questions = FunctionalLifestyleWorkImpactQuestions.All,
         },
         new()
         {
@@ -44,7 +44,7 @@ public static class GarpMQuestionGroups
             WhyThisMatters = "This helps organise background history where a condition may already have been accepted, assessed or compensated.",
             DisplayOrder = 40,
             SafetyNote = GarpMSafetyBoundary.Text,
-            Questions = new List<GarpMQuestionTemplate>(),
+            Questions = WorseningPreviousCompensationQuestions.All,
         },
         new()
         {
@@ -54,7 +54,7 @@ public static class GarpMQuestionGroups
             WhyThisMatters = "This helps prepare for conversations with doctors, advocates, lawyers or support people.",
             DisplayOrder = 50,
             SafetyNote = GarpMSafetyBoundary.Text,
-            Questions = new List<GarpMQuestionTemplate>(),
+            Questions = EvidenceAppointmentPrepQuestions.All,
         },
     };
 

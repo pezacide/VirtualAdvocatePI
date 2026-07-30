@@ -1,7 +1,16 @@
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using VirtualAdvocatePI.Mobile.Models.GarpM;
 
 namespace VirtualAdvocatePI.Mobile.ViewModels;
+
+public partial class GarpMMultiSelectOption : ObservableObject
+{
+    public required GarpMQuestionOption Option { get; init; }
+
+    [ObservableProperty]
+    public partial bool IsChecked { get; set; }
+}
 
 public partial class GarpMAnswerItem : ObservableObject
 {
@@ -13,10 +22,14 @@ public partial class GarpMAnswerItem : ObservableObject
         IsTextAnswerType = question.AnswerType == GarpMAnswerTypes.Text;
         IsLongTextAnswerType = question.AnswerType == GarpMAnswerTypes.LongText;
         IsDateAnswerType = question.AnswerType == GarpMAnswerTypes.Date;
+        IsMultiSelectAnswerType = question.AnswerType == GarpMAnswerTypes.MultiSelect;
         IsSelectAnswerType =
             question.AnswerType == GarpMAnswerTypes.SingleSelect ||
             question.AnswerType == GarpMAnswerTypes.YesNo ||
             question.AnswerType == GarpMAnswerTypes.YesNoUnsure;
+
+        MultiSelectOptions = new ObservableCollection<GarpMMultiSelectOption>(
+            AvailableOptions.Select(option => new GarpMMultiSelectOption { Option = option }));
 
         DateValue = DateTime.Today;
     }
@@ -25,11 +38,15 @@ public partial class GarpMAnswerItem : ObservableObject
 
     public IReadOnlyList<GarpMQuestionOption> AvailableOptions { get; }
 
+    public ObservableCollection<GarpMMultiSelectOption> MultiSelectOptions { get; }
+
     public bool IsTextAnswerType { get; }
 
     public bool IsLongTextAnswerType { get; }
 
     public bool IsDateAnswerType { get; }
+
+    public bool IsMultiSelectAnswerType { get; }
 
     public bool IsSelectAnswerType { get; }
 
@@ -58,6 +75,11 @@ public partial class GarpMAnswerItem : ObservableObject
             return !HasDateValue;
         }
 
+        if (IsMultiSelectAnswerType)
+        {
+            return !MultiSelectOptions.Any(option => option.IsChecked);
+        }
+
         if (IsSelectAnswerType)
         {
             return SelectedOption is null;
@@ -73,6 +95,13 @@ public partial class GarpMAnswerItem : ObservableObject
         if (IsDateAnswerType)
         {
             return HasDateValue ? DateOnly.FromDateTime(DateValue).ToString("yyyy-MM-dd") : null;
+        }
+
+        if (IsMultiSelectAnswerType)
+        {
+            var checkedValues = MultiSelectOptions.Where(option => option.IsChecked).Select(option => option.Option.Value);
+            var joined = string.Join("|", checkedValues);
+            return joined.Length > 0 ? joined : null;
         }
 
         if (IsSelectAnswerType)
@@ -96,6 +125,17 @@ public partial class GarpMAnswerItem : ObservableObject
             {
                 HasDateValue = true;
                 DateValue = date.ToDateTime(TimeOnly.MinValue);
+            }
+
+            return;
+        }
+
+        if (IsMultiSelectAnswerType)
+        {
+            var values = value.Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            foreach (var option in MultiSelectOptions)
+            {
+                option.IsChecked = values.Contains(option.Option.Value);
             }
 
             return;
