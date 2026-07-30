@@ -180,6 +180,18 @@
                     HeightRequest="56"
                     HorizontalOptions="Fill" />
 
+                <Button
+                    Text="Structured summary"
+                    Command="{Binding OpenGarpMStructuredSummaryCommand}"
+                    BackgroundColor="#0F172A"
+                    BorderColor="#334155"
+                    BorderWidth="1"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="14"
+                    HeightRequest="56"
+                    HorizontalOptions="Fill" />
+
                 <Border
                     Padding="16"
                     Stroke="#334155"

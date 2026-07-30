@@ -51,6 +51,8 @@ public static class MauiProgram
         builder.Services.AddTransient<ConditionListViewModel>();
         builder.Services.AddTransient<GarpMQuestionEnginePage>();
         builder.Services.AddTransient<GarpMQuestionEngineViewModel>();
+        builder.Services.AddTransient<GarpMStructuredSummaryPage>();
+        builder.Services.AddTransient<GarpMStructuredSummaryViewModel>();
 
         builder.Services.AddSingleton(new HttpClient
         {

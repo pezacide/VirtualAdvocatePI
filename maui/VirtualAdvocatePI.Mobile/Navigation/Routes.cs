@@ -10,4 +10,5 @@ public static class Routes
     public const string ClaimWorkspaceDetail = "ClaimWorkspaceDetailPage";
     public const string ConditionList = "ConditionListPage";
     public const string GarpMQuestionEngine = "GarpMQuestionEnginePage";
+    public const string GarpMStructuredSummary = "GarpMStructuredSummaryPage";
 }

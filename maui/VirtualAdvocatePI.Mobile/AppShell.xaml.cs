@@ -13,5 +13,6 @@ public partial class AppShell : Shell
 		Routing.RegisterRoute(Routes.ClaimWorkspaceDetail, typeof(ClaimWorkspaceDetailPage));
 		Routing.RegisterRoute(Routes.ConditionList, typeof(ConditionListPage));
 		Routing.RegisterRoute(Routes.GarpMQuestionEngine, typeof(GarpMQuestionEnginePage));
+		Routing.RegisterRoute(Routes.GarpMStructuredSummary, typeof(GarpMStructuredSummaryPage));
 	}
 }

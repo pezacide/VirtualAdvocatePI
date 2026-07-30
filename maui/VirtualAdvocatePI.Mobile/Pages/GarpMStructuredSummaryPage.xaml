@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VirtualAdvocatePI.Mobile.Pages.GarpMStructuredSummaryPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:VirtualAdvocatePI.Mobile.ViewModels"
+    xmlns:garpM="clr-namespace:VirtualAdvocatePI.Mobile.Models.GarpM"
+    x:DataType="viewModels:GarpMStructuredSummaryViewModel"
+    Title="Structured summary"
+    BackgroundColor="#020617">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <Label
+                Text="STRUCTURED SUMMARY"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#67E8F9"
+                CharacterSpacing="4" />
+
+            <Label
+                Text="GARP M-aware preparation summary"
+                FontSize="26"
+                FontAttributes="Bold"
+                TextColor="White"
+                LineBreakMode="WordWrap" />
+
+            <Label
+                Text="Review saved answers for a selected condition. This turns user-provided answers into a plain-English preparation summary for discussion with a doctor, advocate, lawyer or support person."
+                FontSize="14"
+                TextColor="#CBD5E1"
+                LineBreakMode="WordWrap" />
+
+            <Border Padding="16" Stroke="#FDE68A" StrokeThickness="1" BackgroundColor="#1F1B0F">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Label Text="{Binding SafetyBoundary}" FontSize="13" TextColor="#FDE68A" LineBreakMode="WordWrap" />
+            </Border>
+
+            <ActivityIndicator IsRunning="{Binding IsLoadingConditions}" IsVisible="{Binding IsLoadingConditions}" Color="#67E8F9" />
+
+            <Border
+                Padding="18"
+                Stroke="#334155"
+                StrokeThickness="1"
+                BackgroundColor="#0F172A"
+                IsVisible="{Binding ShowNoConditionsState}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <Label Text="Add a condition first. The structured summary needs a saved condition and saved question answers." FontSize="14" TextColor="#CBD5E1" LineBreakMode="WordWrap" />
+            </Border>
+
+            <VerticalStackLayout Spacing="20" IsVisible="{Binding HasConditions}">
+
+                <Label Text="Condition" FontSize="14" FontAttributes="Bold" TextColor="White" />
+                <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+                    <Picker
+                        ItemsSource="{Binding Conditions}"
+                        ItemDisplayBinding="{Binding ConditionName}"
+                        SelectedItem="{Binding SelectedCondition}"
+                        TextColor="White" />
+                </Border>
+
+                <ActivityIndicator IsRunning="{Binding IsLoadingResponses}" IsVisible="{Binding IsLoadingResponses}" Color="#67E8F9" />
+
+                <VerticalStackLayout Spacing="20" IsVisible="{Binding IsLoadingResponses, Converter={StaticResource InvertedBoolConverter}}">
+
+                    <Label Text="READINESS SNAPSHOT" FontSize="13" FontAttributes="Bold" TextColor="#67E8F9" CharacterSpacing="4" />
+
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+                        <Border Grid.Row="0" Grid.Column="0" Padding="14" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14" />
+                            </Border.StrokeShape>
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Saved answers" FontSize="12" TextColor="#94A3B8" />
+                                <Label Text="{Binding SavedAnswersCount}" FontSize="22" FontAttributes="Bold" TextColor="White" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Row="0" Grid.Column="1" Padding="14" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14" />
+                            </Border.StrokeShape>
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Total questions" FontSize="12" TextColor="#94A3B8" />
+                                <Label Text="{Binding TotalQuestionsCount}" FontSize="22" FontAttributes="Bold" TextColor="White" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Row="1" Grid.Column="0" Padding="14" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14" />
+                            </Border.StrokeShape>
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Required missing" FontSize="12" TextColor="#94A3B8" />
+                                <Label Text="{Binding MissingRequiredCount}" FontSize="22" FontAttributes="Bold" TextColor="White" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Grid.Row="1" Grid.Column="1" Padding="14" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="14" />
+                            </Border.StrokeShape>
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="Last saved" FontSize="12" TextColor="#94A3B8" />
+                                <Label Text="{Binding LastSavedAtText}" FontSize="14" FontAttributes="Bold" TextColor="White" LineBreakMode="WordWrap" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+
+                    <Border
+                        Padding="16"
+                        Stroke="#FDE68A"
+                        StrokeThickness="1"
+                        BackgroundColor="#1F1B0F"
+                        IsVisible="{Binding HasMissingRequiredQuestions}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="14" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="Missing required answers" FontSize="14" FontAttributes="Bold" TextColor="#FDE68A" />
+                            <CollectionView ItemsSource="{Binding MissingRequiredQuestions}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="garpM:GarpMQuestionTemplate">
+                                        <Label Text="{Binding QuestionText, StringFormat='• {0}'}" FontSize="13" TextColor="#FDE68A" LineBreakMode="WordWrap" Margin="0,2" />
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border
+                        Padding="16"
+                        Stroke="#F87171"
+                        StrokeThickness="1"
+                        BackgroundColor="#1F1315"
+                        IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="14" />
+                        </Border.StrokeShape>
+                        <Label Text="{Binding ErrorMessage}" FontSize="14" TextColor="#FCA5A5" LineBreakMode="WordWrap" />
+                    </Border>
+
+                    <Label Text="SECTION REVIEW" FontSize="13" FontAttributes="Bold" TextColor="#67E8F9" CharacterSpacing="4" />
+
+                    <CollectionView ItemsSource="{Binding Sections}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="14" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="garpM:GarpMSummarySection">
+                                <Border Padding="16" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="16" />
+                                    </Border.StrokeShape>
+                                    <VerticalStackLayout Spacing="10">
+                                        <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="17" TextColor="White" LineBreakMode="WordWrap" />
+                                        <Label Text="{Binding Description}" FontSize="13" TextColor="#94A3B8" LineBreakMode="WordWrap" />
+
+                                        <Border Padding="8,4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#020617" HorizontalOptions="Start">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10" />
+                                            </Border.StrokeShape>
+                                            <Label Text="{Binding AnswerCount, StringFormat='{0} saved answer(s)'}" FontSize="11" TextColor="#94A3B8" />
+                                        </Border>
+
+                                        <Label Text="No saved answers yet for this section." FontSize="13" TextColor="#94A3B8" IsVisible="{Binding HasAnswers, Converter={StaticResource InvertedBoolConverter}}" />
+
+                                        <CollectionView ItemsSource="{Binding Answers}" IsVisible="{Binding HasAnswers}">
+                                            <CollectionView.ItemsLayout>
+                                                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                                            </CollectionView.ItemsLayout>
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate x:DataType="garpM:GarpMSummaryAnswer">
+                                                    <VerticalStackLayout Spacing="2">
+                                                        <Label Text="{Binding Question.SummaryLabel}" FontSize="13" FontAttributes="Bold" TextColor="#A5F3FC" />
+                                                        <Label Text="{Binding AnswerText}" FontSize="13" TextColor="#CBD5E1" LineBreakMode="WordWrap" />
+                                                    </VerticalStackLayout>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+
+                                        <Border Padding="12" Stroke="#FDE68A" StrokeThickness="1" BackgroundColor="#1F1B0F" IsVisible="{Binding HasMissingRequired}">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="12" />
+                                            </Border.StrokeShape>
+                                            <VerticalStackLayout Spacing="6">
+                                                <Label Text="Required answers still missing" FontSize="13" FontAttributes="Bold" TextColor="#FDE68A" />
+                                                <CollectionView ItemsSource="{Binding MissingRequired}">
+                                                    <CollectionView.ItemTemplate>
+                                                        <DataTemplate x:DataType="garpM:GarpMQuestionTemplate">
+                                                            <Label Text="{Binding QuestionText, StringFormat='• {0}'}" FontSize="12" TextColor="#FDE68A" LineBreakMode="WordWrap" Margin="0,2" />
+                                                        </DataTemplate>
+                                                    </CollectionView.ItemTemplate>
+                                                </CollectionView>
+                                            </VerticalStackLayout>
+                                        </Border>
+                                    </VerticalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <Label Text="PLAIN-ENGLISH SUMMARY" FontSize="13" FontAttributes="Bold" TextColor="#67E8F9" CharacterSpacing="4" />
+
+                    <Label Text="Review this text before using it anywhere else. It is based on saved user-provided answers only." FontSize="13" TextColor="#CBD5E1" LineBreakMode="WordWrap" />
+
+                    <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#020617">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+                        <Editor Text="{Binding PlainEnglishSummary}" IsReadOnly="True" AutoSize="TextChanges" MinimumHeightRequest="260" TextColor="#E2E8F0" FontFamily="Courier" FontSize="12" />
+                    </Border>
+
+                    <Button
+                        Text="Copy summary"
+                        Command="{Binding CopySummaryCommand}"
+                        BackgroundColor="#67E8F9"
+                        TextColor="#020617"
+                        FontAttributes="Bold"
+                        CornerRadius="14"
+                        HeightRequest="52" />
+
+                    <Border
+                        Padding="16"
+                        Stroke="#4ADE80"
+                        StrokeThickness="1"
+                        BackgroundColor="#0F1F17"
+                        IsVisible="{Binding CopyStatusMessage, Converter={StaticResource StringToBoolConverter}}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="14" />
+                        </Border.StrokeShape>
+                        <Label Text="{Binding CopyStatusMessage}" FontSize="14" TextColor="#86EFAC" LineBreakMode="WordWrap" />
+                    </Border>
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
