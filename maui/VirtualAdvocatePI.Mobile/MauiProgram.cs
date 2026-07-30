@@ -49,6 +49,8 @@ public static class MauiProgram
         builder.Services.AddTransient<DisclaimerViewModel>();
         builder.Services.AddTransient<ConditionListPage>();
         builder.Services.AddTransient<ConditionListViewModel>();
+        builder.Services.AddTransient<GarpMQuestionEnginePage>();
+        builder.Services.AddTransient<GarpMQuestionEngineViewModel>();
 
         builder.Services.AddSingleton(new HttpClient
         {
@@ -61,6 +63,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<IClaimWorkspaceApiClient, ClaimWorkspaceApiClient>();
         builder.Services.AddSingleton<IDisclaimerApiClient, DisclaimerApiClient>();
         builder.Services.AddSingleton<IConditionApiClient, ConditionApiClient>();
+        builder.Services.AddSingleton<IQuestionResponseApiClient, QuestionResponseApiClient>();
         builder.Services.AddSingleton<IDashboardService, DashboardService>();
         builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
         builder.Services.AddSingleton<IDialogService, DialogService>();

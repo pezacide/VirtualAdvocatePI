@@ -81,4 +81,12 @@ public partial class ClaimWorkspaceDetailViewModel : ObservableObject
             Routes.ConditionList,
             new Dictionary<string, object> { ["workspaceId"] = WorkspaceId });
     }
+
+    [RelayCommand]
+    private Task OpenGarpMQuestionsAsync()
+    {
+        return _navigationService.GoToAsync(
+            Routes.GarpMQuestionEngine,
+            new Dictionary<string, object> { ["workspaceId"] = WorkspaceId });
+    }
 }

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VirtualAdvocatePI.Mobile.Pages.GarpMQuestionEnginePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:VirtualAdvocatePI.Mobile.ViewModels"
+    xmlns:models="clr-namespace:VirtualAdvocatePI.Mobile.Models.Conditions"
+    xmlns:garpM="clr-namespace:VirtualAdvocatePI.Mobile.Models.GarpM"
+    x:DataType="viewModels:GarpMQuestionEngineViewModel"
+    Title="GARP M questions"
+    BackgroundColor="#020617">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <Label
+                Text="GARP M-AWARE QUESTIONS"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#67E8F9"
+                CharacterSpacing="4" />
+
+            <Label
+                Text="Structured question engine"
+                FontSize="26"
+                FontAttributes="Bold"
+                TextColor="White" />
+
+            <Border Padding="16" Stroke="#FDE68A" StrokeThickness="1" BackgroundColor="#1F1B0F">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Label Text="{Binding SafetyBoundary}" FontSize="13" TextColor="#FDE68A" LineBreakMode="WordWrap" />
+            </Border>
+
+            <ActivityIndicator IsRunning="{Binding IsLoadingConditions}" IsVisible="{Binding IsLoadingConditions}" Color="#67E8F9" />
+
+            <Border
+                Padding="18"
+                Stroke="#334155"
+                StrokeThickness="1"
+                BackgroundColor="#0F172A"
+                IsVisible="{Binding ShowNoConditionsState}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <Label Text="Add a condition first. The GARP M-aware question engine saves answers against a specific condition." FontSize="14" TextColor="#CBD5E1" LineBreakMode="WordWrap" />
+            </Border>
+
+            <VerticalStackLayout Spacing="20" IsVisible="{Binding HasConditions}">
+
+                <Label Text="Condition" FontSize="14" FontAttributes="Bold" TextColor="White" />
+                <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+                    <Picker
+                        ItemsSource="{Binding Conditions}"
+                        ItemDisplayBinding="{Binding ConditionName}"
+                        SelectedItem="{Binding SelectedCondition}"
+                        TextColor="White" />
+                </Border>
+
+                <Label Text="Section" FontSize="14" FontAttributes="Bold" TextColor="White" />
+                <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+                    <Picker
+                        ItemsSource="{Binding ActiveGroups}"
+                        ItemDisplayBinding="{Binding Title}"
+                        SelectedItem="{Binding SelectedGroup}"
+                        TextColor="White" />
+                </Border>
+
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                    <Border Grid.Column="0" Padding="12" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Answered" FontSize="11" TextColor="#94A3B8" />
+                            <Label Text="{Binding AnsweredCount}" FontSize="20" FontAttributes="Bold" TextColor="White" />
+                        </VerticalStackLayout>
+                    </Border>
+                    <Border Grid.Column="1" Padding="12" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Saved" FontSize="11" TextColor="#94A3B8" />
+                            <Label Text="{Binding SavedCount}" FontSize="20" FontAttributes="Bold" TextColor="White" />
+                        </VerticalStackLayout>
+                    </Border>
+                    <Border Grid.Column="2" Padding="12" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Required missing" FontSize="11" TextColor="#94A3B8" />
+                            <Label Text="{Binding MissingRequiredCount}" FontSize="20" FontAttributes="Bold" TextColor="White" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+                <ActivityIndicator IsRunning="{Binding IsLoadingResponses}" IsVisible="{Binding IsLoadingResponses}" Color="#67E8F9" />
+
+                <CollectionView ItemsSource="{Binding CurrentAnswers}" IsVisible="{Binding IsLoadingResponses, Converter={StaticResource InvertedBoolConverter}}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="14" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="viewModels:GarpMAnswerItem">
+                            <Border Padding="16" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="16" />
+                                </Border.StrokeShape>
+                                <VerticalStackLayout Spacing="10">
+                                    <Label Text="{Binding Question.QuestionText}" FontAttributes="Bold" FontSize="16" TextColor="White" LineBreakMode="WordWrap" />
+                                    <Label Text="{Binding Question.HelperText}" FontSize="13" TextColor="#94A3B8" LineBreakMode="WordWrap" />
+
+                                    <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#020617" IsVisible="{Binding IsTextAnswerType}">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="12" />
+                                        </Border.StrokeShape>
+                                        <Entry Text="{Binding TextValue}" TextColor="White" />
+                                    </Border>
+
+                                    <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#020617" IsVisible="{Binding IsLongTextAnswerType}">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="12" />
+                                        </Border.StrokeShape>
+                                        <Editor Text="{Binding TextValue}" AutoSize="TextChanges" HeightRequest="90" TextColor="White" />
+                                    </Border>
+
+                                    <VerticalStackLayout Spacing="8" IsVisible="{Binding IsDateAnswerType}">
+                                        <HorizontalStackLayout Spacing="12">
+                                            <Switch IsToggled="{Binding HasDateValue}" OnColor="#67E8F9" />
+                                            <Label Text="Date known" FontSize="13" TextColor="#CBD5E1" VerticalOptions="Center" />
+                                        </HorizontalStackLayout>
+                                        <DatePicker Date="{Binding DateValue}" IsVisible="{Binding HasDateValue}" TextColor="White" Background="#020617" />
+                                    </VerticalStackLayout>
+
+                                    <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#020617" IsVisible="{Binding IsSelectAnswerType}">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="12" />
+                                        </Border.StrokeShape>
+                                        <Picker ItemsSource="{Binding AvailableOptions}" SelectedItem="{Binding SelectedOption}" TextColor="White" />
+                                    </Border>
+
+                                    <HorizontalStackLayout Spacing="8">
+                                        <Border Padding="8,4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#020617">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10" />
+                                            </Border.StrokeShape>
+                                            <Label Text="{Binding Question.RequirementLevel}" FontSize="11" TextColor="#94A3B8" />
+                                        </Border>
+                                        <Border Padding="8,4" Stroke="#22D3EE" StrokeThickness="1" BackgroundColor="#0B3B45" IsVisible="{Binding IsSaved}">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10" />
+                                            </Border.StrokeShape>
+                                            <Label Text="Saved" FontSize="11" TextColor="#A5F3FC" />
+                                        </Border>
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Border
+                    Padding="16"
+                    Stroke="#4ADE80"
+                    StrokeThickness="1"
+                    BackgroundColor="#0F1F17"
+                    IsVisible="{Binding StatusMessage, Converter={StaticResource StringToBoolConverter}}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+                    <Label Text="{Binding StatusMessage}" FontSize="14" TextColor="#86EFAC" />
+                </Border>
+
+                <Border
+                    Padding="16"
+                    Stroke="#F87171"
+                    StrokeThickness="1"
+                    BackgroundColor="#1F1315"
+                    IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+                    <Label Text="{Binding ErrorMessage}" FontSize="14" TextColor="#FCA5A5" LineBreakMode="WordWrap" />
+                </Border>
+
+                <Button
+                    Text="Save this section"
+                    Command="{Binding SaveSectionCommand}"
+                    IsEnabled="{Binding IsSaving, Converter={StaticResource InvertedBoolConverter}}"
+                    BackgroundColor="#67E8F9"
+                    TextColor="#020617"
+                    FontAttributes="Bold"
+                    CornerRadius="14"
+                    HeightRequest="52" />
+
+                <ActivityIndicator IsRunning="{Binding IsSaving}" IsVisible="{Binding IsSaving}" Color="#67E8F9" />
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
