@@ -97,4 +97,28 @@ public partial class ClaimWorkspaceDetailViewModel : ObservableObject
             Routes.GarpMStructuredSummary,
             new Dictionary<string, object> { ["workspaceId"] = WorkspaceId });
     }
+
+    [RelayCommand]
+    private Task OpenEvidenceAsync()
+    {
+        return _navigationService.GoToAsync(
+            Routes.Evidence,
+            new Dictionary<string, object> { ["workspaceId"] = WorkspaceId });
+    }
+
+    [RelayCommand]
+    private Task OpenAiDraftsAsync()
+    {
+        return _navigationService.GoToAsync(
+            Routes.AiDraftReview,
+            new Dictionary<string, object> { ["workspaceId"] = WorkspaceId });
+    }
+
+    [RelayCommand]
+    private Task OpenGeneratedDocumentsAsync()
+    {
+        return _navigationService.GoToAsync(
+            Routes.GeneratedDocuments,
+            new Dictionary<string, object> { ["workspaceId"] = WorkspaceId });
+    }
 }

@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VirtualAdvocatePI.Mobile.Pages.EvidencePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:VirtualAdvocatePI.Mobile.ViewModels"
+    xmlns:models="clr-namespace:VirtualAdvocatePI.Mobile.Models.Evidence"
+    x:Name="Self"
+    x:DataType="viewModels:EvidenceViewModel"
+    Title="Evidence"
+    BackgroundColor="#020617">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <Label
+                Text="EVIDENCE"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#67E8F9"
+                CharacterSpacing="4" />
+
+            <Label
+                Text="Evidence preparation and upload"
+                FontSize="26"
+                FontAttributes="Bold"
+                TextColor="White"
+                LineBreakMode="WordWrap" />
+
+            <Label
+                Text="Work through the preparation checklist, then list or upload the documents you want to track for a selected condition."
+                FontSize="15"
+                TextColor="#CBD5E1"
+                LineBreakMode="WordWrap" />
+
+            <Border Padding="16" Stroke="#FDE68A" StrokeThickness="1" BackgroundColor="#1F1B0F">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Label
+                    Text="This checklist is for preparation only. It does not say what DVA will require, does not guarantee claim success, and does not replace advice from a qualified person."
+                    FontSize="13"
+                    TextColor="#FDE68A"
+                    LineBreakMode="WordWrap" />
+            </Border>
+
+            <!-- Preparation checklist -->
+            <Label
+                Text="PREPARATION CHECKLIST"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#67E8F9"
+                CharacterSpacing="4" />
+
+            <CollectionView ItemsSource="{Binding ChecklistGroups}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="14" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:EvidenceChecklistGroupState">
+                        <Border Padding="16" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="16" />
+                            </Border.StrokeShape>
+                            <VerticalStackLayout Spacing="10">
+                                <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="17" TextColor="White" LineBreakMode="WordWrap" />
+                                <Label Text="{Binding Description}" FontSize="13" TextColor="#94A3B8" LineBreakMode="WordWrap" />
+
+                                <CollectionView ItemsSource="{Binding Items}">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="6" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:EvidenceChecklistItemState">
+                                            <HorizontalStackLayout Spacing="8">
+                                                <CheckBox IsChecked="{Binding IsChecked}" Color="#67E8F9" VerticalOptions="Start" />
+                                                <Label Text="{Binding Label}" FontSize="13" TextColor="#CBD5E1" LineBreakMode="WordWrap" VerticalOptions="Center" />
+                                            </HorizontalStackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <ActivityIndicator IsRunning="{Binding IsLoadingConditions}" IsVisible="{Binding IsLoadingConditions}" Color="#67E8F9" />
+
+            <Border
+                Padding="18"
+                Stroke="#F87171"
+                StrokeThickness="1"
+                BackgroundColor="#1F1315"
+                IsVisible="{Binding HasError}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{Binding ErrorMessage}" FontSize="14" TextColor="#FCA5A5" LineBreakMode="WordWrap" />
+                    <Button
+                        Text="Try again"
+                        Command="{Binding LoadConditionsCommand}"
+                        BackgroundColor="#1E293B"
+                        TextColor="White"
+                        CornerRadius="14"
+                        HeightRequest="48" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Padding="18"
+                Stroke="#334155"
+                StrokeThickness="1"
+                BackgroundColor="#0F172A"
+                IsVisible="{Binding ShowNoConditionsState}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <Label
+                    Text="Add a condition first. Evidence items and evidence gaps are tracked per condition."
+                    FontSize="14"
+                    TextColor="#CBD5E1"
+                    LineBreakMode="WordWrap" />
+            </Border>
+
+            <VerticalStackLayout Spacing="20" IsVisible="{Binding HasConditions}">
+
+                <Label Text="Condition" FontSize="14" FontAttributes="Bold" TextColor="White" />
+                <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+                    <Picker
+                        ItemsSource="{Binding Conditions}"
+                        ItemDisplayBinding="{Binding ConditionName}"
+                        SelectedItem="{Binding SelectedCondition}"
+                        TextColor="White" />
+                </Border>
+
+                <!-- Add / upload evidence -->
+                <Label
+                    Text="ADD OR UPLOAD EVIDENCE"
+                    FontSize="13"
+                    FontAttributes="Bold"
+                    TextColor="#67E8F9"
+                    CharacterSpacing="4" />
+
+                <Label Text="Evidence type" FontSize="14" FontAttributes="Bold" TextColor="White" />
+                <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+                    <Picker
+                        ItemsSource="{Binding EvidenceTypeOptions}"
+                        SelectedItem="{Binding SelectedEvidenceType}"
+                        TextColor="White" />
+                </Border>
+
+                <HorizontalStackLayout Spacing="12">
+                    <Switch IsToggled="{Binding HasKnownDocumentDate}" OnColor="#67E8F9" />
+                    <Label Text="I know the document date" FontSize="14" TextColor="#CBD5E1" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+
+                <DatePicker
+                    Date="{Binding DocumentDate}"
+                    IsVisible="{Binding HasKnownDocumentDate}"
+                    TextColor="White"
+                    Background="#0F172A" />
+
+                <Label Text="Provider or source (optional)" FontSize="14" FontAttributes="Bold" TextColor="White" />
+                <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+                    <Entry
+                        Text="{Binding ProviderName}"
+                        Placeholder="Example: Dr Smith, Repat General Hospital"
+                        TextColor="White"
+                        PlaceholderColor="#64748B" />
+                </Border>
+
+                <Label Text="Notes (optional)" FontSize="14" FontAttributes="Bold" TextColor="White" />
+                <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+                    <Editor Text="{Binding Notes}" AutoSize="TextChanges" HeightRequest="80" TextColor="White" />
+                </Border>
+
+                <Border
+                    Padding="16"
+                    Stroke="#4ADE80"
+                    StrokeThickness="1"
+                    BackgroundColor="#0F1F17"
+                    IsVisible="{Binding FormStatusMessage, Converter={StaticResource StringToBoolConverter}}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+                    <Label Text="{Binding FormStatusMessage}" FontSize="14" TextColor="#86EFAC" LineBreakMode="WordWrap" />
+                </Border>
+
+                <Border
+                    Padding="16"
+                    Stroke="#4ADE80"
+                    StrokeThickness="1"
+                    BackgroundColor="#0F1F17"
+                    IsVisible="{Binding UploadStatusMessage, Converter={StaticResource StringToBoolConverter}}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+                    <Label Text="{Binding UploadStatusMessage}" FontSize="14" TextColor="#86EFAC" LineBreakMode="WordWrap" />
+                </Border>
+
+                <Border
+                    Padding="16"
+                    Stroke="#F87171"
+                    StrokeThickness="1"
+                    BackgroundColor="#1F1315"
+                    IsVisible="{Binding FormErrorMessage, Converter={StaticResource StringToBoolConverter}}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+                    <Label Text="{Binding FormErrorMessage}" FontSize="14" TextColor="#FCA5A5" LineBreakMode="WordWrap" />
+                </Border>
+
+                <Button
+                    Text="Add to evidence list"
+                    Command="{Binding AddEvidenceItemCommand}"
+                    IsEnabled="{Binding IsSubmitting, Converter={StaticResource InvertedBoolConverter}}"
+                    BackgroundColor="#0F172A"
+                    BorderColor="#334155"
+                    BorderWidth="1"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="14"
+                    HeightRequest="52" />
+
+                <Button
+                    Text="Pick a file and upload"
+                    Command="{Binding UploadFileCommand}"
+                    IsEnabled="{Binding IsUploading, Converter={StaticResource InvertedBoolConverter}}"
+                    BackgroundColor="#67E8F9"
+                    TextColor="#020617"
+                    FontAttributes="Bold"
+                    CornerRadius="14"
+                    HeightRequest="52" />
+
+                <Label
+                    Text="Accepted files: PDF, JPG, PNG, DOCX, TXT, RTF. Maximum 25 MB."
+                    FontSize="12"
+                    TextColor="#94A3B8" />
+
+                <ActivityIndicator IsRunning="{Binding IsUploading}" IsVisible="{Binding IsUploading}" Color="#67E8F9" />
+                <ActivityIndicator IsRunning="{Binding IsSubmitting}" IsVisible="{Binding IsSubmitting}" Color="#67E8F9" />
+
+                <!-- Evidence items -->
+                <Label
+                    Text="EVIDENCE FOR THIS CONDITION"
+                    FontSize="13"
+                    FontAttributes="Bold"
+                    TextColor="#67E8F9"
+                    CharacterSpacing="4" />
+
+                <ActivityIndicator IsRunning="{Binding IsLoadingEvidence}" IsVisible="{Binding IsLoadingEvidence}" Color="#67E8F9" />
+
+                <Border
+                    Padding="18"
+                    Stroke="#334155"
+                    StrokeThickness="1"
+                    BackgroundColor="#0F172A"
+                    IsVisible="{Binding ShowEmptyEvidenceState}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="18" />
+                    </Border.StrokeShape>
+                    <Label Text="No evidence items listed for this condition yet. Add one above, or upload a file." FontSize="14" TextColor="#CBD5E1" LineBreakMode="WordWrap" />
+                </Border>
+
+                <CollectionView ItemsSource="{Binding EvidenceItems}" IsVisible="{Binding HasEvidenceItems}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="14" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:EvidenceItem">
+                            <Border Padding="18" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="18" />
+                                </Border.StrokeShape>
+                                <VerticalStackLayout Spacing="8">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Label
+                                            Grid.Column="0"
+                                            Text="{Binding EvidenceTypeLabel}"
+                                            FontAttributes="Bold"
+                                            FontSize="17"
+                                            TextColor="White"
+                                            LineBreakMode="WordWrap" />
+                                        <Border
+                                            Grid.Column="1"
+                                            Padding="10,4"
+                                            Stroke="#22D3EE"
+                                            StrokeThickness="1"
+                                            BackgroundColor="#0B3B45">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10" />
+                                            </Border.StrokeShape>
+                                            <Label Text="{Binding EvidenceStatusLabel}" FontSize="12" TextColor="#A5F3FC" />
+                                        </Border>
+                                    </Grid>
+
+                                    <Label Text="{Binding DisplayFileName}" FontSize="13" TextColor="#CBD5E1" LineBreakMode="WordWrap" />
+
+                                    <Label
+                                        Text="{Binding ProviderAndDateLine}"
+                                        FontSize="12"
+                                        TextColor="#94A3B8"
+                                        IsVisible="{Binding HasProviderOrDate}" />
+
+                                    <Label
+                                        Text="{Binding UserNotes}"
+                                        FontSize="12"
+                                        TextColor="#94A3B8"
+                                        LineBreakMode="WordWrap"
+                                        IsVisible="{Binding HasNotes}" />
+
+                                    <HorizontalStackLayout Spacing="10">
+                                        <Button
+                                            Text="Open file"
+                                            IsVisible="{Binding IsUploaded}"
+                                            Command="{Binding Source={x:Reference Self}, Path=BindingContext.OpenFileCommand}"
+                                            CommandParameter="{Binding .}"
+                                            IsEnabled="{Binding Source={x:Reference Self}, Path=BindingContext.IsBusyWithItem, Converter={StaticResource InvertedBoolConverter}}"
+                                            BackgroundColor="#0B3B45"
+                                            TextColor="#A5F3FC"
+                                            FontSize="13"
+                                            CornerRadius="12"
+                                            HeightRequest="42" />
+                                        <Button
+                                            Text="Remove"
+                                            Command="{Binding Source={x:Reference Self}, Path=BindingContext.RemoveEvidenceItemCommand}"
+                                            CommandParameter="{Binding .}"
+                                            IsEnabled="{Binding Source={x:Reference Self}, Path=BindingContext.IsBusyWithItem, Converter={StaticResource InvertedBoolConverter}}"
+                                            BackgroundColor="#3F1518"
+                                            TextColor="#FCA5A5"
+                                            FontSize="13"
+                                            CornerRadius="12"
+                                            HeightRequest="42" />
+                                    </HorizontalStackLayout>
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Evidence gaps -->
+                <Label
+                    Text="EVIDENCE GAPS"
+                    FontSize="13"
+                    FontAttributes="Bold"
+                    TextColor="#67E8F9"
+                    CharacterSpacing="4" />
+
+                <Label
+                    Text="Plain-English prompts for evidence that may be missing or incomplete. Preparation guidance only."
+                    FontSize="13"
+                    TextColor="#CBD5E1"
+                    LineBreakMode="WordWrap" />
+
+                <ActivityIndicator IsRunning="{Binding IsLoadingGaps}" IsVisible="{Binding IsLoadingGaps}" Color="#67E8F9" />
+
+                <Border
+                    Padding="18"
+                    Stroke="#334155"
+                    StrokeThickness="1"
+                    BackgroundColor="#0F172A"
+                    IsVisible="{Binding HasEvidenceGaps, Converter={StaticResource InvertedBoolConverter}}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="18" />
+                    </Border.StrokeShape>
+                    <Label Text="No evidence gaps recorded for this condition. Tap Recalculate to check again." FontSize="14" TextColor="#CBD5E1" LineBreakMode="WordWrap" />
+                </Border>
+
+                <CollectionView ItemsSource="{Binding EvidenceGaps}" IsVisible="{Binding HasEvidenceGaps}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:EvidenceGap">
+                            <Border Padding="16" Stroke="#FDE68A" StrokeThickness="1" BackgroundColor="#1F1B0F">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="14" />
+                                </Border.StrokeShape>
+                                <VerticalStackLayout Spacing="6">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Label Grid.Column="0" Text="{Binding GapTypeLabel}" FontAttributes="Bold" FontSize="15" TextColor="#FDE68A" LineBreakMode="WordWrap" />
+                                        <Label Grid.Column="1" Text="{Binding SeverityLabel}" FontSize="12" TextColor="#FDE68A" />
+                                    </Grid>
+                                    <Label Text="{Binding PlainEnglishExplanation}" FontSize="13" TextColor="#FDE68A" LineBreakMode="WordWrap" />
+                                    <Label
+                                        Text="{Binding SuggestedNextStep}"
+                                        FontSize="12"
+                                        TextColor="#FCD34D"
+                                        LineBreakMode="WordWrap"
+                                        IsVisible="{Binding HasSuggestedNextStep}" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Button
+                    Text="Recalculate evidence gaps"
+                    Command="{Binding RecalculateGapsCommand}"
+                    IsEnabled="{Binding IsLoadingGaps, Converter={StaticResource InvertedBoolConverter}}"
+                    BackgroundColor="#0F172A"
+                    BorderColor="#334155"
+                    BorderWidth="1"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="14"
+                    HeightRequest="48" />
+
+            </VerticalStackLayout>
+
+            <Border Padding="16" Stroke="#334155" StrokeThickness="1" BackgroundColor="#020617">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Label
+                    Text="Preparation support only. This evidence page does not provide legal advice, medical advice, a DVA decision, a compensation estimate, or a guarantee of claim success."
+                    FontSize="13"
+                    TextColor="#94A3B8"
+                    LineBreakMode="WordWrap" />
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
