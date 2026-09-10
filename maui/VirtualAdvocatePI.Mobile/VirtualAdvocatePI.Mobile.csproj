@@ -28,10 +28,10 @@
 		<MauiXamlInflator>SourceGen</MauiXamlInflator>
 
 		<!-- Display name -->
-		<ApplicationTitle>VirtualAdvocatePI.Mobile</ApplicationTitle>
+		<ApplicationTitle>Virtual Advocate PI</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.virtualadvocatepi.mobile</ApplicationId>
+		<ApplicationId>au.com.virtualadvocatepi.mobile</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -47,12 +47,38 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
+	<!-- Android release / store packaging.
+	     Signing keystore values are supplied at build time (or in a local, unchecked
+	     Directory.Build.props), never committed:
+	       /p:AndroidKeyStore=true /p:AndroidSigningKeyStore=<path>
+	       /p:AndroidSigningStorePass=<pass> /p:AndroidSigningKeyAlias=<alias>
+	       /p:AndroidSigningKeyPass=<pass> -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Release' and $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<AndroidPackageFormat>aab</AndroidPackageFormat>
+		<AndroidLinkMode>SdkOnly</AndroidLinkMode>
+		<DebugSymbols>false</DebugSymbols>
+		<DebugType>none</DebugType>
+		<!-- AOT needs the Android NDK on the build machine; opt in with
+		     /p:EnableMobileAot=true once the NDK is installed. -->
+		<RunAOTCompilation Condition="'$(EnableMobileAot)' == 'true'">true</RunAOTCompilation>
+		<AndroidEnableProfiledAot Condition="'$(EnableMobileAot)' == 'true'">true</AndroidEnableProfiledAot>
+	</PropertyGroup>
+
+	<!-- iOS release / App Store packaging (built on macOS).
+	     Codesign identity and provisioning profile are supplied at build time:
+	       /p:CodesignKey="Apple Distribution: ..." /p:CodesignProvision="<profile name>" -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Release' and $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
+		<RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
+		<MtouchLink>SdkOnly</MtouchLink>
+		<CodesignEntitlements>Platforms/iOS/Entitlements.plist</CodesignEntitlements>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#0B3B45" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#0B3B45" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
