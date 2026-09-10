@@ -110,25 +110,35 @@ Virtual Advocate PI now has a working web/backend foundation with Firebase authe
 
 ### Phase 11 - Android and iOS app MVP
 
-Completed so far:
+Code complete. See docs/phase-11/PHASE_11_CLOSEOUT_STATUS.md.
+
+Done:
 
 - MAUI app shell and shared services.
 - Mobile API environment settings.
 - Firebase Authentication.
 - Authenticated API client and token flow.
+- Dashboard, disclaimer gate and claim workspace screens.
+- Condition intake and GARP M question engine / structured summary screens.
+- Evidence screen: preparation checklist, per-condition evidence items,
+  file pick + signed-URL upload + mark-uploaded, open uploaded files,
+  evidence gaps with recalculate.
+- AI draft review screen: read, edit your version, set review status,
+  archive (no on-device generation).
+- Generated documents screen: generate Claim Starter Pack / Doctor Guidance
+  Pack, download DOCX/PDF via signed URL.
+- Mobile loading, error and empty states (including a conditions-load
+  error + retry fix on the GARP M screens).
+- Android app icon, name and Release packaging config (aab, signing at
+  build time).
+- iOS app icon, name and Release config (written, unverified - needs a Mac).
+- Phase 11 mobile smoke test checklist
+  (docs/phase-11/PHASE_11_MOBILE_SMOKE_TEST_CHECKLIST.md).
 
-Still to complete:
+Pending (tester, needs real hardware / a Mac):
 
-- Build dashboard and claim workspace screens.
-- Build condition intake and question engine screens.
-- Build evidence checklist and upload flow.
-- Build AI draft review and document download screens.
-- Add mobile loading, error and empty states.
-- Add Android app icon, name and basic release config.
-- Add iOS app icon, name and basic release config.
-- Complete Android device testing.
-- Complete iOS device testing.
-- Add Phase 11 mobile smoke test checklist.
+- iOS build on macOS.
+- Full authenticated end-to-end pass on Android and iOS physical devices.
 - Milestone: Phase 11 complete.
 
 ## GARP M 2026 changes stream
@@ -184,9 +194,12 @@ Tasks:
 
 ## Immediate next task
 
-Continue Phase 11:
+Phase 11 code is complete. Remaining Phase 11 work needs real hardware / a Mac:
+run docs/phase-11/PHASE_11_MOBILE_SMOKE_TEST_CHECKLIST.md end to end on a
+physical Android device, build and test on iOS from a Mac, then mark the
+Phase 11 milestone complete.
 
-Build dashboard and claim workspace screens.
+After that, start Phase 12 - GARP M 2026 change integration.
 
 ## Project rules to preserve
 

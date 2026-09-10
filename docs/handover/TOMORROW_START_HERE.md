@@ -1,4 +1,4 @@
-﻿# Tomorrow Start Here
+# Tomorrow Start Here
 
 ## App
 
@@ -6,52 +6,51 @@ Virtual Advocate PI
 
 ## Current phase
 
-Phase 3 - Core backend and database
+Phase 11 - Android and iOS app MVP (code complete)
 
 ## Current status
 
-The backend API has been created and deployed to Cloud Run.
+All Phase 11 mobile screens are built and the Android build (Debug and signed
+Release `.aab`) and the Windows build pass with 0 warnings / 0 errors.
 
-Cloud SQL PostgreSQL has been provisioned.
+Screens: dashboard, disclaimer gate, new workspace, workspace detail, condition
+intake, GARP M question engine, GARP M structured summary, Evidence (checklist +
+per-condition items + file upload + gaps), AI draft review, and Generated
+documents (generate + download).
 
-The initial EF Core migration has been applied successfully.
+App identity is set: name "Virtual Advocate PI", id
+`au.com.virtualadvocatepi.mobile`, brand icon/splash, Android Release packaging.
 
-Firebase token verification has been added.
+The Release APK was installed on the `Pixel_10_Pro_XL` emulator and launches
+cleanly to the Sign in screen (no startup crash).
 
-The /api/v1/me endpoint returns 401 without a Firebase bearer token.
+No backend changes were needed.
 
-The Claim Workspace API has been added.
+## First task
 
-The local /api/v1/claim-workspaces endpoint returns 401 without a Firebase bearer token, which is correct.
-
-## First task tomorrow
-
-Redeploy the updated API to Cloud Run and confirm the deployed Claim Workspace API is protected.
-
-Run:
-
-cd C:\Projects\VirtualAdvocatePI
-
-.\scripts\gcp\deploy-dev-api-cloudbuild.ps1
-
-Then test:
-
-$ServiceUrl = gcloud run services describe vapi-dev-api --region=australia-southeast1 --project=dva-sop-dev --format="value(status.url)"
-
-Invoke-RestMethod "$ServiceUrl/health"
-
-Invoke-WebRequest "$ServiceUrl/api/v1/claim-workspaces"
-
-Expected result for /api/v1/claim-workspaces without token:
-
-401 Unauthorized
+Run `docs/phase-11/PHASE_11_MOBILE_SMOKE_TEST_CHECKLIST.md` end to end on a
+physical Android device, signed in with a real Firebase test account against the
+dev backend. Work through the Evidence, AI drafts and Generated documents
+sections in particular - those flows could not be exercised without credentials
+in the build environment.
 
 ## After that
 
-Mark this ProjectLibre task as complete:
+1. Build and test on iOS from a Mac (`dotnet build -f net10.0-ios`); check the
+   display name, icon and the same checklist. iOS config in
+   `Platforms/iOS/Info.plist` + the csproj Release group is written but
+   unverified.
+2. Sign the Android `.aab` with the real upload keystore (values passed at
+   build time, not committed) and confirm it uploads to Play Console.
+3. Mark the Phase 11 milestone complete in
+   `docs/roadmap/CONSOLIDATED_VIRTUAL_ADVOCATE_PI_ROADMAP.md`.
 
-Build claim workspace API (CRUD)
+## Then
 
-Then start:
+Start Phase 12 - GARP M 2026 change integration.
 
-Build condition intake API
+## Known gaps (tracked, not blockers)
+
+- Firebase ID token has no silent-refresh (~1 hr expiry); a long session ends in
+  the error state and needs re-sign-in.
+- Evidence preparation-checklist tick state is per-device local only.
