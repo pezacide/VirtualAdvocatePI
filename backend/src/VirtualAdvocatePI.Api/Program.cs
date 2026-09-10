@@ -8,6 +8,7 @@ using VirtualAdvocatePI.Api.Features.Users;
 using VirtualAdvocatePI.Api.Features.Evidence;
 using VirtualAdvocatePI.Api.Features.Ai;
 using VirtualAdvocatePI.Api.Features.Documents;
+using VirtualAdvocatePI.Api.Features.Reference;
 using VirtualAdvocatePI.Api.Services;
 using VirtualAdvocatePI.Api.Features.Admin;
 using VirtualAdvocatePI.Api.Features.Mobile;
@@ -146,6 +147,9 @@ app.MapClaimWorkspaceEndpoints();
 app.MapConditionEndpoints();
 app.MapAcceptedConditionHistoryEndpoints();
 app.MapQuestionResponseEndpoints();
+app.MapLoadExposureRecordEndpoints();
+app.MapFunctionalImpactEntryEndpoints();
+app.MapLoadReferenceItemEndpoints();
 
 app.MapEvidenceAndAuditEndpoints();
 
@@ -168,6 +172,7 @@ app.UseMiddleware<AdminAuditLoggingMiddleware>();
 app.MapAdminAccessEndpoints();
 app.MapAdminSourceRegistryEndpoints();
 app.MapAdminSourceRegistrySeedEndpoints();
+app.MapLoadReferenceItemSeedEndpoints();
 app.MapAdminTemplateRegistryEndpoints();
 app.MapAdminPromptDisclaimerVersionEndpoints();
 app.MapAdminKnowledgeAuditEndpoints();
