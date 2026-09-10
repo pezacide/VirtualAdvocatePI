@@ -43,6 +43,24 @@ const workspaceTools: WorkspaceTool[] = [
     badge: "Summary",
   },
   {
+    title: "Load exposure",
+    hrefSuffix: "load-exposure",
+    description: "Record physically demanding service: lifting, carrying, ladders, kneeling, load carriage and hazards.",
+    badge: "Load evidence",
+  },
+  {
+    title: "Good day / bad day",
+    hrefSuffix: "functional-impact",
+    description: "Describe how the condition affects everyday activities on a good day versus a bad day.",
+    badge: "Load evidence",
+  },
+  {
+    title: "Functional & load questions",
+    hrefSuffix: "functional-load-questions",
+    description: "Answer the functional and load evidence question bank for a condition.",
+    badge: "Load evidence",
+  },
+  {
     title: "Evidence metadata",
     hrefSuffix: "evidence-metadata",
     description: "List evidence, document details, providers and dates.",
