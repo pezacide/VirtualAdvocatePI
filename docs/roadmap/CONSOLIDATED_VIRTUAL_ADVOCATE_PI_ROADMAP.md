@@ -213,15 +213,57 @@ Tasks:
 - Add GARP M 2026 smoke test checklist.
 - Milestone: Phase 13 complete.
 
+### Phase 14 - Security, privacy and production hardening
+
+Not started. Authoritative task list is in ProjectLibre.
+
+Tasks:
+
+- Review RBAC enforcement and audit logging.
+- Build data export and deletion workflows.
+- Create backup and disaster recovery process.
+- Add rate limiting, monitoring and error alerts.
+- Add consent tracking and AI disclosure tracking.
+- Draft privacy policy, terms and support process.
+- Prepare penetration test and remediation buffer.
+- Milestone: Phase 14 complete.
+
+### Phase 15 - Private pilot
+
+Not started. Authoritative task list is in ProjectLibre.
+
+Tasks:
+
+- Recruit and onboard private pilot users.
+- Run support and feedback capture process.
+- Test veteran claim-preparation workflow.
+- Review doctor and advocate pack usefulness.
+- Fix priority issues from pilot.
+- Prepare pilot outcome report and go/no-go decision.
+- Milestone: Phase 15 complete.
+
+### Phase 16 - Commercial launch preparation
+
+Not started. Authoritative task list is in ProjectLibre.
+
+Tasks:
+
+- Decide and implement billing/subscription model.
+- Build organisation account model.
+- Set up support inbox and help centre.
+- Create marketing site and onboarding content.
+- Prepare App Store and Play Store materials.
+- Complete launch readiness and production operations.
+- Milestone: Phase 16 complete.
+
 ## Recommended next roadmap order
 
 1. Finish Phase 11 Android and iOS app MVP.
 2. Start Phase 12 Functional and Load Evidence tools.
 3. Start Phase 13 GARP M 2026 change integration.
-4. Start Phase 14 production hardening and release readiness.
-5. Start Phase 15 app store and mobile release preparation.
-6. Start Phase 16 provider/physician portal expansion.
-7. Start Phase 17 capstone/RPL portfolio evidence export.
+4. Start Phase 14 Security, privacy and production hardening.
+5. Start Phase 15 Private pilot.
+6. Start Phase 16 Commercial launch preparation.
 
 ## Immediate next task
 
