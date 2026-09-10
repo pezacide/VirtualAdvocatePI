@@ -161,4 +161,5 @@ Evidence preparation-checklist tick state is per-device local only.
 
 ## Recommended next phase
 
-Phase 12 - GARP M 2026 change integration.
+Phase 12 - Functional and Load Evidence tools (per ProjectLibre).
+Phase 13 is GARP M 2026 change integration.

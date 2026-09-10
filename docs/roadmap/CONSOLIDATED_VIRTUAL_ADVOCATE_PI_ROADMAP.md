@@ -141,6 +141,35 @@ Pending (tester, needs real hardware / a Mac):
 - Full authenticated end-to-end pass on Android and iOS physical devices.
 - Milestone: Phase 11 complete.
 
+### Phase 12 - Functional and Load Evidence tools
+
+Not started. Authoritative task list is in ProjectLibre
+(Veteran_Connect_Post_2026_ProjectLibre.xml.pod). The ProjectLibre phase
+header still reads "Security, privacy and production hardening" - that is a
+stale label; the phase content is the functional and load evidence tools
+below. Production hardening is now Phase 14.
+
+Tasks:
+
+- Register uploaded functional/load evidence templates.
+- Create functional impact question bank.
+- Create Good Day / Bad Day builder.
+- Create load bearing and load factor data model.
+- Create lifting and carrying exposure builder.
+- Create stairs, ladders and rungs exposure builder.
+- Create kneeling and squatting exposure builder.
+- Create neck and shoulder load carriage builder.
+- Create heavy load carrying builder.
+- Create RAN/equipment weight reference library.
+- Create hazard exposure table builder.
+- Add admin templates for functional/load evidence tools.
+- Add prompt and disclaimer versions for functional/load evidence tools.
+- Add Claim Starter Pack DOCX sections.
+- Add Doctor Guidance Pack DOCX sections.
+- Add PDF export support for evidence annexes.
+- Add Functional and Load Evidence smoke test checklist.
+- Milestone: Phase 12 complete.
+
 ## GARP M 2026 changes stream
 
 ### Purpose
@@ -162,35 +191,37 @@ The GARP M 2026 changes stream tracks the July 2026 GARP M update and ensures Vi
 - Add GARP M 2026 audit events for source, template and prompt changes.
 - Add GARP M 2026 smoke test checklist.
 
-### GARP M 2026 proposed implementation phase
+### Phase 13 - GARP M 2026 change integration
 
-Recommended new phase:
-
-Phase 12 - GARP M 2026 change integration
+Not started. Authoritative task list is in ProjectLibre.
 
 Tasks:
 
 - Import and register GARP M 2026 source documents.
 - Complete current-versus-July-2026 GARP M comparison note.
-- Add GARP M version metadata to source registry and templates.
+- Add GARP M version metadata to source registry.
+- Add GARP M version metadata to question templates.
+- Add GARP M version metadata to document templates.
 - Update GARP M question engine content.
 - Update GARP M summary content.
 - Update evidence checklist mappings.
 - Update Claim Starter Pack template wording.
 - Update Doctor Guidance Pack template wording.
-- Add GARP M 2026 prompt/disclaimer versions.
-- Add admin audit review filters for GARP M 2026 events.
+- Add GARP M 2026 prompt versions.
+- Add GARP M 2026 disclaimer versions.
+- Add admin audit filters for GARP M 2026 events.
 - Add GARP M 2026 smoke test checklist.
-- Milestone: GARP M 2026 integration complete.
+- Milestone: Phase 13 complete.
 
 ## Recommended next roadmap order
 
 1. Finish Phase 11 Android and iOS app MVP.
-2. Start Phase 12 GARP M 2026 change integration.
-3. Start Phase 13 production hardening and release readiness.
-4. Start Phase 14 app store and mobile release preparation.
-5. Start Phase 15 provider/physician portal expansion.
-6. Start Phase 16 capstone/RPL portfolio evidence export.
+2. Start Phase 12 Functional and Load Evidence tools.
+3. Start Phase 13 GARP M 2026 change integration.
+4. Start Phase 14 production hardening and release readiness.
+5. Start Phase 15 app store and mobile release preparation.
+6. Start Phase 16 provider/physician portal expansion.
+7. Start Phase 17 capstone/RPL portfolio evidence export.
 
 ## Immediate next task
 
@@ -199,7 +230,7 @@ run docs/phase-11/PHASE_11_MOBILE_SMOKE_TEST_CHECKLIST.md end to end on a
 physical Android device, build and test on iOS from a Mac, then mark the
 Phase 11 milestone complete.
 
-After that, start Phase 12 - GARP M 2026 change integration.
+After that, start Phase 12 - Functional and Load Evidence tools.
 
 ## Project rules to preserve
 

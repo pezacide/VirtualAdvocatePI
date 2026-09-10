@@ -47,7 +47,8 @@ in the build environment.
 
 ## Then
 
-Start Phase 12 - GARP M 2026 change integration.
+Start Phase 12 - Functional and Load Evidence tools (per ProjectLibre).
+Phase 13 is GARP M 2026 change integration.
 
 ## Known gaps (tracked, not blockers)
 
