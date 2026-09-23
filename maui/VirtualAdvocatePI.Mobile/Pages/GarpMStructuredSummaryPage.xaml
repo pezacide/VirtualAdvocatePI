@@ -43,6 +43,27 @@
 
             <Border
                 Padding="18"
+                Stroke="#F87171"
+                StrokeThickness="1"
+                BackgroundColor="#1F1315"
+                IsVisible="{Binding HasError}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{Binding ErrorMessage}" FontSize="14" TextColor="#FCA5A5" LineBreakMode="WordWrap" />
+                    <Button
+                        Text="Try again"
+                        Command="{Binding LoadConditionsCommand}"
+                        BackgroundColor="#1E293B"
+                        TextColor="White"
+                        CornerRadius="14"
+                        HeightRequest="48" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Padding="18"
                 Stroke="#334155"
                 StrokeThickness="1"
                 BackgroundColor="#0F172A"
@@ -136,17 +157,6 @@
                         </VerticalStackLayout>
                     </Border>
 
-                    <Border
-                        Padding="16"
-                        Stroke="#F87171"
-                        StrokeThickness="1"
-                        BackgroundColor="#1F1315"
-                        IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="14" />
-                        </Border.StrokeShape>
-                        <Label Text="{Binding ErrorMessage}" FontSize="14" TextColor="#FCA5A5" LineBreakMode="WordWrap" />
-                    </Border>
 
                     <Label Text="SECTION REVIEW" FontSize="13" FontAttributes="Bold" TextColor="#67E8F9" CharacterSpacing="4" />
 
