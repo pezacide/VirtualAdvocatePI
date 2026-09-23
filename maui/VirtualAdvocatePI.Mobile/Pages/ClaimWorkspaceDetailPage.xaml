@@ -192,22 +192,41 @@
                     HeightRequest="56"
                     HorizontalOptions="Fill" />
 
-                <Border
-                    Padding="16"
-                    Stroke="#334155"
-                    StrokeThickness="1"
-                    BackgroundColor="#020617">
+                <Button
+                    Text="Evidence"
+                    Command="{Binding OpenEvidenceCommand}"
+                    BackgroundColor="#0F172A"
+                    BorderColor="#334155"
+                    BorderWidth="1"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="14"
+                    HeightRequest="56"
+                    HorizontalOptions="Fill" />
 
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="14" />
-                    </Border.StrokeShape>
+                <Button
+                    Text="AI drafts"
+                    Command="{Binding OpenAiDraftsCommand}"
+                    BackgroundColor="#0F172A"
+                    BorderColor="#334155"
+                    BorderWidth="1"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="14"
+                    HeightRequest="56"
+                    HorizontalOptions="Fill" />
 
-                    <Label
-                        Text="Evidence and document tools for this workspace are on the way in the next Phase 11 tasks."
-                        FontSize="13"
-                        TextColor="#CBD5E1"
-                        LineBreakMode="WordWrap" />
-                </Border>
+                <Button
+                    Text="Generated documents"
+                    Command="{Binding OpenGeneratedDocumentsCommand}"
+                    BackgroundColor="#0F172A"
+                    BorderColor="#334155"
+                    BorderWidth="1"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="14"
+                    HeightRequest="56"
+                    HorizontalOptions="Fill" />
 
             </VerticalStackLayout>
 

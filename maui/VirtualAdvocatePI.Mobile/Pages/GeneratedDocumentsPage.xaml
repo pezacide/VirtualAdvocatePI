@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VirtualAdvocatePI.Mobile.Pages.GeneratedDocumentsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:VirtualAdvocatePI.Mobile.ViewModels"
+    xmlns:models="clr-namespace:VirtualAdvocatePI.Mobile.Models.GeneratedDocuments"
+    x:Name="Self"
+    x:DataType="viewModels:GeneratedDocumentsViewModel"
+    Title="Documents"
+    BackgroundColor="#020617">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <Label
+                Text="GENERATED DOCUMENTS"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#67E8F9"
+                CharacterSpacing="4" />
+
+            <Label
+                Text="Generate and download packs"
+                FontSize="26"
+                FontAttributes="Bold"
+                TextColor="White"
+                LineBreakMode="WordWrap" />
+
+            <Label
+                Text="Packs are built from this workspace's conditions, evidence and approved drafts only. Review every generated document before using it."
+                FontSize="15"
+                TextColor="#CBD5E1"
+                LineBreakMode="WordWrap" />
+
+            <Border Padding="16" Stroke="#FDE68A" StrokeThickness="1" BackgroundColor="#1F1B0F">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Label
+                    Text="Preparation support only. Generating a pack does not submit anything to DVA, does not provide legal or medical advice, does not estimate compensation, and does not guarantee a claim outcome."
+                    FontSize="13"
+                    TextColor="#FDE68A"
+                    LineBreakMode="WordWrap" />
+            </Border>
+
+            <!-- Generate actions -->
+            <Button
+                Text="Generate Claim Starter Pack"
+                Command="{Binding GenerateClaimStarterPackCommand}"
+                IsEnabled="{Binding IsGenerating, Converter={StaticResource InvertedBoolConverter}}"
+                BackgroundColor="#67E8F9"
+                TextColor="#020617"
+                FontAttributes="Bold"
+                CornerRadius="14"
+                HeightRequest="52" />
+
+            <Button
+                Text="Generate Doctor Guidance Pack"
+                Command="{Binding GenerateDoctorGuidancePackCommand}"
+                IsEnabled="{Binding IsGenerating, Converter={StaticResource InvertedBoolConverter}}"
+                BackgroundColor="#0F172A"
+                BorderColor="#334155"
+                BorderWidth="1"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="14"
+                HeightRequest="52" />
+
+            <ActivityIndicator IsRunning="{Binding IsGenerating}" IsVisible="{Binding IsGenerating}" Color="#67E8F9" />
+
+            <Border
+                Padding="16"
+                Stroke="#4ADE80"
+                StrokeThickness="1"
+                BackgroundColor="#0F1F17"
+                IsVisible="{Binding GenerateSummary, Converter={StaticResource StringToBoolConverter}}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Label Text="{Binding GenerateSummary}" FontSize="13" TextColor="#86EFAC" LineBreakMode="WordWrap" />
+            </Border>
+
+            <Border
+                Padding="16"
+                Stroke="#F87171"
+                StrokeThickness="1"
+                BackgroundColor="#1F1315"
+                IsVisible="{Binding GenerateError, Converter={StaticResource StringToBoolConverter}}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Label Text="{Binding GenerateError}" FontSize="14" TextColor="#FCA5A5" LineBreakMode="WordWrap" />
+            </Border>
+
+            <!-- Documents list -->
+            <Label
+                Text="DOCUMENTS IN THIS WORKSPACE"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#67E8F9"
+                CharacterSpacing="4" />
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" Color="#67E8F9" />
+
+            <Border
+                Padding="18"
+                Stroke="#F87171"
+                StrokeThickness="1"
+                BackgroundColor="#1F1315"
+                IsVisible="{Binding HasError}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{Binding ErrorMessage}" FontSize="14" TextColor="#FCA5A5" LineBreakMode="WordWrap" />
+                    <Button
+                        Text="Try again"
+                        Command="{Binding LoadDocumentsCommand}"
+                        BackgroundColor="#1E293B"
+                        TextColor="White"
+                        CornerRadius="14"
+                        HeightRequest="48" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Padding="18"
+                Stroke="#334155"
+                StrokeThickness="1"
+                BackgroundColor="#0F172A"
+                IsVisible="{Binding ShowEmptyState}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <Label Text="No documents generated for this workspace yet. Use the buttons above to generate a pack." FontSize="14" TextColor="#CBD5E1" LineBreakMode="WordWrap" />
+            </Border>
+
+            <CollectionView ItemsSource="{Binding Documents}" IsVisible="{Binding HasDocuments}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="14" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:GeneratedDocument">
+                        <Border Padding="18" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="18" />
+                            </Border.StrokeShape>
+                            <VerticalStackLayout Spacing="8">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label Grid.Column="0" Text="{Binding DocumentTypeLabel}" FontAttributes="Bold" FontSize="17" TextColor="White" LineBreakMode="WordWrap" />
+                                    <Border
+                                        Grid.Column="1"
+                                        Padding="10,4"
+                                        Stroke="#22D3EE"
+                                        StrokeThickness="1"
+                                        BackgroundColor="#0B3B45">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="10" />
+                                        </Border.StrokeShape>
+                                        <Label Text="{Binding DocumentStatusLabel}" FontSize="12" TextColor="#A5F3FC" />
+                                    </Border>
+                                </Grid>
+
+                                <Label Text="{Binding GeneratedAtText, StringFormat='Generated: {0}'}" FontSize="12" TextColor="#94A3B8" />
+                                <Label Text="{Binding TemplateVersion, StringFormat='Template version: {0}'}" FontSize="12" TextColor="#94A3B8" />
+
+                                <HorizontalStackLayout Spacing="10">
+                                    <Button
+                                        Text="Download DOCX"
+                                        IsVisible="{Binding HasDocx}"
+                                        Command="{Binding Source={x:Reference Self}, Path=BindingContext.DownloadDocxCommand}"
+                                        CommandParameter="{Binding .}"
+                                        IsEnabled="{Binding Source={x:Reference Self}, Path=BindingContext.IsBusyWithDocument, Converter={StaticResource InvertedBoolConverter}}"
+                                        BackgroundColor="#0B3B45"
+                                        TextColor="#A5F3FC"
+                                        FontSize="13"
+                                        CornerRadius="12"
+                                        HeightRequest="44" />
+                                    <Button
+                                        Text="Download PDF"
+                                        IsVisible="{Binding HasPdf}"
+                                        Command="{Binding Source={x:Reference Self}, Path=BindingContext.DownloadPdfCommand}"
+                                        CommandParameter="{Binding .}"
+                                        IsEnabled="{Binding Source={x:Reference Self}, Path=BindingContext.IsBusyWithDocument, Converter={StaticResource InvertedBoolConverter}}"
+                                        BackgroundColor="#0B3B45"
+                                        TextColor="#A5F3FC"
+                                        FontSize="13"
+                                        CornerRadius="12"
+                                        HeightRequest="44" />
+                                </HorizontalStackLayout>
+
+                                <Label
+                                    Text="PDF is not available for this document yet."
+                                    FontSize="11"
+                                    TextColor="#64748B"
+                                    IsVisible="{Binding HasPdf, Converter={StaticResource InvertedBoolConverter}}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <ActivityIndicator IsRunning="{Binding IsBusyWithDocument}" IsVisible="{Binding IsBusyWithDocument}" Color="#67E8F9" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
