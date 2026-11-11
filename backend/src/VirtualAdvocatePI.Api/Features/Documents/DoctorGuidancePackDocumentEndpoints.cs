@@ -98,6 +98,19 @@ public static class DoctorGuidancePackDocumentEndpoints
                     cancellationToken);
 
             var documentId = Guid.NewGuid();
+            var functionalImpactEntries = await db.FunctionalImpactEntries
+                .Where(x => x.ClaimWorkspaceId == workspaceId && x.Status != "ARCHIVED")
+                .ToListAsync(cancellationToken);
+
+            var loadExposureRecords = await db.LoadExposureRecords
+                .Where(x => x.ClaimWorkspaceId == workspaceId && x.Status != "ARCHIVED")
+                .ToListAsync(cancellationToken);
+
+            var functionalLoadAnnex = FunctionalLoadAnnex.Build(
+                functionalImpactEntries,
+                loadExposureRecords,
+                activeConditions);
+
             var generatedAt = DateTimeOffset.UtcNow;
 
             var existingDocumentCount = await db.GeneratedDocuments
@@ -118,6 +131,7 @@ public static class DoctorGuidancePackDocumentEndpoints
                 evidenceItems,
                 evidenceGaps,
                 approvedDoctorDrafts,
+                functionalLoadAnnex,
                 generatedAt,
                 documentVersion);
 
@@ -129,6 +143,7 @@ public static class DoctorGuidancePackDocumentEndpoints
                 evidenceItems,
                 evidenceGaps,
                 approvedDoctorDrafts,
+                functionalLoadAnnex,
                 generatedAt,
                 documentVersion);
 
@@ -258,6 +273,7 @@ public static class DoctorGuidancePackDocumentEndpoints
         List<EvidenceItem> evidenceItems,
         List<EvidenceGap> evidenceGaps,
         List<AiDraft> approvedDoctorDrafts,
+        List<AnnexBlock> functionalLoadAnnex,
         DateTimeOffset generatedAt,
         string documentVersion)
     {
@@ -382,6 +398,9 @@ public static class DoctorGuidancePackDocumentEndpoints
 
             AddBlankLine(body);
 
+            AddFunctionalLoadAnnex(body, functionalLoadAnnex);
+            AddBlankLine(body);
+
             AddHeading(body, "Doctor guidance review checklist", 20);
             AddBullet(body, "The questions are polite and neutral.");
             AddBullet(body, "The wording does not pressure the doctor.");
@@ -411,6 +430,7 @@ public static class DoctorGuidancePackDocumentEndpoints
         List<EvidenceItem> evidenceItems,
         List<EvidenceGap> evidenceGaps,
         List<AiDraft> approvedDoctorDrafts,
+        List<AnnexBlock> functionalLoadAnnex,
         DateTimeOffset generatedAt,
         string documentVersion)
     {
@@ -480,6 +500,9 @@ public static class DoctorGuidancePackDocumentEndpoints
                     .Split('\n'));
             }
         }
+
+        lines.Add("");
+        lines.AddRange(FunctionalLoadAnnexText(functionalLoadAnnex));
 
         lines.Add("");
         lines.Add("Doctor guidance review checklist");
@@ -647,6 +670,41 @@ public static class DoctorGuidancePackDocumentEndpoints
         }
 
         return builder.ToString();
+    }
+
+    private static void AddFunctionalLoadAnnex(Body body, List<AnnexBlock> blocks)
+    {
+        foreach (var block in blocks)
+        {
+            switch (block.Kind)
+            {
+                case AnnexBlockKind.Heading:
+                    AddHeading(body, block.Text, 20);
+                    break;
+                case AnnexBlockKind.SubHeading:
+                    AddHeading(body, block.Text, 18);
+                    break;
+                case AnnexBlockKind.Bullet:
+                    AddBullet(body, block.Text);
+                    break;
+                default:
+                    AddParagraph(body, block.Text);
+                    break;
+            }
+        }
+    }
+
+    private static IEnumerable<string> FunctionalLoadAnnexText(List<AnnexBlock> blocks)
+    {
+        foreach (var block in blocks)
+        {
+            yield return block.Kind switch
+            {
+                AnnexBlockKind.Bullet => $"- {block.Text}",
+                AnnexBlockKind.Heading or AnnexBlockKind.SubHeading => block.Text,
+                _ => block.Text
+            };
+        }
     }
 
     private static void AddHeading(Body body, string text, int size)
