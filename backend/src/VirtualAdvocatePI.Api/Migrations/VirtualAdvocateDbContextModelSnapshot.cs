@@ -17,7 +17,7 @@ namespace VirtualAdvocatePI.Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.10")
+                .HasAnnotation("ProductVersion", "10.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -908,6 +908,9 @@ namespace VirtualAdvocatePI.Api.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<decimal?>("DaysPerYear")
+                        .HasColumnType("numeric(10,2)");
+
                     b.Property<string>("DurationPerOccasion")
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
@@ -925,8 +928,14 @@ namespace VirtualAdvocatePI.Api.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
+                    b.Property<decimal?>("HoursLifted")
+                        .HasColumnType("numeric(10,2)");
+
                     b.Property<decimal?>("MaxWeightKg")
                         .HasColumnType("numeric(7,2)");
+
+                    b.Property<decimal?>("MinutesPerOccasion")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<string>("Notes")
                         .HasMaxLength(2000)
@@ -941,6 +950,9 @@ namespace VirtualAdvocatePI.Api.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
+                    b.Property<decimal?>("RepetitionsPerDay")
+                        .HasColumnType("numeric(10,2)");
+
                     b.Property<DateOnly?>("ServicePeriodFrom")
                         .HasColumnType("date");
 
@@ -951,6 +963,12 @@ namespace VirtualAdvocatePI.Api.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
+
+                    b.Property<decimal?>("StepsPerOccasion")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<decimal?>("TotalDaysExposed")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<decimal?>("TypicalWeightKg")
                         .HasColumnType("numeric(7,2)");

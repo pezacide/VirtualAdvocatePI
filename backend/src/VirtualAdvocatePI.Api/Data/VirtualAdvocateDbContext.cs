@@ -144,6 +144,12 @@ public sealed class VirtualAdvocateDbContext : DbContext
             entity.Property(x => x.DurationPerOccasion).HasMaxLength(250);
             entity.Property(x => x.RepetitionsDescription).HasMaxLength(500);
             entity.Property(x => x.YearsExposed).HasColumnType("numeric(5,1)");
+            entity.Property(x => x.RepetitionsPerDay).HasColumnType("numeric(10,2)");
+            entity.Property(x => x.DaysPerYear).HasColumnType("numeric(10,2)");
+            entity.Property(x => x.TotalDaysExposed).HasColumnType("numeric(10,2)");
+            entity.Property(x => x.StepsPerOccasion).HasColumnType("numeric(10,2)");
+            entity.Property(x => x.MinutesPerOccasion).HasColumnType("numeric(10,2)");
+            entity.Property(x => x.HoursLifted).HasColumnType("numeric(10,2)");
             entity.Property(x => x.EquipmentOrContext).HasMaxLength(500);
             entity.Property(x => x.HazardType).HasMaxLength(50);
             entity.Property(x => x.Notes).HasMaxLength(2000);
