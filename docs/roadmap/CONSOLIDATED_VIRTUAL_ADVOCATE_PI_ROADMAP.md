@@ -143,12 +143,12 @@ Pending (tester, needs real hardware / a Mac):
 
 ### Phase 12 - Functional and Load Evidence tools
 
-In progress. Backend (12a, commit 742c3ff: functional impact entries, load
-exposure records, load reference items + seed, migration, tests) and web
-capture tools (12b, commit ca98c13: functional impact, load exposure,
-functional/load question and load reference panels) are done. Remaining: admin
-templates, prompt/disclaimer versions, Claim Starter Pack and Doctor Guidance
-Pack DOCX sections, PDF annex export, and the smoke test checklist. Verify
+In progress. Done: backend (12a, 742c3ff), web capture tools (12b, ca98c13),
+Claim Starter Pack and Doctor Guidance Pack annex in DOCX and PDF (cb38ac7),
+admin seed for templates and prompt/disclaimer versions (8347852) and the
+smoke checklist (docs/phase-12/PHASE_12_FUNCTIONAL_LOAD_EVIDENCE_SMOKE_TEST_CHECKLIST.md,
+not yet run). Remaining: run the smoke checklist, an admin seed button, and the
+"uploaded templates" task. Verify
 the task list below against the code before starting. Authoritative task list
 is in ProjectLibre
 (Veteran_Connect_Post_2026_ProjectLibre.xml.pod). The ProjectLibre phase
@@ -274,10 +274,10 @@ Tasks:
 
 ## Immediate next task
 
-Continue Phase 12 - Functional and Load Evidence tools. Phase 12a (backend) and
-12b (web capture tools) are done; finish the remaining items listed under
-Phase 12 (admin templates, prompt/disclaimer versions, DOCX sections, PDF annex
-export, smoke checklist).
+Finish Phase 12 - Functional and Load Evidence tools. Build items are done; run
+docs/phase-12/PHASE_12_FUNCTIONAL_LOAD_EVIDENCE_SMOKE_TEST_CHECKLIST.md against
+the dev backend, then decide on the remaining gaps listed at the end of that
+checklist.
 
 Outstanding Phase 11 items need real hardware / a Mac: run
 docs/phase-11/PHASE_11_MOBILE_SMOKE_TEST_CHECKLIST.md end to end on a physical
