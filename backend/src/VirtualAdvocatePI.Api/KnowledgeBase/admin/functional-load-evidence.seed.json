@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "functional-load-evidence-admin-v1",
+  "purpose": "Starter admin template registry entries and prompt/disclaimer versions for the Functional and Load Evidence tools (Phase 12). All entries are seeded as DRAFT and must be reviewed and approved by an admin before use.",
+  "templates": [
+    {
+      "templateKey": "FLE_QUESTION_BANK",
+      "templateType": "QUESTION",
+      "title": "Functional and load evidence question bank",
+      "description": "Question groups used to describe physically demanding service history and current function. Mirrors web/src/lib/functionalLoadEvidence/questions.ts.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE",
+      "outputFormat": "TEXT",
+      "templateBody": "Groups: PHYSICAL_DEMANDS_HISTORY and related functional impact groups. Answers are stored as question responses with the key prefix 'fle:' and questionGroup FUNCTIONAL_LOAD_EVIDENCE. Preparation support only."
+    },
+    {
+      "templateKey": "FLE_GOOD_DAY_BAD_DAY",
+      "templateType": "QUESTION",
+      "title": "Good day / bad day builder prompts",
+      "description": "Guidance text shown with the Good day / bad day functional impact builder.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE",
+      "outputFormat": "TEXT",
+      "templateBody": "For each activity area, describe what a typical good day looks like and what a bad day looks like, how often bad days occur, and any aids or help used. Use plain, specific examples. Do not estimate impairment or capacity."
+    },
+    {
+      "templateKey": "FLE_LOAD_EXPOSURE_BUILDER",
+      "templateType": "QUESTION",
+      "title": "Load and exposure builder prompts",
+      "description": "Guidance text for lifting/carrying, stairs/ladders/rungs, kneeling/squatting, neck/shoulder carriage, heavy load carrying and hazard exposure records.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE",
+      "outputFormat": "TEXT",
+      "templateBody": "For each activity record what was done, the typical and maximum weight in kilograms, how often, for how long, over what service period, and the equipment or context. Weights from the reference library are approximate and are not a measurement of any individual's service."
+    },
+    {
+      "templateKey": "FLE_EVIDENCE_ANNEX",
+      "templateType": "DOCUMENT",
+      "title": "Functional and load evidence annex",
+      "description": "Annex section included in the Claim Starter Pack and Doctor Guidance Pack (DOCX and PDF).",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE",
+      "outputFormat": "DOCX",
+      "templateBody": "Sections: Good day / bad day functional impact (grouped by condition); Physically demanding service exposure (grouped by record type). Restates veteran-recorded information only."
+    }
+  ],
+  "versions": [
+    {
+      "versionKey": "FLE_DISCLAIMER_V1",
+      "versionType": "DISCLAIMER",
+      "title": "Functional and load evidence disclaimer",
+      "description": "Safety boundary shown with the functional and load evidence tools and annex.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE",
+      "versionLabel": "v1",
+      "appliesTo": "FUNCTIONAL_LOAD_EVIDENCE",
+      "content": "This tool helps organise information about physically demanding service and current function for preparation only. It does not calculate GARP M impairment points, assess work capacity, estimate compensation, provide legal or medical advice, make a DVA decision, or guarantee a claim outcome."
+    },
+    {
+      "versionKey": "FLE_PROMPT_GUARDRAIL_V1",
+      "versionType": "PROMPT",
+      "title": "Functional and load evidence prompt guardrail",
+      "description": "Guardrail text for any AI draft that uses functional impact or load exposure records.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE",
+      "versionLabel": "v1",
+      "appliesTo": "FUNCTIONAL_LOAD_EVIDENCE",
+      "content": "Only restate what the veteran has recorded. Do not infer weights, frequencies or durations that were not recorded. Do not calculate impairment points, assess work capacity, estimate compensation, give legal or medical advice, or imply a claim outcome. Mark approximate reference-library weights as approximate."
+    }
+  ]
+}

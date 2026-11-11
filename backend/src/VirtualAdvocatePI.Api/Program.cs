@@ -173,6 +173,7 @@ app.MapAdminAccessEndpoints();
 app.MapAdminSourceRegistryEndpoints();
 app.MapAdminSourceRegistrySeedEndpoints();
 app.MapLoadReferenceItemSeedEndpoints();
+app.MapFunctionalLoadEvidenceAdminSeedEndpoints();
 app.MapAdminTemplateRegistryEndpoints();
 app.MapAdminPromptDisclaimerVersionEndpoints();
 app.MapAdminKnowledgeAuditEndpoints();

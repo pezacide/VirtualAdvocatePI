@@ -282,6 +282,16 @@ public sealed class FunctionalLoadEvidenceEndpointsTests : IClassFixture<ApiTest
     }
 
     [Fact]
+    public async Task FunctionalLoadEvidenceAdminSeed_ForNonAdmin_ReturnsForbidden()
+    {
+        var client = _factory.CreateAuthenticatedClient();
+
+        var response = await client.PostAsync("/api/v1/admin/functional-load-evidence/seed", content: null);
+
+        Assert.Equal(HttpStatusCode.Forbidden, response.StatusCode);
+    }
+
+    [Fact]
     public async Task LoadReferenceItemsSeed_ForNonAdmin_ReturnsForbidden()
     {
         var client = _factory.CreateAuthenticatedClient();
