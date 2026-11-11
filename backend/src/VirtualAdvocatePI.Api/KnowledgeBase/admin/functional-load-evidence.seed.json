@@ -1,6 +1,6 @@
 {
   "schemaVersion": "functional-load-evidence-admin-v1",
-  "purpose": "Starter admin template registry entries and prompt/disclaimer versions for the Functional and Load Evidence tools (Phase 12). All entries are seeded as DRAFT and must be reviewed and approved by an admin before use.",
+  "purpose": "Starter admin template registry entries and prompt/disclaimer versions for the Functional and Load Evidence tools (Phase 12). All entries are seeded as DRAFT and must be reviewed and approved by an admin before use. Source-template entries (FLE_SRC_*) register the supplied example documents under document-templates/functional-load-evidence/.",
   "templates": [
     {
       "templateKey": "FLE_QUESTION_BANK",
@@ -37,6 +37,132 @@
       "category": "FUNCTIONAL_LOAD_EVIDENCE",
       "outputFormat": "DOCX",
       "templateBody": "Sections: Good day / bad day functional impact (grouped by condition); Physically demanding service exposure (grouped by record type). Restates veteran-recorded information only."
+    },
+    {
+      "templateKey": "FLE_SRC_LOAD_BEARING_CHART",
+      "templateType": "QUESTION",
+      "title": "Claimant report - carrying/lifting loads chart",
+      "description": "Source layout for describing loads carried, with weight band 5-100kg.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
+      "outputFormat": "JSON",
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/DVA Load Bearing Chart TEMPLATE.xlsx\", \"columns\": [\"Location/Period (From/To)\", \"Description of load(s) carried\", \"Weight (5-100kg)\", \"Repetitions of lifting/carrying\", \"Length of time lifting/carrying\", \"Activities carried out\"], \"calculation\": null, \"mapsToRecordType\": \"LIFTING_CARRYING\", \"appSupport\": \"partial\", \"notes\": \"Repetitions and length of time are free text in the source; the app stores frequency, duration and a repetitions description.\"}"
+    },
+    {
+      "templateKey": "FLE_SRC_LIFTING_WEIGHT_RECORD",
+      "templateType": "QUESTION",
+      "title": "Record of lifting and weight bearing",
+      "description": "Cumulative lifting record: weight x lifts per day x days per year x years.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
+      "outputFormat": "JSON",
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/Weight Bearing and load Factors WS.xlsx\", \"columns\": [\"Duty/Position/Dates\", \"Items lifted/Activity\", \"Weight (kg)\", \"Lifts daily\", \"Days lifted per year\", \"Years lifted\", \"Total\"], \"calculation\": \"Total = Weight x Lifts daily x Days lifted per year x Years lifted; column total is the sum of rows.\", \"mapsToRecordType\": \"LIFTING_CARRYING\", \"appSupport\": \"planned\", \"notes\": \"Requires numeric quantity fields on the load exposure record. Also present as Copy of WEIGHTLIFTING - BLANK.xlsx.\"}"
+    },
+    {
+      "templateKey": "FLE_SRC_LOAD_FACTOR_RECORD",
+      "templateType": "QUESTION",
+      "title": "Load factor record (intervertebral disc prolapse)",
+      "description": "Load factor worksheet: weight squared multiplied by hours lifted.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
+      "outputFormat": "JSON",
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/Weight Bearing and load Factors WS.xlsx\", \"columns\": [\"Duty/Position/Dates\", \"Items lifted/Activity\", \"Weight (kg)\", \"Weight squared\", \"Hours lifted\", \"Load factor\"], \"calculation\": \"Weight squared = Weight x Weight; Load factor = Weight squared x Hours lifted; column total is the sum of rows.\", \"mapsToRecordType\": \"LIFTING_CARRYING\", \"appSupport\": \"planned\", \"notes\": \"Arithmetic summary of the veteran's own entries only. Not an impairment calculation.\"}"
+    },
+    {
+      "templateKey": "FLE_SRC_LIFTING_CARRYING_WORKSHEET",
+      "templateType": "QUESTION",
+      "title": "Lifting and carrying worksheet",
+      "description": "Period-based lifting and carrying with total kilograms.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
+      "outputFormat": "JSON",
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/Weights and Load Bearing Spreadsheet.xlsx\", \"columns\": [\"Period\", \"Location\", \"Description\", \"Weight (kg)\", \"Times per day\", \"No of days\", \"Total kg\", \"Carry time each time (minutes)\"], \"calculation\": \"Total kg = Weight x Times per day x No of days.\", \"mapsToRecordType\": \"LIFTING_CARRYING\", \"appSupport\": \"planned\"}"
+    },
+    {
+      "templateKey": "FLE_SRC_CARRYING_HEAVY_LOADS",
+      "templateType": "QUESTION",
+      "title": "Carrying heavy loads worksheet",
+      "description": "Heavy load carrying with ladder steps per task.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
+      "outputFormat": "JSON",
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/Carrying Heavy Loads.xlsx\", \"columns\": [\"Period\", \"Location\", \"Description of load\", \"Item weight\", \"Frequency\", \"No of ladder steps\", \"Total weight\", \"Activity\"], \"calculation\": \"Total weight = Item weight x Frequency x No of ladder steps.\", \"mapsToRecordType\": \"HEAVY_LOAD_CARRYING\", \"appSupport\": \"planned\", \"notes\": \"Also present as WEIGHT CHART.xlsx (monthly frequency, hours over posting).\"}"
+    },
+    {
+      "templateKey": "FLE_SRC_LIFTING_LOADS_TABLE",
+      "templateType": "QUESTION",
+      "title": "Lifting loads table",
+      "description": "Posting-based table of lifting loads with total per posting.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
+      "outputFormat": "JSON",
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/Lifting Loads Table - Example.xlsx\", \"columns\": [\"Posting and role\", \"Dates (from/to)\", \"No of days that involved lifting\", \"Activity being carried out\", \"Description of load lifted\", \"Weight (kg)\", \"No of lifts per day\", \"Total\"], \"calculation\": \"Total = Weight x No of lifts per day x No of days.\", \"mapsToRecordType\": \"LIFTING_CARRYING\", \"appSupport\": \"planned\"}"
+    },
+    {
+      "templateKey": "FLE_SRC_LIFTING_NARRATIVE",
+      "templateType": "QUESTION",
+      "title": "Lifting weights narrative table",
+      "description": "Narrative format: dates, load, weight, frequency, activity and total weight lifted.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
+      "outputFormat": "JSON",
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/Lifting Weights - Navy Cook.xlsx\", \"columns\": [\"Dates\", \"Describe the load being lifted\", \"Weight of the load\", \"Frequency of lifting\", \"Activities carried out when lifting occurred\", \"Total weight lifted (kg)\"], \"calculation\": \"Column total is the sum of rows.\", \"mapsToRecordType\": \"LIFTING_CARRYING\", \"appSupport\": \"partial\", \"notes\": \"Worked example of a completed table.\"}"
+    },
+    {
+      "templateKey": "FLE_SRC_STAIRS_LADDERS",
+      "templateType": "QUESTION",
+      "title": "Stairs or rungs of a ladder worksheet",
+      "description": "Stairs and ladder exposure with total steps.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
+      "outputFormat": "JSON",
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/Ascending-Descending Stirs or Rungs of a Ladder_V2.xlsx\", \"columns\": [\"Period\", \"Location\", \"Frequency\", \"Steps\", \"Times per day\", \"No of days\", \"Total steps\", \"Ascending/Descending\", \"Duties\"], \"calculation\": \"Total steps = Steps x Times per day x No of days.\", \"mapsToRecordType\": \"STAIRS_LADDERS_RUNGS\", \"appSupport\": \"planned\"}"
+    },
+    {
+      "templateKey": "FLE_SRC_KNEELING_SQUATTING",
+      "templateType": "QUESTION",
+      "title": "Kneeling or squatting worksheet",
+      "description": "Kneeling and squatting exposure with total minutes.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
+      "outputFormat": "JSON",
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/Kneeling or Squatting.xlsx\", \"columns\": [\"Period\", \"Location\", \"Frequency\", \"Minutes\", \"Days\", \"Total minutes\", \"Duties\"], \"calculation\": \"Total minutes = Minutes x Days.\", \"mapsToRecordType\": \"KNEELING_SQUATTING\", \"appSupport\": \"planned\"}"
+    },
+    {
+      "templateKey": "FLE_SRC_NECK_SHOULDER_CARRIAGE",
+      "templateType": "QUESTION",
+      "title": "Neck and shoulder load carriage (career duration)",
+      "description": "Operational and non-operational load carriage with total hours.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
+      "outputFormat": "JSON",
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/Template EXCEL - Neck-shoulder load carriage - career duration.xlsx\", \"columns\": [\"Period\", \"Reason or posting details\", \"Activity\", \"Equipment\", \"Specifics\", \"Frequency\", \"Duration\", \"Approximate weight\", \"Total hours\"], \"calculation\": \"Total hours is derived from frequency and duration per row and summed.\", \"mapsToRecordType\": \"NECK_SHOULDER_CARRIAGE\", \"appSupport\": \"partial\", \"notes\": \"Two sheets: operations and non-operations.\"}"
+    },
+    {
+      "templateKey": "FLE_SRC_UPPER_LIMB_REPETITIVE",
+      "templateType": "QUESTION",
+      "title": "Repetitive activities - upper limb, hands, forearms and elbows",
+      "description": "Repetitive upper limb activity with total hours.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
+      "outputFormat": "JSON",
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/Weights and Load Bearing Spreadsheet.xlsx\", \"columns\": [\"Period\", \"Location\", \"Description\", \"Times per day\", \"No of days\", \"Hours per day\", \"Total hours\", \"Duties\"], \"calculation\": \"Total hours = Times per day x No of days x Hours (or part thereof).\", \"mapsToRecordType\": null, \"appSupport\": \"not supported\", \"notes\": \"No matching record type in the app yet.\"}"
+    },
+    {
+      "templateKey": "FLE_SRC_HAZARD_EXPOSURE_TABLE",
+      "templateType": "QUESTION",
+      "title": "Hazard exposure evidence table",
+      "description": "Hazard evidence table by rank, family, category and hazard.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
+      "outputFormat": "JSON",
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/HAZARDS table data 1-1.xlsx\", \"columns\": [\"Rank\", \"Family\", \"Category\", \"Hazard\", \"Evidence of possible exposure\", \"Courses/assessments in which exposure may have occurred\", \"Date range of harmful products use\", \"Breadth of exposure\", \"Ships\"], \"calculation\": null, \"mapsToRecordType\": \"HAZARD_EXPOSURE\", \"appSupport\": \"partial\", \"notes\": \"Also has a references sheet: reference, material or chemical, pages, year, link to hazards.\"}"
+    },
+    {
+      "templateKey": "FLE_SRC_RAN_WEIGHTS_REFERENCE",
+      "templateType": "QUESTION",
+      "title": "Survey of weights and equipment used in the RAN (Feb 2009)",
+      "description": "Open-source reference of typical RAN equipment weights, source for the load reference library.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
+      "outputFormat": "JSON",
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/RAN Weights February 2009.docx\", \"columns\": [\"Topic\", \"Item\", \"Weight\"], \"calculation\": null, \"mapsToRecordType\": \"LOAD_REFERENCE_ITEM\", \"appSupport\": \"partial\", \"notes\": \"Open-source document supplied for general use. The load reference library seed is a starter subset of this document.\"}"
+    },
+    {
+      "templateKey": "FLE_SRC_GOOD_DAY_BAD_DAY",
+      "templateType": "QUESTION",
+      "title": "GARP M functional impact (good / average / bad day) template",
+      "description": "Functional impact by category using bad, average and good day descriptions.",
+      "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
+      "outputFormat": "JSON",
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/Good Day Bad Day Template.pdf\", \"columns\": [\"Self-care and personal hygiene\", \"Mobility and travel\", \"Household and domestic activities\", \"Social and recreational activities\", \"Personal relationships and social functioning\", \"Concentration, task completion and cognitive function\", \"Employability and work capacity\", \"Overall impact and intermittent nature\"], \"calculation\": null, \"mapsToRecordType\": \"FUNCTIONAL_IMPACT_ENTRY\", \"appSupport\": \"partial\", \"notes\": \"Source has three day types (bad, average, good); the app currently stores good and bad day only.\"}"
     }
   ],
   "versions": [
