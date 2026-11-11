@@ -6,7 +6,10 @@ Virtual Advocate PI
 
 ## Current phase
 
-Phase 11 - Android and iOS app MVP (code complete)
+Phase 12 - Functional and Load Evidence tools (12a backend and 12b web capture
+tools done; admin templates, DOCX/PDF export and smoke checklist remain).
+Phase 11 mobile MVP is code complete; device/iOS testing still outstanding.
+See docs/roadmap/CONSOLIDATED_VIRTUAL_ADVOCATE_PI_ROADMAP.md for the current task list.
 
 ## Current status
 

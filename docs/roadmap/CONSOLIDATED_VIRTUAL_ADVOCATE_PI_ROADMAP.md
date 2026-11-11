@@ -143,7 +143,14 @@ Pending (tester, needs real hardware / a Mac):
 
 ### Phase 12 - Functional and Load Evidence tools
 
-Not started. Authoritative task list is in ProjectLibre
+In progress. Backend (12a, commit 742c3ff: functional impact entries, load
+exposure records, load reference items + seed, migration, tests) and web
+capture tools (12b, commit ca98c13: functional impact, load exposure,
+functional/load question and load reference panels) are done. Remaining: admin
+templates, prompt/disclaimer versions, Claim Starter Pack and Doctor Guidance
+Pack DOCX sections, PDF annex export, and the smoke test checklist. Verify
+the task list below against the code before starting. Authoritative task list
+is in ProjectLibre
 (Veteran_Connect_Post_2026_ProjectLibre.xml.pod). The ProjectLibre phase
 header still reads "Security, privacy and production hardening" - that is a
 stale label; the phase content is the functional and load evidence tools
@@ -267,12 +274,15 @@ Tasks:
 
 ## Immediate next task
 
-Phase 11 code is complete. Remaining Phase 11 work needs real hardware / a Mac:
-run docs/phase-11/PHASE_11_MOBILE_SMOKE_TEST_CHECKLIST.md end to end on a
-physical Android device, build and test on iOS from a Mac, then mark the
-Phase 11 milestone complete.
+Continue Phase 12 - Functional and Load Evidence tools. Phase 12a (backend) and
+12b (web capture tools) are done; finish the remaining items listed under
+Phase 12 (admin templates, prompt/disclaimer versions, DOCX sections, PDF annex
+export, smoke checklist).
 
-After that, start Phase 12 - Functional and Load Evidence tools.
+Outstanding Phase 11 items need real hardware / a Mac: run
+docs/phase-11/PHASE_11_MOBILE_SMOKE_TEST_CHECKLIST.md end to end on a physical
+Android device, build and test on iOS from a Mac, then mark the Phase 11
+milestone complete.
 
 ## Project rules to preserve
 
