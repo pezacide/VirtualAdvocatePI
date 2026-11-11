@@ -112,6 +112,8 @@ Route: `/claim-workspaces/{workspaceId}/load-exposure`
 
 [ ] As a non-admin, `POST /api/v1/admin/functional-load-evidence/seed`
     returns 403. (Also covered by an automated test.)
+[ ] `/admin/functional-load-seed` (linked from the admin dashboard) has a
+    button for each seed; as a non-admin it shows an admin-required message.
 [ ] As an admin, the seed returns 200 with 4 templates and 2 versions
     inserted.
 [ ] Running the seed a second time inserts 0 entries.
@@ -136,9 +138,8 @@ Route: `/claim-workspaces/{workspaceId}/load-exposure`
 
 - No mobile screens for these tools.
 - AI draft generation does not yet use functional impact or load records.
-- The admin seed has no UI button yet; it is called as an API endpoint.
-- The roadmap's "register uploaded functional/load evidence templates" task is
-  not yet defined against the ProjectLibre plan.
+- The roadmap's first Phase 12 task, "register uploaded functional/load
+  evidence templates", is not yet defined against the ProjectLibre plan.
 
 ## Result
 

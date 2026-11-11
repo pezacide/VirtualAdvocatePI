@@ -31,6 +31,12 @@ const adminTools = [
     status: "Planned",
   },
   {
+    title: "Functional and load evidence seeds",
+    href: "/admin/functional-load-seed",
+    description: "Load starter templates, disclaimer and prompt versions, and load reference items.",
+    status: "Active",
+  },
+  {
     title: "Knowledge base audit review",
     href: "/admin/knowledge-audit",
     description: "Review source, template and knowledge-base admin activity.",
