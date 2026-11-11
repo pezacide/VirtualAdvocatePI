@@ -92,6 +92,19 @@ public static class ClaimStarterPackDocumentEndpoints
                     cancellationToken);
 
             var documentId = Guid.NewGuid();
+            var functionalImpactEntries = await db.FunctionalImpactEntries
+                .Where(x => x.ClaimWorkspaceId == workspaceId && x.Status != "ARCHIVED")
+                .ToListAsync(cancellationToken);
+
+            var loadExposureRecords = await db.LoadExposureRecords
+                .Where(x => x.ClaimWorkspaceId == workspaceId && x.Status != "ARCHIVED")
+                .ToListAsync(cancellationToken);
+
+            var functionalLoadAnnex = FunctionalLoadAnnex.Build(
+                functionalImpactEntries,
+                loadExposureRecords,
+                activeConditions);
+
             var generatedAt = DateTimeOffset.UtcNow;
 
             
@@ -112,6 +125,7 @@ var docxBytes = BuildClaimStarterPackDocx(
                 evidenceItems,
                 evidenceGaps,
                 approvedAiDrafts,
+                functionalLoadAnnex,
                 generatedAt);
 
             var pdfBytes = BuildClaimStarterPackPdf(
@@ -122,6 +136,7 @@ var docxBytes = BuildClaimStarterPackDocx(
                 evidenceItems,
                 evidenceGaps,
                 approvedAiDrafts,
+                functionalLoadAnnex,
                 generatedAt,
                 documentVersion);
 
@@ -269,6 +284,7 @@ var docxBytes = BuildClaimStarterPackDocx(
         List<EvidenceItem> evidenceItems,
         List<EvidenceGap> evidenceGaps,
         List<AiDraft> approvedAiDrafts,
+        List<AnnexBlock> functionalLoadAnnex,
         DateTimeOffset generatedAt,
         string documentVersion)
     {
@@ -280,6 +296,7 @@ var docxBytes = BuildClaimStarterPackDocx(
             evidenceItems,
             evidenceGaps,
             approvedAiDrafts,
+            functionalLoadAnnex,
             generatedAt,
             documentVersion);
 
@@ -294,6 +311,7 @@ var docxBytes = BuildClaimStarterPackDocx(
         List<EvidenceItem> evidenceItems,
         List<EvidenceGap> evidenceGaps,
         List<AiDraft> approvedAiDrafts,
+        List<AnnexBlock> functionalLoadAnnex,
         DateTimeOffset generatedAt,
         string documentVersion)
     {
@@ -410,6 +428,9 @@ var docxBytes = BuildClaimStarterPackDocx(
                 lines.Add($"- {response.QuestionGroup} / {response.QuestionKey}: {response.AnswerText}");
             }
         }
+
+        lines.Add("");
+        lines.AddRange(FunctionalLoadAnnexText(functionalLoadAnnex));
 
         lines.Add("");
         lines.Add("Review and sign-off");
@@ -579,6 +600,7 @@ var docxBytes = BuildClaimStarterPackDocx(
         List<EvidenceItem> evidenceItems,
         List<EvidenceGap> evidenceGaps,
         List<AiDraft> approvedAiDrafts,
+        List<AnnexBlock> functionalLoadAnnex,
         DateTimeOffset generatedAt)
     {
         using var stream = new MemoryStream();
@@ -721,6 +743,9 @@ var docxBytes = BuildClaimStarterPackDocx(
 
             AddBlankLine(body);
 
+            AddFunctionalLoadAnnex(body, functionalLoadAnnex);
+            AddBlankLine(body);
+
             AddHeading(body, "Review and sign-off", 20);
             AddParagraph(body, "Before using this pack, review each section for accuracy, completeness and your own wording.");
             AddParagraph(body, "Date reviewed: ____________________");
@@ -730,6 +755,41 @@ var docxBytes = BuildClaimStarterPackDocx(
         }
 
         return stream.ToArray();
+    }
+
+    private static void AddFunctionalLoadAnnex(Body body, List<AnnexBlock> blocks)
+    {
+        foreach (var block in blocks)
+        {
+            switch (block.Kind)
+            {
+                case AnnexBlockKind.Heading:
+                    AddHeading(body, block.Text, 20);
+                    break;
+                case AnnexBlockKind.SubHeading:
+                    AddHeading(body, block.Text, 18);
+                    break;
+                case AnnexBlockKind.Bullet:
+                    AddBullet(body, block.Text);
+                    break;
+                default:
+                    AddParagraph(body, block.Text);
+                    break;
+            }
+        }
+    }
+
+    private static IEnumerable<string> FunctionalLoadAnnexText(List<AnnexBlock> blocks)
+    {
+        foreach (var block in blocks)
+        {
+            yield return block.Kind switch
+            {
+                AnnexBlockKind.Bullet => $"- {block.Text}",
+                AnnexBlockKind.Heading or AnnexBlockKind.SubHeading => block.Text,
+                _ => block.Text
+            };
+        }
     }
 
     private static void AddHeading(Body body, string text, int size)

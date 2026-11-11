@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VirtualAdvocatePI.Mobile.Pages.AiDraftReviewPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:VirtualAdvocatePI.Mobile.ViewModels"
+    xmlns:models="clr-namespace:VirtualAdvocatePI.Mobile.Models.AiDrafts"
+    x:DataType="viewModels:AiDraftReviewViewModel"
+    Title="AI drafts"
+    BackgroundColor="#020617">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <Label
+                Text="AI DRAFTS"
+                FontSize="13"
+                FontAttributes="Bold"
+                TextColor="#67E8F9"
+                CharacterSpacing="4" />
+
+            <Label
+                Text="Review and approve AI-assisted drafts"
+                FontSize="26"
+                FontAttributes="Bold"
+                TextColor="White"
+                LineBreakMode="WordWrap" />
+
+            <Label
+                Text="Drafts are generated on the web app. Here you can read them, edit your own version, and set the review status."
+                FontSize="15"
+                TextColor="#CBD5E1"
+                LineBreakMode="WordWrap" />
+
+            <Border Padding="16" Stroke="#FDE68A" StrokeThickness="1" BackgroundColor="#1F1B0F">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Label Text="{x:Static viewModels:AiDraftReviewViewModel.SafetyBoundary}" FontSize="13" TextColor="#FDE68A" LineBreakMode="WordWrap" />
+            </Border>
+
+            <ActivityIndicator IsRunning="{Binding IsLoadingConditions}" IsVisible="{Binding IsLoadingConditions}" Color="#67E8F9" />
+
+            <Border
+                Padding="18"
+                Stroke="#F87171"
+                StrokeThickness="1"
+                BackgroundColor="#1F1315"
+                IsVisible="{Binding HasError}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{Binding ErrorMessage}" FontSize="14" TextColor="#FCA5A5" LineBreakMode="WordWrap" />
+                    <Button
+                        Text="Try again"
+                        Command="{Binding LoadConditionsCommand}"
+                        BackgroundColor="#1E293B"
+                        TextColor="White"
+                        CornerRadius="14"
+                        HeightRequest="48" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Padding="18"
+                Stroke="#334155"
+                StrokeThickness="1"
+                BackgroundColor="#0F172A"
+                IsVisible="{Binding ShowNoConditionsState}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <Label Text="Add a condition first. AI drafts are organised per condition." FontSize="14" TextColor="#CBD5E1" LineBreakMode="WordWrap" />
+            </Border>
+
+            <VerticalStackLayout Spacing="20" IsVisible="{Binding HasConditions}">
+
+                <Label Text="Condition" FontSize="14" FontAttributes="Bold" TextColor="White" />
+                <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+                    <Picker
+                        ItemsSource="{Binding Conditions}"
+                        ItemDisplayBinding="{Binding ConditionName}"
+                        SelectedItem="{Binding SelectedCondition}"
+                        TextColor="White" />
+                </Border>
+
+                <ActivityIndicator IsRunning="{Binding IsLoadingDrafts}" IsVisible="{Binding IsLoadingDrafts}" Color="#67E8F9" />
+
+                <Border
+                    Padding="18"
+                    Stroke="#334155"
+                    StrokeThickness="1"
+                    BackgroundColor="#0F172A"
+                    IsVisible="{Binding ShowEmptyDraftsState}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="18" />
+                    </Border.StrokeShape>
+                    <Label Text="No AI drafts for this condition yet. Generate one on the web app, then review it here." FontSize="14" TextColor="#CBD5E1" LineBreakMode="WordWrap" />
+                </Border>
+
+                <Label
+                    Text="DRAFTS"
+                    FontSize="13"
+                    FontAttributes="Bold"
+                    TextColor="#67E8F9"
+                    CharacterSpacing="4"
+                    IsVisible="{Binding HasDrafts}" />
+
+                <CollectionView
+                    ItemsSource="{Binding Drafts}"
+                    SelectionMode="Single"
+                    SelectedItem="{Binding SelectedDraft}"
+                    IsVisible="{Binding HasDrafts}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:AiDraft">
+                            <Border Padding="16" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="16" />
+                                </Border.StrokeShape>
+                                <VerticalStackLayout Spacing="6">
+                                    <Grid ColumnDefinitions="*,Auto">
+                                        <Label Grid.Column="0" Text="{Binding DraftTypeLabel}" FontAttributes="Bold" FontSize="16" TextColor="White" LineBreakMode="WordWrap" />
+                                        <Border
+                                            Grid.Column="1"
+                                            Padding="10,4"
+                                            Stroke="#22D3EE"
+                                            StrokeThickness="1"
+                                            BackgroundColor="#0B3B45">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10" />
+                                            </Border.StrokeShape>
+                                            <Label Text="{Binding ReviewStatusLabel}" FontSize="12" TextColor="#A5F3FC" />
+                                        </Border>
+                                    </Grid>
+                                    <Label Text="{Binding UpdatedAtText, StringFormat='Updated {0}'}" FontSize="12" TextColor="#94A3B8" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- Selected draft detail -->
+                <VerticalStackLayout Spacing="16" IsVisible="{Binding HasSelectedDraft}">
+
+                    <BoxView HeightRequest="1" Color="#1E293B" />
+
+                    <Label
+                        Text="REVIEW DRAFT"
+                        FontSize="13"
+                        FontAttributes="Bold"
+                        TextColor="#67E8F9"
+                        CharacterSpacing="4" />
+
+                    <Label Text="{Binding SelectedDraft.DraftTypeLabel}" FontSize="20" FontAttributes="Bold" TextColor="White" LineBreakMode="WordWrap" />
+                    <Label Text="{Binding SelectedDraft.ReviewStatusLabel, StringFormat='Status: {0}'}" FontSize="13" TextColor="#A5F3FC" />
+                    <Label Text="{Binding SelectedDraft.PromptVersion, StringFormat='Prompt version: {0}'}" FontSize="12" TextColor="#94A3B8" />
+
+                    <Label Text="Original AI text" FontSize="14" FontAttributes="Bold" TextColor="White" />
+                    <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#020617">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+                        <Editor
+                            Text="{Binding SelectedDraft.DraftText}"
+                            IsReadOnly="True"
+                            AutoSize="TextChanges"
+                            MinimumHeightRequest="160"
+                            TextColor="#E2E8F0"
+                            FontSize="13" />
+                    </Border>
+
+                    <Label Text="Your version" FontSize="14" FontAttributes="Bold" TextColor="White" />
+                    <Label Text="Edit this text so it is accurate and in your own words before approving." FontSize="12" TextColor="#94A3B8" LineBreakMode="WordWrap" />
+                    <Border Padding="4" Stroke="#334155" StrokeThickness="1" BackgroundColor="#0F172A">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+                        <Editor
+                            Text="{Binding EditedText}"
+                            AutoSize="TextChanges"
+                            MinimumHeightRequest="160"
+                            TextColor="White"
+                            FontSize="13" />
+                    </Border>
+
+                    <Label Text="Source references" FontSize="14" FontAttributes="Bold" TextColor="White" />
+                    <Border Padding="12" Stroke="#334155" StrokeThickness="1" BackgroundColor="#020617">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+                        <Label Text="{Binding SelectedDraft.SourceReferencesDisplay}" FontSize="12" TextColor="#94A3B8" LineBreakMode="WordWrap" />
+                    </Border>
+
+                    <Border
+                        Padding="16"
+                        Stroke="#4ADE80"
+                        StrokeThickness="1"
+                        BackgroundColor="#0F1F17"
+                        IsVisible="{Binding StatusMessage, Converter={StaticResource StringToBoolConverter}}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="14" />
+                        </Border.StrokeShape>
+                        <Label Text="{Binding StatusMessage}" FontSize="14" TextColor="#86EFAC" LineBreakMode="WordWrap" />
+                    </Border>
+
+                    <ActivityIndicator IsRunning="{Binding IsSaving}" IsVisible="{Binding IsSaving}" Color="#67E8F9" />
+
+                    <Button
+                        Text="Save edits"
+                        Command="{Binding SaveEditsCommand}"
+                        IsEnabled="{Binding IsSaving, Converter={StaticResource InvertedBoolConverter}}"
+                        BackgroundColor="#0F172A"
+                        BorderColor="#334155"
+                        BorderWidth="1"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="14"
+                        HeightRequest="50" />
+
+                    <Button
+                        Text="Save and mark approved"
+                        Command="{Binding ApproveCommand}"
+                        IsEnabled="{Binding IsSaving, Converter={StaticResource InvertedBoolConverter}}"
+                        BackgroundColor="#67E8F9"
+                        TextColor="#020617"
+                        FontAttributes="Bold"
+                        CornerRadius="14"
+                        HeightRequest="50" />
+
+                    <Button
+                        Text="Send back to needs-review"
+                        Command="{Binding SendBackToReviewCommand}"
+                        IsEnabled="{Binding IsSaving, Converter={StaticResource InvertedBoolConverter}}"
+                        BackgroundColor="#0F172A"
+                        BorderColor="#334155"
+                        BorderWidth="1"
+                        TextColor="White"
+                        CornerRadius="14"
+                        HeightRequest="50" />
+
+                    <Button
+                        Text="Reject draft"
+                        Command="{Binding RejectCommand}"
+                        IsEnabled="{Binding IsSaving, Converter={StaticResource InvertedBoolConverter}}"
+                        BackgroundColor="#3F1518"
+                        TextColor="#FCA5A5"
+                        CornerRadius="14"
+                        HeightRequest="50" />
+
+                    <Button
+                        Text="Archive draft"
+                        Command="{Binding ArchiveDraftCommand}"
+                        IsEnabled="{Binding IsSaving, Converter={StaticResource InvertedBoolConverter}}"
+                        BackgroundColor="#020617"
+                        BorderColor="#3F1518"
+                        BorderWidth="1"
+                        TextColor="#FCA5A5"
+                        FontSize="13"
+                        CornerRadius="12"
+                        HeightRequest="44" />
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+
+            <Border Padding="16" Stroke="#334155" StrokeThickness="1" BackgroundColor="#020617">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14" />
+                </Border.StrokeShape>
+                <Label
+                    Text="Preparation support only. Reviewing a draft here does not submit anything to DVA and does not change any DVA decision."
+                    FontSize="13"
+                    TextColor="#94A3B8"
+                    LineBreakMode="WordWrap" />
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

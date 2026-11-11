@@ -11,4 +11,7 @@ public static class Routes
     public const string ConditionList = "ConditionListPage";
     public const string GarpMQuestionEngine = "GarpMQuestionEnginePage";
     public const string GarpMStructuredSummary = "GarpMStructuredSummaryPage";
+    public const string Evidence = "EvidencePage";
+    public const string AiDraftReview = "AiDraftReviewPage";
+    public const string GeneratedDocuments = "GeneratedDocumentsPage";
 }

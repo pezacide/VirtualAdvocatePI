@@ -53,6 +53,12 @@ public static class MauiProgram
         builder.Services.AddTransient<GarpMQuestionEngineViewModel>();
         builder.Services.AddTransient<GarpMStructuredSummaryPage>();
         builder.Services.AddTransient<GarpMStructuredSummaryViewModel>();
+        builder.Services.AddTransient<EvidencePage>();
+        builder.Services.AddTransient<EvidenceViewModel>();
+        builder.Services.AddTransient<AiDraftReviewPage>();
+        builder.Services.AddTransient<AiDraftReviewViewModel>();
+        builder.Services.AddTransient<GeneratedDocumentsPage>();
+        builder.Services.AddTransient<GeneratedDocumentsViewModel>();
 
         builder.Services.AddSingleton(new HttpClient
         {
@@ -66,6 +72,9 @@ public static class MauiProgram
         builder.Services.AddSingleton<IDisclaimerApiClient, DisclaimerApiClient>();
         builder.Services.AddSingleton<IConditionApiClient, ConditionApiClient>();
         builder.Services.AddSingleton<IQuestionResponseApiClient, QuestionResponseApiClient>();
+        builder.Services.AddSingleton<IEvidenceApiClient, EvidenceApiClient>();
+        builder.Services.AddSingleton<IAiDraftApiClient, AiDraftApiClient>();
+        builder.Services.AddSingleton<IGeneratedDocumentApiClient, GeneratedDocumentApiClient>();
         builder.Services.AddSingleton<IDashboardService, DashboardService>();
         builder.Services.AddSingleton<INavigationService, ShellNavigationService>();
         builder.Services.AddSingleton<IDialogService, DialogService>();

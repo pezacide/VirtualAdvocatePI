@@ -22,6 +22,12 @@ public sealed class VirtualAdvocateDbContext : DbContext
 
     public DbSet<QuestionResponse> QuestionResponses => Set<QuestionResponse>();
 
+    public DbSet<LoadExposureRecord> LoadExposureRecords => Set<LoadExposureRecord>();
+
+    public DbSet<FunctionalImpactEntry> FunctionalImpactEntries => Set<FunctionalImpactEntry>();
+
+    public DbSet<LoadReferenceItem> LoadReferenceItems => Set<LoadReferenceItem>();
+
     public DbSet<EvidenceItem> EvidenceItems => Set<EvidenceItem>();
 
     public DbSet<EvidenceGap> EvidenceGaps => Set<EvidenceGap>();
@@ -115,6 +121,71 @@ public sealed class VirtualAdvocateDbContext : DbContext
             entity.Property(x => x.QuestionKey).HasMaxLength(150).IsRequired();
             entity.Property(x => x.QuestionText).HasMaxLength(1000).IsRequired();
             entity.Property(x => x.AnswerType).HasMaxLength(50).IsRequired();
+            entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
+        });
+
+        modelBuilder.Entity<LoadExposureRecord>(entity =>
+        {
+            entity.ToTable("load_exposure_records");
+
+            entity.HasKey(x => x.Id);
+
+            entity.HasIndex(x => x.ClaimWorkspaceId);
+            entity.HasIndex(x => x.ConditionId);
+            entity.HasIndex(x => x.RecordType);
+            entity.HasIndex(x => x.Status);
+
+            entity.Property(x => x.RecordType).HasMaxLength(50).IsRequired();
+            entity.Property(x => x.ActivityDescription).HasMaxLength(2000).IsRequired();
+            entity.Property(x => x.BodyAreaAffected).HasMaxLength(50).IsRequired();
+            entity.Property(x => x.TypicalWeightKg).HasColumnType("numeric(7,2)");
+            entity.Property(x => x.MaxWeightKg).HasColumnType("numeric(7,2)");
+            entity.Property(x => x.Frequency).HasMaxLength(50).IsRequired();
+            entity.Property(x => x.DurationPerOccasion).HasMaxLength(250);
+            entity.Property(x => x.RepetitionsDescription).HasMaxLength(500);
+            entity.Property(x => x.YearsExposed).HasColumnType("numeric(5,1)");
+            entity.Property(x => x.EquipmentOrContext).HasMaxLength(500);
+            entity.Property(x => x.HazardType).HasMaxLength(50);
+            entity.Property(x => x.Notes).HasMaxLength(2000);
+            entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
+        });
+
+        modelBuilder.Entity<FunctionalImpactEntry>(entity =>
+        {
+            entity.ToTable("functional_impact_entries");
+
+            entity.HasKey(x => x.Id);
+
+            entity.HasIndex(x => x.ClaimWorkspaceId);
+            entity.HasIndex(x => x.ConditionId);
+            entity.HasIndex(x => x.Status);
+
+            entity.Property(x => x.ActivityDomain).HasMaxLength(50).IsRequired();
+            entity.Property(x => x.GoodDayDescription).HasMaxLength(4000);
+            entity.Property(x => x.BadDayDescription).HasMaxLength(4000);
+            entity.Property(x => x.BadDayFrequency).HasMaxLength(50).IsRequired();
+            entity.Property(x => x.AidsOrHelpUsed).HasMaxLength(2000);
+            entity.Property(x => x.Notes).HasMaxLength(2000);
+            entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
+        });
+
+        modelBuilder.Entity<LoadReferenceItem>(entity =>
+        {
+            entity.ToTable("load_reference_items");
+
+            entity.HasKey(x => x.Id);
+
+            entity.HasIndex(x => x.ItemName).IsUnique();
+            entity.HasIndex(x => x.Category);
+            entity.HasIndex(x => x.Status);
+
+            entity.Property(x => x.ItemName).HasMaxLength(250).IsRequired();
+            entity.Property(x => x.Category).HasMaxLength(50).IsRequired();
+            entity.Property(x => x.TypicalWeightKg).HasColumnType("numeric(7,2)");
+            entity.Property(x => x.WeightRangeKg).HasMaxLength(100);
+            entity.Property(x => x.ServiceContext).HasMaxLength(500);
+            entity.Property(x => x.Notes).HasMaxLength(1000);
+            entity.Property(x => x.SourceLabel).HasMaxLength(300).IsRequired();
             entity.Property(x => x.Status).HasMaxLength(50).IsRequired();
         });
 
