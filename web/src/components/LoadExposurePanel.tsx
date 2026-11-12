@@ -43,6 +43,36 @@ function labelFromEnum(value: string) {
     .join(" ");
 }
 
+function formatNumber(value: number) {
+  return value.toLocaleString("en-AU", { maximumFractionDigits: 2 });
+}
+
+type QuantityFieldProps = {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+};
+
+function QuantityField({ id, label, value, onChange }: QuantityFieldProps) {
+  return (
+    <div>
+      <label htmlFor={id} className="text-sm font-medium text-slate-200">
+        {label}
+      </label>
+      <input
+        id={id}
+        type="number"
+        min="0"
+        step="any"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
+      />
+    </div>
+  );
+}
+
 const emptyForm = {
   recordType: "LIFTING_CARRYING" as LoadExposureRecordType,
   conditionId: "",
@@ -56,6 +86,12 @@ const emptyForm = {
   servicePeriodFrom: "",
   servicePeriodTo: "",
   yearsExposed: "",
+  repetitionsPerDay: "",
+  daysPerYear: "",
+  totalDaysExposed: "",
+  stepsPerOccasion: "",
+  minutesPerOccasion: "",
+  hoursLifted: "",
   equipmentOrContext: "",
   hazardType: "OTHER",
   notes: "",
@@ -157,6 +193,12 @@ export function LoadExposurePanel({ workspaceId }: LoadExposurePanelProps) {
         servicePeriodFrom: form.servicePeriodFrom || undefined,
         servicePeriodTo: form.servicePeriodTo || undefined,
         yearsExposed: form.yearsExposed ? Number(form.yearsExposed) : undefined,
+        repetitionsPerDay: form.repetitionsPerDay ? Number(form.repetitionsPerDay) : undefined,
+        daysPerYear: form.daysPerYear ? Number(form.daysPerYear) : undefined,
+        totalDaysExposed: form.totalDaysExposed ? Number(form.totalDaysExposed) : undefined,
+        stepsPerOccasion: form.stepsPerOccasion ? Number(form.stepsPerOccasion) : undefined,
+        minutesPerOccasion: form.minutesPerOccasion ? Number(form.minutesPerOccasion) : undefined,
+        hoursLifted: form.hoursLifted ? Number(form.hoursLifted) : undefined,
         equipmentOrContext: form.equipmentOrContext || undefined,
         hazardType: form.recordType === "HAZARD_EXPOSURE" ? form.hazardType : undefined,
         notes: form.notes || undefined,
@@ -420,6 +462,61 @@ export function LoadExposurePanel({ workspaceId }: LoadExposurePanelProps) {
               />
             </div>
 
+            {form.recordType !== "HAZARD_EXPOSURE" && (
+              <div className="space-y-4 rounded-xl border border-white/10 bg-white/5 p-4 md:col-span-2">
+                <p className="text-sm text-slate-300">
+                  Optional figures used to work out totals. A total is only shown when every
+                  figure it needs has been entered. Totals are arithmetic on your own entries,
+                  not an impairment calculation or a compensation estimate.
+                </p>
+                <div className="grid gap-4 md:grid-cols-2">
+                  {form.recordType === "STAIRS_LADDERS_RUNGS" && (
+                    <QuantityField
+                      id="stepsPerOccasion"
+                      label="Steps or rungs each time"
+                      value={form.stepsPerOccasion}
+                      onChange={(value) => updateForm("stepsPerOccasion", value)}
+                    />
+                  )}
+                  {form.recordType === "KNEELING_SQUATTING" && (
+                    <QuantityField
+                      id="minutesPerOccasion"
+                      label="Minutes kneeling or squatting each time"
+                      value={form.minutesPerOccasion}
+                      onChange={(value) => updateForm("minutesPerOccasion", value)}
+                    />
+                  )}
+                  <QuantityField
+                    id="repetitionsPerDay"
+                    label="Times per day"
+                    value={form.repetitionsPerDay}
+                    onChange={(value) => updateForm("repetitionsPerDay", value)}
+                  />
+                  <QuantityField
+                    id="daysPerYear"
+                    label="Days per year (used with years exposed)"
+                    value={form.daysPerYear}
+                    onChange={(value) => updateForm("daysPerYear", value)}
+                  />
+                  <QuantityField
+                    id="totalDaysExposed"
+                    label="Or total days (overrides days per year x years)"
+                    value={form.totalDaysExposed}
+                    onChange={(value) => updateForm("totalDaysExposed", value)}
+                  />
+                  {(form.recordType === "LIFTING_CARRYING" ||
+                    form.recordType === "HEAVY_LOAD_CARRYING") && (
+                    <QuantityField
+                      id="hoursLifted"
+                      label="Total hours lifted (for load factor)"
+                      value={form.hoursLifted}
+                      onChange={(value) => updateForm("hoursLifted", value)}
+                    />
+                  )}
+                </div>
+              </div>
+            )}
+
             <div>
               <label htmlFor="servicePeriodFrom" className="text-sm font-medium text-slate-200">
                 Service period from
@@ -556,6 +653,26 @@ export function LoadExposurePanel({ workspaceId }: LoadExposurePanelProps) {
                     {record.durationPerOccasion && <p>Duration: {record.durationPerOccasion}</p>}
                     {(record.yearsExposed ?? null) !== null && (
                       <p>Years exposed: {record.yearsExposed}</p>
+                    )}
+                    {record.totals?.totalWeightKg != null && (
+                      <p className="font-semibold text-cyan-200">
+                        Calculated total weight: {formatNumber(record.totals.totalWeightKg)} kg
+                      </p>
+                    )}
+                    {record.totals?.totalSteps != null && (
+                      <p className="font-semibold text-cyan-200">
+                        Calculated total steps: {formatNumber(record.totals.totalSteps)}
+                      </p>
+                    )}
+                    {record.totals?.totalMinutes != null && (
+                      <p className="font-semibold text-cyan-200">
+                        Calculated total minutes: {formatNumber(record.totals.totalMinutes)}
+                      </p>
+                    )}
+                    {record.totals?.loadFactor != null && (
+                      <p className="font-semibold text-cyan-200">
+                        Load factor (weight squared x hours): {formatNumber(record.totals.loadFactor)}
+                      </p>
                     )}
                     {record.equipmentOrContext && <p>Context: {record.equipmentOrContext}</p>}
                     {condition && <p>Condition: {condition.conditionName}</p>}
