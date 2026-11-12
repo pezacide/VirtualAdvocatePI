@@ -169,6 +169,7 @@ public sealed class VirtualAdvocateDbContext : DbContext
             entity.Property(x => x.ActivityDomain).HasMaxLength(50).IsRequired();
             entity.Property(x => x.GoodDayDescription).HasMaxLength(4000);
             entity.Property(x => x.BadDayDescription).HasMaxLength(4000);
+            entity.Property(x => x.AverageDayDescription).HasMaxLength(4000);
             entity.Property(x => x.BadDayFrequency).HasMaxLength(50).IsRequired();
             entity.Property(x => x.AidsOrHelpUsed).HasMaxLength(2000);
             entity.Property(x => x.Notes).HasMaxLength(2000);

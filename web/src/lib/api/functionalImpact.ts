@@ -17,6 +17,8 @@ export const functionalImpactActivityDomains = [
   "SOCIAL",
   "DRIVING",
   "RECREATION",
+  "RELATIONSHIPS",
+  "CONCENTRATION_COGNITION",
   "OTHER",
 ] as const;
 
@@ -37,6 +39,7 @@ export type FunctionalImpactEntry = {
   activityDomain: string;
   goodDayDescription?: string | null;
   badDayDescription?: string | null;
+  averageDayDescription?: string | null;
   badDayFrequency: string;
   aidsOrHelpUsed?: string | null;
   notes?: string | null;
@@ -49,6 +52,7 @@ export type CreateFunctionalImpactEntryInput = {
   activityDomain: string;
   goodDayDescription?: string;
   badDayDescription?: string;
+  averageDayDescription?: string;
   badDayFrequency?: string;
   aidsOrHelpUsed?: string;
   notes?: string;

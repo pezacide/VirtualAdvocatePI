@@ -57,6 +57,7 @@ public static class FunctionalLoadAnnex
                 {
                     blocks.Add(new(AnnexBlockKind.Bullet, $"{Label(entry.ActivityDomain)}"));
                     AddIfPresent(blocks, "Good day", entry.GoodDayDescription);
+                    AddIfPresent(blocks, "Average day", entry.AverageDayDescription);
                     AddIfPresent(blocks, "Bad day", entry.BadDayDescription);
                     blocks.Add(new(AnnexBlockKind.Paragraph, $"    How often bad days occur: {Label(entry.BadDayFrequency)}"));
                     AddIfPresent(blocks, "Aids or help used", entry.AidsOrHelpUsed);

@@ -162,7 +162,7 @@
       "description": "Functional impact by category using bad, average and good day descriptions.",
       "category": "FUNCTIONAL_LOAD_EVIDENCE_SOURCE",
       "outputFormat": "JSON",
-      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/Good Day Bad Day Template.pdf\", \"columns\": [\"Self-care and personal hygiene\", \"Mobility and travel\", \"Household and domestic activities\", \"Social and recreational activities\", \"Personal relationships and social functioning\", \"Concentration, task completion and cognitive function\", \"Employability and work capacity\", \"Overall impact and intermittent nature\"], \"calculation\": null, \"mapsToRecordType\": \"FUNCTIONAL_IMPACT_ENTRY\", \"appSupport\": \"partial\", \"notes\": \"Source has three day types (bad, average, good); the app currently stores good and bad day only.\"}"
+      "templateBody": "{\"sourceFile\": \"document-templates/functional-load-evidence/Good Day Bad Day Template.pdf\", \"columns\": [\"Self-care and personal hygiene\", \"Mobility and travel\", \"Household and domestic activities\", \"Social and recreational activities\", \"Personal relationships and social functioning\", \"Concentration, task completion and cognitive function\", \"Employability and work capacity\", \"Overall impact and intermittent nature\"], \"calculation\": null, \"mapsToRecordType\": \"FUNCTIONAL_IMPACT_ENTRY\", \"appSupport\": \"partial\", \"notes\": \"Source has three day types (bad, average, good); the app stores all three. Relationships and concentration/cognition are separate activity domains.\"}"
     }
   ],
   "versions": [

@@ -20,6 +20,8 @@ public sealed class FunctionalImpactEntry
 
     public string? BadDayDescription { get; set; }
 
+    public string? AverageDayDescription { get; set; }
+
     public string BadDayFrequency { get; set; } = "UNSURE";
 
     public string? AidsOrHelpUsed { get; set; }
