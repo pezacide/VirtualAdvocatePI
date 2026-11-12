@@ -24,6 +24,7 @@ public sealed class FunctionalLoadAnnexTests
             ConditionId = condition.Id,
             ActivityDomain = "SELF_CARE",
             GoodDayDescription = "Dress unaided",
+            AverageDayDescription = "Dress slowly with rests",
             BadDayDescription = "Need help with socks",
             BadDayFrequency = "WEEKLY"
         };
@@ -39,6 +40,7 @@ public sealed class FunctionalLoadAnnexTests
 
         Assert.Contains("Lumbar spondylosis", text);
         Assert.Contains("Good day: Dress unaided", text);
+        Assert.Contains("Average day: Dress slowly with rests", text);
         Assert.Contains("Bad day: Need help with socks", text);
         Assert.Contains("Lifting carrying", text);
         Assert.Contains("25.5 kg", text);

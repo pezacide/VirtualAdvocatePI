@@ -31,6 +31,7 @@ const emptyForm = {
   activityDomain: "SELF_CARE",
   goodDayDescription: "",
   badDayDescription: "",
+  averageDayDescription: "",
   badDayFrequency: "WEEKLY",
   aidsOrHelpUsed: "",
   notes: "",
@@ -144,8 +145,12 @@ export function FunctionalImpactPanel({ workspaceId }: FunctionalImpactPanelProp
       return;
     }
 
-    if (!form.goodDayDescription.trim() && !form.badDayDescription.trim()) {
-      setErrorMessage("Describe a good day, a bad day, or both.");
+    if (
+      !form.goodDayDescription.trim() &&
+      !form.averageDayDescription.trim() &&
+      !form.badDayDescription.trim()
+    ) {
+      setErrorMessage("Describe a good day, an average day, a bad day, or any combination.");
       return;
     }
 
@@ -162,6 +167,7 @@ export function FunctionalImpactPanel({ workspaceId }: FunctionalImpactPanelProp
         activityDomain: form.activityDomain,
         goodDayDescription: form.goodDayDescription || undefined,
         badDayDescription: form.badDayDescription || undefined,
+        averageDayDescription: form.averageDayDescription || undefined,
         badDayFrequency: form.badDayFrequency,
         aidsOrHelpUsed: form.aidsOrHelpUsed || undefined,
         notes: form.notes || undefined,
@@ -348,6 +354,20 @@ export function FunctionalImpactPanel({ workspaceId }: FunctionalImpactPanelProp
           </div>
 
           <div>
+            <label htmlFor="averageDayDescription" className="text-sm font-medium text-slate-200">
+              On an average day
+            </label>
+            <textarea
+              id="averageDayDescription"
+              value={form.averageDayDescription}
+              onChange={(event) => updateForm("averageDayDescription", event.target.value)}
+              rows={3}
+              placeholder="What a typical day looks like, what you manage and what you have to pace or skip."
+              className="mt-2 w-full rounded-xl border border-white/10 bg-slate-900 px-4 py-3 text-white outline-none focus:border-cyan-300"
+            />
+          </div>
+
+          <div>
             <label htmlFor="badDayDescription" className="text-sm font-medium text-slate-200">
               On a bad day
             </label>
@@ -446,6 +466,13 @@ export function FunctionalImpactPanel({ workspaceId }: FunctionalImpactPanelProp
                   <p className="mt-3 text-sm leading-6 text-slate-300">
                     <span className="font-semibold text-slate-200">Good day: </span>
                     {entry.goodDayDescription}
+                  </p>
+                )}
+
+                {entry.averageDayDescription && (
+                  <p className="mt-2 text-sm leading-6 text-slate-300">
+                    <span className="font-semibold text-slate-200">Average day: </span>
+                    {entry.averageDayDescription}
                   </p>
                 )}
 

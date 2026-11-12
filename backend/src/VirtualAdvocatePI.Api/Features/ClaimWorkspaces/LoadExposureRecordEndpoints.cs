@@ -103,6 +103,12 @@ public static class LoadExposureRecordEndpoints
                 ServicePeriodFrom = input.ServicePeriodFrom,
                 ServicePeriodTo = input.ServicePeriodTo,
                 YearsExposed = SanitiseYears(input.YearsExposed),
+                RepetitionsPerDay = SanitiseQuantity(input.RepetitionsPerDay),
+                DaysPerYear = SanitiseQuantity(input.DaysPerYear),
+                TotalDaysExposed = SanitiseQuantity(input.TotalDaysExposed),
+                StepsPerOccasion = SanitiseQuantity(input.StepsPerOccasion),
+                MinutesPerOccasion = SanitiseQuantity(input.MinutesPerOccasion),
+                HoursLifted = SanitiseQuantity(input.HoursLifted),
                 EquipmentOrContext = Trimmed(input.EquipmentOrContext),
                 HazardType = recordType == "HAZARD_EXPOSURE" ? NormaliseHazardType(input.HazardType) : null,
                 Notes = Trimmed(input.Notes),
@@ -204,6 +210,12 @@ public static class LoadExposureRecordEndpoints
             record.TypicalWeightKg = input.TypicalWeightKg.HasValue ? SanitiseWeight(input.TypicalWeightKg) : record.TypicalWeightKg;
             record.MaxWeightKg = input.MaxWeightKg.HasValue ? SanitiseWeight(input.MaxWeightKg) : record.MaxWeightKg;
             record.YearsExposed = input.YearsExposed.HasValue ? SanitiseYears(input.YearsExposed) : record.YearsExposed;
+            record.RepetitionsPerDay = input.RepetitionsPerDay.HasValue ? SanitiseQuantity(input.RepetitionsPerDay) : record.RepetitionsPerDay;
+            record.DaysPerYear = input.DaysPerYear.HasValue ? SanitiseQuantity(input.DaysPerYear) : record.DaysPerYear;
+            record.TotalDaysExposed = input.TotalDaysExposed.HasValue ? SanitiseQuantity(input.TotalDaysExposed) : record.TotalDaysExposed;
+            record.StepsPerOccasion = input.StepsPerOccasion.HasValue ? SanitiseQuantity(input.StepsPerOccasion) : record.StepsPerOccasion;
+            record.MinutesPerOccasion = input.MinutesPerOccasion.HasValue ? SanitiseQuantity(input.MinutesPerOccasion) : record.MinutesPerOccasion;
+            record.HoursLifted = input.HoursLifted.HasValue ? SanitiseQuantity(input.HoursLifted) : record.HoursLifted;
             record.DurationPerOccasion = input.DurationPerOccasion is null ? record.DurationPerOccasion : Trimmed(input.DurationPerOccasion);
             record.RepetitionsDescription = input.RepetitionsDescription is null ? record.RepetitionsDescription : Trimmed(input.RepetitionsDescription);
             record.ServicePeriodFrom = input.ServicePeriodFrom ?? record.ServicePeriodFrom;
@@ -276,6 +288,8 @@ public static class LoadExposureRecordEndpoints
 
     internal static object ToResponse(LoadExposureRecord record)
     {
+        var totals = LoadExposureCalculator.Calculate(record);
+
         return new
         {
             id = record.Id,
@@ -292,6 +306,20 @@ public static class LoadExposureRecordEndpoints
             servicePeriodFrom = record.ServicePeriodFrom,
             servicePeriodTo = record.ServicePeriodTo,
             yearsExposed = record.YearsExposed,
+            repetitionsPerDay = record.RepetitionsPerDay,
+            daysPerYear = record.DaysPerYear,
+            totalDaysExposed = record.TotalDaysExposed,
+            stepsPerOccasion = record.StepsPerOccasion,
+            minutesPerOccasion = record.MinutesPerOccasion,
+            hoursLifted = record.HoursLifted,
+            totals = new
+            {
+                effectiveDays = totals.EffectiveDays,
+                totalWeightKg = totals.TotalWeightKg,
+                totalSteps = totals.TotalSteps,
+                totalMinutes = totals.TotalMinutes,
+                loadFactor = totals.LoadFactor
+            },
             equipmentOrContext = record.EquipmentOrContext,
             hazardType = record.HazardType,
             notes = record.Notes,
@@ -311,6 +339,16 @@ public static class LoadExposureRecordEndpoints
         }
 
         return weight < 0 ? 0 : Math.Round(weight, 2);
+    }
+
+    private static decimal? SanitiseQuantity(decimal? value)
+    {
+        if (value is not { } quantity)
+        {
+            return null;
+        }
+
+        return quantity < 0 ? 0 : Math.Round(quantity, 2);
     }
 
     private static decimal? SanitiseYears(decimal? value)
@@ -386,6 +424,12 @@ public sealed record CreateLoadExposureRecordRequest(
     DateOnly? ServicePeriodFrom,
     DateOnly? ServicePeriodTo,
     decimal? YearsExposed,
+    decimal? RepetitionsPerDay,
+    decimal? DaysPerYear,
+    decimal? TotalDaysExposed,
+    decimal? StepsPerOccasion,
+    decimal? MinutesPerOccasion,
+    decimal? HoursLifted,
     string? EquipmentOrContext,
     string? HazardType,
     string? Notes
@@ -403,6 +447,12 @@ public sealed record UpdateLoadExposureRecordRequest(
     DateOnly? ServicePeriodFrom,
     DateOnly? ServicePeriodTo,
     decimal? YearsExposed,
+    decimal? RepetitionsPerDay,
+    decimal? DaysPerYear,
+    decimal? TotalDaysExposed,
+    decimal? StepsPerOccasion,
+    decimal? MinutesPerOccasion,
+    decimal? HoursLifted,
     string? EquipmentOrContext,
     string? HazardType,
     string? Notes
