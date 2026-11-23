@@ -37,6 +37,24 @@ public sealed class LoadExposureRecord
 
     public decimal? YearsExposed { get; set; }
 
+    /// <summary>Lifts, carries or occasions per day (used for calculated totals).</summary>
+    public decimal? RepetitionsPerDay { get; set; }
+
+    /// <summary>Days per year the activity was done (used with years exposed).</summary>
+    public decimal? DaysPerYear { get; set; }
+
+    /// <summary>Total days exposed, when entered directly instead of days per year x years.</summary>
+    public decimal? TotalDaysExposed { get; set; }
+
+    /// <summary>Stairs or ladder rungs climbed per occasion.</summary>
+    public decimal? StepsPerOccasion { get; set; }
+
+    /// <summary>Minutes spent kneeling or squatting per occasion.</summary>
+    public decimal? MinutesPerOccasion { get; set; }
+
+    /// <summary>Total hours the load was lifted or carried (used for the load factor).</summary>
+    public decimal? HoursLifted { get; set; }
+
     public string? EquipmentOrContext { get; set; }
 
     /// <summary>Only meaningful when <see cref="RecordType"/> is HAZARD_EXPOSURE.</summary>

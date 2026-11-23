@@ -57,6 +57,7 @@ public static class FunctionalLoadAnnex
                 {
                     blocks.Add(new(AnnexBlockKind.Bullet, $"{Label(entry.ActivityDomain)}"));
                     AddIfPresent(blocks, "Good day", entry.GoodDayDescription);
+                    AddIfPresent(blocks, "Average day", entry.AverageDayDescription);
                     AddIfPresent(blocks, "Bad day", entry.BadDayDescription);
                     blocks.Add(new(AnnexBlockKind.Paragraph, $"    How often bad days occur: {Label(entry.BadDayFrequency)}"));
                     AddIfPresent(blocks, "Aids or help used", entry.AidsOrHelpUsed);
@@ -90,16 +91,58 @@ public static class FunctionalLoadAnnex
                     AddIfPresent(blocks, "Duration per occasion", record.DurationPerOccasion);
                     AddIfPresent(blocks, "Repetitions", record.RepetitionsDescription);
                     AddIfPresent(blocks, "Service period", Period(record.ServicePeriodFrom, record.ServicePeriodTo));
-                    AddIfPresent(blocks, "Years exposed", record.YearsExposed?.ToString("0.##", CultureInfo.InvariantCulture));
+                    AddIfPresent(blocks, "Years exposed", Num(record.YearsExposed));
+                    AddIfPresent(blocks, "Lifts or occasions per day", Num(record.RepetitionsPerDay));
+                    AddIfPresent(blocks, "Days per year", Num(record.DaysPerYear));
+                    AddIfPresent(blocks, "Total days exposed", Num(record.TotalDaysExposed));
+                    AddIfPresent(blocks, "Steps per occasion", Num(record.StepsPerOccasion));
+                    AddIfPresent(blocks, "Minutes per occasion", Num(record.MinutesPerOccasion));
+                    AddIfPresent(blocks, "Hours lifted", Num(record.HoursLifted));
                     AddIfPresent(blocks, "Equipment or context", record.EquipmentOrContext);
                     AddIfPresent(blocks, "Hazard type", record.HazardType is null ? null : Label(record.HazardType));
                     AddIfPresent(blocks, "Notes", record.Notes);
+
+                    var totals = LoadExposureCalculator.Calculate(record);
+                    AddIfPresent(blocks, "Calculated total weight", Num(totals.TotalWeightKg, " kg"));
+                    AddIfPresent(blocks, "Calculated total steps", Num(totals.TotalSteps));
+                    AddIfPresent(blocks, "Calculated total minutes", Num(totals.TotalMinutes));
+                    AddIfPresent(blocks, "Calculated load factor (weight squared x hours)", Num(totals.LoadFactor));
                 }
+
+                AddTypeTotals(blocks, group.Key, group);
             }
+
+            blocks.Add(new(AnnexBlockKind.Paragraph,
+                "Calculated totals multiply the figures the veteran entered (for example weight x lifts per day x days). " +
+                "They are arithmetic summaries only, are only shown where every figure needed was entered, and are not " +
+                "an impairment calculation or a compensation estimate."));
         }
 
         return blocks;
     }
+
+    private static void AddTypeTotals(List<AnnexBlock> blocks, string recordType, IEnumerable<LoadExposureRecord> records)
+    {
+        var totals = records.Select(LoadExposureCalculator.Calculate).ToList();
+
+        void Sum(string label, Func<LoadExposureTotals, decimal?> pick, string suffix = "")
+        {
+            var values = totals.Select(pick).Where(v => v.HasValue).Select(v => v!.Value).ToList();
+
+            if (values.Count > 0)
+            {
+                blocks.Add(new(AnnexBlockKind.Paragraph, $"    {label} ({Label(recordType)}): {Num(values.Sum(), suffix)}"));
+            }
+        }
+
+        Sum("Total weight across records", t => t.TotalWeightKg, " kg");
+        Sum("Total steps across records", t => t.TotalSteps);
+        Sum("Total minutes across records", t => t.TotalMinutes);
+        Sum("Total load factor across records", t => t.LoadFactor);
+    }
+
+    private static string? Num(decimal? value, string suffix = "") =>
+        value is null ? null : value.Value.ToString("#,0.##", CultureInfo.InvariantCulture) + suffix;
 
     private static string ConditionName(Dictionary<Guid, string> names, Guid id) =>
         names.TryGetValue(id, out var name) ? name : "Condition no longer active";

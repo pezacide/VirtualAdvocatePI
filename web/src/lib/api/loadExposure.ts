@@ -71,6 +71,19 @@ export type LoadExposureRecord = {
   servicePeriodFrom?: string | null;
   servicePeriodTo?: string | null;
   yearsExposed?: number | null;
+  repetitionsPerDay?: number | null;
+  daysPerYear?: number | null;
+  totalDaysExposed?: number | null;
+  stepsPerOccasion?: number | null;
+  minutesPerOccasion?: number | null;
+  hoursLifted?: number | null;
+  totals?: {
+    effectiveDays?: number | null;
+    totalWeightKg?: number | null;
+    totalSteps?: number | null;
+    totalMinutes?: number | null;
+    loadFactor?: number | null;
+  };
   equipmentOrContext?: string | null;
   hazardType?: string | null;
   notes?: string | null;
@@ -92,6 +105,12 @@ export type CreateLoadExposureRecordInput = {
   servicePeriodFrom?: string;
   servicePeriodTo?: string;
   yearsExposed?: number;
+  repetitionsPerDay?: number;
+  daysPerYear?: number;
+  totalDaysExposed?: number;
+  stepsPerOccasion?: number;
+  minutesPerOccasion?: number;
+  hoursLifted?: number;
   equipmentOrContext?: string;
   hazardType?: string;
   notes?: string;

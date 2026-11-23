@@ -147,8 +147,12 @@ In progress. Done: backend (12a, 742c3ff), web capture tools (12b, ca98c13),
 Claim Starter Pack and Doctor Guidance Pack annex in DOCX and PDF (cb38ac7),
 admin seed for templates and prompt/disclaimer versions (8347852) and the
 smoke checklist (docs/phase-12/PHASE_12_FUNCTIONAL_LOAD_EVIDENCE_SMOKE_TEST_CHECKLIST.md,
-not yet run). Remaining: run the smoke checklist, an admin seed button, and the
-"uploaded templates" task. Verify
+not yet run), admin seed page, and registration of the 14 supplied source
+templates as managed FLE_SRC_* entries (sanitised files under
+document-templates/functional-load-evidence/). Remaining: run the smoke
+checklist, and add numeric quantity fields and calculated totals (cumulative
+weight, steps, minutes, load factor) so the builders and pack annex follow the
+source templates. Verify
 the task list below against the code before starting. Authoritative task list
 is in ProjectLibre
 (Veteran_Connect_Post_2026_ProjectLibre.xml.pod). The ProjectLibre phase

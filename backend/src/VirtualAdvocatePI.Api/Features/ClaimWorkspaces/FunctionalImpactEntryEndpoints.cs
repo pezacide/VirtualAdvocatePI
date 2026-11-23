@@ -61,9 +61,10 @@ public static class FunctionalImpactEntryEndpoints
             }
 
             if (string.IsNullOrWhiteSpace(input.GoodDayDescription) &&
+                string.IsNullOrWhiteSpace(input.AverageDayDescription) &&
                 string.IsNullOrWhiteSpace(input.BadDayDescription))
             {
-                return Results.BadRequest(new { error = "Describe a good day, a bad day, or both." });
+                return Results.BadRequest(new { error = "Describe a good day, an average day, a bad day, or any combination." });
             }
 
             var entry = new FunctionalImpactEntry
@@ -73,6 +74,7 @@ public static class FunctionalImpactEntryEndpoints
                 ActivityDomain = NormaliseActivityDomain(input.ActivityDomain),
                 GoodDayDescription = Trimmed(input.GoodDayDescription),
                 BadDayDescription = Trimmed(input.BadDayDescription),
+                AverageDayDescription = Trimmed(input.AverageDayDescription),
                 BadDayFrequency = NormaliseFrequency(input.BadDayFrequency),
                 AidsOrHelpUsed = Trimmed(input.AidsOrHelpUsed),
                 Notes = Trimmed(input.Notes),
@@ -144,6 +146,7 @@ public static class FunctionalImpactEntryEndpoints
 
             entry.GoodDayDescription = input.GoodDayDescription is null ? entry.GoodDayDescription : Trimmed(input.GoodDayDescription);
             entry.BadDayDescription = input.BadDayDescription is null ? entry.BadDayDescription : Trimmed(input.BadDayDescription);
+            entry.AverageDayDescription = input.AverageDayDescription is null ? entry.AverageDayDescription : Trimmed(input.AverageDayDescription);
             entry.AidsOrHelpUsed = input.AidsOrHelpUsed is null ? entry.AidsOrHelpUsed : Trimmed(input.AidsOrHelpUsed);
             entry.Notes = input.Notes is null ? entry.Notes : Trimmed(input.Notes);
             entry.UpdatedAt = DateTimeOffset.UtcNow;
@@ -222,6 +225,7 @@ public static class FunctionalImpactEntryEndpoints
             activityDomain = entry.ActivityDomain,
             goodDayDescription = entry.GoodDayDescription,
             badDayDescription = entry.BadDayDescription,
+            averageDayDescription = entry.AverageDayDescription,
             badDayFrequency = entry.BadDayFrequency,
             aidsOrHelpUsed = entry.AidsOrHelpUsed,
             notes = entry.Notes,
@@ -240,7 +244,8 @@ public static class FunctionalImpactEntryEndpoints
         return normalised switch
         {
             "SELF_CARE" or "MOBILITY" or "LIFTING_CARRYING" or "HOUSEHOLD" or "WORK"
-                or "SLEEP" or "SOCIAL" or "DRIVING" or "RECREATION" or "OTHER" => normalised,
+                or "SLEEP" or "SOCIAL" or "DRIVING" or "RECREATION" or "RELATIONSHIPS"
+                or "CONCENTRATION_COGNITION" or "OTHER" => normalised,
             _ => "OTHER"
         };
     }
@@ -261,6 +266,7 @@ public sealed record CreateFunctionalImpactEntryRequest(
     string? ActivityDomain,
     string? GoodDayDescription,
     string? BadDayDescription,
+    string? AverageDayDescription,
     string? BadDayFrequency,
     string? AidsOrHelpUsed,
     string? Notes
@@ -270,6 +276,7 @@ public sealed record UpdateFunctionalImpactEntryRequest(
     string? ActivityDomain,
     string? GoodDayDescription,
     string? BadDayDescription,
+    string? AverageDayDescription,
     string? BadDayFrequency,
     string? AidsOrHelpUsed,
     string? Notes

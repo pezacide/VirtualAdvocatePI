@@ -144,6 +144,12 @@ public sealed class VirtualAdvocateDbContext : DbContext
             entity.Property(x => x.DurationPerOccasion).HasMaxLength(250);
             entity.Property(x => x.RepetitionsDescription).HasMaxLength(500);
             entity.Property(x => x.YearsExposed).HasColumnType("numeric(5,1)");
+            entity.Property(x => x.RepetitionsPerDay).HasColumnType("numeric(10,2)");
+            entity.Property(x => x.DaysPerYear).HasColumnType("numeric(10,2)");
+            entity.Property(x => x.TotalDaysExposed).HasColumnType("numeric(10,2)");
+            entity.Property(x => x.StepsPerOccasion).HasColumnType("numeric(10,2)");
+            entity.Property(x => x.MinutesPerOccasion).HasColumnType("numeric(10,2)");
+            entity.Property(x => x.HoursLifted).HasColumnType("numeric(10,2)");
             entity.Property(x => x.EquipmentOrContext).HasMaxLength(500);
             entity.Property(x => x.HazardType).HasMaxLength(50);
             entity.Property(x => x.Notes).HasMaxLength(2000);
@@ -163,6 +169,7 @@ public sealed class VirtualAdvocateDbContext : DbContext
             entity.Property(x => x.ActivityDomain).HasMaxLength(50).IsRequired();
             entity.Property(x => x.GoodDayDescription).HasMaxLength(4000);
             entity.Property(x => x.BadDayDescription).HasMaxLength(4000);
+            entity.Property(x => x.AverageDayDescription).HasMaxLength(4000);
             entity.Property(x => x.BadDayFrequency).HasMaxLength(50).IsRequired();
             entity.Property(x => x.AidsOrHelpUsed).HasMaxLength(2000);
             entity.Property(x => x.Notes).HasMaxLength(2000);

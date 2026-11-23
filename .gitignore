@@ -47,3 +47,7 @@ config/gcp/*secret*.json
 *.tmp
 
 *.csproj.user
+
+# Unreviewed / non-template files kept locally only
+document-templates/functional-load-evidence/Copy of Dva Case Tracker*.xlsx
+document-templates/functional-load-evidence/CLAIMANT REPORT LIFTING.xlsx
